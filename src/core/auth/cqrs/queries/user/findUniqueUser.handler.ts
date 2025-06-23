@@ -1,0 +1,28 @@
+import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
+import { PrismaService } from "@/services/prisma/prisma.service";
+import { FindUniqueUserQuery } from "./findUniqueUser.query";
+import { IUser } from "@/core/auth/dto/auth.type";
+
+@QueryHandler(FindUniqueUserQuery)
+export class FindUniqueUserQueryHandler implements IQueryHandler<FindUniqueUserQuery> {
+  constructor(private readonly prisma: PrismaService) {}
+
+  async execute(query: FindUniqueUserQuery): Promise<IUser | null> {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    const where: any = {};
+
+    const {
+      params: { email, id }
+    } = query;
+
+    if (email) where.email = email;
+    if (id) where.id = id;
+
+    const user = await this.prisma.user.findUnique({
+      where,
+      include: { Role: true, Person: true }
+    });
+
+    return user || null;
+  }
+}

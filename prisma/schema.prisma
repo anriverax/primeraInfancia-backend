@@ -1,0 +1,251 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TypeRole {
+  ADMIN
+  USER
+  FORMADOR
+  MENTOR
+  TECNICO_APOYO
+  ESTUDIANTE
+}
+
+enum TypePersonEnum {
+  FORMADOR
+  MENTOR
+  TECNICO_APOYO
+  DOCENTE
+  DIRECTOR
+  EMPLEADO
+}
+
+enum TypeGender {
+  M
+  F
+}
+
+// ====== START - CATALOGUE ======
+model TypePerson {
+  id     Int      @id @default(autoincrement())
+  name   String
+  Person Person[]
+}
+
+model Role {
+  id         Int              @id @default(autoincrement())
+  name       TypeRole
+  User       User[]
+  Permission RolePermission[]
+}
+
+model Module {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  ModulePermission ModulePermission[]
+}
+
+model PermissionType {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  ModulePermission ModulePermission[]
+}
+
+model ModulePermission {
+  id               Int              @id @default(autoincrement())
+  moduleId         Int
+  Module           Module           @relation(fields: [moduleId], references: [id])
+  permissionTypeId Int
+  PermissionType   PermissionType   @relation(fields: [permissionTypeId], references: [id])
+  RolePermission   RolePermission[]
+  UserPermission   UserPermission[]
+}
+
+model Department {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  geonameId    Int            @unique
+  countryId    Int
+  Municipality Municipality[]
+}
+
+model Municipality {
+  id           Int        @id @default(autoincrement())
+  name         String     @unique
+  departmentId Int
+  Department   Department @relation(fields: [departmentId], references: [id])
+  District     District[]
+}
+
+model District {
+  id             Int          @id @default(autoincrement())
+  name           String
+  municipalityId Int
+  Municipality   Municipality @relation(fields: [municipalityId], references: [id])
+  Person         Person[]
+}
+
+model StoredEvent {
+  id        Int      @id @default(autoincrement())
+  type      String
+  payload   Json
+  createdAt DateTime @default(now())
+  createdBy Int      @default(0)
+}
+
+// ====== END - CATALOGUE ======
+model RolePermission {
+  id                 Int               @id @default(autoincrement())
+  isActive           Boolean
+  roleId             Int
+  Role               Role              @relation(fields: [roleId], references: [id])
+  ModulePermission   ModulePermission? @relation(fields: [modulePermissionId], references: [id])
+  modulePermissionId Int
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int               @default(0)
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model UserPermission {
+  id                 Int               @id @default(autoincrement())
+  userId             Int
+  User               User              @relation(fields: [userId], references: [id])
+  isActive           Boolean
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int               @default(0)
+  updatedBy          Int?
+  deletedBy          Int?
+  ModulePermission   ModulePermission? @relation(fields: [modulePermissionId], references: [id])
+  modulePermissionId Int?
+}
+
+model Person {
+  id           Int           @id @default(autoincrement())
+  firstName    String
+  lastName1    String
+  lastName2    String
+  dui          String        @unique
+  address      String
+  gender       TypeGender
+  phoneNumber  String
+  birthdate    String?
+  duiImage     String[]
+  districtId   Int
+  District     District      @relation(fields: [districtId], references: [id])
+  isActive     Boolean       @default(true)
+  typePersonId Int
+  TypePerson   TypePerson    @relation(fields: [typePersonId], references: [id])
+  User         User?
+  Academic     Academic?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  deletedAt    DateTime?
+  updatedBy    Int?
+  deletedBy    Int?
+  GroupMember  GroupMember[]
+}
+
+model Academic {
+  id        Int       @id @default(autoincrement())
+  career    String // Carrera o especialidad
+  nip       Int?
+  cvImage   String?
+  isService Boolean   @default(false)
+  personId  Int       @unique
+  Person    Person    @relation(fields: [personId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  updatedBy Int?
+  deletedBy Int?
+}
+
+/**
+ * type of place = tipo de plaza
+ * zone = zona (Rural, Urbana)
+ * sector (publico, privado)
+ */
+
+model User {
+  id            Int              @id @default(autoincrement())
+  email         String           @unique
+  passwd        String
+  avatar        String?
+  isVerified    Boolean          @default(false)
+  lastLoginDate DateTime?
+  isActive      Boolean          @default(true)
+  roleId        Int
+  Role          Role             @relation(fields: [roleId], references: [id])
+  personId      Int              @unique
+  Person        Person           @relation(fields: [personId], references: [id])
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  deletedAt     DateTime?
+  updatedBy     Int?
+  deletedBy     Int?
+  Permission    UserPermission[]
+  UserKey       UserKey[]
+}
+
+model UserKey {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  publicKey  String
+  privateKey String
+  createdAt  DateTime  @default(now())
+  revokedAt  DateTime?
+  isActive   Boolean   @default(true)
+  user       User      @relation(fields: [userId], references: [id])
+}
+
+model Zone {
+  id        Int       @id @default(autoincrement())
+  name      String // example: "Zona Occidente"
+  Group     Group[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
+}
+
+model Group {
+  id          Int           @id @default(autoincrement())
+  name        String // example: "Grupo #1 (CFD Santa Ana)"
+  description String // example: FMT Santa Ana y Ahuachapán Centro y Norte
+  memberCount Int
+  zoneId      Int
+  Zone        Zone          @relation(fields: [zoneId], references: [id])
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
+  GroupMember GroupMember[]
+}
+
+model GroupMember {
+  id       Int    @id @default(autoincrement())
+  personId Int
+  groupId  Int
+  Person   Person @relation(fields: [personId], references: [id])
+  Group    Group  @relation(fields: [groupId], references: [id])
+}
