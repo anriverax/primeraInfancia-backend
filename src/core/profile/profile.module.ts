@@ -10,6 +10,7 @@ import { UploadAvatarHandler } from "./cqrs/commands/avatar/uploadAvatar.handler
 import { UploadDuiHandler } from "./cqrs/commands/dui/uploadDui.handler";
 import { UploadFileProjection } from "./cqrs/projections/uploadFiles.projection";
 import { ProfileService } from "./profile.service";
+import { ValidateUploadFilesPipe } from './validate-upload-files.pipe';
 
 const ProfileCommandHandlers = [UploadCvHandler, UploadAvatarHandler, UploadDuiHandler];
 const ProfileQueryHandlers = [GetByIdUserHandler];
@@ -21,6 +22,7 @@ const ProfileQueryHandlers = [GetByIdUserHandler];
   providers: [
     S3Service,
     ProfileService,
+    ValidateUploadFilesPipe,
     UploadFileProjection,
     ...ProfileCommandHandlers,
     ...ProfileQueryHandlers

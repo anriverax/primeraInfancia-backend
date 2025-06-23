@@ -9,6 +9,7 @@ import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
 import { DeleteZoneCommand } from "./cqrs/commands/delete/deleteZone.command";
 import { UpdateZoneCommand } from "./cqrs/commands/update/updateZone.command";
 import { NestResponse } from "@/common/helpers/dto";
+import { Zone } from "@prisma/client";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -20,7 +21,7 @@ export class ZoneController {
 
   @AuthRequired()
   @Post("create")
-  async create(@Body() data: ZoneDto, @Req() req: Request): Promise<NestResponse<void>> {
+  async create(@Body() data: ZoneDto, @Req() req: Request): Promise<NestResponse<Zone>> {
     return this.commandBus.execute(
       new CreateZoneCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );

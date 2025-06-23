@@ -38,3 +38,9 @@ export interface IUpdateUserAvatar extends Pick<IUploadAvatar, "userId"> {
 export interface IUpdatePersonDui extends Pick<IUploadDui, "personId"> {
   duiName: string[];
 }
+
+export interface UploadFiles {
+  cv?: Express.Multer.File[];
+  avatar?: Express.Multer.File[];
+  images?: Express.Multer.File[];
+}
