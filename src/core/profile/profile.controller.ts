@@ -19,7 +19,7 @@ import { NestResponse } from "@/common/helpers/dto";
 import { UploadFilesDto } from "./dto/profile.dto";
 import { ProfileService } from "./profile.service";
 import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
-import { UploadCvCommand } from './cqrs/commands/cv/uploadCv.command';
+import { UploadCvCommand } from "./cqrs/commands/cv/uploadCv.command";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -48,9 +48,9 @@ export class ProfileController {
     @Req() req: Request
   ): Promise<NestResponse<boolean>> {
     const { sub } = req["user"] as { sub: number; email: string; role: string };
-    console.log(files);
+
     const { cv, avatar, images } = files;
-    console.log(cv);
+
     const user = await this.queryBus.execute(new GetByIdUserQuery(sub));
     if (!user) throw new NotFoundException("El usuario no existe en el sistema.");
 
