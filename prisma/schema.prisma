@@ -41,12 +41,6 @@ enum DeliveryMethod {
   Synchronous
 }
 
-enum TypeModule {
-  In_Person_Workshop
-  Webinar
-  Asynchronous_Session
-  Community_Of_Practice
-}
 // ====== START - CATALOGUE ======
 model TypePerson {
   id     Int      @id @default(autoincrement())
@@ -265,7 +259,7 @@ model Seminar {
   id              Int             @id @default(autoincrement())
   name            String  // example: todo
   date            DateTime
-  duration        Float
+  duration        Float   // note: it is not necessary to set exact precision, an approximate precision is sufficient
   deliveryMethod  DeliveryMethod 
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
@@ -277,13 +271,25 @@ model Seminar {
 
 model Module {
   id    Int         @id @default(autoincrement())
-  type  TypeModule
   name  String // example: todo
+  startDate DateTime
+  finishDate DateTime
+}
+
+model TypeContent {
+  id          Init        @id @default(autoincrement())
+  name        String // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
 }
 
 model Content {
   id              Int @id @default(autoincrement())
   name            String // example: todo
   duration        Float
-  deliveryMethod  TypeModule
+  deliveryMethod  DeliveryMethod
 }
