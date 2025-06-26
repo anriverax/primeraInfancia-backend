@@ -233,8 +233,8 @@ model Zone {
 
 model Group {
   id          Int           @id @default(autoincrement())
-  name        String // example: "Grupo #1 (CFD Santa Ana)"
-  description String // example: FMT Santa Ana y Ahuachapán Centro y Norte
+  name        String        // example: "Grupo #1 (CFD Santa Ana)"
+  description String        // example: FMT Santa Ana y Ahuachapán Centro y Norte
   memberCount Int
   zoneId      Int
   Zone        Zone          @relation(fields: [zoneId], references: [id])
@@ -257,9 +257,9 @@ model GroupMember {
 
 model Seminar {
   id              Int             @id @default(autoincrement())
-  name            String  // example: todo
+  name            String          // example: todo
   date            DateTime
-  duration        Float   // note: it is not necessary to set exact precision, an approximate precision is sufficient
+  duration        Float           // note: it is not necessary to set exact precision, an approximate precision is sufficient
   deliveryMethod  DeliveryMethod 
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
@@ -270,29 +270,35 @@ model Seminar {
 }
 
 model GroupSeminar {
-  id        Int @default(autoincrement())
-  groupId   Int
-  seminarId Int
-  Group     Group   @relation(fields: [groupId], references: [id])
-  Seminar   Seminar @relation(fields: [seminarId],references: [id])
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  deletedAt       DateTime?
-  createdBy       Int?
-  updatedBy       Int?
-  deletedBy       Int?
+  id          Int @default(autoincrement())
+  groupId     Int
+  seminarId   Int
+  Group       Group       @relation(fields: [groupId], references: [id])
+  Seminar     Seminar     @relation(fields: [seminarId],references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
 }
 
 model Module {
-  id    Int         @id @default(autoincrement())
-  name  String // example: todo
-  startDate DateTime
-  finishDate DateTime
+  id          Int         @id @default(autoincrement())
+  name        String      // example: todo
+  startDate   DateTime
+  finishDate  DateTime
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
 }
 
 model TypeContent {
   id          Init        @id @default(autoincrement())
-  name        String // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
+  name        String      // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   deletedAt   DateTime?
@@ -302,8 +308,14 @@ model TypeContent {
 }
 
 model Content {
-  id              Int @id @default(autoincrement())
-  name            String // example: todo
+  id              Int             @id @default(autoincrement())
+  name            String          // example: todo
   duration        Float
   deliveryMethod  DeliveryMethod
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
 }
