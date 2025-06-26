@@ -41,6 +41,11 @@ enum DeliveryMethod {
   Synchronous
 }
 
+enum Sector {
+  Public
+  Private
+}
+
 // ====== START - CATALOGUE ======
 model TypePerson {
   id     Int      @id @default(autoincrement())
@@ -274,7 +279,7 @@ model GroupSeminar {
   groupId     Int
   seminarId   Int
   Group       Group       @relation(fields: [groupId], references: [id])
-  Seminar     Seminar     @relation(fields: [seminarId],references: [id])
+  Seminar     Seminar     @relation(fields: [seminarId], references: [id])
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   deletedAt   DateTime?
@@ -318,4 +323,37 @@ model Content {
   createdBy       Int?
   updatedBy       Int?
   deletedBy       Int?
+}
+
+model School {
+  id          Int       @id @default(autoincrement())
+  name        String
+  zoneId      Int
+  Zone        Zone      @relation(fields: [zoneId], references: [id])
+  sector      Sector
+  districtId  Int
+  District    District  @relation(fields: [districtId], references:[id])
+  address     String
+  email       String
+  coordenates String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
+}
+
+model PrincipalSchool {
+  id          Int         @id @default(autoincrement())
+  personId    Int
+  Person      Person      @relation(fields: [personId], references: [id])
+  schoolId    Int
+  School      School      @relation(fields: [schoolId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
 }
