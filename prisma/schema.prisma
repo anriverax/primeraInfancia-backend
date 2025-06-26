@@ -269,6 +269,20 @@ model Seminar {
   deletedBy       Int?
 }
 
+model GroupSeminar {
+  id        Int @default(autoincrement())
+  groupId   Int
+  seminarId Int
+  Group     Group   @relation(fields: [groupId], references: [id])
+  Seminar   Seminar @relation(fields: [seminarId],references: [id])
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
+}
+
 model Module {
   id    Int         @id @default(autoincrement())
   name  String // example: todo
