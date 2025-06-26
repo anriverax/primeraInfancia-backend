@@ -159,6 +159,7 @@ model Person {
   updatedBy    Int?
   deletedBy    Int?
   GroupMember  GroupMember[]
+  Group        Group[]
 }
 
 model Academic {
@@ -231,6 +232,8 @@ model Group {
   name        String // example: "Grupo #1 (CFD Santa Ana)"
   description String // example: FMT Santa Ana y Ahuachapán Centro y Norte
   memberCount Int
+  personId    Int
+  Person      Person        @relation(fields: [personId], references: [id])
   zoneId      Int
   Zone        Zone          @relation(fields: [zoneId], references: [id])
   createdAt   DateTime      @default(now())
@@ -243,9 +246,15 @@ model Group {
 }
 
 model GroupMember {
-  id       Int    @id @default(autoincrement())
-  personId Int
-  groupId  Int
-  Person   Person @relation(fields: [personId], references: [id])
-  Group    Group  @relation(fields: [groupId], references: [id])
+  id        Int       @id @default(autoincrement())
+  personId  Int
+  groupId   Int
+  Person    Person    @relation(fields: [personId], references: [id])
+  Group     Group     @relation(fields: [groupId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
 }
