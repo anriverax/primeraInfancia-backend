@@ -1,4 +1,4 @@
-import { District, Municipality } from "@prisma/client";
+import { District, Municipality, Person } from "@prisma/client";
 
 export type IMunicipalityResponse = Pick<Municipality, "id" | "name" | "departmentId">;
 
@@ -13,7 +13,6 @@ export interface IDepartmentResponse {
   district: IDistrictResponse[];
 }
 
-export interface ITypePerson {
-  id: number;
-  name: string;
+export interface IPerson extends Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> {
+  fullName?: string;
 }
