@@ -1,0 +1,18 @@
+name: Auto Assign PR
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  add-assignees-and-reviewers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign PR to repo owner and request review
+        uses: kentaro-m/auto-assign-action@v1.2.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          assignees: |
+            anriverax
+          reviewers: |
+            anriverax
