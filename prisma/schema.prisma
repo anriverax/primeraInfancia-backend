@@ -64,6 +64,7 @@ model Module {
   id               Int                @id @default(autoincrement())
   name             String             @unique
   ModulePermission ModulePermission[]
+  ModuleDetail     ModuleDetail?
 }
 
 model PermissionType {
@@ -237,19 +238,20 @@ model Zone {
 }
 
 model Group {
-  id          Int           @id @default(autoincrement())
-  name        String        // example: "Grupo #1 (CFD Santa Ana)"
-  description String        // example: FMT Santa Ana y Ahuachapán Centro y Norte
-  memberCount Int
-  zoneId      Int
-  Zone        Zone          @relation(fields: [zoneId], references: [id])
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  deletedAt   DateTime?
-  createdBy   Int?
-  updatedBy   Int?
-  deletedBy   Int?
-  GroupMember GroupMember[]
+  id            Int           @id @default(autoincrement())
+  name          String        // example: "Grupo #1 (CFD Santa Ana)"
+  description   String        // example: FMT Santa Ana y Ahuachapán Centro y Norte
+  memberCount   Int
+  zoneId        Int
+  Zone          Zone          @relation(fields: [zoneId], references: [id])
+  GroupSeminar  GroupSeminar?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+  createdBy     Int?
+  updatedBy     Int?
+  deletedBy     Int?
+  GroupMember   GroupMember[]
 }
 
 model GroupMember {
@@ -266,6 +268,7 @@ model Seminar {
   date            DateTime
   duration        Float           // note: it is not necessary to set exact precision, an approximate precision is sufficient
   deliveryMethod  DeliveryMethod 
+  GroupSeminar    GroupSeminar
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   deletedAt       DateTime?
@@ -275,10 +278,10 @@ model Seminar {
 }
 
 model GroupSeminar {
-  id          Int @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   groupId     Int
-  seminarId   Int
   Group       Group       @relation(fields: [groupId], references: [id])
+  seminarId   Int
   Seminar     Seminar     @relation(fields: [seminarId], references: [id])
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -303,7 +306,7 @@ model ModuleDetail {
 }
 
 model TypeContent {
-  id          Init        @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String      // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -327,23 +330,24 @@ model Content {
 }
 
 model School {
-  id          Int       @id @default(autoincrement())
-  name        String
-  zoneId      Int
-  Zone        Zone      @relation(fields: [zoneId], references: [id])
-  sector      Sector
-  districtId  Int
-  District    District  @relation(fields: [districtId], references:[id])
-  address     String
-  email       String
-  coordenates String
-  phoneNumber String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime?
-  createdBy   Int?
-  updatedBy   Int?
-  deletedBy   Int?
+  id              Int       @id @default(autoincrement())
+  name            String
+  zoneId          Int
+  Zone            Zone      @relation(fields: [zoneId], references: [id])
+  sector          Sector
+  districtId      Int
+  District        District  @relation(fields: [districtId], references:[id])
+  address         String
+  email           String
+  coordenates     String
+  phoneNumber     String
+  PrincipalSchool PrincipalSchool?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
 }
 
 model PrincipalSchool {
