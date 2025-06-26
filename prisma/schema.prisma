@@ -288,9 +288,10 @@ model GroupSeminar {
   deletedBy   Int?
 }
 
-model Module {
+model ModuleDetail {
   id          Int         @id @default(autoincrement())
-  name        String      // example: todo
+  moduleId    Int
+  Module      Module      @relation(fields: [moduleId], references: [id])
   startDate   DateTime
   finishDate  DateTime
   createdAt   DateTime    @default(now())
