@@ -7,8 +7,12 @@ import { IPerson } from "../../dto/catalogue.type";
 export class GetAllPersonHandler {
   constructor(private readonly prisma: PrismaService) {}
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(): Promise<IPerson[]> {
     const persons = await this.prisma.person.findMany({
+      where: {
+        typePersonId: { gte: 4 }
+      },
       select: { id: true, fullName: true } as any,
       orderBy: {
         id: "asc"
@@ -17,4 +21,5 @@ export class GetAllPersonHandler {
 
     return persons as any[];
   }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
