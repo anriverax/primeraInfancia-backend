@@ -370,3 +370,15 @@ model Unit {
   updatedBy   Int?
   deletedBy   Int?
 }
+
+model ToDo {
+  id          Int       @id @default(autoincrement())
+  todoName    String
+  isComplete  Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
+}
