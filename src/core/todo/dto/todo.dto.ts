@@ -9,7 +9,8 @@ export class TodoDto {
     todoName: string
 }
 
-export type ICreateTodo = Pick<ToDo, "todoName" | "createdBy">;
-export type IUpdateTodo = Pick<Todo, "id", "todoName" | "updatedBy">;
-export type IDeleteTodo = Pick<Todo, "id" | "deletedBy">;
-export type IGetTodo = Pick<ToDo, "id" | "todoName" | "isComplete">;
+export type ICreateToDo = Pick<ToDo, "todoName" | "createdBy">;
+//export type IUpdateToDo = Pick<ToDo, "id", "todoName" | "isComplete" | "updatedBy">;
+export type IUpdateToDo = Pick<ToDo, "id" | "todoName" | "updatedBy" | "isComplete">;
+export type IDeleteToDo = Pick<ToDo, "id" | "deletedBy">;
+export type IGetToDo = Pick<ToDo, "id" | "todoName" | "isComplete">;
