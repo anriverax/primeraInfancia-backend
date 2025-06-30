@@ -7,8 +7,8 @@ import { IUser } from "@/core/auth/dto/auth.type";
 export class FindUniqueUserQueryHandler implements IQueryHandler<FindUniqueUserQuery> {
   constructor(private readonly prisma: PrismaService) {}
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(query: FindUniqueUserQuery): Promise<IUser | null> {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
     const where: any = {};
 
     const {
@@ -25,4 +25,5 @@ export class FindUniqueUserQueryHandler implements IQueryHandler<FindUniqueUserQ
 
     return user || null;
   }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }

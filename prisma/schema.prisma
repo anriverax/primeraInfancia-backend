@@ -16,10 +16,6 @@ datasource db {
 enum TypeRole {
   ADMIN
   USER
-  FORMADOR
-  MENTOR
-  TECNICO_APOYO
-  ESTUDIANTE
 }
 
 enum TypePersonEnum {
@@ -39,7 +35,7 @@ enum TypeGender {
 // ====== START - CATALOGUE ======
 model TypePerson {
   id     Int      @id @default(autoincrement())
-  name   String
+  name   TypePersonEnum
   Person Person[]
 }
 

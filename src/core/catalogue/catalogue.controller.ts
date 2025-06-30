@@ -7,6 +7,7 @@ import { GetAllDepartmentQuery } from "../coutry/department/cqrs/queries/getAllD
 import { GetAllTypePersonQuery } from "./query/typePerson-findMany/getAllTypePerson.query";
 import { TypePerson } from "@prisma/client";
 import { GetAllPersonQuery } from "./query/person-findMany/getAllPerson.query";
+import { AuthRequired } from '@/services/jwt/decorators/authRequired.decorator';
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -49,6 +50,7 @@ export class CatalogueController {
     return data;
   }
 
+  @AuthRequired()
   @Get("persons")
   async getAllPerson(): Promise<IPerson[]> {
     const data = await this.queryBus.execute(new GetAllPersonQuery());
