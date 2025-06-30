@@ -13,6 +13,7 @@ import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 import * as fs from "fs";
 import { ProfileModule } from "./core/profile/profile.module";
 import { ZoneModule } from "./core/zone/zone.module";
+import { GroupModule } from "./core/group/group.module";
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { ZoneModule } from "./core/zone/zone.module";
     CatalogueModule,
     ProfileModule,
     ZoneModule,
+    GroupModule,
     RouterModule.register([
       {
         path: "api",
@@ -58,6 +60,10 @@ import { ZoneModule } from "./core/zone/zone.module";
           {
             path: "zone",
             module: ZoneModule
+          },
+          {
+            path: "group",
+            module: GroupModule
           },
           {
             path: "test",

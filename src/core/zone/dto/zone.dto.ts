@@ -12,4 +12,8 @@ export class ZoneDto {
 export type ICreateZone = Pick<Zone, "name" | "createdBy">;
 export type IUpdateZone = Pick<Zone, "id" | "name" | "updatedBy">;
 export type IDeleteZone = Pick<Zone, "id" | "deletedBy">;
-export type IGetZone = Pick<Zone, "id" | "name">;
+export interface IGetZone extends Pick<Zone, "id" | "name"> {
+  _count: {
+    Group: number;
+  };
+}

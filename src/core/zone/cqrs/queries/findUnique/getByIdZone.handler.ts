@@ -12,7 +12,12 @@ export class GetByIdZoneHandler {
       where: { id: query.id },
       select: {
         id: true,
-        name: true
+        name: true,
+        _count: {
+          select: {
+            Group: true
+          }
+        }
       }
     });
 

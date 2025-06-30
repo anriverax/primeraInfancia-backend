@@ -10,7 +10,7 @@ CREATE TYPE "TypeGender" AS ENUM ('M', 'F');
 -- CreateTable
 CREATE TABLE "TypePerson" (
     "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
+    "name" "TypePersonEnum" NOT NULL,
 
     CONSTRAINT "TypePerson_pkey" PRIMARY KEY ("id")
 );

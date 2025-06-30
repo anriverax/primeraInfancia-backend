@@ -1,11 +1,10 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger } from "@nestjs/common";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { IUpdateAcademicCv, IUpdatePersonDui, IUpdateUserAvatar } from "../../dto/profile.type";
+import { handlePrismaError } from "@/common/helpers/functions";
 
-@Injectable({})
+@Injectable()
 export class UploadFileProjection {
-  private readonly logger = new Logger("UploadFileProjection");
   constructor(private prisma: PrismaService) {}
 
   async uploadCv(data: IUpdateAcademicCv): Promise<void> {
@@ -19,11 +18,7 @@ export class UploadFileProjection {
         }
       });
     } catch (error) {
-      this.logger.error(`❌ Error de prisma: `, error);
-
-      throw new BadRequestException(
-        "Se ha producido un error al procesar su solicitud. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UploadFileProjection", error);
     }
   }
 
@@ -38,16 +33,7 @@ export class UploadFileProjection {
         }
       });
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
-        throw new ForbiddenException("El usuario ya se encuentra registrada en el sistema.");
-      }
-
-      // Registrar o manejar adecuadamente otros errores de Prisma.
-      this.logger.error(`❌ Error de prisma: `, error);
-
-      throw new BadRequestException(
-        "Se ha producido un error al procesar su solicitud. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UploadFileProjection", error);
     }
   }
 
@@ -62,16 +48,7 @@ export class UploadFileProjection {
         }
       });
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
-        throw new ForbiddenException("El usuario ya se encuentra registrada en el sistema.");
-      }
-
-      // Registrar o manejar adecuadamente otros errores de Prisma.
-      this.logger.error(`❌ Error de prisma: `, error);
-
-      throw new BadRequestException(
-        "Se ha producido un error al procesar su solicitud. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UploadFileProjection", error);
     }
   }
 }

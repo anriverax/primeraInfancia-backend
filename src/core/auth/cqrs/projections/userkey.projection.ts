@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 // Import User type from Prisma Client
 import { IUserKeyCreate } from "../../dto/auth.type";
 import { PrismaService } from "@/services/prisma/prisma.service";
+import { handlePrismaError } from "@/common/helpers/functions";
 
 @Injectable({})
 export class UserKeyProjection {
-  private readonly logger = new Logger("UserKeyProjection");
   constructor(private prisma: PrismaService) {}
 
   async updateMany(userId: number): Promise<void> {
@@ -15,11 +15,7 @@ export class UserKeyProjection {
         data: { isActive: false }
       });
     } catch (error) {
-      this.logger.error(`❌ Error de prisma: `, error);
-
-      throw new BadRequestException(
-        "Se ha producido un error al procesar su solicitud. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UserKeyProjection", error);
     }
   }
 
@@ -32,11 +28,7 @@ export class UserKeyProjection {
         }
       });
     } catch (error) {
-      this.logger.error(`❌ Error de prisma: `, error);
-
-      throw new BadRequestException(
-        "Se ha producido un error al procesar su solicitud. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UserKeyProjection", error);
     }
   }
 
@@ -50,11 +42,7 @@ export class UserKeyProjection {
         }
       });
     } catch (error) {
-      this.logger.error(`❌ Error de prisma: `, error);
-
-      throw new BadRequestException(
-        "Se ha producido un error al procesar su solicitud. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UserKeyProjection", error);
     }
   }
 }

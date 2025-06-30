@@ -7,7 +7,8 @@ import { GetAllDepartmentQuery } from "../coutry/department/cqrs/queries/getAllD
 import { GetAllTypePersonQuery } from "./query/typePerson-findMany/getAllTypePerson.query";
 import { TypePerson } from "@prisma/client";
 import { GetAllPersonQuery } from "./query/person-findMany/getAllPerson.query";
-import { AuthRequired } from '@/services/jwt/decorators/authRequired.decorator';
+import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
+import { NestResponse } from "@/common/helpers/dto";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -52,9 +53,13 @@ export class CatalogueController {
 
   @AuthRequired()
   @Get("persons")
-  async getAllPerson(): Promise<IPerson[]> {
+  async getAllPerson(): Promise<NestResponse<IPerson[]>> {
     const data = await this.queryBus.execute(new GetAllPersonQuery());
 
-    return data;
+    return {
+      statusCode: 200,
+      message: "Listado de personas",
+      data: data
+    };
   }
 }

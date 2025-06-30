@@ -1,12 +1,11 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 // Import User type from Prisma Client
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { IAuthEvent, IUpdatePasswdIsVerifiedParams } from "../../dto/auth.type";
 import { PrismaService } from "@/services/prisma/prisma.service";
+import { handlePrismaError } from "@/common/helpers/functions";
 
-@Injectable({})
+@Injectable()
 export class UserProjection {
-  private readonly logger = new Logger("UserProjection");
   constructor(private prisma: PrismaService) {}
 
   async register(data: IAuthEvent): Promise<void> {
@@ -26,15 +25,7 @@ export class UserProjection {
         }
       });
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
-        throw new ForbiddenException("El usuario ya se encuentra registrada en el sistema.");
-      }
-
-      this.logger.error(`❌ Error de prisma: `, error);
-
-      throw new BadRequestException(
-        "Se ha producido un error al procesar su solicitud. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UserProjection", error);
     }
   }
 
@@ -47,10 +38,7 @@ export class UserProjection {
         data: updateData
       });
     } catch (error) {
-      this.logger.error(`❌ Error al actualizar la contraseña del usuario ${id}: `, error);
-      throw new BadRequestException(
-        "Se ha producido un error al actualizar los datos. Por favor, inténtelo nuevamente más tarde."
-      );
+      handlePrismaError("UserProjection", error);
     }
   }
 }

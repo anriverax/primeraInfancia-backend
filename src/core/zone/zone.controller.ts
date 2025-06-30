@@ -52,7 +52,7 @@ export class ZoneController {
   }
 
   @AuthRequired()
-  @Put(":id")
+  @Put("update/:id")
   async update(
     @Param("id") id: string,
     @Body() data: ZoneDto,
@@ -64,7 +64,7 @@ export class ZoneController {
   }
 
   @AuthRequired()
-  @Delete(":id")
+  @Delete("delete/:id")
   async delete(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<void>> {
     return this.commandBus.execute(
       new DeleteZoneCommand({ id: parseInt(id), deletedBy: parseInt(req["user"].sub) })

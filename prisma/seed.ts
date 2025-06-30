@@ -9,18 +9,6 @@ async function role() {
       },
       {
         name: "USER"
-      },
-      {
-        name: "FORMADOR"
-      },
-      {
-        name: "MENTOR"
-      },
-      {
-        name: "TECNICO_APOYO"
-      },
-      {
-        name: "ESTUDIANTE"
       }
     ],
     skipDuplicates: true
@@ -31,22 +19,22 @@ async function typePerson() {
   await prisma.typePerson.createMany({
     data: [
       {
-        name: "Director"
+        name: "DIRECTOR"
       },
       {
-        name: "Docente"
+        name: "DOCENTE"
       },
       {
-        name: "Empleado"
+        name: "EMPLEADO"
       },
       {
-        name: "Formador"
+        name: "FORMADOR"
       },
       {
-        name: "Mentor"
+        name: "MENTOR"
       },
       {
-        name: "Técnico de Apoyo"
+        name: "TECNICO_APOYO"
       }
     ],
     skipDuplicates: true
