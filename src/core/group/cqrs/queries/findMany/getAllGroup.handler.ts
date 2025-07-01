@@ -9,6 +9,9 @@ export class GetAllGroupHandler {
 
   async execute(): Promise<IGetGroup[]> {
     const groups = await this.prisma.group.findMany({
+      where: {
+        Zone: { deletedAt: null }
+      },
       select: {
         id: true,
         name: true,

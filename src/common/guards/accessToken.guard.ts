@@ -72,7 +72,7 @@ export class AccessTokenGuard implements CanActivate {
 
       request["user"] = payload;
       request["token"] = token;
-
+      this.logger.log("Se pudo validar el token de acceso.");
       return true;
     } catch (error) {
       this.logger.error("No se pudo validar el token de acceso.", error);
