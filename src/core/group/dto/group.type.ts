@@ -10,7 +10,7 @@ export type IUpdateGroup = Pick<
   "id" | "name" | "description" | "memberCount" | "zoneId" | "personId" | "updatedBy"
 >;
 export type IDeleteGroup = Pick<Group, "id" | "deletedBy">;
-export interface IGetGroup extends Pick<Group, "id" | "name" | "description" | "memberCount"> {
+export interface IGetAllGroup extends Pick<Group, "id" | "name" | "description" | "memberCount"> {
   Zone: Omit<IGetZone, "_count">;
   Person: {
     id: number;
@@ -18,5 +18,12 @@ export interface IGetGroup extends Pick<Group, "id" | "name" | "description" | "
 
   _count: {
     GroupMember: number;
+  };
+}
+
+export interface IGetByIdGroup extends Omit<IGetAllGroup, "Person"> {
+  Person: {
+    id: number;
+    fullName: string;
   };
 }

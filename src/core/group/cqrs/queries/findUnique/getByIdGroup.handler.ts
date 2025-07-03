@@ -1,15 +1,17 @@
 import { QueryHandler } from "@nestjs/cqrs";
-import { GetAllGroupQuery } from "./getAllGroup.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IGetAllGroup } from "@/core/group/dto/group.type";
+import { GetByIdGroupQuery } from "./getByIdGroup.query";
+import { IGetByIdGroup } from "@/core/group/dto/group.type";
 
-@QueryHandler(GetAllGroupQuery)
-export class GetAllGroupHandler {
+@QueryHandler(GetByIdGroupQuery)
+export class GetByIdGroupHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(): Promise<IGetAllGroup[]> {
-    const groups = await this.prisma.group.findMany({
+  async execute(query: GetByIdGroupQuery): Promise<IGetByIdGroup | null> {
+    const groups = await this.prisma.group.findUnique({
       where: {
+        id: query.id,
+        deletedAt: null,
         Zone: { deletedAt: null }
       },
       select: {
@@ -21,17 +23,14 @@ export class GetAllGroupHandler {
           select: { id: true, name: true }
         },
         Person: {
-          select: { id: true }
+          select: { id: true, fullName: true } as any
         },
         _count: {
           select: { GroupMember: true }
         }
-      },
-      orderBy: {
-        id: "asc"
       }
     });
 
-    return groups;
+    return groups as any;
   }
 }

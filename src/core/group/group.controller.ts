@@ -9,7 +9,8 @@ import { Group } from "@prisma/client";
 import { UpdateGroupCommand } from "./cqrs/command/update/updateGroup.command";
 import { DeleteGroupCommand } from "./cqrs/command/delete/deleteGroup.command";
 import { GetAllGroupQuery } from "./cqrs/queries/findMany/getAllGroup.query";
-import { IGetGroup } from "./dto/group.type";
+import { IGetAllGroup, IGetByIdGroup } from "./dto/group.type";
+import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -29,7 +30,7 @@ export class GroupController {
 
   @AuthRequired()
   @Get()
-  async getAll(): Promise<NestResponse<IGetGroup[]>> {
+  async getAll(): Promise<NestResponse<IGetAllGroup[]>> {
     const result = await this.queryBus.execute(new GetAllGroupQuery());
 
     return {
@@ -61,5 +62,16 @@ export class GroupController {
     return this.commandBus.execute(
       new DeleteGroupCommand({ id: parseInt(id), deletedBy: parseInt(req["user"].sub) })
     );
+  }
+
+  @Get(":id")
+  async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroup>> {
+    const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
+
+    return {
+      statusCode: 200,
+      message: "Listado de grupos por ID",
+      data: result
+    };
   }
 }
