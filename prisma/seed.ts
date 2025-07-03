@@ -218,6 +218,8 @@ async function main() {
   await modulePermission();
   await rolePermission();
   await typePerson();
+  await typeContent();
+  await unit();
 }
 main()
   .then(async () => {
