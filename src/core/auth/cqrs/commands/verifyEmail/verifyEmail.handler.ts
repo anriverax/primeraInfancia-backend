@@ -8,7 +8,7 @@ import { NestResponse } from "@/common/helpers/dto";
 export class VerifyEmailHandler implements ICommandHandler<VerifyEmailCommand> {
   constructor(
     private readonly authService: AuthService,
-    private readonly projection: UserProjection
+    private readonly userProjection: UserProjection
   ) {}
   async execute(command: VerifyEmailCommand): Promise<NestResponse<boolean>> {
     const {
@@ -19,7 +19,7 @@ export class VerifyEmailHandler implements ICommandHandler<VerifyEmailCommand> {
 
     if (!result) throw new Error("El código de verificación es incorrecto o ha expirado.");
 
-    await this.projection.updatePasswdIsVerified({
+    await this.userProjection.updatePasswdIsVerified({
       id,
       email,
       data: { isVerified: true }

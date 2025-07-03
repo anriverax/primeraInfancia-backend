@@ -1,5 +1,5 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
+import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { GroupDto } from "./dto/group.dto";

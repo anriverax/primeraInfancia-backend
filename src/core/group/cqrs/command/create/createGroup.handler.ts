@@ -6,12 +6,12 @@ import { Group } from "@prisma/client";
 
 @CommandHandler(CreateGroupCommand)
 export class CreateGroupHandler implements ICommandHandler<CreateGroupCommand> {
-  constructor(private readonly projection: GroupProjection) {}
+  constructor(private readonly groupProjection: GroupProjection) {}
 
   async execute(command: CreateGroupCommand): Promise<NestResponse<Group>> {
     const { data } = command;
 
-    const res = await this.projection.create(data);
+    const res = await this.groupProjection.create(data);
 
     return {
       statusCode: 201,

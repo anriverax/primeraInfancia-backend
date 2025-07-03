@@ -5,12 +5,12 @@ import { NestResponse } from "@/common/helpers/dto";
 
 @CommandHandler(DeleteGroupCommand)
 export class DeleteGroupHandler implements ICommandHandler<DeleteGroupCommand> {
-  constructor(private readonly projection: GroupProjection) {}
+  constructor(private readonly groupProjection: GroupProjection) {}
 
   async execute(command: DeleteGroupCommand): Promise<NestResponse<void>> {
     const { data } = command;
 
-    await this.projection.delete(data);
+    await this.groupProjection.delete(data);
 
     return {
       statusCode: 200,

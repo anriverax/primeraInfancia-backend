@@ -16,6 +16,19 @@ datasource db {
 enum TypeRole {
   ADMIN
   USER
+  USER_FORMADOR
+  USER_MENTOR
+  USER_TECNICO_APOYO
+  USER_DOCENTE
+  USER_DIRECTOR
+}
+
+enum TypePermission {
+  CREAR
+  EDITAR
+  ELIMINAR
+  VER
+  LEER
 }
 
 enum TypePersonEnum {
@@ -37,7 +50,6 @@ enum DeliveryMethod {
   Synchronous
 }
 
-
 enum Sector {
   Public
   Private
@@ -45,7 +57,7 @@ enum Sector {
 
 // ====== START - CATALOGUE ======
 model TypePerson {
-  id     Int      @id @default(autoincrement())
+  id     Int            @id @default(autoincrement())
   name   TypePersonEnum
   Person Person[]
 }
@@ -57,26 +69,43 @@ model Role {
   Permission RolePermission[]
 }
 
-model Module {
-  id               Int                @id @default(autoincrement())
-  name             String             @unique
-  ModulePermission ModulePermission[]
+model Menu {
+  id             Int              @id @default(autoincrement())
+  title          String
+  path           String
+  icon           String?
+  parentId       Int? // Para submenús
+  MenuPermission MenuPermission[]
+  Children       Menu[]           @relation("Menu")
+  Parent         Menu?            @relation("Menu", fields: [parentId], references: [id])
 }
 
 model PermissionType {
-  id               Int                @id @default(autoincrement())
-  name             String             @unique
-  ModulePermission ModulePermission[]
+  id             Int              @id @default(autoincrement())
+  name           TypePermission   @unique
+  MenuPermission MenuPermission[]
 }
 
-model ModulePermission {
+model MenuPermission {
   id               Int              @id @default(autoincrement())
-  moduleId         Int
-  Module           Module           @relation(fields: [moduleId], references: [id])
+  menuId           Int
+  Menu             Menu             @relation(fields: [menuId], references: [id])
   permissionTypeId Int
   PermissionType   PermissionType   @relation(fields: [permissionTypeId], references: [id])
   RolePermission   RolePermission[]
-  UserPermission   UserPermission[]
+
+  @@unique([menuId, permissionTypeId])
+}
+
+model RolePermission {
+  id               Int            @id @default(autoincrement())
+  isActive         Boolean
+  roleId           Int
+  Role             Role           @relation(fields: [roleId], references: [id])
+  menuPermissionId Int
+  MenuPermission   MenuPermission @relation(fields: [menuPermissionId], references: [id])
+
+  @@unique([roleId, menuPermissionId])
 }
 
 model Department {
@@ -113,62 +142,33 @@ model StoredEvent {
 }
 
 // ====== END - CATALOGUE ======
-model RolePermission {
-  id                 Int               @id @default(autoincrement())
-  isActive           Boolean
-  roleId             Int
-  Role               Role              @relation(fields: [roleId], references: [id])
-  ModulePermission   ModulePermission? @relation(fields: [modulePermissionId], references: [id])
-  modulePermissionId Int
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int               @default(0)
-  updatedBy          Int?
-  deletedBy          Int?
-}
-
-model UserPermission {
-  id                 Int               @id @default(autoincrement())
-  userId             Int
-  User               User              @relation(fields: [userId], references: [id])
-  isActive           Boolean
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int               @default(0)
-  updatedBy          Int?
-  deletedBy          Int?
-  ModulePermission   ModulePermission? @relation(fields: [modulePermissionId], references: [id])
-  modulePermissionId Int?
-}
 
 model Person {
-  id           Int           @id @default(autoincrement())
-  firstName    String
-  lastName1    String
-  lastName2    String
-  dui          String        @unique
-  address      String
-  gender       TypeGender
-  phoneNumber  String
-  birthdate    String?
-  duiImage     String[]
-  districtId   Int
-  District     District      @relation(fields: [districtId], references: [id])
-  isActive     Boolean       @default(true)
-  typePersonId Int
-  TypePerson   TypePerson    @relation(fields: [typePersonId], references: [id])
-  User         User?
-  Academic     Academic?
-  PrincipalSchool   PrincipalSchool[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  deletedAt    DateTime?
-  updatedBy    Int?
-  deletedBy    Int?
-  GroupMember  GroupMember[]
-  Group        Group[]
+  id              Int               @id @default(autoincrement())
+  firstName       String
+  lastName1       String
+  lastName2       String
+  dui             String            @unique
+  address         String
+  gender          TypeGender
+  phoneNumber     String
+  birthdate       String?
+  duiImage        String[]
+  districtId      Int
+  District        District          @relation(fields: [districtId], references: [id])
+  isActive        Boolean           @default(true)
+  typePersonId    Int
+  TypePerson      TypePerson        @relation(fields: [typePersonId], references: [id])
+  User            User?
+  Academic        Academic?
+  PrincipalSchool PrincipalSchool[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  updatedBy       Int?
+  deletedBy       Int?
+  GroupMember     GroupMember[]
+  Group           Group[]
 }
 
 model Academic {
@@ -193,23 +193,22 @@ model Academic {
  */
 
 model User {
-  id            Int              @id @default(autoincrement())
-  email         String           @unique
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
   passwd        String
   avatar        String?
-  isVerified    Boolean          @default(false)
+  isVerified    Boolean   @default(false)
   lastLoginDate DateTime?
-  isActive      Boolean          @default(true)
+  isActive      Boolean   @default(true)
   roleId        Int
-  Role          Role             @relation(fields: [roleId], references: [id])
-  personId      Int              @unique
-  Person        Person           @relation(fields: [personId], references: [id])
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  Role          Role      @relation(fields: [roleId], references: [id])
+  personId      Int       @unique
+  Person        Person    @relation(fields: [personId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   deletedAt     DateTime?
   updatedBy     Int?
   deletedBy     Int?
-  Permission    UserPermission[]
   UserKey       UserKey[]
 }
 
@@ -238,22 +237,22 @@ model Zone {
 }
 
 model Group {
-  id          Int           @id @default(autoincrement())
-  name        String // example: "Grupo #1 (CFD Santa Ana)"
-  description String // example: FMT Santa Ana y Ahuachapán Centro y Norte
-  memberCount Int
-  personId    Int
-  Person      Person        @relation(fields: [personId], references: [id])
-  zoneId      Int
-  Zone        Zone          @relation(fields: [zoneId], references: [id])
-  GroupSeminar  GroupSeminar[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  deletedAt   DateTime?
-  createdBy   Int?
-  updatedBy   Int?
-  deletedBy   Int?
-  GroupMember GroupMember[]
+  id           Int            @id @default(autoincrement())
+  name         String // example: "Grupo #1 (CFD Santa Ana)"
+  description  String // example: FMT Santa Ana y Ahuachapán Centro y Norte
+  memberCount  Int
+  personId     Int
+  Person       Person         @relation(fields: [personId], references: [id])
+  zoneId       Int
+  Zone         Zone           @relation(fields: [zoneId], references: [id])
+  GroupSeminar GroupSeminar[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+  createdBy    Int?
+  updatedBy    Int?
+  deletedBy    Int?
+  GroupMember  GroupMember[]
 }
 
 model GroupMember {
@@ -271,51 +270,51 @@ model GroupMember {
 }
 
 model Seminar {
-  id              Int             @id @default(autoincrement())
-  name            String          // example: todo
-  date            DateTime
-  duration        Float           // note: it is not necessary to set exact precision, an approximate precision is sufficient
-  deliveryMethod  DeliveryMethod 
-  GroupSeminar    GroupSeminar[]
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  deletedAt       DateTime?
-  createdBy       Int?
-  updatedBy       Int?
-  deletedBy       Int?
+  id             Int            @id @default(autoincrement())
+  name           String // example: todo
+  date           DateTime
+  duration       Float // note: it is not necessary to set exact precision, an approximate precision is sufficient
+  deliveryMethod DeliveryMethod
+  GroupSeminar   GroupSeminar[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  deletedAt      DateTime?
+  createdBy      Int?
+  updatedBy      Int?
+  deletedBy      Int?
 }
 
 model GroupSeminar {
-  id              Int           @id @default(autoincrement())
-  groupId         Int
-  Group           Group        @relation(fields: [groupId], references: [id])
-  seminarId       Int
-  Seminar         Seminar       @relation(fields: [seminarId], references: [id])
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  deletedAt       DateTime?
-  createdBy       Int?
-  updatedBy       Int?
-  deletedBy       Int?
+  id        Int       @id @default(autoincrement())
+  groupId   Int
+  Group     Group     @relation(fields: [groupId], references: [id])
+  seminarId Int
+  Seminar   Seminar   @relation(fields: [seminarId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
 
   @@unique([groupId, seminarId])
 }
 
 model School {
-  id              Int       @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   name            String
   zoneId          Int
-  Zone            Zone      @relation(fields: [zoneId], references: [id])
+  Zone            Zone              @relation(fields: [zoneId], references: [id])
   sector          Sector
   districtId      Int
-  District        District  @relation(fields: [districtId], references: [id])
+  District        District          @relation(fields: [districtId], references: [id])
   address         String
   email           String
   coordenates     String
   phoneNumber     String
   PrincipalSchool PrincipalSchool[]
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   deletedAt       DateTime?
   createdBy       Int?
   updatedBy       Int?
@@ -323,50 +322,50 @@ model School {
 }
 
 model PrincipalSchool {
-  id          Int         @id @default(autoincrement())
-  personId    Int
-  Person      Person      @relation(fields: [personId], references: [id])
-  schoolId    Int
-  School      School      @relation(fields: [schoolId], references: [id])
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  deletedAt   DateTime?
-  createdBy   Int?
-  updatedBy   Int?
-  deletedBy   Int?
+  id        Int       @id @default(autoincrement())
+  personId  Int
+  Person    Person    @relation(fields: [personId], references: [id])
+  schoolId  Int
+  School    School    @relation(fields: [schoolId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
 }
 
 model Unit {
-  id          Int     @id @default(autoincrement())
-  name        String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime?
-  createdBy   Int?
-  updatedBy   Int?
-  deletedBy   Int?
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
 }
 
 model TypeContent {
-  id          Int         @id @default(autoincrement())
-  name        String      // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  deletedAt   DateTime?
-  createdBy   Int?
-  updatedBy   Int?
-  deletedBy   Int?
+  id        Int       @id @default(autoincrement())
+  name      String // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
 }
 
 model Content {
-  id              Int             @id @default(autoincrement())
-  name            String          // example: todo
-  duration        Float
-  deliveryMethod  DeliveryMethod
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  deletedAt       DateTime?
-  createdBy       Int?
-  updatedBy       Int?
-  deletedBy       Int?
+  id             Int            @id @default(autoincrement())
+  name           String // example: todo
+  duration       Float
+  deliveryMethod DeliveryMethod
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  deletedAt      DateTime?
+  createdBy      Int?
+  updatedBy      Int?
+  deletedBy      Int?
 }

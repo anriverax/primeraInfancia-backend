@@ -3,11 +3,11 @@ import { QueryBus } from "@nestjs/cqrs";
 import { IDepartmentResponse, IPerson } from "./dto/catalogue.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 
-import { GetAllDepartmentQuery } from "../coutry/department/cqrs/queries/getAllDepartment.query";
+import { GetAllDepartmentQuery } from "../test/coutry/department/cqrs/queries/getAllDepartment.query";
 import { GetAllTypePersonQuery } from "./query/typePerson-findMany/getAllTypePerson.query";
 import { TypePerson } from "@prisma/client";
 import { GetAllPersonQuery } from "./query/person-findMany/getAllPerson.query";
-import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
+import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { NestResponse } from "@/common/helpers/dto";
 
 @Controller()

@@ -7,7 +7,7 @@ import { UploadFileProjection } from "../../projections/uploadFiles.projection";
 export class UploadAvatarHandler implements ICommandHandler<UploadAvatarCommand> {
   constructor(
     private readonly s3: S3Service,
-    private readonly projection: UploadFileProjection
+    private readonly uploadFileProjection: UploadFileProjection
   ) {}
 
   async execute(command: UploadAvatarCommand): Promise<boolean> {
@@ -20,7 +20,7 @@ export class UploadAvatarHandler implements ICommandHandler<UploadAvatarCommand>
       dui
     );
 
-    await this.projection.uploadAvatar({
+    await this.uploadFileProjection.uploadAvatar({
       avatar: result,
       userId
     });

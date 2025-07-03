@@ -9,7 +9,7 @@ import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
 import { RedisService } from "@/services/redis/redis.service";
 import { Request } from "express";
-import { AUTH_REQUIRED } from "@/services/jwt/decorators/authRequired.decorator";
+import { AUTH_REQUIRED } from "@/common/decorators/authRequired.decorator";
 import { ConfigService } from "@nestjs/config";
 import * as fs from "fs";
 

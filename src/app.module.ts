@@ -1,19 +1,25 @@
 import { ClassSerializerInterceptor, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_INTERCEPTOR, RouterModule } from "@nestjs/core";
+import * as fs from "fs";
+
 import config from "./config/config";
 import { validate } from "./config/env.config";
+
+// module
 import { AuthModule } from "./core/auth/auth.module";
 import { CatalogueModule } from "./core/catalogue/catalogue.module";
-import { DepartmentModule } from "./core/coutry/department/department.module";
-import { MunicipalityModule } from "./core/coutry/municipality/municipality.module";
 import { PrismaModule } from "./services/prisma/prisma.module";
 import { RedisModule } from "./services/redis/redis.module";
 import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
-import * as fs from "fs";
 import { ProfileModule } from "./core/profile/profile.module";
 import { ZoneModule } from "./core/zone/zone.module";
 import { GroupModule } from "./core/group/group.module";
+
+// test
+import { DepartmentModule } from "./core/test/coutry/department/department.module";
+import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
+import { PermissionModule } from "./core/test/permission/permission.module";
 
 @Module({
   imports: [
@@ -35,12 +41,13 @@ import { GroupModule } from "./core/group/group.module";
     }),
     PrismaModule,
     AuthModule,
-    DepartmentModule,
-    MunicipalityModule,
     CatalogueModule,
     ProfileModule,
     ZoneModule,
     GroupModule,
+    DepartmentModule,
+    MunicipalityModule,
+    PermissionModule,
     RouterModule.register([
       {
         path: "api",
@@ -75,6 +82,10 @@ import { GroupModule } from "./core/group/group.module";
               {
                 path: "municipality",
                 module: MunicipalityModule
+              },
+              {
+                path: "permission",
+                module: PermissionModule
               }
             ]
           }
