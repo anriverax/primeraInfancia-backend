@@ -6,7 +6,7 @@ import { IGetByIdGroup } from "@/core/group/dto/group.type";
 @QueryHandler(GetByIdGroupQuery)
 export class GetByIdGroupHandler {
   constructor(private readonly prisma: PrismaService) {}
-
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(query: GetByIdGroupQuery): Promise<IGetByIdGroup | null> {
     const groups = await this.prisma.group.findUnique({
       where: {
@@ -34,3 +34,4 @@ export class GetByIdGroupHandler {
     return groups as any;
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
