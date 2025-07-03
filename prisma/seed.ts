@@ -152,6 +152,65 @@ async function rolePermission() {
   });
 }
 
+async function typeContent() {
+  await prisma.typeContent.createMany({
+    data: [
+      {
+        id: 1,
+        name: "In_Person_Workshop",
+        createdAt: new Date()
+      },
+      {
+        id: 2,
+        name: "Webinar",
+        createdAt: new Date()
+      },
+      {
+        id: 3,
+        name: "Asynchronous_Session",
+        createdAt: new Date()
+      },
+      {
+        id: 4,
+        name: "Community_Of_Practice",
+        createdAt: new Date()
+      }
+    ],
+    skipDuplicates: true
+  })
+}
+
+async function unit() {
+  await prisma.unit.createMany({
+    data: [{
+      id: 1,
+      name: "Módulo 1",
+      createdAt: new Date(),
+    },
+    {
+      id: 2,
+      name: "Módulo 2",
+      createdAt: new Date(),
+    },
+    {
+      id: 3,
+      name: "Módulo 3",
+      createdAt: new Date(),
+    },
+    {
+      id: 4,
+      name: "Módulo 4",
+      createdAt: new Date(),
+    },
+    {
+      id: 5,
+      name: "Módulo 5",
+      createdAt: new Date(),
+    }],
+    skipDuplicates: true
+  })
+}
+
 async function main() {
   await role();
   await module();

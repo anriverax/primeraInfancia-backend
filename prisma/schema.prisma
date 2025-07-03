@@ -32,6 +32,17 @@ enum TypeGender {
   F
 }
 
+enum DeliveryMethod {
+  In_Person
+  Synchronous
+}
+
+
+enum Sector {
+  Public
+  Private
+}
+
 // ====== START - CATALOGUE ======
 model TypePerson {
   id     Int      @id @default(autoincrement())
@@ -90,6 +101,7 @@ model District {
   municipalityId Int
   Municipality   Municipality @relation(fields: [municipalityId], references: [id])
   Person         Person[]
+  School         School[]
 }
 
 model StoredEvent {
@@ -149,6 +161,7 @@ model Person {
   TypePerson   TypePerson    @relation(fields: [typePersonId], references: [id])
   User         User?
   Academic     Academic?
+  PrincipalSchool   PrincipalSchool[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   deletedAt    DateTime?
@@ -215,6 +228,7 @@ model Zone {
   id        Int       @id @default(autoincrement())
   name      String // example: "Zona Occidente"
   Group     Group[]
+  School    School[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -232,6 +246,7 @@ model Group {
   Person      Person        @relation(fields: [personId], references: [id])
   zoneId      Int
   Zone        Zone          @relation(fields: [zoneId], references: [id])
+  GroupSeminar  GroupSeminar[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   deletedAt   DateTime?
@@ -253,4 +268,105 @@ model GroupMember {
   createdBy Int?
   updatedBy Int?
   deletedBy Int?
+}
+
+model Seminar {
+  id              Int             @id @default(autoincrement())
+  name            String          // example: todo
+  date            DateTime
+  duration        Float           // note: it is not necessary to set exact precision, an approximate precision is sufficient
+  deliveryMethod  DeliveryMethod 
+  GroupSeminar    GroupSeminar[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
+}
+
+model GroupSeminar {
+  id              Int           @id @default(autoincrement())
+  groupId         Int
+  Group           Group        @relation(fields: [groupId], references: [id])
+  seminarId       Int
+  Seminar         Seminar       @relation(fields: [seminarId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
+
+  @@unique([groupId, seminarId])
+}
+
+model School {
+  id              Int       @id @default(autoincrement())
+  name            String
+  zoneId          Int
+  Zone            Zone      @relation(fields: [zoneId], references: [id])
+  sector          Sector
+  districtId      Int
+  District        District  @relation(fields: [districtId], references: [id])
+  address         String
+  email           String
+  coordenates     String
+  phoneNumber     String
+  PrincipalSchool PrincipalSchool[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
+}
+
+model PrincipalSchool {
+  id          Int         @id @default(autoincrement())
+  personId    Int
+  Person      Person      @relation(fields: [personId], references: [id])
+  schoolId    Int
+  School      School      @relation(fields: [schoolId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
+}
+
+model Unit {
+  id          Int     @id @default(autoincrement())
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
+}
+
+model TypeContent {
+  id          Int         @id @default(autoincrement())
+  name        String      // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
+}
+
+model Content {
+  id              Int             @id @default(autoincrement())
+  name            String          // example: todo
+  duration        Float
+  deliveryMethod  DeliveryMethod
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
 }
