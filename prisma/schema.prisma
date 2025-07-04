@@ -46,8 +46,8 @@ enum TypeGender {
 }
 
 enum DeliveryMethod {
-  In_Person
-  Synchronous
+  PRESENCIAL
+  SINCRÓNICO
 }
 
 enum Sector {
@@ -227,7 +227,6 @@ model Zone {
   id        Int       @id @default(autoincrement())
   name      String // example: "Zona Occidente"
   Group     Group[]
-  School    School[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -303,8 +302,6 @@ model GroupSeminar {
 model School {
   id              Int               @id @default(autoincrement())
   name            String
-  zoneId          Int
-  Zone            Zone              @relation(fields: [zoneId], references: [id])
   sector          Sector
   districtId      Int
   District        District          @relation(fields: [districtId], references: [id])
