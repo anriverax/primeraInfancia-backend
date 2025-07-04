@@ -28,6 +28,34 @@ async function typePerson() {
     skipDuplicates: true
   });
 }
+
+async function typeContent() {
+  await prisma.typeContent.createMany({
+    data: [
+      {
+        id: 1,
+        name: "Taller presencial",
+        createdAt: new Date()
+      },
+      {
+        id: 2,
+        name: "Webinar",
+        createdAt: new Date()
+      },
+      {
+        id: 3,
+        name: "Sesión asincrónica",
+        createdAt: new Date()
+      },
+      {
+        id: 4,
+        name: "Comunidad de práctica",
+        createdAt: new Date()
+      }
+    ],
+    skipDuplicates: true
+  });
+}
 /*
 async function modulePermission() {
   await prisma.modulePermission.createMany({
@@ -102,33 +130,7 @@ async function rolePermission() {
   });
 }
 
-async function typeContent() {
-  await prisma.typeContent.createMany({
-    data: [
-      {
-        id: 1,
-        name: "In_Person_Workshop",
-        createdAt: new Date()
-      },
-      {
-        id: 2,
-        name: "Webinar",
-        createdAt: new Date()
-      },
-      {
-        id: 3,
-        name: "Asynchronous_Session",
-        createdAt: new Date()
-      },
-      {
-        id: 4,
-        name: "Community_Of_Practice",
-        createdAt: new Date()
-      }
-    ],
-    skipDuplicates: true
-  });
-}
+
 
 async function unit() {
   await prisma.unit.createMany({
