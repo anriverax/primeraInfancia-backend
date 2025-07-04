@@ -330,6 +330,8 @@ model PrincipalSchool {
   createdBy Int?
   updatedBy Int?
   deletedBy Int?
+
+  @@unique([personId, schoolId])
 }
 
 model Unit {
