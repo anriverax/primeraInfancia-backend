@@ -45,7 +45,7 @@ enum TypeGender {
   F
 }
 
-enum DeliveryMethod {
+enum Modality {
   PRESENCIAL
   SINCRÓNICO
 }
@@ -273,7 +273,7 @@ model Seminar {
   name           String // example: todo
   date           DateTime
   duration       Float // note: it is not necessary to set exact precision, an approximate precision is sufficient
-  deliveryMethod DeliveryMethod
+  modality       Modality
   GroupSeminar   GroupSeminar[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
@@ -358,7 +358,7 @@ model Content {
   id             Int            @id @default(autoincrement())
   name           String // example: todo
   duration       Float
-  deliveryMethod DeliveryMethod
+  modality       Modality
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   deletedAt      DateTime?
