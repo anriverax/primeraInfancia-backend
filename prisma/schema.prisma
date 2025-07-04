@@ -245,6 +245,7 @@ model Group {
   zoneId       Int
   Zone         Zone           @relation(fields: [zoneId], references: [id])
   GroupSeminar GroupSeminar[]
+  Module       Module[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   deletedAt    DateTime?
@@ -334,9 +335,11 @@ model PrincipalSchool {
   @@unique([personId, schoolId])
 }
 
-model Unit {
+model Module {
   id        Int       @id @default(autoincrement())
   name      String
+  groupId   Int
+  Group     Group     @relation(fields: [groupId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
