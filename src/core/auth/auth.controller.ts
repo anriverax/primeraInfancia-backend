@@ -12,7 +12,7 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { Request } from "express";
 import { AuthService } from "./services/auth.service";
 import { AuthDto, ChangePasswdDto, LoginDto } from "./dto/auth.dto";
-import { ILoginResponse } from "./dto/auth.type";
+import { IGetAllRolePermission, ILoginPermissionResponse, ILoginResponse, IPermissionResponse } from "./dto/auth.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { NestResponse } from "@/common/helpers/dto";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
@@ -22,6 +22,7 @@ import { RegisterUserCommand } from "./cqrs/commands/register/registerUser.comma
 import { FindUniqueUserQuery } from "./cqrs/queries/user/findUniqueUser.query";
 import { ChangePasswdCommand } from "./cqrs/commands/changePasswd/changePasswd.command";
 import { VerifyEmailCommand } from "./cqrs/commands/verifyEmail/verifyEmail.command";
+import { GetAllRolePermissionQuery } from "./cqrs/queries/permission-findMany/getAllRolePermission.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -39,7 +40,7 @@ export class AuthController {
   }
 
   @Post("login")
-  async login(@Body() data: LoginDto): Promise<NestResponse<ILoginResponse>> {
+  async login(@Body() data: LoginDto): Promise<NestResponse<ILoginPermissionResponse>> {
     const { value1, value2 } = data;
 
     const user = await this.queryBus.execute(new FindUniqueUserQuery({ email: value1 }));
@@ -49,17 +50,34 @@ export class AuthController {
     const result = await this.tokenService.generateTokens(user);
     // Consulta los permisos del rol del usuario
     // Transforma los permisos en un formato útil para el frontend
-
+    const rolePermissions = await this.queryBus.execute(new GetAllRolePermissionQuery(user.roleId));
+    console.log(rolePermissions);
     /**
      * data: {
       ...result,
       permissions, // <-- aquí envías los permisos al frontend
     },
-    */
+
+
+    const permissions = rolePermissions.map((rp) => ({
+      menu: rp.ModulePermission.Menu.path,
+      action: rp.ModulePermission.PermissionType.name
+    }));
+  */
+
+    const permissions: IPermissionResponse[] = rolePermissions.map((rp: IGetAllRolePermission) => ({
+      menu: {
+        ...rp.MenuPermission.Menu,
+        action: {
+          ...rp.MenuPermission.PermissionType
+        }
+      }
+    }));
+    console.log(permissions);
     return {
       statusCode: 200,
       message: "Inicio de sesión exitoso.",
-      data: result
+      data: { ...result, permissions: permissions }
     };
   }
 

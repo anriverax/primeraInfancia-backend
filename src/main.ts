@@ -26,7 +26,11 @@ async function bootstrap() {
 
   if (process.env.NODE_ENV !== "development") {
     app.setGlobalPrefix("api", {
-      exclude: [{ path: "test/department", method: RequestMethod.GET }]
+      exclude: [
+        { path: "test/department", method: RequestMethod.GET },
+        { path: "test/permission/addMenuPermission", method: RequestMethod.GET },
+        { path: "test/permission/addAdminPermission", method: RequestMethod.GET }
+      ]
     });
   }
 
