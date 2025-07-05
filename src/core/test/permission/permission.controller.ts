@@ -3,7 +3,7 @@ import { NestResponse } from "@/common/helpers/dto";
 import { Controller, Post, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AddMenuPermissionCommand } from "./cqrs/command/menuPermission/addMenuPermission.command";
-import { GetAllMenuPermissionQuery } from "./cqrs/queries/getAllMenuPermission.query";
+import { MenuPermissionQuery } from "./cqrs/queries/menuPermission.query";
 import { AddRolePermissionCommand } from "./cqrs/command/rolePermission/addRolePermission.command";
 
 @Controller()
@@ -21,7 +21,7 @@ export class PermissionController {
 
   @Post("addAdminPermission")
   async adminPermission(): Promise<NestResponse<void>> {
-    const data = await this.queryBus.execute(new GetAllMenuPermissionQuery());
+    const data = await this.queryBus.execute(new MenuPermissionQuery());
 
     return this.commandBus.execute(new AddRolePermissionCommand(data));
   }

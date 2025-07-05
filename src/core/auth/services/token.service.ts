@@ -15,12 +15,17 @@ export class TokenService {
     private readonly redisService: RedisService
   ) {}
 
-  async setAccessToken(data: { id: number; email: string; role: string }): Promise<string> {
-    const { id, email, role } = data;
+  async setAccessToken(data: {
+    id: number;
+    email: string;
+    rolId: number;
+    role: string;
+  }): Promise<string> {
+    const { id, email, rolId, role } = data;
     const tokenId = uuidv4();
 
     const accessToken = this.jwtService.sign(
-      { sub: id, email, role, tokenId },
+      { sub: id, email, rolId, role, tokenId },
       {
         privateKey: fs.readFileSync(process.env.JWT_PRIVATE_KEY_PATH!, "utf8"),
         algorithm: "RS256",
@@ -36,11 +41,16 @@ export class TokenService {
     return accessToken;
   }
 
-  async setRefreshToken(data: { id: number; email: string; role: string }): Promise<string> {
-    const { id, email, role } = data;
+  async setRefreshToken(data: {
+    id: number;
+    email: string;
+    rolId: number;
+    role: string;
+  }): Promise<string> {
+    const { id, email, rolId, role } = data;
 
     const refreshToken = this.jwtService.sign(
-      { sub: id, email, role },
+      { sub: id, email, rolId, role },
       {
         secret: this.config.get<string>("jwt.refreshSecret"),
         expiresIn: this.config.get<string>("jwt.refreshToken")
@@ -62,8 +72,8 @@ export class TokenService {
       Role: { name }
     } = user;
 
-    const accessToken = await this.setAccessToken({ id, email, role: name });
-    const refreshToken = await this.setRefreshToken({ id, email, role: name });
+    const accessToken = await this.setAccessToken({ id, email, rolId: user.Role.id, role: name });
+    const refreshToken = await this.setRefreshToken({ id, email, rolId: user.Role.id, role: name });
 
     const firstName = user.Person ? user.Person.firstName : "";
     const lastName = user.Person ? user.Person.lastName1 : "";
@@ -83,7 +93,12 @@ export class TokenService {
   }
 
   async refreshToken(req: Request): Promise<string> {
-    const { sub, email, role } = req["user"] as { email: string; sub: number; role: string };
+    const { sub, email, rolId, role } = req["user"] as {
+      email: string;
+      sub: number;
+      rolId: number;
+      role: string;
+    };
 
     const refreshTokenKey = `auth:refresh:${sub}`;
 
@@ -95,7 +110,7 @@ export class TokenService {
       );
 
     // Generate a new assessToken
-    const accessToken = await this.setAccessToken({ id: sub, email, role });
+    const accessToken = await this.setAccessToken({ id: sub, rolId, email, role });
 
     return accessToken;
   }

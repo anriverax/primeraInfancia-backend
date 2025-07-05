@@ -47,15 +47,7 @@ export class AuthController {
 
     await this.authService.verifyPasswd(user.passwd, value2);
     const result = await this.tokenService.generateTokens(user);
-    // Consulta los permisos del rol del usuario
-    // Transforma los permisos en un formato útil para el frontend
 
-    /**
-     * data: {
-      ...result,
-      permissions, // <-- aquí envías los permisos al frontend
-    },
-    */
     return {
       statusCode: 200,
       message: "Inicio de sesión exitoso.",

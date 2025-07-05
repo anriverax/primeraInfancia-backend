@@ -12,10 +12,6 @@ export class MenuPermissionProjection {
     try {
       await this.prisma.menuPermission.createMany({
         data: [
-          { menuId: 1, permissionTypeId: 1 },
-          { menuId: 1, permissionTypeId: 2 },
-          { menuId: 1, permissionTypeId: 3 },
-          { menuId: 1, permissionTypeId: 4 },
           { menuId: 1, permissionTypeId: 5 },
           { menuId: 2, permissionTypeId: 1 },
           { menuId: 2, permissionTypeId: 2 },

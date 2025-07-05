@@ -1,6 +1,6 @@
-import { Controller, Get, UseFilters } from "@nestjs/common";
+import { Controller, Get, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
-import { IDepartmentResponse, IPerson } from "./dto/catalogue.type";
+import { IDepartmentResponse, IGetAllRolePermission, IPermission, IPerson } from "./dto/catalogue.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 
 import { GetAllDepartmentQuery } from "../test/coutry/department/cqrs/queries/getAllDepartment.query";
@@ -9,6 +9,7 @@ import { TypePerson } from "@prisma/client";
 import { GetAllPersonQuery } from "./query/person-findMany/getAllPerson.query";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { NestResponse } from "@/common/helpers/dto";
+import { GetAllRolePermissionQuery } from "./query/permission-findMany/getAllRolePermission.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -49,6 +50,23 @@ export class CatalogueController {
     const data = await this.queryBus.execute(new GetAllTypePersonQuery());
 
     return data;
+  }
+
+  @AuthRequired()
+  @Get("menuItems")
+  async getMenu(@Req() req: Request): Promise<NestResponse<IPermission[]>> {
+    const rolePermissions = await this.queryBus.execute(
+      new GetAllRolePermissionQuery(req["user"].rolId)
+    );
+
+    const permissions: IPermission[] = rolePermissions.map((rp: IGetAllRolePermission) => ({
+      ...rp.MenuPermission.Menu,
+      action: {
+        ...rp.MenuPermission.PermissionType
+      }
+    }));
+
+    return { statusCode: 200, message: "Lista de items para el menú.", data: permissions };
   }
 
   @AuthRequired()
