@@ -171,7 +171,7 @@ async function main() {
   await typePerson();
   await authorizationSeed();
   await menuSeed();
-  //  await typeContent();
+  await typeContent();
   //  await unit();
 }
 main()

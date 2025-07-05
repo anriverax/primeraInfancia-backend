@@ -18,20 +18,23 @@ export class SchoolProjection {
   }
 
   async update(data: IUpdateSchool): Promise<School> {
-    const { id, name , sector , districtId , address , email , coordenates , phoneNumber , updatedBy  } = data;
+    const { id, name, sector, districtId, address, email, coordenates, phoneNumber, updatedBy } = data;
 
     try {
-      return await this.prisma.school.update({ where: { id }, data: { name , sector , districtId , address , email , coordenates , phoneNumber , updatedBy  } });
+      return await this.prisma.school.update({
+        where: { id },
+        data: { name, sector, districtId, address, email, coordenates, phoneNumber, updatedBy }
+      });
     } catch (error) {
       handlePrismaError("SchoolProjection", error);
     }
   }
 
   async delete(data: IDeleteSchool): Promise<School> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("school", { id }, { deletedBy  });
+      return await this.prisma.softDelete("school", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("SchoolProjection", error);
     }

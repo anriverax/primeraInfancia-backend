@@ -10,11 +10,17 @@ export class GetAllSchoolHandler {
   async execute(): Promise<IGetSchool[]> {
     const schools = await this.prisma.school.findMany({
       select: {
-        id : true,
-        name : true, sector : true, districtId : true, address : true, email : true, coordenates : true, phoneNumber : true,
+        id: true,
+        name: true,
+        sector: true,
+        districtId: true,
+        address: true,
+        email: true,
+        coordenates: true,
+        phoneNumber: true,
         _count: {
           select: {
-            Group: true
+            PrincipalSchool: true
           }
         }
       },

@@ -15,7 +15,7 @@ import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 import { ProfileModule } from "./core/profile/profile.module";
 import { ZoneModule } from "./core/zone/zone.module";
 import { GroupModule } from "./core/group/group.module";
-
+import { SchoolModule } from "./core/school/school.module";
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
 import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
@@ -45,6 +45,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     ProfileModule,
     ZoneModule,
     GroupModule,
+    SchoolModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -71,6 +72,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
           {
             path: "group",
             module: GroupModule
+          },
+          {
+            path: "school",
+            module: SchoolModule
           },
           {
             path: "test",

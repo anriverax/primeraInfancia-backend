@@ -11,11 +11,17 @@ export class GetByIdSchoolHandler {
     const schools = await this.prisma.school.findUnique({
       where: { id: query.id },
       select: {
-        id : true,
-        name : true, sector : true, districtId : true, address : true, email : true, coordenates : true, phoneNumber : true,
+        id: true,
+        name: true,
+        sector: true,
+        districtId: true,
+        address: true,
+        email: true,
+        coordenates: true,
+        phoneNumber: true,
         _count: {
           select: {
-            Group: true
+            PrincipalSchool: true
           }
         }
       }
