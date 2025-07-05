@@ -1,16 +1,17 @@
 import { AES, enc } from "crypto-js";
-import { BadRequestException, ForbiddenException } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Logger } from "@nestjs/common";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 /* eslint-disable */
-export function handlePrismaError(error: any): void {
+export function handlePrismaError(module: string, error: any): never {
+  const logger = new Logger(module);
   if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
     throw new ForbiddenException("Este correo electrónico ya está asociado a una cuenta.");
   }
 
   // Log or handle other Prisma errors appropriately
-  console.error("Error de Prisma: ", error);
-  throw new BadRequestException("No se pudo procesar tu petición debido a un error.");
+  logger.error(`❌ Error de prisma: `, error);
+  throw new BadRequestException("Se ha producido un error al procesar su solicitud.");
 }
 
 export function decryptTextTransformer(value: string): string {

@@ -5,7 +5,7 @@ import { IGetZone, ZoneDto } from "./dto/zone.dto";
 import { CreateZoneCommand } from "./cqrs/commands/create/createZone.command";
 import { GetAllZoneQuery } from "./cqrs/queries/findMany/getAllZone.query";
 import { GetByIdZoneQuery } from "./cqrs/queries/findUnique/getByIdZone.query";
-import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
+import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { DeleteZoneCommand } from "./cqrs/commands/delete/deleteZone.command";
 import { UpdateZoneCommand } from "./cqrs/commands/update/updateZone.command";
 import { NestResponse } from "@/common/helpers/dto";
@@ -52,7 +52,7 @@ export class ZoneController {
   }
 
   @AuthRequired()
-  @Put(":id")
+  @Put("update/:id")
   async update(
     @Param("id") id: string,
     @Body() data: ZoneDto,
@@ -64,7 +64,7 @@ export class ZoneController {
   }
 
   @AuthRequired()
-  @Delete(":id")
+  @Delete("delete/:id")
   async delete(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<void>> {
     return this.commandBus.execute(
       new DeleteZoneCommand({ id: parseInt(id), deletedBy: parseInt(req["user"].sub) })

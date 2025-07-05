@@ -15,7 +15,7 @@ import { AuthDto, ChangePasswdDto, LoginDto } from "./dto/auth.dto";
 import { ILoginResponse } from "./dto/auth.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { NestResponse } from "@/common/helpers/dto";
-import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
+import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { TokenService } from "./services/token.service";
 import { RefreshTokenGuard } from "@/common/guards/refreshToken.guard";
 import { RegisterUserCommand } from "./cqrs/commands/register/registerUser.command";
@@ -47,7 +47,15 @@ export class AuthController {
 
     await this.authService.verifyPasswd(user.passwd, value2);
     const result = await this.tokenService.generateTokens(user);
+    // Consulta los permisos del rol del usuario
+    // Transforma los permisos en un formato útil para el frontend
 
+    /**
+     * data: {
+      ...result,
+      permissions, // <-- aquí envías los permisos al frontend
+    },
+    */
     return {
       statusCode: 200,
       message: "Inicio de sesión exitoso.",

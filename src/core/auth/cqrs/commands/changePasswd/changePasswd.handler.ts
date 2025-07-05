@@ -12,7 +12,8 @@ export class ChangePasswdHandler implements ICommandHandler<ChangePasswdCommand>
   constructor(
     private readonly queryBus: QueryBus,
     private readonly authService: AuthService,
-    private readonly projection: UserProjection,
+    private readonly userProjection: UserProjection,
+
     private eventBus: EventBusWithStore
   ) {}
   async execute(
@@ -32,7 +33,7 @@ export class ChangePasswdHandler implements ICommandHandler<ChangePasswdCommand>
 
     const hashedPassword = await this.authService.hashPassword(data.newPasswd);
 
-    await this.projection.updatePasswdIsVerified({
+    await this.userProjection.updatePasswdIsVerified({
       id,
       email,
       data: { passwd: hashedPassword }

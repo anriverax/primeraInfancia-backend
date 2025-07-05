@@ -7,7 +7,7 @@ import { UploadFileProjection } from "../../projections/uploadFiles.projection";
 export class UploadCvHandler implements ICommandHandler<UploadCvCommand> {
   constructor(
     private readonly s3: S3Service,
-    private readonly projection: UploadFileProjection
+    private readonly uploadFileProjection: UploadFileProjection
   ) {}
 
   async execute(command: UploadCvCommand): Promise<void> {
@@ -20,7 +20,7 @@ export class UploadCvHandler implements ICommandHandler<UploadCvCommand> {
       dui
     );
 
-    await this.projection.uploadCv({
+    await this.uploadFileProjection.uploadCv({
       cvName: result,
       academicId
     });

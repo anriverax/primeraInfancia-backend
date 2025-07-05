@@ -1,14 +1,19 @@
 import { PrismaClient } from "@prisma/client";
+import { authorizationSeed } from "./seeds/authorization.seed";
+import { menuSeed } from "./seeds/menu.seed";
 const prisma = new PrismaClient();
 
-async function role() {
-  await prisma.role.createMany({
+async function typePerson() {
+  await prisma.typePerson.createMany({
     data: [
       {
-        name: "ADMIN"
+        name: "DIRECTOR"
       },
       {
-        name: "USER"
+        name: "DOCENTE"
+      },
+      {
+        name: "EMPLEADO"
       },
       {
         name: "FORMADOR"
@@ -18,79 +23,40 @@ async function role() {
       },
       {
         name: "TECNICO_APOYO"
-      },
-      {
-        name: "ESTUDIANTE"
       }
     ],
     skipDuplicates: true
   });
 }
 
-async function typePerson() {
-  await prisma.typePerson.createMany({
+async function typeContent() {
+  await prisma.typeContent.createMany({
     data: [
       {
-        name: "Director"
+        id: 1,
+        name: "Taller presencial",
+        createdAt: new Date()
       },
       {
-        name: "Docente"
+        id: 2,
+        name: "Webinar",
+        createdAt: new Date()
       },
       {
-        name: "Empleado"
+        id: 3,
+        name: "Sesión asincrónica",
+        createdAt: new Date()
       },
       {
-        name: "Formador"
-      },
-      {
-        name: "Mentor"
-      },
-      {
-        name: "Técnico de Apoyo"
+        id: 4,
+        name: "Comunidad de práctica",
+        createdAt: new Date()
       }
     ],
     skipDuplicates: true
   });
 }
-
-async function module() {
-  await prisma.module.createMany({
-    data: [
-      {
-        name: "usuarios"
-      },
-      {
-        name: "perfil"
-      },
-      {
-        name: "permisos"
-      }
-    ],
-    skipDuplicates: true
-  });
-}
-
-async function permissionType() {
-  await prisma.permissionType.createMany({
-    data: [
-      {
-        name: "crear"
-      },
-      {
-        name: "editar"
-      },
-      {
-        name: "eliminar"
-      },
-      {
-        name: "ver"
-      },
-      { name: "leer" }
-    ],
-    skipDuplicates: true
-  });
-}
-
+/*
 async function modulePermission() {
   await prisma.modulePermission.createMany({
     data: [
@@ -164,13 +130,49 @@ async function rolePermission() {
   });
 }
 
+
+
+async function unit() {
+  await prisma.unit.createMany({
+    data: [
+      {
+        id: 1,
+        name: "Módulo 1",
+        createdAt: new Date()
+      },
+      {
+        id: 2,
+        name: "Módulo 2",
+        createdAt: new Date()
+      },
+      {
+        id: 3,
+        name: "Módulo 3",
+        createdAt: new Date()
+      },
+      {
+        id: 4,
+        name: "Módulo 4",
+        createdAt: new Date()
+      },
+      {
+        id: 5,
+        name: "Módulo 5",
+        createdAt: new Date()
+      }
+    ],
+    skipDuplicates: true
+  });
+}
+*/
 async function main() {
-  await role();
-  await module();
-  await permissionType();
-  await modulePermission();
-  await rolePermission();
+  // await modulePermission();
+  // await rolePermission();
   await typePerson();
+  await authorizationSeed();
+  await menuSeed();
+  await typeContent();
+  //  await unit();
 }
 main()
   .then(async () => {

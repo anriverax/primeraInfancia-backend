@@ -16,7 +16,7 @@ export class RegisterUserHandler implements ICommandHandler<RegisterUserCommand>
     private readonly authService: AuthService,
     private eventBus: EventBusWithStore,
     private readonly keyService: KeyService,
-    private readonly projection: UserProjection
+    private readonly userProjection: UserProjection
   ) {}
 
   async execute(command: RegisterUserCommand): Promise<NestResponse<void>> {
@@ -32,7 +32,7 @@ export class RegisterUserHandler implements ICommandHandler<RegisterUserCommand>
     const { publicKey, privateKey } = this.keyService.generateKeyPair();
     const encryptedPrivateKey = this.keyService.encryptPrivateKey(privateKey);
 
-    await this.projection.register({
+    await this.userProjection.register({
       ...data,
       publicKey,
       privateKey: encryptedPrivateKey,

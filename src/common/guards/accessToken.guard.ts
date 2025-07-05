@@ -9,7 +9,7 @@ import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
 import { RedisService } from "@/services/redis/redis.service";
 import { Request } from "express";
-import { AUTH_REQUIRED } from "@/services/jwt/decorators/authRequired.decorator";
+import { AUTH_REQUIRED } from "@/common/decorators/authRequired.decorator";
 import { ConfigService } from "@nestjs/config";
 import * as fs from "fs";
 
@@ -72,7 +72,7 @@ export class AccessTokenGuard implements CanActivate {
 
       request["user"] = payload;
       request["token"] = token;
-
+      this.logger.log("Se pudo validar el token de acceso.");
       return true;
     } catch (error) {
       this.logger.error("No se pudo validar el token de acceso.", error);

@@ -18,7 +18,7 @@ import { UploadDuiCommand } from "./cqrs/commands/dui/uploadDui.command";
 import { NestResponse } from "@/common/helpers/dto";
 import { UploadFilesDto } from "./dto/profile.dto";
 import { ProfileService } from "./profile.service";
-import { AuthRequired } from "@/services/jwt/decorators/authRequired.decorator";
+import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { UploadCvCommand } from "./cqrs/commands/cv/uploadCv.command";
 
 @Controller()

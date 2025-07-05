@@ -7,7 +7,7 @@ import { UploadFileProjection } from "../../projections/uploadFiles.projection";
 export class UploadDuiHandler implements ICommandHandler<UploadDuiCommand> {
   constructor(
     private readonly s3: S3Service,
-    private readonly projection: UploadFileProjection
+    private readonly uploadFileProjection: UploadFileProjection
   ) {}
 
   async execute(command: UploadDuiCommand): Promise<boolean> {
@@ -18,7 +18,7 @@ export class UploadDuiHandler implements ICommandHandler<UploadDuiCommand> {
       duiImg.map((img: Express.Multer.File) => this.s3.uploadFile(img, false, dui))
     );
 
-    await this.projection.uploadDui({
+    await this.uploadFileProjection.uploadDui({
       duiName: result,
       personId
     });

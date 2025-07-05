@@ -11,7 +11,12 @@ export class GetAllZoneHandler {
     const zones = await this.prisma.zone.findMany({
       select: {
         id: true,
-        name: true
+        name: true,
+        _count: {
+          select: {
+            Group: true
+          }
+        }
       },
       orderBy: {
         id: "asc"

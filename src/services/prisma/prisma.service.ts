@@ -3,9 +3,19 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Prisma, PrismaClient } from "@prisma/client";
 
-const modelsWithSoftDelete = ["Zone"];
+const modelsWithSoftDelete = ["Zone", "Group", "School"];
 
 const prismaWithExtension = new PrismaClient().$extends({
+  result: {
+    person: {
+      fullName: {
+        needs: { firstName: true, lastName1: true, lastName2: true },
+        compute(person) {
+          return `${person.firstName} ${person.lastName1} ${person.lastName2}`;
+        }
+      }
+    }
+  },
   query: {
     $allModels: {
       $allOperations({ model, operation, args, query }) {
