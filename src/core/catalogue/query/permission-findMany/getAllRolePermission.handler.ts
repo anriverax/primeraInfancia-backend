@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAllRolePermissionQuery } from "./getAllRolePermission.query";
-import { IGetAllRolePermission } from "@/core/auth/dto/auth.type";
+import { IGetAllRolePermission } from "../../dto/catalogue.type";
 
 @QueryHandler(GetAllRolePermissionQuery)
 export class GetAllRolePermissionHandler implements IQueryHandler<GetAllRolePermissionQuery> {

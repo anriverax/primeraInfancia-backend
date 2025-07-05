@@ -6,8 +6,13 @@ import { S3Service } from "@/services/s3.service";
 import { GetAllTypePersonHandler } from "./query/typePerson-findMany/getAllTypePerson.handler";
 import { GetAllPersonHandler } from "./query/person-findMany/getAllPerson.handler";
 import { JwtModule } from "@nestjs/jwt";
+import { GetAllRolePermissionHandler } from "./query/permission-findMany/getAllRolePermission.handler";
 
-const CatalogueQueryHandlers = [GetAllTypePersonHandler, GetAllPersonHandler];
+const CatalogueQueryHandlers = [
+  GetAllTypePersonHandler,
+  GetAllPersonHandler,
+  GetAllRolePermissionHandler
+];
 
 @Module({
   imports: [CqrsModule, JwtModule, DepartmentModule],
