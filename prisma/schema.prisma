@@ -267,6 +267,8 @@ model GroupMember {
   createdBy Int?
   updatedBy Int?
   deletedBy Int?
+
+  @@unique([groupId, personId])
 }
 
 model Seminar {
