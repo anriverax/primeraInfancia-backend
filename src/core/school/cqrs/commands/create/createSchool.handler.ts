@@ -6,11 +6,11 @@ import { School } from "@prisma/client";
 
 @CommandHandler(CreateSchoolCommand)
 export class CreateSchoolHandler implements ICommandHandler<CreateSchoolCommand> {
-  constructor(private readonly projection: SchoolProjection) {}
+  constructor(private readonly schoolProjection: SchoolProjection) {}
   async execute(command: CreateSchoolCommand): Promise<NestResponse<School>> {
     const { data } = command;
 
-    const res = await this.projection.create(data);
+    const res = await this.schoolProjection.create(data);
 
     return {
       statusCode: 201,

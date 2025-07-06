@@ -5,11 +5,11 @@ import { NestResponse } from "@/common/helpers/dto";
 
 @CommandHandler(DeleteSchoolCommand)
 export class DeleteSchoolHandler implements ICommandHandler<DeleteSchoolCommand> {
-  constructor(private readonly projection: SchoolProjection) {}
+  constructor(private readonly schoolProjection: SchoolProjection) {}
   async execute(command: DeleteSchoolCommand): Promise<NestResponse<void>> {
     const { data } = command;
 
-    await this.projection.delete(data);
+    await this.schoolProjection.delete(data);
 
     return {
       statusCode: 200,
