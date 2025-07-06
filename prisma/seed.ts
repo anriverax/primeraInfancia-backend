@@ -34,27 +34,103 @@ async function typeContent() {
     data: [
       {
         id: 1,
-        name: "Taller presencial",
+        name: "TALLER PRESENCIAL",
         createdAt: new Date()
       },
       {
         id: 2,
-        name: "Webinar",
+        name: "WEBINAR",
         createdAt: new Date()
       },
       {
         id: 3,
-        name: "Sesión asincrónica",
+        name: "SESIÓN ASINCRÓNICA",
         createdAt: new Date()
       },
       {
         id: 4,
-        name: "Comunidad de práctica",
+        name: "COMUNIDAD DE PRÁCTICA",
         createdAt: new Date()
       }
     ],
     skipDuplicates: true
   });
+}
+
+async function school() {
+  await prisma.school.createMany({
+    data: [{
+      "name": "",
+      "sector": "PÚBLICO", // PÚBLICO | PRIVADO
+      "districtId": 50,
+      "address": "",
+      "email": "email@email.com",
+      "coordenates": "(10,-3)",
+      "phoneNumber": "",
+      "createdAt": new Date(),
+      "createdBy": 1
+    }]
+  })
+
+}
+
+// async function seminar() {
+//   await prisma.seminar.createMany({
+//     data: [{
+//       "name": "",
+//       "date": "",
+//       "duration": 0.0,
+//       "modality": "PRESENCIAL", // PRESENCIAL | SINCRÓNICO
+//       "createdAt": new Date(),
+//       "createdBy": 1
+//     }]
+//   })
+// }
+
+// async function module() {
+//   await prisma.module.createMany({
+//     data: [
+//       {
+//         id: 1,
+//         name: "Módulo 1",
+//         createdAt: new Date()
+//       },
+//       {
+//         id: 2,
+//         name: "Módulo 2",
+//         createdAt: new Date()
+//       },
+//       {
+//         id: 3,
+//         name: "Módulo 3",
+//         createdAt: new Date()
+//       },
+//       {
+//         id: 4,
+//         name: "Módulo 4",
+//         createdAt: new Date()
+//       },
+//       {
+//         id: 5,
+//         name: "Módulo 5",
+//         createdAt: new Date()
+//       }
+//     ],
+//     skipDuplicates: true
+//   });
+// }
+
+async function content() {
+  await prisma.content.createMany({
+    data: [{
+      "name": "",
+      "duration": 0.0,
+      "modality": "PRESENCIAL", // PRESENCIAL | SINCRÓNICO
+      "typeContentId": 1,
+      "createdAt": new Date(),
+      "createdBy": 1
+    }]
+  })
 }
 /*
 async function modulePermission() {
@@ -132,38 +208,7 @@ async function rolePermission() {
 
 
 
-async function unit() {
-  await prisma.unit.createMany({
-    data: [
-      {
-        id: 1,
-        name: "Módulo 1",
-        createdAt: new Date()
-      },
-      {
-        id: 2,
-        name: "Módulo 2",
-        createdAt: new Date()
-      },
-      {
-        id: 3,
-        name: "Módulo 3",
-        createdAt: new Date()
-      },
-      {
-        id: 4,
-        name: "Módulo 4",
-        createdAt: new Date()
-      },
-      {
-        id: 5,
-        name: "Módulo 5",
-        createdAt: new Date()
-      }
-    ],
-    skipDuplicates: true
-  });
-}
+
 */
 async function main() {
   // await modulePermission();
@@ -172,7 +217,10 @@ async function main() {
   await authorizationSeed();
   await menuSeed();
   await typeContent();
-  //  await unit();
+  await school();
+  //await seminar();
+  await content();
+  //  await module();
 }
 main()
   .then(async () => {
