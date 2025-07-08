@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { School } from "@prisma/client";
 
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { ICreateSchool, IDeleteSchool, IUpdateSchool } from "../../dto/school.dto";
+import { ICreateSchool, IDeleteSchool, IUpdateSchool } from "../../dto/school.type";
 import { handlePrismaError } from "@/common/helpers/functions";
 
 @Injectable()

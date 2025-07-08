@@ -1,7 +1,7 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { GetAllSchoolQuery } from "./getAllSchool.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IGetSchool } from "@/core/school/dto/school.dto";
+import { IGetSchool } from "@/core/school/dto/school.type";
 
 @QueryHandler(GetAllSchoolQuery)
 export class GetAllSchoolHandler {

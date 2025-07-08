@@ -5,11 +5,11 @@ import { NestResponse } from "@/common/helpers/dto";
 
 @CommandHandler(UpdateSchoolCommand)
 export class UpdateSchoolHandler implements ICommandHandler<UpdateSchoolCommand> {
-  constructor(private readonly projection: SchoolProjection) {}
+  constructor(private readonly schoolProjection: SchoolProjection) {}
   async execute(command: UpdateSchoolCommand): Promise<NestResponse<void>> {
     const { data } = command;
 
-    await this.projection.update(data);
+    await this.schoolProjection.update(data);
 
     return {
       statusCode: 200,

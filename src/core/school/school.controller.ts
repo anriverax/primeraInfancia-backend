@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-import { IGetSchool, SchoolDto } from "./dto/school.dto";
+import { SchoolDto } from "./dto/school.dto";
+import { IGetSchool } from "./dto/school.type";
 import { CreateSchoolCommand } from "./cqrs/commands/create/createSchool.command";
 import { GetAllSchoolQuery } from "./cqrs/queries/findMany/getAllSchool.query";
 import { GetByIdSchoolQuery } from "./cqrs/queries/findUnique/getByIdSchool.query";

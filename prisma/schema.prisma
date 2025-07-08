@@ -51,8 +51,8 @@ enum Modality {
 }
 
 enum Sector {
-  Public
-  Private
+  PÚBLICO
+  PRIVADO
 }
 
 // ====== START - CATALOGUE ======
@@ -267,6 +267,8 @@ model GroupMember {
   createdBy Int?
   updatedBy Int?
   deletedBy Int?
+
+  @@unique([groupId, personId])
 }
 
 model Seminar {
@@ -350,7 +352,8 @@ model Module {
 
 model TypeContent {
   id        Int       @id @default(autoincrement())
-  name      String // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
+  name      String    // example:  TALLER PRESENCIAL, WEBINAR, SESIÓN ASINCRÓNICA, COMUNIDAD DE PRÁCTICA
+  Content   Content[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -361,9 +364,11 @@ model TypeContent {
 
 model Content {
   id             Int            @id @default(autoincrement())
-  name           String // example: todo
+  name           String
   duration       Float
   modality       Modality
+  typeContentId  Int
+  TypeContent    TypeContent        @relation(fields: [typeContentId], references: [id])
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   deletedAt      DateTime?
