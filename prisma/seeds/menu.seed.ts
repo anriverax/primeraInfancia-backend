@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 export async function menuSeed() {
   // Menú principal: Dashboard
-  await prisma.menu.create({
+  await prisma.menuItem.create({
     data: {
       title: "Dashboard",
       path: "/admin/dashboard",
@@ -12,7 +12,7 @@ export async function menuSeed() {
   });
 
   // Menú principal: Zonas y Grupos
-  await prisma.menu.create({
+  await prisma.menuItem.create({
     data: {
       title: "Zonas y Grupos",
       path: "/admin/zonas-grupos",
@@ -21,7 +21,7 @@ export async function menuSeed() {
   });
 
   // Menú principal: Evaluaciones
-  const evaluaciones = await prisma.menu.create({
+  const evaluaciones = await prisma.menuItem.create({
     data: {
       title: "Evaluaciones",
       path: "/admin/evaluaciones",
@@ -30,7 +30,7 @@ export async function menuSeed() {
   });
 
   // Submenús de Evaluaciones
-  await prisma.menu.createMany({
+  await prisma.menuItem.createMany({
     data: [
       {
         title: "Auto-evaluación",
@@ -51,7 +51,7 @@ export async function menuSeed() {
   });
 
   // Menú principal: Asistencia
-  const asistencia = await prisma.menu.create({
+  const asistencia = await prisma.menuItem.create({
     data: {
       title: "Asistencia",
       path: "/admin/asistencia",
@@ -60,7 +60,7 @@ export async function menuSeed() {
   });
 
   // Submenús de Asistencia
-  await prisma.menu.createMany({
+  await prisma.menuItem.createMany({
     data: [
       { title: "Talleres", path: "/admin/asistencia/talleres", parentId: asistencia.id },
       { title: "Seminarios", path: "/admin/asistencia/seminarios", parentId: asistencia.id },
@@ -79,7 +79,7 @@ export async function menuSeed() {
   });
 
   // Menú principal: Triple perfil
-  const triplePerfil = await prisma.menu.create({
+  const triplePerfil = await prisma.menuItem.create({
     data: {
       title: "Triple perfil",
       path: "/admin/triple-perfil",
@@ -88,7 +88,7 @@ export async function menuSeed() {
   });
 
   // Submenús de Triple perfil
-  await prisma.menu.createMany({
+  await prisma.menuItem.createMany({
     data: [
       {
         title: "Formadores",
@@ -112,7 +112,7 @@ export async function menuSeed() {
   });
 
   // Menú principal: Docentes
-  await prisma.menu.create({
+  await prisma.menuItem.create({
     data: {
       title: "Docentes",
       path: "/admin/docentes",

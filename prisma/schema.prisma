@@ -23,14 +23,6 @@ enum TypeRole {
   USER_DIRECTOR
 }
 
-enum TypePermission {
-  CREAR
-  EDITAR
-  ELIMINAR
-  VER
-  LEER
-}
-
 enum TypePersonEnum {
   FORMADOR
   MENTOR
@@ -60,52 +52,6 @@ model TypePerson {
   id     Int            @id @default(autoincrement())
   name   TypePersonEnum
   Person Person[]
-}
-
-model Role {
-  id         Int              @id @default(autoincrement())
-  name       TypeRole
-  User       User[]
-  Permission RolePermission[]
-}
-
-model Menu {
-  id             Int              @id @default(autoincrement())
-  title          String
-  path           String
-  icon           String?
-  parentId       Int? // Para submenús
-  MenuPermission MenuPermission[]
-  Children       Menu[]           @relation("Menu")
-  Parent         Menu?            @relation("Menu", fields: [parentId], references: [id])
-}
-
-model PermissionType {
-  id             Int              @id @default(autoincrement())
-  name           TypePermission   @unique
-  MenuPermission MenuPermission[]
-}
-
-model MenuPermission {
-  id               Int              @id @default(autoincrement())
-  menuId           Int
-  Menu             Menu             @relation(fields: [menuId], references: [id])
-  permissionTypeId Int
-  PermissionType   PermissionType   @relation(fields: [permissionTypeId], references: [id])
-  RolePermission   RolePermission[]
-
-  @@unique([menuId, permissionTypeId])
-}
-
-model RolePermission {
-  id               Int            @id @default(autoincrement())
-  isActive         Boolean
-  roleId           Int
-  Role             Role           @relation(fields: [roleId], references: [id])
-  menuPermissionId Int
-  MenuPermission   MenuPermission @relation(fields: [menuPermissionId], references: [id])
-
-  @@unique([roleId, menuPermissionId])
 }
 
 model Department {
@@ -191,7 +137,11 @@ model Academic {
  * zone = zona (Rural, Urbana)
  * sector (publico, privado)
  */
-
+/**
+ * =======================
+ * | Authentication Module |
+ * =======================
+ */
 model User {
   id            Int       @id @default(autoincrement())
   email         String    @unique
@@ -210,6 +160,58 @@ model User {
   updatedBy     Int?
   deletedBy     Int?
   UserKey       UserKey[]
+}
+
+/**
+ * ===============================================
+ * | Authorization or Roles and Permissions Module |
+ * ===============================================
+ */
+model Role {
+  id          Int              @id @default(autoincrement())
+  name        TypeRole
+  Uses        User[]
+  Permissions RolePermission[]
+}
+
+model Permission {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique // e.g., "READ_USERS"
+  description String?
+  MenuItems   MenuPermission[]
+  Roles       RolePermission[]
+}
+
+model RolePermission {
+  id           Int         @id @default(autoincrement())
+  isActive     Boolean
+  roleId       Int
+  permissionId Int?
+  Role         Role        @relation(fields: [roleId], references: [id])
+  Permission   Permission? @relation(fields: [permissionId], references: [id])
+
+  @@unique([roleId, permissionId])
+}
+
+model MenuItem {
+  id         Int              @id @default(autoincrement())
+  title      String
+  path       String
+  icon       String?
+  parentId   Int? // Para submenús
+  Children   MenuItem[]       @relation("Menu")
+  Parent     MenuItem?        @relation("Menu", fields: [parentId], references: [id])
+  Permission MenuPermission[]
+}
+
+model MenuPermission {
+  id           Int         @id @default(autoincrement())
+  menuId       Int
+  permissionId Int
+  Menu         MenuItem    @relation(fields: [menuId], references: [id])
+  Permission   Permission? @relation(fields: [permissionId], references: [id])
+
+  @@unique([menuId, permissionId])
 }
 
 model UserKey {
