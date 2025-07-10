@@ -5,7 +5,7 @@ import { IGetSchool } from "@/core/school/dto/school.type";
 
 @QueryHandler(GetAllSchoolQuery)
 export class GetAllSchoolHandler {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async execute(): Promise<IGetSchool[]> {
     const schools = await this.prisma.school.findMany({
@@ -18,10 +18,8 @@ export class GetAllSchoolHandler {
         email: true,
         coordenates: true,
         phoneNumber: true,
-        _count: {
-          select: {
-            PrincipalSchool: true
-          }
+        District: {
+          select: { name: true }
         }
       },
       orderBy: {
