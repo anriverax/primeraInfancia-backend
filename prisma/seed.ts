@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { authorizationSeed } from "./seeds/authorization.seed";
 import { menuSeed } from "./seeds/menu.seed";
 const prisma = new PrismaClient();
-
+/*
 async function typePerson() {
   await prisma.typePerson.createMany({
     data: [
@@ -28,7 +28,7 @@ async function typePerson() {
     skipDuplicates: true
   });
 }
-/*
+
 async function modulePermission() {
   await prisma.modulePermission.createMany({
     data: [
@@ -166,7 +166,7 @@ async function unit() {
 async function main() {
   // await modulePermission();
   // await rolePermission();
-  await typePerson();
+  //await typePerson();
   await authorizationSeed();
   await menuSeed();
   //  await typeContent();

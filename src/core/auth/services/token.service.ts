@@ -20,12 +20,13 @@ export class TokenService {
     email: string;
     rolId: number;
     role: string;
+    permissions: string[];
   }): Promise<string> {
-    const { id, email, rolId, role } = data;
+    const { id, email, rolId, role, permissions } = data;
     const tokenId = uuidv4();
 
     const accessToken = this.jwtService.sign(
-      { sub: id, email, rolId, role, tokenId },
+      { sub: id, email, rolId, role, tokenId, permissions },
       {
         privateKey: fs.readFileSync(process.env.JWT_PRIVATE_KEY_PATH!, "utf8"),
         algorithm: "RS256",
@@ -64,7 +65,7 @@ export class TokenService {
     return refreshToken;
   }
 
-  async generateTokens(user: IUser): Promise<ILoginResponse> {
+  async generateTokens(user: IUser, permissions: string[]): Promise<ILoginResponse> {
     const {
       id,
       email,
@@ -72,7 +73,13 @@ export class TokenService {
       Role: { name }
     } = user;
 
-    const accessToken = await this.setAccessToken({ id, email, rolId: user.Role.id, role: name });
+    const accessToken = await this.setAccessToken({
+      id,
+      email,
+      rolId: user.Role.id,
+      role: name,
+      permissions
+    });
     const refreshToken = await this.setRefreshToken({ id, email, rolId: user.Role.id, role: name });
 
     const firstName = user.Person ? user.Person.firstName : "";
@@ -88,16 +95,18 @@ export class TokenService {
         name: fullName,
         picture: user.avatar,
         role: name
-      }
+      },
+      permissions
     };
   }
 
   async refreshToken(req: Request): Promise<string> {
-    const { sub, email, rolId, role } = req["user"] as {
+    const { sub, email, rolId, role, permissions } = req["user"] as {
       email: string;
       sub: number;
       rolId: number;
       role: string;
+      permissions: string[];
     };
 
     const refreshTokenKey = `auth:refresh:${sub}`;
@@ -110,7 +119,7 @@ export class TokenService {
       );
 
     // Generate a new assessToken
-    const accessToken = await this.setAccessToken({ id: sub, rolId, email, role });
+    const accessToken = await this.setAccessToken({ id: sub, rolId, email, role, permissions });
 
     return accessToken;
   }

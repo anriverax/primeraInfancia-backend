@@ -7,24 +7,42 @@ import { IGetAllRolePermission } from "../../dto/catalogue.type";
 export class GetAllRolePermissionHandler implements IQueryHandler<GetAllRolePermissionQuery> {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(query: GetAllRolePermissionQuery): Promise<IGetAllRolePermission[]> {
-    const { rolId } = query;
+  async execute(query: GetAllRolePermissionQuery): Promise<IGetAllRolePermission | null> {
+    const { userId } = query;
 
-    const rolePermissions = await this.prisma.rolePermission.findMany({
-      where: {
-        roleId: rolId,
-        isActive: true
-      },
-      include: {
-        MenuPermission: {
-          include: {
-            Menu: true,
-            PermissionType: true
+    const userWithPermissions = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        Role: {
+          select: {
+            Permissions: {
+              select: {
+                Permission: {
+                  select: {
+                    id: true,
+                    name: true,
+                    MenuItems: {
+                      select: {
+                        Menu: {
+                          select: {
+                            id: true,
+                            title: true,
+                            path: true,
+                            icon: true,
+                            parentId: true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     });
 
-    return rolePermissions;
+    return userWithPermissions;
   }
 }

@@ -18,13 +18,15 @@ import { GetAllUserKeyByUserIdHandler } from "./cqrs/queries/userKey/findMany/ge
 import { GetByUserIdUserKeyHandler } from "./cqrs/queries/userKey/findFirst/getByUserIdUserKey.handler";
 import { PasswdChangedHandler } from "./cqrs/events/passwdChanged/passwdChanged.handler";
 import { VerifyEmailHandler } from "./cqrs/commands/verifyEmail/verifyEmail.handler";
+import { GetByRolIdHandler } from "./cqrs/queries/role/getByRolId.handler";
 
 const CommandHandlers = [RegisterUserHandler, VerifyEmailHandler, ChangePasswdHandler];
 
 const QueryHandlers = [
   FindUniqueUserQueryHandler,
   GetAllUserKeyByUserIdHandler,
-  GetByUserIdUserKeyHandler
+  GetByUserIdUserKeyHandler,
+  GetByRolIdHandler
 ];
 const EventHandlers = [UserRegisteredHandler, PasswdChangedHandler];
 

@@ -22,6 +22,7 @@ import { RegisterUserCommand } from "./cqrs/commands/register/registerUser.comma
 import { FindUniqueUserQuery } from "./cqrs/queries/user/findUniqueUser.query";
 import { ChangePasswdCommand } from "./cqrs/commands/changePasswd/changePasswd.command";
 import { VerifyEmailCommand } from "./cqrs/commands/verifyEmail/verifyEmail.command";
+import { GetByRolIdQuery } from "./cqrs/queries/role/getByRolId.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -46,7 +47,9 @@ export class AuthController {
     if (!user) throw new NotFoundException("El usuario no existe en el sistema.");
 
     await this.authService.verifyPasswd(user.passwd, value2);
-    const result = await this.tokenService.generateTokens(user);
+    const userPermissions = await this.queryBus.execute(new GetByRolIdQuery(user.roleId));
+
+    const result = await this.tokenService.generateTokens(user, userPermissions);
 
     return {
       statusCode: 200,
@@ -65,7 +68,9 @@ export class AuthController {
     const user = await this.queryBus.execute(new FindUniqueUserQuery({ email }));
     if (!user) throw new NotFoundException("El usuario no existe en el sistema.");
 
-    const data = this.authService.getData(accessToken, req["token"], user);
+    const userPermissions = await this.queryBus.execute(new GetByRolIdQuery(user.roleId));
+
+    const data = this.authService.getData(accessToken, req["token"], user, userPermissions);
 
     return {
       statusCode: 200,

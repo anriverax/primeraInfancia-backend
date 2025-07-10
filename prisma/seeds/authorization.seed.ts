@@ -64,5 +64,11 @@ export async function authorizationSeed() {
   const menuItem = await prisma.menuItem.findMany();
   const permissions = await prisma.permission.findMany();
 
-  const menuPermissionsData = getMenuItems(menuItem);
+  const menuPermissions = await getMenuItems(menuItem, permissions);
+
+  if (menuPermissions.length > 0) {
+    await prisma.menuPermission.createMany({
+      data: menuPermissions
+    });
+  }
 }

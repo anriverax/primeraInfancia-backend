@@ -1,12 +1,4 @@
-import {
-  District,
-  Menu,
-  MenuPermission,
-  Municipality,
-  PermissionType,
-  Person,
-  RolePermission
-} from "@prisma/client";
+import { District, Municipality, Person, MenuItem, Permission } from "@prisma/client";
 
 export type IMunicipalityResponse = Pick<Municipality, "id" | "name" | "departmentId">;
 
@@ -25,14 +17,20 @@ export interface IPerson extends Pick<Person, "id" | "firstName" | "lastName1" |
   fullName?: string;
 }
 
-export interface IPermission extends Menu {
-  action: PermissionType;
-}
-export interface IGetAllMenuPermission extends MenuPermission {
-  Menu: Menu;
-  PermissionType: PermissionType;
+export interface IMenuItems {
+  Menu: MenuItem;
 }
 
-export interface IGetAllRolePermission extends RolePermission {
-  MenuPermission: IGetAllMenuPermission;
+export interface IPermission extends Omit<Permission, "description"> {
+  MenuItems: IMenuItems[];
+}
+
+export interface IRolePermission {
+  Permission: IPermission | null;
+}
+
+export interface IGetAllRolePermission {
+  Role: {
+    Permissions: IRolePermission[];
+  };
 }

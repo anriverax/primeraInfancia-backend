@@ -1,11 +1,17 @@
 import { Controller, Get, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
-import { IDepartmentResponse, IGetAllRolePermission, IPermission, IPerson } from "./dto/catalogue.type";
+import {
+  IDepartmentResponse,
+  IMenuItems,
+  IPermission,
+  IPerson,
+  IRolePermission
+} from "./dto/catalogue.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 
 import { GetAllDepartmentQuery } from "../test/coutry/department/cqrs/queries/getAllDepartment.query";
 import { GetAllTypePersonQuery } from "./query/typePerson-findMany/getAllTypePerson.query";
-import { TypePerson } from "@prisma/client";
+import { MenuItem, TypePerson } from "@prisma/client";
 import { GetAllPersonQuery } from "./query/person-findMany/getAllPerson.query";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { NestResponse } from "@/common/helpers/dto";
@@ -55,18 +61,33 @@ export class CatalogueController {
   @AuthRequired()
   @Get("menuItems")
   async getMenu(@Req() req: Request): Promise<NestResponse<IPermission[]>> {
-    const rolePermissions = await this.queryBus.execute(
-      new GetAllRolePermissionQuery(req["user"].rolId)
+    const userWithPermissions = await this.queryBus.execute(
+      new GetAllRolePermissionQuery(req["user"].sub)
     );
 
-    const permissions: IPermission[] = rolePermissions.map((rp: IGetAllRolePermission) => ({
-      ...rp.MenuPermission.Menu,
-      action: {
-        ...rp.MenuPermission.PermissionType
-      }
-    }));
+    const permissions = userWithPermissions!.Role.Permissions;
 
-    return { statusCode: 200, message: "Lista de items para el menú.", data: permissions };
+    const flatMenuItems: MenuItem[] = permissions.flatMap(
+      (p: IRolePermission) => p.Permission?.MenuItems.map((m: IMenuItems) => m.Menu) ?? []
+    );
+
+    // Eliminar duplicados por id
+    const uniqueMenuItems: MenuItem[] = Array.from(
+      new Map(flatMenuItems.map((item: MenuItem) => [item!.id, item])).values()
+    );
+
+    function buildMenuTree(items: MenuItem[], parentId: number | null = null) {
+      return items
+        .filter((item: MenuItem) => item!.parentId === parentId)
+        .map((item: MenuItem) => ({
+          ...item,
+          children: buildMenuTree(items, item.id)
+        }));
+    }
+
+    const menuTree = uniqueMenuItems.length > 0 ? buildMenuTree(uniqueMenuItems) : null;
+
+    return { statusCode: 200, message: "Lista de items para el menú.", data: menuTree };
   }
 
   @AuthRequired()

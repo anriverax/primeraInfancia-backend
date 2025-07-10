@@ -1,4 +1,4 @@
-import { Academic, Person, Role, User, UserKey } from "@prisma/client";
+import { Academic, Permission, Person, Role, User, UserKey } from "@prisma/client";
 export type IAuth = Pick<
   Person,
   | "firstName"
@@ -32,6 +32,7 @@ export interface ILoginResponse {
   accessToken: string;
   refreshToken: string;
   user: ILogin;
+  permissions: string[];
 }
 
 export type IToken = Pick<IUser, "email"> & Pick<ILoginResponse, "accessToken">;
@@ -57,4 +58,13 @@ export interface IUpdatePasswdIsVerifiedParams extends Pick<IUser, "id" | "email
 
 export interface IVerifyEmail extends Pick<IUser, "id" | "email"> {
   verifyCode: string;
+}
+export type IAuthPermission = Pick<Permission, "name">;
+
+export interface IAuthRolePermission {
+  Permission: IAuthPermission | null;
+}
+
+export interface IGetAllAuthRolePermission {
+  Permissions: IAuthRolePermission[];
 }
