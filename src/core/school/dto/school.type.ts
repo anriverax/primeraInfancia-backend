@@ -20,8 +20,7 @@ export type IUpdateSchool = Pick<
 
 export type IDeleteSchool = Pick<School, "id" | "deletedBy">;
 
-export interface IGetSchool
-  extends Pick<
-    School,
-    "id" | "name" | "sector" | "districtId" | "address" | "email" | "coordenates" | "phoneNumber"
-  > { }
+export type IGetSchool = Pick<
+  School,
+  "id" | "name" | "sector" | "districtId" | "address" | "email" | "coordenates" | "phoneNumber"
+>;
