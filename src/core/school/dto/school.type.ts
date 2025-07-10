@@ -24,8 +24,4 @@ export interface IGetSchool
   extends Pick<
     School,
     "id" | "name" | "sector" | "districtId" | "address" | "email" | "coordenates" | "phoneNumber"
-  > {
-  _count: {
-    PrincipalSchool: number;
-  };
-}
+  > { }
