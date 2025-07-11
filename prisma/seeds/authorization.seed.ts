@@ -3,7 +3,7 @@ import { getMenuItems } from "./menuItems";
 const prisma = new PrismaClient();
 
 export async function authorizationSeed() {
-  await prisma.role.createMany({
+  /*await prisma.role.createMany({
     data: [
       {
         name: "ADMIN"
@@ -13,7 +13,7 @@ export async function authorizationSeed() {
       }
     ],
     skipDuplicates: true
-  });
+  });*/
 
   /** ==============================
    * | Add permissions to each role |
