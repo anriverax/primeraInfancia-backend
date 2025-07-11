@@ -2,9 +2,6 @@
 CREATE TYPE "TypeRole" AS ENUM ('ADMIN', 'USER', 'USER_FORMADOR', 'USER_MENTOR', 'USER_TECNICO_APOYO', 'USER_DOCENTE', 'USER_DIRECTOR');
 
 -- CreateEnum
-CREATE TYPE "TypePermission" AS ENUM ('CREAR', 'EDITAR', 'ELIMINAR', 'VER', 'LEER');
-
--- CreateEnum
 CREATE TYPE "TypePersonEnum" AS ENUM ('FORMADOR', 'MENTOR', 'TECNICO_APOYO', 'DOCENTE', 'DIRECTOR', 'EMPLEADO');
 
 -- CreateEnum
@@ -22,58 +19,6 @@ CREATE TABLE "TypePerson" (
     "name" "TypePersonEnum" NOT NULL,
 
     CONSTRAINT "TypePerson_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Role" (
-    "id" SERIAL NOT NULL,
-    "name" "TypeRole" NOT NULL,
-
-    CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Menu" (
-    "id" SERIAL NOT NULL,
-    "title" TEXT NOT NULL,
-    "path" TEXT NOT NULL,
-    "icon" TEXT,
-    "parentId" INTEGER,
-
-    CONSTRAINT "Menu_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "PermissionType" (
-    "id" SERIAL NOT NULL,
-    "name" "TypePermission" NOT NULL,
-
-    CONSTRAINT "PermissionType_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "MenuPermission" (
-    "id" SERIAL NOT NULL,
-    "menuId" INTEGER NOT NULL,
-    "permissionTypeId" INTEGER NOT NULL,
-
-    CONSTRAINT "MenuPermission_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "RolePermission" (
-    "id" SERIAL NOT NULL,
-    "isActive" BOOLEAN NOT NULL,
-    "roleId" INTEGER NOT NULL,
-    "menuPermissionId" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "deletedAt" TIMESTAMP(3),
-    "createdBy" INTEGER NOT NULL DEFAULT 0,
-    "updatedBy" INTEGER,
-    "deletedBy" INTEGER,
-
-    CONSTRAINT "RolePermission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -174,6 +119,53 @@ CREATE TABLE "User" (
     "deletedBy" INTEGER,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Role" (
+    "id" SERIAL NOT NULL,
+    "name" "TypeRole" NOT NULL,
+
+    CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Permission" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+
+    CONSTRAINT "Permission_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "RolePermission" (
+    "id" SERIAL NOT NULL,
+    "isActive" BOOLEAN NOT NULL,
+    "roleId" INTEGER NOT NULL,
+    "permissionId" INTEGER,
+
+    CONSTRAINT "RolePermission_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "MenuItem" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "path" TEXT NOT NULL,
+    "icon" TEXT,
+    "parentId" INTEGER,
+
+    CONSTRAINT "MenuItem_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "MenuPermission" (
+    "id" SERIAL NOT NULL,
+    "menuId" INTEGER NOT NULL,
+    "permissionId" INTEGER NOT NULL,
+
+    CONSTRAINT "MenuPermission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -349,18 +341,6 @@ CREATE TABLE "Content" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "PermissionType_name_key" ON "PermissionType"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "MenuPermission_menuId_permissionTypeId_key" ON "MenuPermission"("menuId", "permissionTypeId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "RolePermission_roleId_menuPermissionId_key" ON "RolePermission"("roleId", "menuPermissionId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Department_name_key" ON "Department"("name");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Department_geonameId_key" ON "Department"("geonameId");
 
 -- CreateIndex
@@ -379,22 +359,16 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "User_personId_key" ON "User"("personId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Permission_name_key" ON "Permission"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "RolePermission_roleId_permissionId_key" ON "RolePermission"("roleId", "permissionId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "MenuPermission_menuId_permissionId_key" ON "MenuPermission"("menuId", "permissionId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "GroupSeminar_groupId_seminarId_key" ON "GroupSeminar"("groupId", "seminarId");
-
--- AddForeignKey
-ALTER TABLE "Menu" ADD CONSTRAINT "Menu_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "Menu"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MenuPermission" ADD CONSTRAINT "MenuPermission_menuId_fkey" FOREIGN KEY ("menuId") REFERENCES "Menu"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MenuPermission" ADD CONSTRAINT "MenuPermission_permissionTypeId_fkey" FOREIGN KEY ("permissionTypeId") REFERENCES "PermissionType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "RolePermission" ADD CONSTRAINT "RolePermission_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "RolePermission" ADD CONSTRAINT "RolePermission_menuPermissionId_fkey" FOREIGN KEY ("menuPermissionId") REFERENCES "MenuPermission"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Municipality" ADD CONSTRAINT "Municipality_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -416,6 +390,21 @@ ALTER TABLE "User" ADD CONSTRAINT "User_roleId_fkey" FOREIGN KEY ("roleId") REFE
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "RolePermission" ADD CONSTRAINT "RolePermission_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "RolePermission" ADD CONSTRAINT "RolePermission_permissionId_fkey" FOREIGN KEY ("permissionId") REFERENCES "Permission"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MenuItem" ADD CONSTRAINT "MenuItem_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "MenuItem"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MenuPermission" ADD CONSTRAINT "MenuPermission_menuId_fkey" FOREIGN KEY ("menuId") REFERENCES "MenuItem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MenuPermission" ADD CONSTRAINT "MenuPermission_permissionId_fkey" FOREIGN KEY ("permissionId") REFERENCES "Permission"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserKey" ADD CONSTRAINT "UserKey_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

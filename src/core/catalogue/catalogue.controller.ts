@@ -2,8 +2,8 @@ import { Controller, Get, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import {
   IDepartmentResponse,
+  IMenuItemResponse,
   IMenuItems,
-  IPermission,
   IPerson,
   IRolePermission
 } from "./dto/catalogue.type";
@@ -60,7 +60,7 @@ export class CatalogueController {
 
   @AuthRequired()
   @Get("menuItems")
-  async getMenu(@Req() req: Request): Promise<NestResponse<IPermission[]>> {
+  async getMenu(@Req() req: Request): Promise<NestResponse<IMenuItemResponse[] | null>> {
     const userWithPermissions = await this.queryBus.execute(
       new GetAllRolePermissionQuery(req["user"].sub)
     );
@@ -76,7 +76,7 @@ export class CatalogueController {
       new Map(flatMenuItems.map((item: MenuItem) => [item!.id, item])).values()
     );
 
-    function buildMenuTree(items: MenuItem[], parentId: number | null = null) {
+    function buildMenuTree(items: MenuItem[], parentId: number | null = null): IMenuItemResponse[] | [] {
       return items
         .filter((item: MenuItem) => item!.parentId === parentId)
         .map((item: MenuItem) => ({

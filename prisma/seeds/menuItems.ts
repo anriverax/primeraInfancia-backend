@@ -5,7 +5,9 @@ export async function getMenuItems(
 ): Promise<{ menuId: number; permissionId: number }[]> {
   const menuPermissionMap: Record<string, string> = {
     "/admin/dashboard": "VIEW_DASHBOARD",
-    "/admin/zonas-grupos": "VIEW_ZONES_GROUPS"
+    "/admin/zonas-grupos": "VIEW_ZONES_GROUPS",
+    "/admin/catalogos": "VIEW_CATALOGUES",
+    "/admin/catalogo/centros-escolares": "VIEW_CATALOGUE_SCHOOL"
   };
 
   const menuPermissions: { menuId: number; permissionId: number }[] = [];

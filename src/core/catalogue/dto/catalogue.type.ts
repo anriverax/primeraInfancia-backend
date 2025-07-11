@@ -34,3 +34,7 @@ export interface IGetAllRolePermission {
     Permissions: IRolePermission[];
   };
 }
+
+export interface IMenuItemResponse extends MenuItem {
+  children?: MenuItem[];
+}

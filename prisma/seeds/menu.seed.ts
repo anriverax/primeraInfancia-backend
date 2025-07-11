@@ -119,4 +119,23 @@ export async function menuSeed() {
       icon: "User"
     }
   });
+
+  const catalogo = await prisma.menuItem.create({
+    data: {
+      title: "Catálogos",
+      path: "/admin/catalogos",
+      icon: "BookMarked"
+    }
+  });
+
+  await prisma.menuItem.createMany({
+    data: [
+      {
+        title: "Centros Escolares",
+        path: "/admin/catalogo/centros-escolares",
+        icon: "School",
+        parentId: catalogo.id
+      }
+    ]
+  });
 }
