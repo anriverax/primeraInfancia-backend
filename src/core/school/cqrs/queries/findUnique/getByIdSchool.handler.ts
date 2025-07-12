@@ -19,6 +19,20 @@ export class GetByIdSchoolHandler {
         email: true,
         coordenates: true,
         phoneNumber: true,
+        District: {
+          select: { name: true }
+        },
+        PrincipalSchool:{
+          select:{ 
+            personId :true,
+            Person: {
+              select: {
+                firstName: true,
+                lastName1: true
+              }
+            }
+          }
+        },
         _count: {
           select: {
             PrincipalSchool: true
