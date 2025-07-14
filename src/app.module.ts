@@ -20,6 +20,7 @@ import { SchoolModule } from "./core/school/school.module";
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
 import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
 import { PermissionModule } from "./core/test/permission/permission.module";
+import { PersonModule } from "./core/person/person.module";
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     ZoneModule,
     GroupModule,
     SchoolModule,
+    PersonModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -76,6 +78,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
           {
             path: "school",
             module: SchoolModule
+          },
+          {
+            path: "person",
+            module: PersonModule
           },
           {
             path: "test",

@@ -22,13 +22,14 @@ export class GetByIdSchoolHandler {
         District: {
           select: { name: true }
         },
-        PrincipalSchool:{
-          select:{ 
-            personId :true,
+        PrincipalSchool: {
+          select: {
+            personId: true,
             Person: {
               select: {
                 firstName: true,
-                lastName1: true
+                lastName1: true,
+                lastName2: true
               }
             }
           }
