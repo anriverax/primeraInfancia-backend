@@ -3,6 +3,26 @@ import { authorizationSeed } from "./seeds/authorization.seed";
 import { menuSeed } from "./seeds/menu.seed";
 const prisma = new PrismaClient();
 
+async function zones() {
+  await prisma.zone.createMany({
+    data: [
+      {
+        name: "Zona Occidental"
+      },
+      {
+        name: "Zona Central"
+      },
+      {
+        name: "Zona Paracentral"
+      },
+      {
+        name: "Zona Oriental"
+      }
+    ],
+    skipDuplicates: true
+  });
+}
+
 async function typePerson() {
   await prisma.typePerson.createMany({
     data: [
@@ -57,48 +77,12 @@ async function typeContent() {
     skipDuplicates: true
   });
 }
-
-async function unit() {
-  await prisma.unit.createMany({
-    data: [
-      {
-        id: 1,
-        name: "Módulo 1",
-        createdAt: new Date()
-      },
-      {
-        id: 2,
-        name: "Módulo 2",
-        createdAt: new Date()
-      },
-      {
-        id: 3,
-        name: "Módulo 3",
-        createdAt: new Date()
-      },
-      {
-        id: 4,
-        name: "Módulo 4",
-        createdAt: new Date()
-      },
-      {
-        id: 5,
-        name: "Módulo 5",
-        createdAt: new Date()
-      }
-    ],
-    skipDuplicates: true
-  });
-}
 */
 async function main() {
-  // await modulePermission();
-  // await rolePermission();
+  await zones();
   await typePerson();
   await menuSeed();
   await authorizationSeed();
-  //  await typeContent();
-  //  await unit();
 }
 main()
   .then(async () => {

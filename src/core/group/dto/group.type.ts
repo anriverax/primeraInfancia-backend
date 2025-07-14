@@ -1,5 +1,5 @@
 import { IPagination } from "@/common/helpers/dto";
-import { IGetZone } from "@/core/zone/dto/zone.dto";
+import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
 import { Group } from "@prisma/client";
 
 export type ICreateGroup = Pick<

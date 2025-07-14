@@ -11,8 +11,7 @@ export class GetByIdGroupHandler {
     const groups = await this.prisma.group.findUnique({
       where: {
         id: query.id,
-        deletedAt: null,
-        Zone: { deletedAt: null }
+        deletedAt: null
       },
       select: {
         id: true,

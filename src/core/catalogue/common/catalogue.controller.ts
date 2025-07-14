@@ -9,7 +9,7 @@ import {
 } from "./dto/catalogue.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 
-import { GetAllDepartmentQuery } from "../test/coutry/department/cqrs/queries/getAllDepartment.query";
+import { GetAllDepartmentQuery } from "../../test/coutry/department/cqrs/queries/getAllDepartment.query";
 import { GetAllTypePersonQuery } from "./query/typePerson-findMany/getAllTypePerson.query";
 import { MenuItem, TypePerson } from "@prisma/client";
 import { GetAllPersonQuery } from "./query/person-findMany/getAllPerson.query";

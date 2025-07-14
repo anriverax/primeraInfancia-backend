@@ -54,11 +54,20 @@ model TypePerson {
   Person Person[]
 }
 
+model Zone {
+  id         Int          @id @default(autoincrement())
+  name       String
+  Group      Group[]
+  Department Department[]
+}
+
 model Department {
   id           Int            @id @default(autoincrement())
   name         String
   geonameId    Int            @unique
   countryId    Int
+  zoneId       Int
+  Zone         Zone           @relation(fields: [zoneId], references: [id])
   Municipality Municipality[]
 }
 
@@ -225,19 +234,6 @@ model UserKey {
   user       User      @relation(fields: [userId], references: [id])
 }
 
-model Zone {
-  id        Int       @id @default(autoincrement())
-  name      String // example: "Zona Occidente"
-  Group     Group[]
-  School    School[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  createdBy Int?
-  updatedBy Int?
-  deletedBy Int?
-}
-
 model Group {
   id           Int            @id @default(autoincrement())
   name         String // example: "Grupo #1 (CFD Santa Ana)"
@@ -305,8 +301,7 @@ model GroupSeminar {
 model School {
   id              Int               @id @default(autoincrement())
   name            String
-  zoneId          Int
-  Zone            Zone              @relation(fields: [zoneId], references: [id])
+  zone            String
   sector          Sector
   districtId      Int
   District        District          @relation(fields: [districtId], references: [id])

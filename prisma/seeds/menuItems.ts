@@ -1,13 +1,16 @@
 import { MenuItem, Permission } from "@prisma/client";
+import { menuJson } from "./base/urls";
+import { PermissionEnum } from "./base/enum";
 export async function getMenuItems(
   menus: MenuItem[],
   permissions: Permission[]
 ): Promise<{ menuId: number; permissionId: number }[]> {
-  const menuPermissionMap: Record<string, string> = {
-    "/admin/dashboard": "VIEW_DASHBOARD",
-    "/admin/zonas-grupos": "VIEW_ZONES_GROUPS",
-    "/admin/catalogos": "VIEW_CATALOGUES",
-    "/admin/catalogo/centros-escolares": "VIEW_CATALOGUE_SCHOOL"
+  const menuPermissionMap: Record<string, PermissionEnum> = {
+    [menuJson.dashboard]: PermissionEnum.VIEW_DASHBOARD,
+    [menuJson.grupos]: PermissionEnum.VIEW_GROUPS,
+    [menuJson.catalogos]: PermissionEnum.VIEW_CATALOGUES,
+    [menuJson.centrosEscolares]: PermissionEnum.VIEW_CATALOGUE_SCHOOL,
+    [menuJson.zonas]: PermissionEnum.VIEW_CATALOGUE_ZONE
   };
 
   const menuPermissions: { menuId: number; permissionId: number }[] = [];

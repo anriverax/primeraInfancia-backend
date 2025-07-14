@@ -1,9 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 import { getMenuItems } from "./menuItems";
+import { PermissionEnum } from "./base/enum";
+
 const prisma = new PrismaClient();
 
 export async function authorizationSeed() {
-  /*await prisma.role.createMany({
+  await prisma.role.createMany({
     data: [
       {
         name: "ADMIN"
@@ -13,7 +15,7 @@ export async function authorizationSeed() {
       }
     ],
     skipDuplicates: true
-  });*/
+  });
 
   /** ==============================
    * | Add permissions to each role |
@@ -22,15 +24,16 @@ export async function authorizationSeed() {
   await prisma.permission.createMany({
     data: [
       {
-        name: "VIEW_DASHBOARD",
+        name: PermissionEnum.VIEW_DASHBOARD,
         description: "Ver dashboard"
       },
-      { name: "VIEW_ZONES_GROUPS", description: "Ver zonas y grupos" },
-      { name: "CREATE_ZONES_GROUPS", description: "Crear zonas y grupos" },
-      { name: "EDIT_ZONES_GROUPS", description: "Editar zonas y grupos" },
-      { name: "DELETE_ZONES_GROUPS", description: "Eliminar zonas y grupos" },
-      { name: "VIEW_CATALOGUES", description: "Ver catálogos" },
-      { name: "VIEW_CATALOGUE_SCHOOL", description: "Ver centros escolares" }
+      { name: PermissionEnum.VIEW_GROUPS, description: "Ver zonas y grupos" },
+      { name: PermissionEnum.CREATE_GROUPS, description: "Crear zonas y grupos" },
+      { name: PermissionEnum.EDIT_GROUPS, description: "Editar zonas y grupos" },
+      { name: PermissionEnum.DELETE_GROUPS, description: "Eliminar zonas y grupos" },
+      { name: PermissionEnum.VIEW_CATALOGUES, description: "Ver catálogos" },
+      { name: PermissionEnum.VIEW_CATALOGUE_SCHOOL, description: "Ver centros escolares" },
+      { name: PermissionEnum.VIEW_CATALOGUE_ZONE, description: "Ver zonas" }
     ],
     skipDuplicates: true
   });
@@ -48,7 +51,9 @@ export async function authorizationSeed() {
     }))
   });
 
-  const userPerms = allPermissions.filter((p) => ["VIEW_DASHBOARD"].includes(p.name));
+  const userPerms = allPermissions.filter((p) =>
+    [PermissionEnum.VIEW_DASHBOARD].includes(p.name as PermissionEnum)
+  );
 
   await prisma.rolePermission.createMany({
     data: userPerms.map((p) => ({

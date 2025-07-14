@@ -15,9 +15,6 @@ export class GetAllGroupHandler {
       this.prisma.group.findMany({
         skip,
         take: limit,
-        where: {
-          Zone: { deletedAt: null }
-        },
         select: {
           id: true,
           name: true,
@@ -38,7 +35,7 @@ export class GetAllGroupHandler {
         }
       }),
 
-      this.prisma.group.count({ where: { Zone: { deletedAt: null } } })
+      this.prisma.group.count()
     ]);
 
     const lastPage = Math.ceil(total / limit);

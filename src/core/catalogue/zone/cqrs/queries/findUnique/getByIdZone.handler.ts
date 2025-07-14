@@ -1,14 +1,15 @@
 import { QueryHandler } from "@nestjs/cqrs";
-import { GetAllZoneQuery } from "./getAllZone.query";
+import { GetByIdZoneQuery } from "./getByIdZone.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IGetZone } from "@/core/zone/dto/zone.dto";
+import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
 
-@QueryHandler(GetAllZoneQuery)
-export class GetAllZoneHandler {
+@QueryHandler(GetByIdZoneQuery)
+export class GetByIdZoneHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(): Promise<IGetZone[]> {
-    const zones = await this.prisma.zone.findMany({
+  async execute(query: GetByIdZoneQuery): Promise<IGetZone | null> {
+    const zones = await this.prisma.zone.findUnique({
+      where: { id: query.id },
       select: {
         id: true,
         name: true,
@@ -17,9 +18,6 @@ export class GetAllZoneHandler {
             Group: true
           }
         }
-      },
-      orderBy: {
-        id: "asc"
       }
     });
 
