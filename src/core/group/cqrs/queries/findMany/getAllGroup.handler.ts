@@ -1,37 +1,58 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { GetAllGroupQuery } from "./getAllGroup.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IGetAllGroup } from "@/core/group/dto/group.type";
+import { IGroupsWithPagination } from "@/core/group/dto/group.type";
 
 @QueryHandler(GetAllGroupQuery)
 export class GetAllGroupHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(): Promise<IGetAllGroup[]> {
-    const groups = await this.prisma.group.findMany({
-      where: {
-        Zone: { deletedAt: null }
-      },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        memberCount: true,
-        Zone: {
-          select: { id: true, name: true }
-        },
-        Person: {
-          select: { id: true }
-        },
-        _count: {
-          select: { GroupMember: true }
-        }
-      },
-      orderBy: {
-        id: "asc"
-      }
-    });
+  async execute(query: GetAllGroupQuery): Promise<IGroupsWithPagination> {
+    const { page = 1, limit = 10 } = query.data;
 
-    return groups;
+    const skip = (page - 1) * limit;
+    const [data, total] = await Promise.all([
+      this.prisma.group.findMany({
+        skip,
+        take: limit,
+        where: {
+          Zone: { deletedAt: null }
+        },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          memberCount: true,
+          Zone: {
+            select: { id: true, name: true }
+          },
+          Person: {
+            select: { id: true }
+          },
+          _count: {
+            select: { GroupMember: true }
+          }
+        },
+        orderBy: {
+          id: "asc"
+        }
+      }),
+
+      this.prisma.group.count({ where: { Zone: { deletedAt: null } } })
+    ]);
+
+    const lastPage = Math.ceil(total / limit);
+
+    return {
+      data,
+      meta: {
+        total,
+        currentPage: page,
+        perPage: limit,
+        lastPage,
+        prev: page > 1 ? page - 1 : null,
+        next: page < lastPage ? page + 1 : null
+      }
+    };
   }
 }

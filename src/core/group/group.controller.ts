@@ -1,10 +1,10 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseFilters } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { GroupDto } from "./dto/group.dto";
+import { GroupDto, GroupPaginationDto } from "./dto/group.dto";
 import { CreateGroupCommand } from "./cqrs/command/create/createGroup.command";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse, NestResponseWithPagination } from "@/common/helpers/dto";
 import { Group } from "@prisma/client";
 import { UpdateGroupCommand } from "./cqrs/command/update/updateGroup.command";
 import { DeleteGroupCommand } from "./cqrs/command/delete/deleteGroup.command";
@@ -28,15 +28,17 @@ export class GroupController {
     );
   }
 
-  @AuthRequired()
   @Get()
-  async getAll(): Promise<NestResponse<IGetAllGroup[]>> {
-    const result = await this.queryBus.execute(new GetAllGroupQuery());
+  async getAll(
+    @Query() filterPagination: GroupPaginationDto
+  ): Promise<NestResponseWithPagination<IGetAllGroup[]>> {
+    const result = await this.queryBus.execute(new GetAllGroupQuery(filterPagination));
 
     return {
       statusCode: 200,
       message: "Listado de grupos registrados",
-      data: result
+      data: result.data,
+      meta: result.meta
     };
   }
 

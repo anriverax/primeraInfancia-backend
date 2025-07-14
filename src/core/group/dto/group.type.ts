@@ -1,3 +1,4 @@
+import { IPagination } from "@/common/helpers/dto";
 import { IGetZone } from "@/core/zone/dto/zone.dto";
 import { Group } from "@prisma/client";
 
@@ -21,6 +22,10 @@ export interface IGetAllGroup extends Pick<Group, "id" | "name" | "description" 
   };
 }
 
+export interface IGroupsWithPagination {
+  data: IGetAllGroup[];
+  meta: IPagination;
+}
 export interface IGetByIdGroup extends Omit<IGetAllGroup, "Person"> {
   Person: {
     id: number;
