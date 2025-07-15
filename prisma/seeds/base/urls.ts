@@ -16,7 +16,7 @@ export const menuJson = {
   mentores: "/admin/triple-perfil/mentores",
   tecnicosApoyo: "/admin//triple-perfil/tecnicos-apoyo",
   docentes: "/admin/docentes",
-  catalogos: "/admin/catalogos",
+  catalogos: "/admin/catalogo",
   centrosEscolares: "/admin/catalogo/centros-escolares",
   zonas: "/admin/catalogo/zonas"
 };
