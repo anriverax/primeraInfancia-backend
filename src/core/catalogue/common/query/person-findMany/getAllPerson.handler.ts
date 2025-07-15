@@ -8,14 +8,55 @@ export class GetAllPersonHandler {
   constructor(private readonly prisma: PrismaService) {}
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  async execute(): Promise<IPerson[]> {
+  async execute(query: GetAllPersonQuery): Promise<IPerson[]> {
+    const { typePersonId } = query;
+    let selectProps: any;
+
+    if (typePersonId === 2) {
+      selectProps = {
+        id: true,
+        fullName: true,
+        phoneNumber: true,
+        User: {
+          select: {
+            email: true
+          }
+        },
+        District: {
+          select: {
+            Municipality: {
+              select: {
+                Department: {
+                  select: {
+                    name: true,
+                    Zone: {
+                      select: {
+                        name: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      };
+    }
+
+    if (typePersonId === 4) {
+      selectProps = {
+        id: true,
+        fullName: true
+      };
+    }
+
     const persons = await this.prisma.person.findMany({
       where: {
-        typePersonId: { gte: 4 }
+        typePersonId
       },
-      select: { id: true, fullName: true } as any,
+      select: selectProps as any,
       orderBy: {
-        id: "asc"
+        firstName: "asc"
       }
     });
 

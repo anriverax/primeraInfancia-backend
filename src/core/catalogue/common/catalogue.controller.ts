@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseFilters } from "@nestjs/common";
+import { Controller, Get, Param, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import {
   IDepartmentResponse,
@@ -91,9 +91,9 @@ export class CatalogueController {
   }
 
   @AuthRequired()
-  @Get("persons")
-  async getAllPerson(): Promise<NestResponse<IPerson[]>> {
-    const data = await this.queryBus.execute(new GetAllPersonQuery());
+  @Get("persons/:typePersonId")
+  async getAllPerson(@Param("typePersonId") typePersonId: string): Promise<NestResponse<IPerson[]>> {
+    const data = await this.queryBus.execute(new GetAllPersonQuery(parseInt(typePersonId)));
 
     return {
       statusCode: 200,
