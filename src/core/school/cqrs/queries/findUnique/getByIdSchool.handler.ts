@@ -5,7 +5,7 @@ import { IGetSchool } from "@/core/school/dto/school.type";
 
 @QueryHandler(GetByIdSchoolQuery)
 export class GetByIdSchoolHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetByIdSchoolQuery): Promise<IGetSchool | null> {
     const schools = await this.prisma.school.findUnique({
@@ -32,12 +32,7 @@ export class GetByIdSchoolHandler {
                 lastName1: true,
                 lastName2: true,
                 dui: true,
-                address: true,
-                gender: true,
                 phoneNumber: true,
-                birthdate: true,
-                duiImage: true,
-                isActive: true,
                 User: {
                   select: {
                     email: true
