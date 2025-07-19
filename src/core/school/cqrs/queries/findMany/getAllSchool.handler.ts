@@ -5,7 +5,7 @@ import { IGetSchool } from "@/core/school/dto/school.type";
 
 @QueryHandler(GetAllSchoolQuery)
 export class GetAllSchoolHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(): Promise<IGetSchool[]> {
     const schools = await this.prisma.school.findMany({
