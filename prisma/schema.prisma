@@ -49,10 +49,10 @@ enum Sector {
 
 // ====== START - CATALOGUE ======
 model TypePerson {
-  id     Int            @id @default(autoincrement())
-  name   TypePersonEnum
-  Person Person[]
-  personRoles          PersonRole[]
+  id          Int            @id @default(autoincrement())
+  name        TypePersonEnum
+  Person      Person[]
+  personRoles PersonRole[]
 }
 
 model Zone {
@@ -100,33 +100,35 @@ model StoredEvent {
 // ====== END - CATALOGUE ======
 
 model Person {
-  id              Int               @id @default(autoincrement())
-  firstName       String
-  lastName1       String
-  lastName2       String
-  dui             String            @unique
-  address         String
-  gender          TypeGender
-  phoneNumber     String
-  birthdate       String?
-  duiImage        String[]
-  districtId      Int
-  District        District          @relation(fields: [districtId], references: [id])
-  isActive        Boolean           @default(true)
-  typePersonId    Int
-  TypePerson      TypePerson        @relation(fields: [typePersonId], references: [id])
-  personRoles     PersonRole[]
-  groupTrainer    GroupTrainer[]
-  User            User?
-  Academic        Academic?
-  PrincipalSchool PrincipalSchool[]
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  deletedAt       DateTime?
-  updatedBy       Int?
-  deletedBy       Int?
-  GroupMember     GroupMember[]
-  Group           Group[]
+  id                Int                @id @default(autoincrement())
+  firstName         String
+  lastName1         String
+  lastName2         String
+  dui               String             @unique
+  address           String
+  gender            TypeGender
+  phoneNumber       String
+  birthdate         String?
+  duiImage          String[]
+  districtId        Int
+  District          District           @relation(fields: [districtId], references: [id])
+  isActive          Boolean            @default(true)
+  typePersonId      Int
+  TypePerson        TypePerson         @relation(fields: [typePersonId], references: [id])
+  personRoles       PersonRole[]
+  groupTrainer      GroupTrainer[]
+  enrollmentMentor  EnrollmentMentor[]
+  enrollmentTeacher Enrollment[]
+  User              User?
+  Academic          Academic?
+  PrincipalSchool   PrincipalSchool[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  deletedAt         DateTime?
+  updatedBy         Int?
+  deletedBy         Int?
+  GroupMember       GroupMember[]
+  Group             Group[]
 }
 
 model Academic {
@@ -248,6 +250,7 @@ model Group {
   Zone         Zone           @relation(fields: [zoneId], references: [id])
   GroupSeminar GroupSeminar[]
   GroupTrainer GroupTrainer[]
+  enrollment   Enrollment[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   deletedAt    DateTime?
@@ -372,29 +375,56 @@ model Content {
 }
 
 model PersonRole {
-  id            Int         @id @default(autoincrement())
-  typePersonId  Int
-  typePerson    TypePerson  @relation(fields: [typePersonId], references: [id])
-  personId      Int
-  person        Person       @relation(fields: [personId], references: [id])
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  deletedAt     DateTime?
-  createdBy     Int?
-  updatedBy     Int?
-  deletedBy     Int?
+  id           Int          @id @default(autoincrement())
+  typePersonId Int
+  typePerson   TypePerson   @relation(fields: [typePersonId], references: [id])
+  personId     Int
+  person       Person       @relation(fields: [personId], references: [id])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  deletedAt    DateTime?
+  createdBy    Int?
+  updatedBy    Int?
+  deletedBy    Int?
+  Enrollment   Enrollment[]
 }
 
 model GroupTrainer {
-  id          Int       @id @default(autoincrement())
-  groupId     Int
-  group       Group     @relation(fields: [groupId], references: [id])
-  trainerId   Int
-  trainer     Person    @relation(fields: [trainerId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime?
-  createdBy   Int?
-  updatedBy   Int?
-  deletedBy   Int?
+  id        Int       @id @default(autoincrement())
+  groupId   Int
+  group     Group     @relation(fields: [groupId], references: [id])
+  trainerId Int
+  trainer   Person    @relation(fields: [trainerId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
+}
+
+model Enrollment {
+  id                   Int                @id @default(autoincrement())
+  administrativeStatus String
+  teacherId            Int
+  personRole           PersonRole         @relation(fields: [teacherId], references: [id])
+  groupId              Int
+  group                Group              @relation(fields: [groupId], references: [id])
+  enrollmentMentors    EnrollmentMentor[]
+  Person               Person?            @relation(fields: [personId], references: [id])
+  personId             Int?
+}
+
+model EnrollmentMentor {
+  id           Int        @id @default(autoincrement())
+  enrollmentId Int
+  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id])
+  mentorId     Int
+  mentor       Person     @relation(fields: [mentorId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  deletedAt    DateTime?
+  createdBy    Int?
+  updatedBy    Int?
+  deletedBy    Int?
 }
