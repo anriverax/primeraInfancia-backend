@@ -412,6 +412,9 @@ model Enrollment {
   group                Group              @relation(fields: [groupId], references: [id])
   enrollmentMentors    EnrollmentMentor[]
   moduleReport         ModuleReport[]
+  moduleEvaluation     ModuleEvaluation[]
+  trainingReport       TrainingReport[]
+  trainingEvaluation   TrainingEvaluation[]
   Person               Person?            @relation(fields: [personId], references: [id])
   personId             Int?
   createdAt            DateTime   @default(now())
@@ -449,7 +452,7 @@ model TrainingModule {
 }
 
 model ModuleReport {
-  moduleReportId   Int     @id @default(autoincrement())
+  id               Int     @id @default(autoincrement())
   moduleScore      Float
   status           String
   trainingModuleId Int
@@ -462,5 +465,70 @@ model ModuleReport {
   createdBy        Int?
   updatedBy        Int?
   deletedBy        Int?
-  @@unique([trainingModuleId, enrollmentId]) // An enrollment only has one report per module
+  @@unique([trainingModuleId, enrollmentId])
+}
+
+model TrainingReport {
+  id    Int       @id @default(autoincrement())
+  finalScore          Float
+  status              String 
+  strength            String
+  areaForImprovement  String
+  recommendation      String
+  enrollmentId        Int       
+  enrollment          Enrollment @relation(fields: [enrollmentId], references: [id])
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  deletedAt           DateTime?
+  createdBy           Int?
+  updatedBy           Int?
+  deletedBy           Int?
+}
+
+model TrainingEvaluation {
+  id                     Int      @id @default(autoincrement())
+  grade                  String
+  comment                String
+  evaluationInstrumentId Int
+  evaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
+  enrollmentId           Int
+  enrollment             Enrollment @relation(fields: [enrollmentId], references: [id])
+  createdAt              DateTime   @default(now())
+  updatedAt              DateTime   @updatedAt
+  deletedAt              DateTime?
+  createdBy              Int?
+  updatedBy              Int?
+  deletedBy              Int?
+}
+
+model EvaluationInstrument {
+  id                     Int                @id @default(autoincrement())
+  instrumentName         String             @unique
+  periodicity            String
+  percentage             Float
+  moduleEvaluations      ModuleEvaluation[]
+  trainingEvaluations    TrainingEvaluation[]
+  createdAt              DateTime   @default(now())
+  updatedAt              DateTime   @updatedAt
+  deletedAt              DateTime?
+  createdBy              Int?
+  updatedBy              Int?
+  deletedBy              Int?
+}
+
+model ModuleEvaluation {
+  id                      Int      @id @default(autoincrement())
+  grade                   String
+  comment                 String
+  moduleProgressStatus    String
+  evaluationInstrumentId  Int
+  evaluationInstrument    EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
+  enrollmentId            Int
+  enrollment              Enrollment @relation(fields: [enrollmentId], references: [id])
+  createdAt               DateTime   @default(now())
+  updatedAt               DateTime   @updatedAt
+  deletedAt               DateTime?
+  createdBy               Int?
+  updatedBy               Int?
+  deletedBy               Int?
 }
