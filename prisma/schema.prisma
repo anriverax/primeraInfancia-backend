@@ -52,6 +52,7 @@ model TypePerson {
   id     Int            @id @default(autoincrement())
   name   TypePersonEnum
   Person Person[]
+  personRoles          PersonRole[]
 }
 
 model Zone {
@@ -114,6 +115,7 @@ model Person {
   isActive        Boolean           @default(true)
   typePersonId    Int
   TypePerson      TypePerson        @relation(fields: [typePersonId], references: [id])
+  personRoles     PersonRole[]
   User            User?
   Academic        Academic?
   PrincipalSchool PrincipalSchool[]
@@ -365,4 +367,13 @@ model Content {
   createdBy      Int?
   updatedBy      Int?
   deletedBy      Int?
+}
+
+model PersonRole {
+  id            Int         @id @default(autoincrement())
+  typePersonId  Int
+  typePerson    TypePerson  @relation(fields: [typePersonId], references: [id])
+
+  personId     Int
+  person       Person       @relation(fields: [personId], references: [id])
 }
