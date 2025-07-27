@@ -373,7 +373,12 @@ model PersonRole {
   id            Int         @id @default(autoincrement())
   typePersonId  Int
   typePerson    TypePerson  @relation(fields: [typePersonId], references: [id])
-
-  personId     Int
-  person       Person       @relation(fields: [personId], references: [id])
+  personId      Int
+  person        Person       @relation(fields: [personId], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+  createdBy     Int?
+  updatedBy     Int?
+  deletedBy     Int?
 }

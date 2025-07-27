@@ -22,11 +22,20 @@ CREATE TABLE "TypePerson" (
 );
 
 -- CreateTable
+CREATE TABLE "Zone" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Zone_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Department" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "geonameId" INTEGER NOT NULL,
     "countryId" INTEGER NOT NULL,
+    "zoneId" INTEGER NOT NULL,
 
     CONSTRAINT "Department_pkey" PRIMARY KEY ("id")
 );
@@ -182,20 +191,6 @@ CREATE TABLE "UserKey" (
 );
 
 -- CreateTable
-CREATE TABLE "Zone" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "deletedAt" TIMESTAMP(3),
-    "createdBy" INTEGER,
-    "updatedBy" INTEGER,
-    "deletedBy" INTEGER,
-
-    CONSTRAINT "Zone_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Group" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
@@ -264,7 +259,7 @@ CREATE TABLE "GroupSeminar" (
 CREATE TABLE "School" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "zoneId" INTEGER NOT NULL,
+    "zone" TEXT NOT NULL,
     "sector" "Sector" NOT NULL,
     "districtId" INTEGER NOT NULL,
     "address" TEXT NOT NULL,
@@ -340,6 +335,15 @@ CREATE TABLE "Content" (
     CONSTRAINT "Content_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "PersonRole" (
+    "id" SERIAL NOT NULL,
+    "typePersonId" INTEGER NOT NULL,
+    "personId" INTEGER NOT NULL,
+
+    CONSTRAINT "PersonRole_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Department_geonameId_key" ON "Department"("geonameId");
 
@@ -369,6 +373,9 @@ CREATE UNIQUE INDEX "MenuPermission_menuId_permissionId_key" ON "MenuPermission"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "GroupSeminar_groupId_seminarId_key" ON "GroupSeminar"("groupId", "seminarId");
+
+-- AddForeignKey
+ALTER TABLE "Department" ADD CONSTRAINT "Department_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Municipality" ADD CONSTRAINT "Municipality_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -428,9 +435,6 @@ ALTER TABLE "GroupSeminar" ADD CONSTRAINT "GroupSeminar_groupId_fkey" FOREIGN KE
 ALTER TABLE "GroupSeminar" ADD CONSTRAINT "GroupSeminar_seminarId_fkey" FOREIGN KEY ("seminarId") REFERENCES "Seminar"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "School" ADD CONSTRAINT "School_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "School" ADD CONSTRAINT "School_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES "District"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -438,3 +442,9 @@ ALTER TABLE "PrincipalSchool" ADD CONSTRAINT "PrincipalSchool_personId_fkey" FOR
 
 -- AddForeignKey
 ALTER TABLE "PrincipalSchool" ADD CONSTRAINT "PrincipalSchool_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "School"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PersonRole" ADD CONSTRAINT "PersonRole_typePersonId_fkey" FOREIGN KEY ("typePersonId") REFERENCES "TypePerson"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PersonRole" ADD CONSTRAINT "PersonRole_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
