@@ -116,6 +116,7 @@ model Person {
   typePersonId    Int
   TypePerson      TypePerson        @relation(fields: [typePersonId], references: [id])
   personRoles     PersonRole[]
+  groupTrainer    GroupTrainer[]
   User            User?
   Academic        Academic?
   PrincipalSchool PrincipalSchool[]
@@ -246,6 +247,7 @@ model Group {
   zoneId       Int
   Zone         Zone           @relation(fields: [zoneId], references: [id])
   GroupSeminar GroupSeminar[]
+  GroupTrainer GroupTrainer[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   deletedAt    DateTime?
@@ -381,4 +383,18 @@ model PersonRole {
   createdBy     Int?
   updatedBy     Int?
   deletedBy     Int?
+}
+
+model GroupTrainer {
+  id          Int       @id @default(autoincrement())
+  groupId     Int
+  group       Group     @relation(fields: [groupId], references: [id])
+  trainerId   Int
+  trainer     Person    @relation(fields: [trainerId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
 }
