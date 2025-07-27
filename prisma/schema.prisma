@@ -411,6 +411,7 @@ model Enrollment {
   groupId              Int
   group                Group              @relation(fields: [groupId], references: [id])
   enrollmentMentors    EnrollmentMentor[]
+  moduleReport         ModuleReport[]
   Person               Person?            @relation(fields: [personId], references: [id])
   personId             Int?
   createdAt            DateTime   @default(now())
@@ -436,12 +437,30 @@ model EnrollmentMentor {
 }
 
 model TrainingModule {
-  trainingModuleId Int        @id @default(autoincrement())
+  id               Int        @id @default(autoincrement())
   moduleName       String     @unique
+  moduleReport     ModuleReport[]
   createdAt        DateTime   @default(now())
   updatedAt        DateTime   @updatedAt
   deletedAt        DateTime?
   createdBy        Int?
   updatedBy        Int?
   deletedBy        Int?
+}
+
+model ModuleReport {
+  moduleReportId   Int     @id @default(autoincrement())
+  moduleScore      Float
+  status           String
+  trainingModuleId Int
+  trainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
+  enrollmentId     Int
+  enrollment       Enrollment     @relation(fields: [enrollmentId], references: [id])
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int?
+  updatedBy        Int?
+  deletedBy        Int?
+  @@unique([trainingModuleId, enrollmentId]) // An enrollment only has one report per module
 }
