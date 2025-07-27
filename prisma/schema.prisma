@@ -413,6 +413,12 @@ model Enrollment {
   enrollmentMentors    EnrollmentMentor[]
   Person               Person?            @relation(fields: [personId], references: [id])
   personId             Int?
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+  deletedAt            DateTime?
+  createdBy            Int?
+  updatedBy            Int?
+  deletedBy            Int?
 }
 
 model EnrollmentMentor {
