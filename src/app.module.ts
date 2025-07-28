@@ -18,6 +18,7 @@ import { CatalogueModule } from "./core/catalogue/common/catalogue.module";
 import { ProfileModule } from "./core/profile/profile.module";
 import { ZoneModule } from "./core/catalogue/zone/zone.module";
 import { GroupModule } from "./core/group/group.module";
+import { TrainingModuleModule } from "./core/trainingModule/trainingModule.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -48,6 +49,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     ProfileModule,
     ZoneModule,
     GroupModule,
+    TrainingModuleModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -76,6 +78,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
           {
             path: "group",
             module: GroupModule
+          },
+          {
+            path: "trainingModule",
+            module: TrainingModuleModule
           },
           {
             path: "test",
