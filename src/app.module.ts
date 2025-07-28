@@ -25,6 +25,7 @@ import { GroupTrainerModule } from "./core/groupTrainer/groupTrainer.module";
 import { EnrollmentMentorModule } from "./core/enrollmentMentor/enrollmentMentor.module";
 import { EnrollmentModule } from "./core/enrollment/enrollment.module";
 import { ModuleReportModule } from "./core/moduleReport/moduleReport.module";
+import { TrainingReportModule } from "./core/trainingReport/trainingReport.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -62,6 +63,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     EnrollmentMentorModule,
     EnrollmentModule,
     ModuleReportModule,
+    TrainingReportModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -118,6 +120,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
           {
             path: "ModuleReport",
             module: ModuleReportModule
+          },
+          {
+            path: "TrainingReport",
+            module: TrainingReportModule
           },
           {
             path: "test",
