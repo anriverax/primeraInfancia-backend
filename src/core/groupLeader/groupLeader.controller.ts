@@ -8,7 +8,7 @@ import { GetAllPersonByTypePersonQuery } from "../helper/cqrs/queries/person-fin
 import { GroupLeaderDto } from "./dto/groupLeader.dto";
 import { GroupLeader } from "@prisma/client";
 import { CreateGroupLeaderCommand } from "./cqrs/command/create/createGroupLeader.command";
-import { DeleteGroupLeaderCommand } from './cqrs/command/delete/deleteGroupLeader.command';
+import { DeleteGroupLeaderCommand } from "./cqrs/command/delete/deleteGroupLeader.command";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)

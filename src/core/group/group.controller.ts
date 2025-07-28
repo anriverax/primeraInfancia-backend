@@ -9,7 +9,7 @@ import { Group } from "@prisma/client";
 import { UpdateGroupCommand } from "./cqrs/command/update/updateGroup.command";
 import { DeleteGroupCommand } from "./cqrs/command/delete/deleteGroup.command";
 import { GetAllGroupQuery } from "./cqrs/queries/findMany/getAllGroup.query";
-import { IGetAllGroup, IGetByIdGroup } from "./dto/group.type";
+import { IGetAllGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
 import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
 
 @Controller()
@@ -67,13 +67,24 @@ export class GroupController {
   }
 
   @Get(":id")
-  async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroup>> {
+  async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupWithFullName>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
+
+    let leaders: any[] = [];
+    if (result?.GroupLeader && Array.isArray(result.GroupLeader)) {
+      leaders = result.GroupLeader.map((leader) => ({
+        Person: {
+          id: leader.Person.id,
+          fullName:
+            `${leader.Person.firstName ?? ""} ${leader.Person.lastName1 ?? ""} ${leader.Person.lastName2 ?? ""}`.trim()
+        }
+      }));
+    }
 
     return {
       statusCode: 200,
       message: "Listado de grupos por ID",
-      data: result
+      data: { ...result, GroupLeader: leaders }
     };
   }
 }

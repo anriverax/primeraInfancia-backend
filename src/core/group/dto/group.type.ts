@@ -27,7 +27,15 @@ export interface IGetByIdGroup extends IGetAllGroup {
       firstName: string;
       lastName1: string;
       lastName2: string;
-      fullName?: string;
     };
-  };
+  }[];
+}
+
+export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLeader"> {
+  GroupLeader: {
+    Person: {
+      id: number;
+      fullName: string; // Full name derived from firstName, lastName1, and lastName2
+    };
+  }[];
 }

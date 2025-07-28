@@ -5,7 +5,7 @@ import { GroupLeader } from "@prisma/client";
 import { GroupLeaderProjection } from "../../projections/groupLeader.projection";
 
 @CommandHandler(CreateGroupLeaderCommand)
-export class CreateGroupHandler implements ICommandHandler<CreateGroupLeaderCommand> {
+export class CreateGroupLeaderHandler implements ICommandHandler<CreateGroupLeaderCommand> {
   constructor(private readonly groupProjection: GroupLeaderProjection) {}
 
   async execute(command: CreateGroupLeaderCommand): Promise<NestResponse<GroupLeader>> {
