@@ -472,9 +472,7 @@ model TrainingReport {
   id    Int       @id @default(autoincrement())
   finalScore          Float
   status              String 
-  strength            String
-  areaForImprovement  String
-  recommendation      String
+  remark              String
   enrollmentId        Int       
   enrollment          Enrollment @relation(fields: [enrollmentId], references: [id])
   createdAt           DateTime   @default(now())
