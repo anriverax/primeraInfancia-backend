@@ -2,7 +2,11 @@ import { Injectable } from "@nestjs/common";
 import { ModuleReport } from "@prisma/client";
 
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { ICreateModuleReport, IDeleteModuleReport, IUpdateModuleReport } from "../../dto/moduleReport.type";
+import {
+  ICreateModuleReport,
+  IDeleteModuleReport,
+  IUpdateModuleReport
+} from "../../dto/moduleReport.type";
 import { handlePrismaError } from "@/common/helpers/functions";
 
 @Injectable()
@@ -28,10 +32,10 @@ export class ModuleReportProjection {
   }
 
   async delete(data: IDeleteModuleReport): Promise<ModuleReport> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("moduleReport", { id }, { deletedBy  });
+      return await this.prisma.softDelete("moduleReport", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("ModuleReportProjection", error);
     }

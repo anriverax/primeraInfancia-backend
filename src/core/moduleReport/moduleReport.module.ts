@@ -9,7 +9,11 @@ import { GetByIdModuleReportHandler } from "./cqrs/queries/findUnique/getByIdMod
 import { DeleteModuleReportHandler } from "./cqrs/commands/delete/deleteModuleReport.handler";
 import { UpdateModuleReportHandler } from "./cqrs/commands/update/updateModuleReport.handler";
 
-const CommandHandlers = [CreateModuleReportHandler, UpdateModuleReportHandler, DeleteModuleReportHandler];
+const CommandHandlers = [
+  CreateModuleReportHandler,
+  UpdateModuleReportHandler,
+  DeleteModuleReportHandler
+];
 const QueryHandlers = [GetAllModuleReportHandler, GetByIdModuleReportHandler];
 
 @Module({

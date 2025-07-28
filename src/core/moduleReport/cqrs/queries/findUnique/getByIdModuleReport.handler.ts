@@ -6,17 +6,19 @@ import { IGetByIdModuleReport } from "@/core/moduleReport/dto/moduleReport.type"
 @QueryHandler(GetByIdModuleReportQuery)
 export class GetByIdModuleReportHandler {
   constructor(private readonly prisma: PrismaService) {}
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
   async execute(query: GetByIdModuleReportQuery): Promise<IGetByIdModuleReport | null> {
     const moduleReports = await this.prisma.moduleReport.findUnique({
       where: { id: query.id },
       select: {
-        id : true,
-        moduleScore : true, status : true, trainingModuleId : true, enrollmentId : true,
+        id: true,
+        moduleScore: true,
+        status: true,
+        trainingModuleId: true,
+        enrollmentId: true
       }
     });
 
     return moduleReports;
   }
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */

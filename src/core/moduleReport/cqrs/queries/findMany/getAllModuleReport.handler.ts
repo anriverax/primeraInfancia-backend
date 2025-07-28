@@ -16,8 +16,11 @@ export class GetAllModuleReportHandler {
         skip,
         take: limit,
         select: {
-          id : true,
-          moduleScore : true, status : true, trainingModuleId : true, enrollmentId : true,
+          id: true,
+          moduleScore: true,
+          status: true,
+          trainingModuleId: true,
+          enrollmentId: true
         },
         orderBy: {
           id: "asc"
