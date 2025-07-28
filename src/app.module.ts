@@ -22,6 +22,7 @@ import { TrainingModuleModule } from "./core/trainingModule/trainingModule.modul
 import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluationInstrument.module";
 import { PersonRoleModule } from "./core/personRole/personRole.module";
 import { GroupTrainerModule } from "./core/groupTrainer/groupTrainer.module";
+import { GroupMentorModule } from "./core/groupMentor/groupMentor.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -56,6 +57,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     EvaluationInstrumentModule,
     PersonRoleModule,
     GroupTrainerModule,
+    GroupMentorModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -102,6 +104,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
             module: GroupTrainerModule
           },
           {
+            path: "groupMentor",
+            module: GroupMentorModule,
+          },
+          {
             path: "test",
             children: [
               {
@@ -136,4 +142,4 @@ import { PermissionModule } from "./core/test/permission/permission.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
