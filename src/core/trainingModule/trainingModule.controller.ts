@@ -1,6 +1,6 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters, } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { TrainingModuleDto, TrainingModulePaginationDto } from "./dto/trainingModule.dto";
 import { CreateTrainingModuleCommand } from "./cqrs/commands/create/createTrainingModule.command";

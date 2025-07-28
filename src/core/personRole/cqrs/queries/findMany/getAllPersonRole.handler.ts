@@ -1,32 +1,31 @@
 import { QueryHandler } from "@nestjs/cqrs";
-import { GetAllEvaluationInstrumentQuery } from "./getAllEvaluationInstrument.query";
+import { GetAllPersonRoleQuery } from "./getAllPersonRole.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IEvaluationInstrumentsWithPagination } from "@/core/evaluationInstrument/dto/evaluationInstrument.type";
+import { IPersonRolesWithPagination } from "@/core/personRole/dto/personRole.type";
 
-@QueryHandler(GetAllEvaluationInstrumentQuery)
-export class GetAllEvaluationInstrumentHandler {
+@QueryHandler(GetAllPersonRoleQuery)
+export class GetAllPersonRoleHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(query: GetAllEvaluationInstrumentQuery): Promise<IEvaluationInstrumentsWithPagination> {
+  async execute(query: GetAllPersonRoleQuery): Promise<IPersonRolesWithPagination> {
     const { page = 1, limit = 10 } = query.data;
 
     const skip = (page - 1) * limit;
     const [data, total] = await Promise.all([
-      this.prisma.evaluationInstrument.findMany({
+      this.prisma.personRole.findMany({
         skip,
         take: limit,
         select: {
           id: true,
-          instrumentName: true,
-          periodicity: true,
-          percentage: true
+          typePersonId: true,
+          personId: true
         },
         orderBy: {
           id: "asc"
         }
       }),
 
-      this.prisma.evaluationInstrument.count()
+      this.prisma.personRole.count()
     ]);
 
     const lastPage = Math.ceil(total / limit);

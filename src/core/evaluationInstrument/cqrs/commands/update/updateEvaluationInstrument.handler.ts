@@ -4,7 +4,9 @@ import { EvaluationInstrumentProjection } from "../../projections/evaluationInst
 import { NestResponse } from "@/common/helpers/dto";
 
 @CommandHandler(UpdateEvaluationInstrumentCommand)
-export class UpdateEvaluationInstrumentHandler implements ICommandHandler<UpdateEvaluationInstrumentCommand> {
+export class UpdateEvaluationInstrumentHandler
+  implements ICommandHandler<UpdateEvaluationInstrumentCommand>
+{
   constructor(private readonly evaluationInstrumentProjection: EvaluationInstrumentProjection) {}
   async execute(command: UpdateEvaluationInstrumentCommand): Promise<NestResponse<void>> {
     const { data } = command;

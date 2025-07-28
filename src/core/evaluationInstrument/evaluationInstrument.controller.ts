@@ -2,14 +2,20 @@ import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { EvaluationInstrumentDto, EvaluationInstrumentPaginationDto } from "./dto/evaluationInstrument.dto";
+import {
+  EvaluationInstrumentDto,
+  EvaluationInstrumentPaginationDto
+} from "./dto/evaluationInstrument.dto";
 import { CreateEvaluationInstrumentCommand } from "./cqrs/commands/create/createEvaluationInstrument.command";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/dto";
 import { EvaluationInstrument } from "@prisma/client";
 import { UpdateEvaluationInstrumentCommand } from "./cqrs/commands/update/updateEvaluationInstrument.command";
 import { DeleteEvaluationInstrumentCommand } from "./cqrs/commands/delete/deleteEvaluationInstrument.command";
 import { GetAllEvaluationInstrumentQuery } from "./cqrs/queries/findMany/getAllEvaluationInstrument.query";
-import { IGetAllEvaluationInstrument, IGetByIdEvaluationInstrument } from "./dto/evaluationInstrument.type";
+import {
+  IGetAllEvaluationInstrument,
+  IGetByIdEvaluationInstrument
+} from "./dto/evaluationInstrument.type";
 import { GetByIdEvaluationInstrumentQuery } from "./cqrs/queries/findUnique/getByIdEvaluationInstrument.query";
 
 @Controller()
@@ -22,7 +28,10 @@ export class EvaluationInstrumentController {
 
   @AuthRequired()
   @Post("create")
-  async create(@Body() data: EvaluationInstrumentDto, @Req() req: Request): Promise<NestResponse<EvaluationInstrument>> {
+  async create(
+    @Body() data: EvaluationInstrumentDto,
+    @Req() req: Request
+  ): Promise<NestResponse<EvaluationInstrument>> {
     return this.commandBus.execute(
       new CreateEvaluationInstrumentCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );

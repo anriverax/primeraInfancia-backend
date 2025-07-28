@@ -5,9 +5,13 @@ import { NestResponse } from "@/common/helpers/dto";
 import { EvaluationInstrument } from "@prisma/client";
 
 @CommandHandler(CreateEvaluationInstrumentCommand)
-export class CreateEvaluationInstrumentHandler implements ICommandHandler<CreateEvaluationInstrumentCommand> {
+export class CreateEvaluationInstrumentHandler
+  implements ICommandHandler<CreateEvaluationInstrumentCommand>
+{
   constructor(private readonly evaluationInstrumentProjection: EvaluationInstrumentProjection) {}
-  async execute(command: CreateEvaluationInstrumentCommand): Promise<NestResponse<EvaluationInstrument>> {
+  async execute(
+    command: CreateEvaluationInstrumentCommand
+  ): Promise<NestResponse<EvaluationInstrument>> {
     const { data } = command;
 
     const res = await this.evaluationInstrumentProjection.create(data);

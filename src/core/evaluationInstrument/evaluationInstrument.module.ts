@@ -9,7 +9,11 @@ import { GetByIdEvaluationInstrumentHandler } from "./cqrs/queries/findUnique/ge
 import { DeleteEvaluationInstrumentHandler } from "./cqrs/commands/delete/deleteEvaluationInstrument.handler";
 import { UpdateEvaluationInstrumentHandler } from "./cqrs/commands/update/updateEvaluationInstrument.handler";
 
-const CommandHandlers = [CreateEvaluationInstrumentHandler, UpdateEvaluationInstrumentHandler, DeleteEvaluationInstrumentHandler];
+const CommandHandlers = [
+  CreateEvaluationInstrumentHandler,
+  UpdateEvaluationInstrumentHandler,
+  DeleteEvaluationInstrumentHandler
+];
 const QueryHandlers = [GetAllEvaluationInstrumentHandler, GetByIdEvaluationInstrumentHandler];
 
 @Module({

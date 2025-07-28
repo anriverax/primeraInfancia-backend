@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 
 export class EvaluationInstrumentDto {
   @IsNotEmpty({ message: "El nombre es obligatorio." })
@@ -12,9 +12,8 @@ export class EvaluationInstrumentDto {
   @IsString({ message: "La periocidad debe ser una cadena de texto." })
   periodicity: string;
 
-  @IsNumber({},{ message: "El porcentaje debe ser un número" })
+  @IsNumber({}, { message: "El porcentaje debe ser un número." })
   percentage: number;
-
 }
 
 export class EvaluationInstrumentPaginationDto {

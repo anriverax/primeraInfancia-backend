@@ -2,7 +2,11 @@ import { Injectable } from "@nestjs/common";
 import { EvaluationInstrument } from "@prisma/client";
 
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { ICreateEvaluationInstrument, IDeleteEvaluationInstrument, IUpdateEvaluationInstrument } from "../../dto/evaluationInstrument.type";
+import {
+  ICreateEvaluationInstrument,
+  IDeleteEvaluationInstrument,
+  IUpdateEvaluationInstrument
+} from "../../dto/evaluationInstrument.type";
 import { handlePrismaError } from "@/common/helpers/functions";
 
 @Injectable()
@@ -28,10 +32,10 @@ export class EvaluationInstrumentProjection {
   }
 
   async delete(data: IDeleteEvaluationInstrument): Promise<EvaluationInstrument> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("evaluationInstrument", { id }, { deletedBy  });
+      return await this.prisma.softDelete("evaluationInstrument", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("EvaluationInstrumentProjection", error);
     }
