@@ -3,7 +3,7 @@ import { TrainingReport } from "@prisma/client";
 
 export type ICreateTrainingReport = Pick<
   TrainingReport,
-  "finalScore" | "status" | "remark" | "createdBy"
+  "finalScore" | "status" | "remark" | "enrollmentId" | "createdBy"
 >;
 
 export type IUpdateTrainingReport = Pick<
