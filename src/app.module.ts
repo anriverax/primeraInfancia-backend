@@ -26,6 +26,7 @@ import { EnrollmentMentorModule } from "./core/enrollmentMentor/enrollmentMentor
 import { EnrollmentModule } from "./core/enrollment/enrollment.module";
 import { ModuleReportModule } from "./core/moduleReport/moduleReport.module";
 import { TrainingReportModule } from "./core/trainingReport/trainingReport.module";
+import { TrainingEvaluationModule } from "./core/trainingEvaluation/trainingEvaluation.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -64,6 +65,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     EnrollmentModule,
     ModuleReportModule,
     TrainingReportModule,
+    TrainingEvaluationModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -126,6 +128,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
             module: TrainingReportModule
           },
           {
+            path: "TrainingEvaluation",
+            module: TrainingEvaluationModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -160,4 +166,4 @@ import { PermissionModule } from "./core/test/permission/permission.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
