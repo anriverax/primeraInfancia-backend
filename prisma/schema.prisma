@@ -100,30 +100,29 @@ model StoredEvent {
 // ====== END - CATALOGUE ======
 
 model Person {
-  id                Int                @id @default(autoincrement())
+  id                Int               @id @default(autoincrement())
   firstName         String
   lastName1         String
   lastName2         String
-  dui               String             @unique
+  dui               String            @unique
   address           String
   gender            TypeGender
   phoneNumber       String
   birthdate         String?
   duiImage          String[]
   districtId        Int
-  District          District           @relation(fields: [districtId], references: [id])
-  isActive          Boolean            @default(true)
+  District          District          @relation(fields: [districtId], references: [id])
+  isActive          Boolean           @default(true)
   typePersonId      Int
-  TypePerson        TypePerson         @relation(fields: [typePersonId], references: [id])
+  TypePerson        TypePerson        @relation(fields: [typePersonId], references: [id])
   personRoles       PersonRole[]
   groupTrainer      GroupTrainer[]
-  enrollmentMentor  EnrollmentMentor[]
   enrollmentTeacher Enrollment[]
   User              User?
   Academic          Academic?
   PrincipalSchool   PrincipalSchool[]
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
   deletedAt         DateTime?
   updatedBy         Int?
   deletedBy         Int?
@@ -375,18 +374,19 @@ model Content {
 }
 
 model PersonRole {
-  id           Int          @id @default(autoincrement())
-  typePersonId Int
-  typePerson   TypePerson   @relation(fields: [typePersonId], references: [id])
-  personId     Int
-  person       Person       @relation(fields: [personId], references: [id])
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  deletedAt    DateTime?
-  createdBy    Int?
-  updatedBy    Int?
-  deletedBy    Int?
-  Enrollment   Enrollment[]
+  id               Int                @id @default(autoincrement())
+  typePersonId     Int
+  typePerson       TypePerson         @relation(fields: [typePersonId], references: [id])
+  personId         Int
+  person           Person             @relation(fields: [personId], references: [id])
+  enrollmentMentor EnrollmentMentor[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int?
+  updatedBy        Int?
+  deletedBy        Int?
+  Enrollment       Enrollment[]
 }
 
 model GroupTrainer {
@@ -430,7 +430,7 @@ model EnrollmentMentor {
   enrollmentId Int
   enrollment   Enrollment @relation(fields: [enrollmentId], references: [id])
   mentorId     Int
-  mentor       Person     @relation(fields: [mentorId], references: [id])
+  mentor       PersonRole @relation(fields: [mentorId], references: [id])
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   deletedAt    DateTime?
@@ -440,15 +440,16 @@ model EnrollmentMentor {
 }
 
 model TrainingModule {
-  id           Int            @id @default(autoincrement())
-  moduleName   String         @unique
-  moduleReport ModuleReport[]
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  deletedAt    DateTime?
-  createdBy    Int?
-  updatedBy    Int?
-  deletedBy    Int?
+  id               Int                @id @default(autoincrement())
+  moduleName       String             @unique
+  moduleReport     ModuleReport[]
+  ModuleEvaluation ModuleEvaluation[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int?
+  updatedBy        Int?
+  deletedBy        Int?
 }
 
 model ModuleReport {
@@ -517,13 +518,15 @@ model EvaluationInstrument {
 
 model ModuleEvaluation {
   id                     Int                  @id @default(autoincrement())
-  grade                  String
+  grade                  Float
   comment                String
   moduleProgressStatus   String
   evaluationInstrumentId Int
   evaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
   enrollmentId           Int
   enrollment             Enrollment           @relation(fields: [enrollmentId], references: [id])
+  trainingModuleId       Int
+  TrainingModule         TrainingModule       @relation(fields: [trainingModuleId], references: [id])
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
   deletedAt              DateTime?
