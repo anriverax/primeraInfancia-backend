@@ -110,6 +110,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
             module: EnrollmentMentorModule
           },
           {
+            path: "Enrollment",
+            module: EnrollmentModule
+          },
+          {
             path: "test",
             children: [
               {
