@@ -22,7 +22,7 @@ import { TrainingModuleModule } from "./core/trainingModule/trainingModule.modul
 import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluationInstrument.module";
 import { PersonRoleModule } from "./core/personRole/personRole.module";
 import { GroupTrainerModule } from "./core/groupTrainer/groupTrainer.module";
-import { GroupMentorModule } from "./core/groupMentor/groupMentor.module";
+import { EnrollmentMentorModule } from "./core/enrollmentMentor/enrollmentMentor.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -57,7 +57,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     EvaluationInstrumentModule,
     PersonRoleModule,
     GroupTrainerModule,
-    GroupMentorModule,
+    EnrollmentMentorModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -104,8 +104,8 @@ import { PermissionModule } from "./core/test/permission/permission.module";
             module: GroupTrainerModule
           },
           {
-            path: "groupMentor",
-            module: GroupMentorModule,
+            path: "enrollmentMentor",
+            module: EnrollmentMentorModule,
           },
           {
             path: "test",
