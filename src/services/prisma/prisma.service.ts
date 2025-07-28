@@ -10,7 +10,7 @@ const modelsWithSoftDelete = [
   "PersonRole",
   "GroupTrainer",
   "EnrollmentMentor",
-  "Enrrollment"
+  "Enrollment"
 ];
 
 const prismaWithExtension = new PrismaClient().$extends({

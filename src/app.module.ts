@@ -23,7 +23,7 @@ import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluati
 import { PersonRoleModule } from "./core/personRole/personRole.module";
 import { GroupTrainerModule } from "./core/groupTrainer/groupTrainer.module";
 import { EnrollmentMentorModule } from "./core/enrollmentMentor/enrollmentMentor.module";
-import { EnrrollmentModule } from "./core/enrrollment/enrrollment.module";
+import { EnrollmentModule } from "./core/enrollment/enrollment.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -59,7 +59,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     PersonRoleModule,
     GroupTrainerModule,
     EnrollmentMentorModule,
-    EnrrollmentModule,
+    EnrollmentModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
