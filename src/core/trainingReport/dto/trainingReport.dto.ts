@@ -17,6 +17,10 @@ export class TrainingReportDto {
     message: "Las fortalezas, áreas de mejora y recomendaciones debe ser una cadena de texto."
   })
   remark: string;
+
+  @IsNumber()
+  @Min(1, { message: "La inscripción debe ser un número." })
+  enrollmentId: number;
 }
 
 export class TrainingReportPaginationDto {
