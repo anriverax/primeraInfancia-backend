@@ -11,10 +11,10 @@ CREATE TYPE "TypePersonEnum" AS ENUM ('FORMADOR', 'MENTOR', 'TECNICO_APOYO', 'DO
 CREATE TYPE "TypeGender" AS ENUM ('M', 'F');
 
 -- CreateEnum
-CREATE TYPE "DeliveryMethod" AS ENUM ('In_Person', 'Synchronous');
+CREATE TYPE "Modality" AS ENUM ('PRESENCIAL', 'SINCRÓNICO');
 
 -- CreateEnum
-CREATE TYPE "Sector" AS ENUM ('Public', 'Private');
+CREATE TYPE "Sector" AS ENUM ('PÚBLICO', 'PRIVADO');
 
 -- CreateTable
 CREATE TABLE "TypePerson" (
@@ -66,12 +66,6 @@ CREATE TABLE "RolePermission" (
     "isActive" BOOLEAN NOT NULL,
     "roleId" INTEGER NOT NULL,
     "menuPermissionId" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "deletedAt" TIMESTAMP(3),
-    "createdBy" INTEGER NOT NULL DEFAULT 0,
-    "updatedBy" INTEGER,
-    "deletedBy" INTEGER,
 
     CONSTRAINT "RolePermission_pkey" PRIMARY KEY ("id")
 );
@@ -242,7 +236,7 @@ CREATE TABLE "Seminar" (
     "name" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
     "duration" DOUBLE PRECISION NOT NULL,
-    "deliveryMethod" "DeliveryMethod" NOT NULL,
+    "modality" "Modality" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
@@ -272,7 +266,6 @@ CREATE TABLE "GroupSeminar" (
 CREATE TABLE "School" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "zoneId" INTEGER NOT NULL,
     "sector" "Sector" NOT NULL,
     "districtId" INTEGER NOT NULL,
     "address" TEXT NOT NULL,
@@ -305,9 +298,10 @@ CREATE TABLE "PrincipalSchool" (
 );
 
 -- CreateTable
-CREATE TABLE "Unit" (
+CREATE TABLE "Module" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "groupId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
@@ -315,7 +309,7 @@ CREATE TABLE "Unit" (
     "updatedBy" INTEGER,
     "deletedBy" INTEGER,
 
-    CONSTRAINT "Unit_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Module_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -337,7 +331,8 @@ CREATE TABLE "Content" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "duration" DOUBLE PRECISION NOT NULL,
-    "deliveryMethod" "DeliveryMethod" NOT NULL,
+    "modality" "Modality" NOT NULL,
+    "typeContentId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
@@ -358,9 +353,6 @@ CREATE UNIQUE INDEX "MenuPermission_menuId_permissionTypeId_key" ON "MenuPermiss
 CREATE UNIQUE INDEX "RolePermission_roleId_menuPermissionId_key" ON "RolePermission"("roleId", "menuPermissionId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Department_name_key" ON "Department"("name");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Department_geonameId_key" ON "Department"("geonameId");
 
 -- CreateIndex
@@ -379,7 +371,13 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "User_personId_key" ON "User"("personId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "GroupMember_groupId_personId_key" ON "GroupMember"("groupId", "personId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "GroupSeminar_groupId_seminarId_key" ON "GroupSeminar"("groupId", "seminarId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PrincipalSchool_personId_schoolId_key" ON "PrincipalSchool"("personId", "schoolId");
 
 -- AddForeignKey
 ALTER TABLE "Menu" ADD CONSTRAINT "Menu_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "Menu"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -439,9 +437,6 @@ ALTER TABLE "GroupSeminar" ADD CONSTRAINT "GroupSeminar_groupId_fkey" FOREIGN KE
 ALTER TABLE "GroupSeminar" ADD CONSTRAINT "GroupSeminar_seminarId_fkey" FOREIGN KEY ("seminarId") REFERENCES "Seminar"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "School" ADD CONSTRAINT "School_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "School" ADD CONSTRAINT "School_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES "District"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -449,3 +444,9 @@ ALTER TABLE "PrincipalSchool" ADD CONSTRAINT "PrincipalSchool_personId_fkey" FOR
 
 -- AddForeignKey
 ALTER TABLE "PrincipalSchool" ADD CONSTRAINT "PrincipalSchool_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "School"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Module" ADD CONSTRAINT "Module_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Content" ADD CONSTRAINT "Content_typeContentId_fkey" FOREIGN KEY ("typeContentId") REFERENCES "TypeContent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
