@@ -23,11 +23,8 @@ export class GetAllGroupHandler {
           Zone: {
             select: { id: true, name: true }
           },
-          Person: {
-            select: { id: true }
-          },
           _count: {
-            select: { GroupMember: true }
+            select: { Inscription: true }
           }
         },
         orderBy: {

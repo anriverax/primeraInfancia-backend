@@ -1,18 +1,14 @@
-import { Controller, Get, Param, Req, UseFilters } from "@nestjs/common";
+import { Controller, Get, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import {
   IDepartmentResponse,
   IMenuItemResponse,
   IMenuItems,
-  IPerson,
   IRolePermission
 } from "./dto/catalogue.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-
 import { GetAllDepartmentQuery } from "../../test/coutry/department/cqrs/queries/getAllDepartment.query";
-import { GetAllTypePersonQuery } from "./query/typePerson-findMany/getAllTypePerson.query";
-import { MenuItem, TypePerson } from "@prisma/client";
-import { GetAllPersonQuery } from "./query/person-findMany/getAllPerson.query";
+import { MenuItem } from "@prisma/client";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { NestResponse } from "@/common/helpers/dto";
 import { GetAllRolePermissionQuery } from "./query/permission-findMany/getAllRolePermission.query";
@@ -51,13 +47,6 @@ export class CatalogueController {
     };
   }
 
-  @Get("typePersons")
-  async getAllTypePerson(): Promise<Pick<TypePerson, "id" | "name">[]> {
-    const data = await this.queryBus.execute(new GetAllTypePersonQuery());
-
-    return data;
-  }
-
   @AuthRequired()
   @Get("menuItems")
   async getMenu(@Req() req: Request): Promise<NestResponse<IMenuItemResponse[] | null>> {
@@ -88,17 +77,5 @@ export class CatalogueController {
     const menuTree = uniqueMenuItems.length > 0 ? buildMenuTree(uniqueMenuItems) : null;
 
     return { statusCode: 200, message: "Lista de items para el menú.", data: menuTree };
-  }
-
-  @AuthRequired()
-  @Get("persons/:typePersonId")
-  async getAllPerson(@Param("typePersonId") typePersonId: string): Promise<NestResponse<IPerson[]>> {
-    const data = await this.queryBus.execute(new GetAllPersonQuery(parseInt(typePersonId)));
-
-    return {
-      statusCode: 200,
-      message: "Listado de personas",
-      data: data
-    };
   }
 }

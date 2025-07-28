@@ -21,11 +21,11 @@ export class GetByIdGroupHandler {
         Zone: {
           select: { id: true, name: true }
         },
-        Person: {
-          select: { id: true, fullName: true } as any
+        GroupLeader: {
+          select: { Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } } }
         },
         _count: {
-          select: { GroupMember: true }
+          select: { Inscription: true }
         }
       }
     });

@@ -6,6 +6,7 @@ export class GroupDto {
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El nombre debe ser una cadena de texto." })
   name: string;
+
   @IsNotEmpty({ message: "La descripción es obligatoria." })
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El nombre debe ser una cadena de texto." })
@@ -15,10 +16,7 @@ export class GroupDto {
   @IsNumber()
   @Min(1, { message: "Debe seleccionar una opción válida para el número de miembros." })
   memberCount: number;
-  @IsNotEmpty({ message: "La descripción es obligatoria." })
-  @IsNumber()
-  @Min(1, { message: "Debe seleccionar una opción válida para el número de miembros." })
-  personId: number;
+
   @IsNotEmpty({ message: "La descripción es obligatoria." })
   @IsNumber()
   @Min(1, { message: "Debe seleccionar una opción válida para el número de miembros." })
