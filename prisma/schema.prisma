@@ -485,7 +485,7 @@ model TrainingReport {
 
 model TrainingEvaluation {
   id                     Int      @id @default(autoincrement())
-  grade                  String
+  grade                  Float
   comment                String
   evaluationInstrumentId Int
   evaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
