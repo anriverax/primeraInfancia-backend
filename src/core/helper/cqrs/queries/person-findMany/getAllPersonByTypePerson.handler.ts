@@ -61,7 +61,7 @@ export class GetAllPersonByTypePersonHandler {
         firstName: "asc"
       }
     });
-    console.log("persons", persons);
+
     return persons as any[];
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */

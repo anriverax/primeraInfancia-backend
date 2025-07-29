@@ -9,7 +9,7 @@ export class GetAllRolePermissionHandler implements IQueryHandler<GetAllRolePerm
 
   async execute(query: GetAllRolePermissionQuery): Promise<IGetAllRolePermission | null> {
     const { userId } = query;
-    console.log(userId);
+
     const userWithPermissions = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {

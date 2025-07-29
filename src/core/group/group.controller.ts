@@ -70,7 +70,9 @@ export class GroupController {
   async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupWithFullName>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
 
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     let leaders: any[] = [];
+    /* eslint-enable @typescript-eslint/no-explicit-any */
     if (result?.GroupLeader && Array.isArray(result.GroupLeader)) {
       leaders = result.GroupLeader.map((leader) => ({
         Person: {
