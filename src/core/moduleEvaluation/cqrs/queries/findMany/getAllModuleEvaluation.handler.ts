@@ -5,7 +5,7 @@ import { IModuleEvaluationsWithPagination } from "@/core/moduleEvaluation/dto/mo
 
 @QueryHandler(GetAllModuleEvaluationQuery)
 export class GetAllModuleEvaluationHandler {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async execute(query: GetAllModuleEvaluationQuery): Promise<IModuleEvaluationsWithPagination> {
     const { page = 1, limit = 10 } = query.data;
@@ -21,7 +21,27 @@ export class GetAllModuleEvaluationHandler {
           comment: true,
           moduleProgressStatus: true,
           evaluationInstrumentId: true,
-          enrollmentId: true
+          enrollmentId: true,
+          TrainingModule: {
+            select: { moduleName: true }
+          },
+          evaluationInstrument: {
+            select: {
+              instrumentName: true
+            }
+          },
+          enrollment: {
+            select: {
+              personRole: {
+                select: {
+                  person: {
+                    select:
+                      { firstName: true }
+                  }
+                }
+              }
+            }
+          }
         },
         orderBy: {
           id: "asc"
