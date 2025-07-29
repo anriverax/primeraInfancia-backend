@@ -37,14 +37,14 @@ enum TypeGender {
   F
 }
 
-enum DeliveryMethod {
-  In_Person
-  Synchronous
+enum Modality {
+  PRESENCIAL
+  SINCRÓNICO
 }
 
 enum Sector {
-  Public
-  Private
+  PÚBLICO
+  PRIVADO
 }
 
 // ====== START - CATALOGUE ======
@@ -247,6 +247,18 @@ model UserKey {
   user       User      @relation(fields: [userId], references: [id])
 }
 
+model Zone {
+  id        Int       @id @default(autoincrement())
+  name      String // example: "Zona Occidente"
+  Group     Group[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
+}
+
 model Group {
   id           Int            @id @default(autoincrement())
   name         String // example: "Grupo #1 (CFD Santa Ana)"
@@ -255,6 +267,7 @@ model Group {
   zoneId       Int
   Zone         Zone           @relation(fields: [zoneId], references: [id])
   GroupSeminar GroupSeminar[]
+  Module       Module[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   deletedAt    DateTime?
@@ -293,6 +306,8 @@ model GroupLeader {
   createdBy Int?
   updatedBy Int?
   deletedBy Int?
+
+  @@unique([groupId, personId])
 }
 
 model MentorRegistration {
@@ -314,7 +329,7 @@ model Seminar {
   name           String // example: todo
   date           DateTime
   duration       Float // note: it is not necessary to set exact precision, an approximate precision is sufficient
-  deliveryMethod DeliveryMethod
+  modality       Modality
   GroupSeminar   GroupSeminar[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
@@ -372,11 +387,15 @@ model PrincipalSchool {
   createdBy Int?
   updatedBy Int?
   deletedBy Int?
+
+  @@unique([personId, schoolId])
 }
 
-model Unit {
+model Module {
   id        Int       @id @default(autoincrement())
   name      String
+  groupId   Int
+  Group     Group     @relation(fields: [groupId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -387,7 +406,8 @@ model Unit {
 
 model TypeContent {
   id        Int       @id @default(autoincrement())
-  name      String // example:  In_Person_Workshop, Webinar, Asynchronous_Session, Community_Of_Practice
+  name      String    // example:  TALLER PRESENCIAL, WEBINAR, SESIÓN ASINCRÓNICA, COMUNIDAD DE PRÁCTICA
+  Content   Content[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -398,9 +418,11 @@ model TypeContent {
 
 model Content {
   id             Int            @id @default(autoincrement())
-  name           String // example: todo
+  name           String
   duration       Float
-  deliveryMethod DeliveryMethod
+  modality       Modality
+  typeContentId  Int
+  TypeContent    TypeContent        @relation(fields: [typeContentId], references: [id])
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   deletedAt      DateTime?

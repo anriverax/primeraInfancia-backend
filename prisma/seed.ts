@@ -23,6 +23,66 @@ async function zones() {
   });
 }
 
+async function typeContent() {
+  await prisma.typeContent.createMany({
+    data: [
+      {
+        id: 1,
+        name: "TALLER PRESENCIAL",
+        createdAt: new Date()
+      },
+      {
+        id: 2,
+        name: "WEBINAR",
+        createdAt: new Date()
+      },
+      {
+        id: 3,
+        name: "SESIÓN ASINCRÓNICA",
+        createdAt: new Date()
+      },
+      {
+        id: 4,
+        name: "COMUNIDAD DE PRÁCTICA",
+        createdAt: new Date()
+      }
+    ],
+    skipDuplicates: true
+  });
+}
+
+async function school() {
+  await prisma.school.createMany({
+    data: [{
+      "name": "",
+      "sector": "PÚBLICO", // PÚBLICO | PRIVADO
+      "districtId": 50,
+      "address": "",
+      "email": "email@email.com",
+      "coordenates": "(10,-3)",
+      "phoneNumber": "",
+      "createdAt": new Date(),
+      "createdBy": 1
+    }]
+  })
+
+}
+
+
+async function content() {
+  await prisma.content.createMany({
+    data: [{
+      "name": "",
+      "duration": 0.0,
+      "modality": "PRESENCIAL", // PRESENCIAL | SINCRÓNICO
+      "typeContentId": 1,
+      "createdAt": new Date(),
+      "createdBy": 1
+    }]
+  })
+}
+
+
 async function typePerson() {
   await prisma.typePerson.createMany({
     data: [
@@ -48,6 +108,7 @@ async function typePerson() {
     skipDuplicates: true
   });
 }
+
 
 /*
 async function typeContent() {
@@ -83,6 +144,9 @@ async function main() {
   await typePerson();
   await menuSeed();
   await authorizationSeed();
+  await typeContent();
+  await school();
+  await content();
 }
 main()
   .then(async () => {
