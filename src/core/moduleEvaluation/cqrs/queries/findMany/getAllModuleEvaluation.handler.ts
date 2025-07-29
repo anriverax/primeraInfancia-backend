@@ -36,7 +36,11 @@ export class GetAllModuleEvaluationHandler {
                 select: {
                   person: {
                     select:
-                      { firstName: true }
+                    {
+                      firstName: true,
+                      lastName1: true,
+                      lastName2: true,
+                    }
                   }
                 }
               }
