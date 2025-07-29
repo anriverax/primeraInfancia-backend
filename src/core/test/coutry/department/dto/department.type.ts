@@ -8,3 +8,5 @@ export interface IMunicipality extends Municipality {
 export interface IDepartmentWithInclude extends Department {
   Municipality: IMunicipality[];
 }
+
+export type IGetAllDepartment = Pick<Department, "id" | "name">;

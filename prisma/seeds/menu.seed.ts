@@ -1,110 +1,111 @@
 import { PrismaClient } from "@prisma/client";
+import { menuJson } from "./base/urls";
 const prisma = new PrismaClient();
 
 export async function menuSeed() {
   // Menú principal: Dashboard
-  await prisma.menu.create({
+  await prisma.menuItem.create({
     data: {
       title: "Dashboard",
-      path: "/admin/dashboard",
+      path: menuJson.dashboard,
       icon: "Home"
     }
   });
 
   // Menú principal: Zonas y Grupos
-  await prisma.menu.create({
+  await prisma.menuItem.create({
     data: {
-      title: "Zonas y Grupos",
-      path: "/admin/zonas-grupos",
+      title: "Grupos",
+      path: menuJson.grupos,
       icon: "Package"
     }
   });
 
   // Menú principal: Evaluaciones
-  const evaluaciones = await prisma.menu.create({
+  const evaluaciones = await prisma.menuItem.create({
     data: {
       title: "Evaluaciones",
-      path: "/admin/evaluaciones",
+      path: menuJson.evaluaciones,
       icon: "CalendarCheck"
     }
   });
 
   // Submenús de Evaluaciones
-  await prisma.menu.createMany({
+  await prisma.menuItem.createMany({
     data: [
       {
         title: "Auto-evaluación",
-        path: "/admin/evaluaciones/auto-evaluación",
+        path: menuJson.autoEvaluacion,
         parentId: evaluaciones.id
       },
       {
         title: "Portafolio",
-        path: "/admin/evaluaciones/portafolio",
+        path: menuJson.portafolio,
         parentId: evaluaciones.id
       },
       {
         title: "Diagnostico",
-        path: "/admin/evaluaciones/diagnostico",
+        path: menuJson.diagnostico,
         parentId: evaluaciones.id
       }
     ]
   });
 
   // Menú principal: Asistencia
-  const asistencia = await prisma.menu.create({
+  const asistencia = await prisma.menuItem.create({
     data: {
       title: "Asistencia",
-      path: "/admin/asistencia",
+      path: menuJson.asistencia,
       icon: "Calendar"
     }
   });
 
   // Submenús de Asistencia
-  await prisma.menu.createMany({
+  await prisma.menuItem.createMany({
     data: [
-      { title: "Talleres", path: "/admin/asistencia/talleres", parentId: asistencia.id },
-      { title: "Seminarios", path: "/admin/asistencia/seminarios", parentId: asistencia.id },
+      { title: "Talleres", path: menuJson.talleres, parentId: asistencia.id },
+      { title: "Seminarios", path: menuJson.seminarios, parentId: asistencia.id },
       {
         title: "Comunidades de practica",
-        path: "/admin/asistencia/comunidades-practica",
+        path: menuJson.comunidadesPractica,
         parentId: asistencia.id
       },
       {
         title: "Sesiones sincronicas",
-        path: "/admin/asistencia/sesiones-sincronicas",
+        path: menuJson.sesionesSincronicas,
         parentId: asistencia.id
       },
-      { title: "Mentorias", path: "/admin/asistencia/mentorias", parentId: asistencia.id }
+      { title: "Mentorias", path: menuJson.mentorias, parentId: asistencia.id }
     ]
   });
 
   // Menú principal: Triple perfil
-  const triplePerfil = await prisma.menu.create({
+  const triplePerfil = await prisma.menuItem.create({
     data: {
       title: "Triple perfil",
-      path: "/admin/triple-perfil",
+      path: menuJson.triplePerfil,
       icon: "Users"
     }
   });
 
   // Submenús de Triple perfil
-  await prisma.menu.createMany({
+  await prisma.menuItem.createMany({
     data: [
       {
         title: "Formadores",
-        path: "/admin/triple-perfil/formadores",
+        path: menuJson.formadores,
         icon: "ContactRound",
         parentId: triplePerfil.id
       },
       {
         title: "Mentores",
-        path: "/admin/triple-perfil/mentores",
+        path: menuJson.mentores,
         icon: "SquareUserRound",
         parentId: triplePerfil.id
       },
       {
         title: "Ténicos de apoyo",
-        path: "/admin//triple-perfil/tecnicos-apoyo",
+        path: menuJson.tecnicosApoyo,
         icon: "CircleUserRound",
         parentId: triplePerfil.id
       }
@@ -112,11 +113,37 @@ export async function menuSeed() {
   });
 
   // Menú principal: Docentes
-  await prisma.menu.create({
+  await prisma.menuItem.create({
     data: {
       title: "Docentes",
-      path: "/admin/docentes",
+      path: menuJson.docentes,
       icon: "User"
     }
+  });
+
+  const catalogo = await prisma.menuItem.create({
+    data: {
+      title: "Catálogos",
+      path: menuJson.catalogos,
+      icon: "BookMarked"
+    }
+  });
+
+  await prisma.menuItem.createMany({
+    data: [
+      {
+        title: "Centros Escolares",
+        path: menuJson.centrosEscolares,
+        icon: "School",
+        parentId: catalogo.id
+      },
+
+      {
+        title: "Zonas",
+        path: menuJson.zonas,
+        icon: "School",
+        parentId: catalogo.id
+      }
+    ]
   });
 }

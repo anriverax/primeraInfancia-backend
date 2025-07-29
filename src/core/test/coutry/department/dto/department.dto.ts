@@ -10,4 +10,7 @@ export class DepartmentDto {
   @IsNotEmpty({ message: "El id de geoname es un campo obligatorio." })
   @IsNumber()
   geonameId: number;
+  @IsNotEmpty({ message: "El id de zona es un campo obligatorio." })
+  @IsNumber()
+  zoneId: number;
 }

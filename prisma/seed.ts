@@ -3,26 +3,20 @@ import { authorizationSeed } from "./seeds/authorization.seed";
 import { menuSeed } from "./seeds/menu.seed";
 const prisma = new PrismaClient();
 
-async function typePerson() {
-  await prisma.typePerson.createMany({
+async function zones() {
+  await prisma.zone.createMany({
     data: [
       {
-        name: "DIRECTOR"
+        name: "Zona Occidental"
       },
       {
-        name: "DOCENTE"
+        name: "Zona Central"
       },
       {
-        name: "EMPLEADO"
+        name: "Zona Paracentral"
       },
       {
-        name: "FORMADOR"
-      },
-      {
-        name: "MENTOR"
-      },
-      {
-        name: "TECNICO_APOYO"
+        name: "Zona Oriental"
       }
     ],
     skipDuplicates: true
@@ -74,51 +68,6 @@ async function school() {
 
 }
 
-// async function seminar() {
-//   await prisma.seminar.createMany({
-//     data: [{
-//       "name": "",
-//       "date": "",
-//       "duration": 0.0,
-//       "modality": "PRESENCIAL", // PRESENCIAL | SINCRÓNICO
-//       "createdAt": new Date(),
-//       "createdBy": 1
-//     }]
-//   })
-// }
-
-// async function module() {
-//   await prisma.module.createMany({
-//     data: [
-//       {
-//         id: 1,
-//         name: "Módulo 1",
-//         createdAt: new Date()
-//       },
-//       {
-//         id: 2,
-//         name: "Módulo 2",
-//         createdAt: new Date()
-//       },
-//       {
-//         id: 3,
-//         name: "Módulo 3",
-//         createdAt: new Date()
-//       },
-//       {
-//         id: 4,
-//         name: "Módulo 4",
-//         createdAt: new Date()
-//       },
-//       {
-//         id: 5,
-//         name: "Módulo 5",
-//         createdAt: new Date()
-//       }
-//     ],
-//     skipDuplicates: true
-//   });
-// }
 
 async function content() {
   await prisma.content.createMany({
@@ -132,74 +81,28 @@ async function content() {
     }]
   })
 }
-/*
-async function modulePermission() {
-  await prisma.modulePermission.createMany({
-    data: [
-      {
-        moduleId: 1,
-        permissionTypeId: 1
-      },
-      {
-        moduleId: 1,
-        permissionTypeId: 2
-      },
-      {
-        moduleId: 1,
-        permissionTypeId: 3
-      },
-      {
-        moduleId: 1,
-        permissionTypeId: 4
-      },
-      {
-        moduleId: 1,
-        permissionTypeId: 5
-      },
-      { moduleId: 2, permissionTypeId: 2 },
-      { moduleId: 2, permissionTypeId: 4 }
-    ],
-    skipDuplicates: true
-  });
-}
 
-async function rolePermission() {
-  await prisma.rolePermission.createMany({
+
+async function typePerson() {
+  await prisma.typePerson.createMany({
     data: [
       {
-        roleId: 1,
-        modulePermissionId: 1,
-        isActive: true
+        name: "DIRECTOR"
       },
       {
-        roleId: 1,
-        modulePermissionId: 2,
-        isActive: true
+        name: "DOCENTE"
       },
       {
-        roleId: 1,
-        modulePermissionId: 3,
-        isActive: true
+        name: "EMPLEADO"
       },
       {
-        roleId: 1,
-        modulePermissionId: 4,
-        isActive: true
+        name: "FORMADOR"
       },
       {
-        roleId: 1,
-        modulePermissionId: 5,
-        isActive: true
+        name: "MENTOR"
       },
       {
-        roleId: 1,
-        modulePermissionId: 6,
-        isActive: true
-      },
-      {
-        roleId: 1,
-        modulePermissionId: 7,
-        isActive: true
+        name: "TECNICO_APOYO"
       }
     ],
     skipDuplicates: true
@@ -207,20 +110,43 @@ async function rolePermission() {
 }
 
 
-
-
+/*
+async function typeContent() {
+  await prisma.typeContent.createMany({
+    data: [
+      {
+        id: 1,
+        name: "In_Person_Workshop",
+        createdAt: new Date()
+      },
+      {
+        id: 2,
+        name: "Webinar",
+        createdAt: new Date()
+      },
+      {
+        id: 3,
+        name: "Asynchronous_Session",
+        createdAt: new Date()
+      },
+      {
+        id: 4,
+        name: "Community_Of_Practice",
+        createdAt: new Date()
+      }
+    ],
+    skipDuplicates: true
+  });
+}
 */
 async function main() {
-  // await modulePermission();
-  // await rolePermission();
+  await zones();
   await typePerson();
-  await authorizationSeed();
   await menuSeed();
+  await authorizationSeed();
   await typeContent();
   await school();
-  //await seminar();
   await content();
-  //  await module();
 }
 main()
   .then(async () => {

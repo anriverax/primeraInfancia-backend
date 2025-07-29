@@ -118,7 +118,12 @@ export class AuthService {
     }
   }
 
-  getData(accessToken: string, refreshToken: string, user: IUser): ILoginResponse {
+  getData(
+    accessToken: string,
+    refreshToken: string,
+    user: IUser,
+    userPermissions: string[]
+  ): ILoginResponse {
     const {
       isVerified,
       email,
@@ -139,7 +144,8 @@ export class AuthService {
         name: fullName,
         picture: avatar,
         role: name
-      }
+      },
+      permissions: userPermissions
     };
   }
 }

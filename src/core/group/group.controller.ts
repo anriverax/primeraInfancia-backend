@@ -1,15 +1,15 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseFilters } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { GroupDto } from "./dto/group.dto";
+import { GroupDto, GroupPaginationDto } from "./dto/group.dto";
 import { CreateGroupCommand } from "./cqrs/command/create/createGroup.command";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse, NestResponseWithPagination } from "@/common/helpers/dto";
 import { Group } from "@prisma/client";
 import { UpdateGroupCommand } from "./cqrs/command/update/updateGroup.command";
 import { DeleteGroupCommand } from "./cqrs/command/delete/deleteGroup.command";
 import { GetAllGroupQuery } from "./cqrs/queries/findMany/getAllGroup.query";
-import { IGetAllGroup, IGetByIdGroup } from "./dto/group.type";
+import { IGetAllGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
 import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
 
 @Controller()
@@ -28,15 +28,17 @@ export class GroupController {
     );
   }
 
-  @AuthRequired()
   @Get()
-  async getAll(): Promise<NestResponse<IGetAllGroup[]>> {
-    const result = await this.queryBus.execute(new GetAllGroupQuery());
+  async getAll(
+    @Query() filterPagination: GroupPaginationDto
+  ): Promise<NestResponseWithPagination<IGetAllGroup[]>> {
+    const result = await this.queryBus.execute(new GetAllGroupQuery(filterPagination));
 
     return {
       statusCode: 200,
       message: "Listado de grupos registrados",
-      data: result
+      data: result.data,
+      meta: result.meta
     };
   }
 
@@ -65,13 +67,26 @@ export class GroupController {
   }
 
   @Get(":id")
-  async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroup>> {
+  async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupWithFullName>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
+
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    let leaders: any[] = [];
+    /* eslint-enable @typescript-eslint/no-explicit-any */
+    if (result?.GroupLeader && Array.isArray(result.GroupLeader)) {
+      leaders = result.GroupLeader.map((leader) => ({
+        Person: {
+          id: leader.Person.id,
+          fullName:
+            `${leader.Person.firstName ?? ""} ${leader.Person.lastName1 ?? ""} ${leader.Person.lastName2 ?? ""}`.trim()
+        }
+      }));
+    }
 
     return {
       statusCode: 200,
       message: "Listado de grupos por ID",
-      data: result
+      data: { ...result, GroupLeader: leaders }
     };
   }
 }

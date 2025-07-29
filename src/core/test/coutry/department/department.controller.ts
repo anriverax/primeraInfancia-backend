@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 
 import { DepartmentDto } from "./dto/department.dto";
-import { IDepartment } from "./dto/department.type";
+import { IGetAllDepartment } from "./dto/department.type";
 
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { NestResponse } from "@/common/helpers/dto";
@@ -23,10 +23,10 @@ export class DepartmentController {
   }
 
   @Get()
-  async getAll(): Promise<NestResponse<IDepartment[]>> {
+  async getAll(): Promise<NestResponse<IGetAllDepartment[]>> {
     const data = await this.queryBus.execute(new GetAllDepartmentQuery());
 
-    const departmentData = data.map(({ id, name, geonameId }) => ({ id, name, geonameId }));
+    const departmentData = data.map(({ id, name }) => ({ id, name }));
 
     return {
       statusCode: 200,
