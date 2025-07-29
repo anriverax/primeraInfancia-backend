@@ -3,7 +3,13 @@ import { ModuleEvaluation } from "@prisma/client";
 
 export type ICreateModuleEvaluation = Pick<
   ModuleEvaluation,
-  "grade" | "comment" | "moduleProgressStatus" | "evaluationInstrumentId" | "enrollmentId" | "trainingModuleId" | "createdBy"
+  | "grade"
+  | "comment"
+  | "moduleProgressStatus"
+  | "evaluationInstrumentId"
+  | "enrollmentId"
+  | "trainingModuleId"
+  | "createdBy"
 >;
 
 export type IUpdateModuleEvaluation = Pick<
@@ -26,7 +32,6 @@ export interface IGetAllModuleEvaluation {
   moduleProgressStatus: string;
   evaluationInstrumentId: number;
   enrollmentId: number;
-
 }
 
 export interface IModuleEvaluationsWithPagination {
@@ -35,5 +40,5 @@ export interface IModuleEvaluationsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdModuleEvaluation { }
+export interface IGetByIdModuleEvaluation {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/
