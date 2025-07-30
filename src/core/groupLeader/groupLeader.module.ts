@@ -5,8 +5,9 @@ import { GroupLeaderController } from "./groupLeader.controller";
 import { GetAllPersonByTypePersonHandler } from "../helper/cqrs/queries/person-findMany/getAllPersonByTypePerson.handler";
 import { CreateGroupLeaderHandler } from "./cqrs/command/create/createGroupLeader.handler";
 import { GroupLeaderProjection } from "./cqrs/projections/groupLeader.projection";
+import { DeleteGroupLeaderHandler } from "./cqrs/command/delete/deleteGroupLeader.handler";
 
-const GroupLeaderCommandHandlers = [CreateGroupLeaderHandler];
+const GroupLeaderCommandHandlers = [CreateGroupLeaderHandler, DeleteGroupLeaderHandler];
 const GroupLeaderQueryHandlers = [GetAllPersonByTypePersonHandler];
 
 @Module({

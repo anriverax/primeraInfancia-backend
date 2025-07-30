@@ -75,6 +75,7 @@ export class GroupController {
     /* eslint-enable @typescript-eslint/no-explicit-any */
     if (result?.GroupLeader && Array.isArray(result.GroupLeader)) {
       leaders = result.GroupLeader.map((leader) => ({
+        id: leader.id,
         Person: {
           id: leader.Person.id,
           fullName:

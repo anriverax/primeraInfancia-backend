@@ -22,7 +22,10 @@ export class GetByIdGroupHandler {
           select: { id: true, name: true }
         },
         GroupLeader: {
-          select: { Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } } }
+          select: {
+            id: true,
+            Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+          }
         },
         _count: {
           select: { Inscription: true }

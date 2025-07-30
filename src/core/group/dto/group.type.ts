@@ -22,6 +22,7 @@ export interface IGroupsWithPagination {
 }
 export interface IGetByIdGroup extends IGetAllGroup {
   GroupLeader: {
+    id: number;
     Person: {
       id: number;
       firstName: string;
@@ -33,6 +34,7 @@ export interface IGetByIdGroup extends IGetAllGroup {
 
 export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLeader"> {
   GroupLeader: {
+    id: number;
     Person: {
       id: number;
       fullName: string; // Full name derived from firstName, lastName1, and lastName2

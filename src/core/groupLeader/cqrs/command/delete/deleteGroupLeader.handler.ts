@@ -4,7 +4,7 @@ import { NestResponse } from "@/common/helpers/dto";
 import { GroupLeaderProjection } from "../../projections/groupLeader.projection";
 
 @CommandHandler(DeleteGroupLeaderCommand)
-export class DeleteGroupHandler implements ICommandHandler<DeleteGroupLeaderCommand> {
+export class DeleteGroupLeaderHandler implements ICommandHandler<DeleteGroupLeaderCommand> {
   constructor(private readonly groupProjection: GroupLeaderProjection) {}
 
   async execute(command: DeleteGroupLeaderCommand): Promise<NestResponse<void>> {
