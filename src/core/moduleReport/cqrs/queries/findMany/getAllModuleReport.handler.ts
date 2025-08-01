@@ -20,7 +20,23 @@ export class GetAllModuleReportHandler {
           moduleScore: true,
           status: true,
           trainingModuleId: true,
-          enrollmentId: true
+          enrollmentId: true,
+          trainingModule:{
+            select:{
+              moduleName:true
+            }
+          },
+          enrollment:{
+            select:{
+              Person:{
+                select:{
+                  firstName:true,
+                  lastName1:true,
+                  lastName2:true,
+                }
+              }
+            }
+          }
         },
         orderBy: {
           id: "asc"
