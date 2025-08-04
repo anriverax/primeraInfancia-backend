@@ -5,7 +5,7 @@ import { ITrainingEvaluationsWithPagination } from "@/core/trainingEvaluation/dt
 
 @QueryHandler(GetAllTrainingEvaluationQuery)
 export class GetAllTrainingEvaluationHandler {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async execute(query: GetAllTrainingEvaluationQuery): Promise<ITrainingEvaluationsWithPagination> {
     const { page = 1, limit = 10 } = query.data;
@@ -20,7 +20,27 @@ export class GetAllTrainingEvaluationHandler {
           grade: true,
           comment: true,
           evaluationInstrumentId: true,
-          enrollmentId: true
+          enrollmentId: true,
+          enrollment: {
+            select: {
+              personRole: {
+                select: {
+                  person: {
+                    select: {
+                      firstName: true,
+                      lastName1: true,
+                      lastName2: true,
+                    }
+                  }
+                }
+              }
+            }
+          },
+          evaluationInstrument: {
+            select: {
+              instrumentName: true,
+            }
+          }
         },
         orderBy: {
           id: "asc"
