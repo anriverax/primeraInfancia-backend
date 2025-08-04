@@ -100,34 +100,34 @@ model StoredEvent {
 // ====== END - CATALOGUE ======
 
 model Person {
-  id                Int               @id @default(autoincrement())
-  firstName         String
-  lastName1         String
-  lastName2         String
-  dui               String            @unique
-  address           String
-  gender            TypeGender
-  phoneNumber       String
-  birthdate         String?
-  duiImage          String[]
-  districtId        Int
-  District          District          @relation(fields: [districtId], references: [id])
-  isActive          Boolean           @default(true)
-  typePersonId      Int
-  TypePerson        TypePerson        @relation(fields: [typePersonId], references: [id])
-  personRoles       PersonRole[]
-  groupTrainer      GroupTrainer[]
-  enrollmentTeacher Enrollment[]
-  User              User?
-  Academic          Academic?
-  PrincipalSchool   PrincipalSchool[]
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
-  deletedAt         DateTime?
-  updatedBy         Int?
-  deletedBy         Int?
-  GroupMember       GroupMember[]
-  Group             Group[]
+  id              Int               @id @default(autoincrement())
+  firstName       String
+  lastName1       String
+  lastName2       String
+  dui             String            @unique
+  address         String
+  gender          TypeGender
+  phoneNumber     String
+  birthdate       String?
+  duiImage        String[]
+  districtId      Int
+  District        District          @relation(fields: [districtId], references: [id])
+  isActive        Boolean           @default(true)
+  typePersonId    Int
+  TypePerson      TypePerson        @relation(fields: [typePersonId], references: [id])
+  PersonRole      PersonRole[]
+  groupTrainer    GroupTrainer[]
+  Enrollment      Enrollment[]
+  User            User?
+  Academic        Academic?
+  PrincipalSchool PrincipalSchool[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  updatedBy       Int?
+  deletedBy       Int?
+  GroupMember     GroupMember[]
+  Group           Group[]
 }
 
 model Academic {
@@ -415,8 +415,8 @@ model Enrollment {
   moduleEvaluation     ModuleEvaluation[]
   trainingReport       TrainingReport[]
   trainingEvaluation   TrainingEvaluation[]
-  Person               Person?              @relation(fields: [personId], references: [id])
   personId             Int?
+  Person               Person?              @relation(fields: [personId], references: [id])
   createdAt            DateTime             @default(now())
   updatedAt            DateTime             @updatedAt
   deletedAt            DateTime?
@@ -459,7 +459,7 @@ model ModuleReport {
   trainingModuleId Int
   trainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
   enrollmentId     Int
-  enrollment       Enrollment     @relation(fields: [enrollmentId], references: [id])
+  Enrollment       Enrollment     @relation(fields: [enrollmentId], references: [id])
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   deletedAt        DateTime?

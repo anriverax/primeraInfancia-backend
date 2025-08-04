@@ -5,7 +5,7 @@ import { IModuleReportsWithPagination } from "@/core/moduleReport/dto/moduleRepo
 
 @QueryHandler(GetAllModuleReportQuery)
 export class GetAllModuleReportHandler {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async execute(query: GetAllModuleReportQuery): Promise<IModuleReportsWithPagination> {
     const { page = 1, limit = 10 } = query.data;
@@ -21,21 +21,27 @@ export class GetAllModuleReportHandler {
           status: true,
           trainingModuleId: true,
           enrollmentId: true,
-          trainingModule:{
-            select:{
-              moduleName:true
+          trainingModule: {
+            select: {
+              moduleName: true
             }
           },
-          enrollment:{
-            select:{
-              Person:{
-                select:{
-                  firstName:true,
-                  lastName1:true,
-                  lastName2:true,
+          Enrollment: {
+            select: {
+              teacherId: true,
+              personRole: {
+                select: {
+                  person: {
+                    select: {
+                      firstName: true,
+                      lastName1: true,
+                      lastName2: true,
+                    }
+                  }
                 }
               }
             }
+
           }
         },
         orderBy: {
