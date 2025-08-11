@@ -8,10 +8,9 @@ export class GetByIdGroupHandler {
   constructor(private readonly prisma: PrismaService) {}
   /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(query: GetByIdGroupQuery): Promise<IGetByIdGroup | null> {
-    const groups = await this.prisma.group.findUnique({
+    const group = await this.prisma.group.findUnique({
       where: {
-        id: query.id,
-        deletedAt: null
+        id: query.id
       },
       select: {
         id: true,
@@ -22,9 +21,32 @@ export class GetByIdGroupHandler {
           select: { id: true, name: true }
         },
         GroupLeader: {
+          where: {
+            deletedAt: null,
+            deletedBy: null
+          },
           select: {
             id: true,
             Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+          }
+        },
+        Inscription: {
+          where: {
+            deletedAt: null,
+            deletedBy: null
+          },
+          select: {
+            id: true,
+            Person: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName1: true,
+                lastName2: true,
+                phoneNumber: true,
+                User: { select: { email: true, avatar: true } }
+              }
+            }
           }
         },
         _count: {
@@ -33,7 +55,7 @@ export class GetByIdGroupHandler {
       }
     });
 
-    return groups as any;
+    return group as any;
   }
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
