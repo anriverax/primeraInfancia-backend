@@ -1,6 +1,6 @@
 import { IPagination } from "@/common/helpers/dto";
 import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
-import { Group } from "@prisma/client";
+import { Group, Person } from "@prisma/client";
 
 export type ICreateGroup = Pick<Group, "name" | "description" | "memberCount" | "zoneId" | "createdBy">;
 export type IUpdateGroup = Pick<
@@ -20,24 +20,46 @@ export interface IGroupsWithPagination {
   data: IGetAllGroup[];
   meta: IPagination;
 }
+
+interface InscriptionPerson
+  extends Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> {
+  fullName?: string;
+  User: {
+    email: string;
+    avatar: string | null;
+  };
+  District: {
+    Municipality: {
+      name: string;
+      Department: {
+        name: string;
+      };
+    };
+  };
+}
+
+interface GroupInscription {
+  id: number;
+  deletedAt?: Date | null;
+  Person: InscriptionPerson;
+}
+
+interface GroupInscriptionWithFullName extends Omit<GroupInscription, "Person" | "deletedAt"> {
+  status: "Activo" | "Inactivo";
+  Person: Omit<InscriptionPerson, "firstName" | "lastName1" | "lastName2">; // Only names, no User or District details
+}
 export interface IGetByIdGroup extends IGetAllGroup {
   GroupLeader: {
     id: number;
-    Person: {
-      id: number;
-      firstName: string;
-      lastName1: string;
-      lastName2: string;
-    };
+    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
   }[];
+  Inscription: GroupInscription[];
 }
 
-export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLeader"> {
+export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLeader" | "Inscription"> {
   GroupLeader: {
     id: number;
-    Person: {
-      id: number;
-      fullName: string; // Full name derived from firstName, lastName1, and lastName2
-    };
+    Person: Pick<InscriptionPerson, "id" | "fullName">;
   }[];
+  Inscription: GroupInscriptionWithFullName[];
 }

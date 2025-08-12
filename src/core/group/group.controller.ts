@@ -72,6 +72,7 @@ export class GroupController {
 
     /* eslint-disable @typescript-eslint/no-explicit-any */
     let leaders: any[] = [];
+    let inscriptionPerson: any[] = [];
     /* eslint-enable @typescript-eslint/no-explicit-any */
     if (result?.GroupLeader && Array.isArray(result.GroupLeader)) {
       leaders = result.GroupLeader.map((leader) => ({
@@ -84,10 +85,25 @@ export class GroupController {
       }));
     }
 
+    if (result?.Inscription && Array.isArray(result.Inscription)) {
+      inscriptionPerson = result.Inscription.map((inscription) => ({
+        id: inscription.id,
+        status: inscription.deletedAt ? "Inactivo" : "Activo",
+        Person: {
+          id: inscription.Person.id,
+          fullName:
+            `${inscription.Person.firstName ?? ""} ${inscription.Person.lastName1 ?? ""} ${inscription.Person.lastName2 ?? ""}`.trim(),
+          phoneNumber: inscription.Person.phoneNumber,
+          User: inscription.Person.User,
+          District: inscription.Person.District
+        }
+      }));
+    }
+
     return {
       statusCode: 200,
       message: "Listado de grupos por ID",
-      data: { ...result, GroupLeader: leaders }
+      data: { ...result, GroupLeader: leaders, Inscription: inscriptionPerson }
     };
   }
 }

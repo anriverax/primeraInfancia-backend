@@ -31,12 +31,9 @@ export class GetByIdGroupHandler {
           }
         },
         Inscription: {
-          where: {
-            deletedAt: null,
-            deletedBy: null
-          },
           select: {
             id: true,
+            deletedAt: true,
             Person: {
               select: {
                 id: true,
@@ -44,6 +41,18 @@ export class GetByIdGroupHandler {
                 lastName1: true,
                 lastName2: true,
                 phoneNumber: true,
+                District: {
+                  select: {
+                    Municipality: {
+                      select: {
+                        name: true,
+                        Department: {
+                          select: { name: true }
+                        }
+                      }
+                    }
+                  }
+                },
                 User: { select: { email: true, avatar: true } }
               }
             }

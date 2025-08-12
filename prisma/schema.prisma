@@ -269,7 +269,6 @@ model Inscription {
   id                 Int                  @id @default(autoincrement())
   personId           Int
   groupId            Int
-  status             String
   Person             Person               @relation(fields: [personId], references: [id])
   Group              Group                @relation(fields: [groupId], references: [id])
   createdAt          DateTime             @default(now())
