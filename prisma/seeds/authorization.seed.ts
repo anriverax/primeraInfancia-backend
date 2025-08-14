@@ -12,7 +12,14 @@ export async function authorizationSeed() {
       },
       {
         name: "USER"
-      }
+      },
+      {
+        name: "USER_FORMADOR"
+      },
+      { name: "USER_MENTOR" },
+      { name: "USER_TECNICO_APOYO" },
+      { name: "USER_DOCENTE" },
+      { name: "USER_DIRECTOR" }
     ],
     skipDuplicates: true
   });

@@ -77,7 +77,6 @@ export class AuthDto {
   career: string;
 
   @IsOptional()
-  @Transform(({ value }) => (value ? value : "0000"))
   @IsNumber()
   nip: number;
 
