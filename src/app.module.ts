@@ -24,6 +24,7 @@ import { GroupLeaderModule } from "./core/groupLeader/groupLeader.module";
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
 import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
 import { PermissionModule } from "./core/test/permission/permission.module";
+import { SchoolModule } from "./core/test/school/school.module";
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
+    SchoolModule,
     RouterModule.register([
       {
         path: "api",
@@ -97,6 +99,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
               {
                 path: "permission",
                 module: PermissionModule
+              },
+              {
+                path: "school",
+                module: SchoolModule
               }
             ]
           }

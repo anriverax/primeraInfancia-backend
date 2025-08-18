@@ -8,11 +8,6 @@ export class GroupDto {
   name: string;
 
   @IsNotEmpty({ message: "La descripción es obligatoria." })
-  @Transform(({ value }) => value.trim())
-  @IsString({ message: "El nombre debe ser una cadena de texto." })
-  description: string;
-
-  @IsNotEmpty({ message: "La descripción es obligatoria." })
   @IsNumber()
   @Min(1, { message: "Debe seleccionar una opción válida para el número de miembros." })
   memberCount: number;

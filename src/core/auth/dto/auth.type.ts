@@ -1,4 +1,13 @@
-import { Academic, Permission, Person, Role, User, UserKey } from "@prisma/client";
+import {
+  Academic,
+  Permission,
+  Person,
+  PersonRole,
+  PrincipalSchool,
+  Role,
+  User,
+  UserKey
+} from "@prisma/client";
 export type IAuth = Pick<
   Person,
   | "firstName"
@@ -10,8 +19,9 @@ export type IAuth = Pick<
   | "phoneNumber"
   | "birthdate"
   | "districtId"
-  | "typePersonId"
 > &
+  Pick<PersonRole, "typePersonId"> &
+  Pick<PrincipalSchool, "schoolId"> &
   Pick<Academic, "career" | "nip"> &
   Pick<User, "email" | "passwd" | "roleId">;
 

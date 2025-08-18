@@ -9,8 +9,19 @@ export class UserProjection {
   constructor(private prisma: PrismaService) {}
 
   async register(data: IAuthEvent): Promise<void> {
-    const { career, nip, email, passwd, roleId, isVerified, publicKey, privateKey, ...personData } =
-      data;
+    const {
+      career,
+      nip,
+      email,
+      passwd,
+      roleId,
+      isVerified,
+      publicKey,
+      privateKey,
+      typePersonId,
+      schoolId,
+      ...personData
+    } = data;
 
     try {
       await this.prisma.person.create({
@@ -21,7 +32,9 @@ export class UserProjection {
           },
           User: {
             create: { email, passwd, roleId, isVerified, UserKey: { create: { publicKey, privateKey } } }
-          }
+          },
+          ...(schoolId > 0 && { PrincipalSchool: { create: { schoolId } } }),
+          PersonRole: { create: { typePersonId } }
         }
       });
     } catch (error) {

@@ -28,9 +28,8 @@ export class AuthDto {
   @IsString({ message: "El primer apellido debe ser una cadena de texto." })
   lastName1: string;
 
-  @IsNotEmpty({ message: "El segundo apellido es obligatorio." })
+  @IsOptional()
   @Transform(({ value }) => value.trim())
-  @IsString({ message: "El segundo apellido debe ser una cadena de texto." })
   lastName2: string;
 
   @IsNotEmpty({ message: "El DUI es obligatorio." })
@@ -68,6 +67,10 @@ export class AuthDto {
   @IsNotEmpty({ message: "El tipo de persona es obligatorio." })
   @IsNumber()
   typePersonId: number;
+
+  @IsOptional()
+  @IsNumber()
+  schoolId: number;
 
   /* Academic Information */
 

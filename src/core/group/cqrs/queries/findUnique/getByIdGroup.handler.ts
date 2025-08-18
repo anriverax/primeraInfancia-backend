@@ -15,7 +15,6 @@ export class GetByIdGroupHandler {
       select: {
         id: true,
         name: true,
-        description: true,
         memberCount: true,
         Zone: {
           select: { id: true, name: true }
@@ -27,33 +26,43 @@ export class GetByIdGroupHandler {
           },
           select: {
             id: true,
-            Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+            PersonRole: {
+              select: {
+                id: true,
+                Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+              }
+            }
           }
         },
         Inscription: {
           select: {
             id: true,
             deletedAt: true,
-            Person: {
+            PersonRole: {
               select: {
                 id: true,
-                firstName: true,
-                lastName1: true,
-                lastName2: true,
-                phoneNumber: true,
-                District: {
+                Person: {
                   select: {
-                    Municipality: {
+                    id: true,
+                    firstName: true,
+                    lastName1: true,
+                    lastName2: true,
+                    phoneNumber: true,
+                    District: {
                       select: {
-                        name: true,
-                        Department: {
-                          select: { name: true }
+                        Municipality: {
+                          select: {
+                            name: true,
+                            Department: {
+                              select: { name: true }
+                            }
+                          }
                         }
                       }
-                    }
+                    },
+                    User: { select: { email: true, avatar: true } }
                   }
-                },
-                User: { select: { email: true, avatar: true } }
+                }
               }
             }
           }

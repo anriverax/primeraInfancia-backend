@@ -19,20 +19,18 @@ export class GetAllPersonByTypePersonHandler {
 
     const selectMap: Record<number, object> = {
       2: {
-        select: {
-          id: true,
-          fullName: true,
-          phoneNumber: true,
-          User: { select: { email: true } },
-          District: {
-            select: {
-              Municipality: {
-                select: {
-                  Department: {
-                    select: {
-                      name: true,
-                      Zone: { select: { name: true } }
-                    }
+        id: true,
+        fullName: true,
+        phoneNumber: true,
+        User: { select: { email: true } },
+        District: {
+          select: {
+            Municipality: {
+              select: {
+                Department: {
+                  select: {
+                    name: true,
+                    Zone: { select: { name: true } }
                   }
                 }
               }
@@ -40,26 +38,35 @@ export class GetAllPersonByTypePersonHandler {
           }
         }
       },
-      4: { select: { id: true, fullName: true } },
-      5: { select: { id: true, fullName: true } }
+      4: { id: true, fullName: true },
+      5: { id: true, fullName: true }
     };
 
-    const persons = await this.prisma.person.findMany({
+    const persons = await this.prisma.personRole.findMany({
       where: {
         typePersonId,
         ...map[typePersonId],
-        District: {
-          Municipality: {
-            Department: {
-              zoneId
+        Person: {
+          deletedAt: null,
+          deletedBy: null,
+          District: {
+            Municipality: {
+              Department: {
+                zoneId
+              }
             }
           }
         }
       },
-      ...selectMap[typePersonId],
-      orderBy: {
-        firstName: "asc"
-      }
+      select: {
+        id: true,
+        Person: {
+          select: {
+            ...selectMap[typePersonId]
+          }
+        }
+      },
+      orderBy: { Person: { firstName: "asc" } }
     });
 
     return persons as any[];

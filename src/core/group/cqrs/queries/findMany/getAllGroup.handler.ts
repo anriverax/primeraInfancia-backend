@@ -18,7 +18,6 @@ export class GetAllGroupHandler {
         select: {
           id: true,
           name: true,
-          description: true,
           memberCount: true,
           Zone: {
             select: { id: true, name: true }

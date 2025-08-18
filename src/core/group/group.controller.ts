@@ -77,10 +77,13 @@ export class GroupController {
     if (result?.GroupLeader && Array.isArray(result.GroupLeader)) {
       leaders = result.GroupLeader.map((leader) => ({
         id: leader.id,
-        Person: {
-          id: leader.Person.id,
-          fullName:
-            `${leader.Person.firstName ?? ""} ${leader.Person.lastName1 ?? ""} ${leader.Person.lastName2 ?? ""}`.trim()
+        PersonRole: {
+          id: leader.PersonRole.id,
+          Person: {
+            id: leader.PersonRole.Person.id,
+            fullName:
+              `${leader.PersonRole.Person.firstName ?? ""} ${leader.PersonRole.Person.lastName1 ?? ""} ${leader.PersonRole.Person.lastName2 ?? ""}`.trim()
+          }
         }
       }));
     }
@@ -89,13 +92,16 @@ export class GroupController {
       inscriptionPerson = result.Inscription.map((inscription) => ({
         id: inscription.id,
         status: inscription.deletedAt ? "Inactivo" : "Activo",
-        Person: {
-          id: inscription.Person.id,
-          fullName:
-            `${inscription.Person.firstName ?? ""} ${inscription.Person.lastName1 ?? ""} ${inscription.Person.lastName2 ?? ""}`.trim(),
-          phoneNumber: inscription.Person.phoneNumber,
-          User: inscription.Person.User,
-          District: inscription.Person.District
+        PersonRole: {
+          id: inscription.PersonRole.id,
+          Person: {
+            id: inscription.PersonRole.Person.id,
+            fullName:
+              `${inscription.PersonRole.Person.firstName ?? ""} ${inscription.PersonRole.Person.lastName1 ?? ""} ${inscription.PersonRole.Person.lastName2 ?? ""}`.trim(),
+            phoneNumber: inscription.PersonRole.Person.phoneNumber,
+            User: inscription.PersonRole.Person.User,
+            District: inscription.PersonRole.Person.District
+          }
         }
       }));
     }
