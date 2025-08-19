@@ -1,4 +1,4 @@
-import { IPagination } from "@/common/helpers/dto";
+import { IPagination } from "@/common/helpers/types";
 import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
 import { Group, Person } from "@prisma/client";
 

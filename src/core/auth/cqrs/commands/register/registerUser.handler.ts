@@ -7,7 +7,7 @@ import { KeyService } from "../../../services/key.service";
 import { UserProjection } from "../../projections/user.projection";
 import { FindUniqueUserQuery } from "../../queries/user/findUniqueUser.query";
 import { UserRegisteredEvent } from "../../events/registered/userRegistered.event";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(RegisterUserCommand)
 export class RegisterUserHandler implements ICommandHandler<RegisterUserCommand> {

@@ -1,5 +1,5 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { Controller, Post, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AddMenuPermissionCommand } from "./cqrs/command/menuPermission/addMenuPermission.command";

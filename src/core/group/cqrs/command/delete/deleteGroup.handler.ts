@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { DeleteGroupCommand } from "./deleteGroup.command";
 import { GroupProjection } from "../../projections/group.projection";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(DeleteGroupCommand)
 export class DeleteGroupHandler implements ICommandHandler<DeleteGroupCommand> {

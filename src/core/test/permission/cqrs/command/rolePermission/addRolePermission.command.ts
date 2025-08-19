@@ -1,6 +1,6 @@
 import { Command } from "@nestjs/cqrs";
 
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { IRolePermission } from "../../../permission.type";
 
 export class AddRolePermissionCommand extends Command<NestResponse<void>> {

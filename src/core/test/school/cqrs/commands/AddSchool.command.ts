@@ -1,4 +1,4 @@
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { Command } from "@nestjs/cqrs";
 import { ISchool } from "../../dto/school.type";
 

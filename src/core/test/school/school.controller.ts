@@ -1,4 +1,4 @@
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { Body, Controller, Post, UseFilters } from "@nestjs/common";
 import { CommandBus } from "@nestjs/cqrs";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";

@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { AuthService } from "@/core/auth/services/auth.service";
 import { UserProjection } from "../../projections/user.projection";
 import { VerifyEmailCommand } from "./verifyEmail.command";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(VerifyEmailCommand)
 export class VerifyEmailHandler implements ICommandHandler<VerifyEmailCommand> {

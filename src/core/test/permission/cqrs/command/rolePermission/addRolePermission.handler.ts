@@ -1,5 +1,5 @@
 import { CommandHandler } from "@nestjs/cqrs";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { AddRolePermissionCommand } from "./addRolePermission.command";
 import { MenuPermissionProjection } from "../../projections/menuPermission.projection";
 

@@ -1,4 +1,4 @@
-import { IPaginatedQueryParams } from "@/common/helpers/dto";
+import { IPaginatedQueryParams } from "@/common/helpers/types";
 import { IGroupsWithPagination } from "@/core/group/dto/group.type";
 import { Query } from "@nestjs/cqrs";
 

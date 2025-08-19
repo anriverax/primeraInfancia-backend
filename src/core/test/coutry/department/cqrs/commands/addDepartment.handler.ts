@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { AddDepartmentCommand } from "./addDepartment.command";
 import { DepartmentProjection } from "../projections/department.projection";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(AddDepartmentCommand)
 export class AddDepartmentHandler implements ICommandHandler<AddDepartmentCommand> {

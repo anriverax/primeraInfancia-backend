@@ -2,15 +2,16 @@ import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { GroupDto, GroupPaginationDto } from "./dto/group.dto";
+import { GroupDto } from "./dto/group.dto";
 import { CreateGroupCommand } from "./cqrs/command/create/createGroup.command";
-import { NestResponse, NestResponseWithPagination } from "@/common/helpers/dto";
+import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { Group } from "@prisma/client";
 import { UpdateGroupCommand } from "./cqrs/command/update/updateGroup.command";
 import { DeleteGroupCommand } from "./cqrs/command/delete/deleteGroup.command";
 import { GetAllGroupQuery } from "./cqrs/queries/findMany/getAllGroup.query";
 import { IGetAllGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
 import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
+import { PaginationDto } from "../../common/helpers/dto";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -30,7 +31,7 @@ export class GroupController {
 
   @Get()
   async getAll(
-    @Query() filterPagination: GroupPaginationDto
+    @Query() filterPagination: PaginationDto
   ): Promise<NestResponseWithPagination<IGetAllGroup[]>> {
     const result = await this.queryBus.execute(new GetAllGroupQuery(filterPagination));
 

@@ -5,7 +5,7 @@ import { IGetZone } from "./dto/zone.dto";
 import { GetAllZoneQuery } from "./cqrs/queries/findMany/getAllZone.query";
 import { GetByIdZoneQuery } from "./cqrs/queries/findUnique/getByIdZone.query";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)

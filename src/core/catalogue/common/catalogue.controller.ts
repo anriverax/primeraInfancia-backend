@@ -10,7 +10,7 @@ import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { GetAllDepartmentQuery } from "../../test/coutry/department/cqrs/queries/getAllDepartment.query";
 import { MenuItem } from "@prisma/client";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { GetAllRolePermissionQuery } from "./query/permission-findMany/getAllRolePermission.query";
 
 @Controller()

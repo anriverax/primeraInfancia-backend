@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { UpdateGroupCommand } from "./updateGroup.command";
 import { GroupProjection } from "../../projections/group.projection";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(UpdateGroupCommand)
 export class UpdateGroupHandler implements ICommandHandler<UpdateGroupCommand> {

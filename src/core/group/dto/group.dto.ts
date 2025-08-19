@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, Min } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, Min } from "class-validator";
 
 export class GroupDto {
   @IsNotEmpty({ message: "El nombre es obligatorio." })
@@ -16,16 +16,4 @@ export class GroupDto {
   @IsNumber()
   @Min(1, { message: "Debe seleccionar una opción válida para el número de miembros." })
   zoneId: number;
-}
-
-export class GroupPaginationDto {
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  page?: number;
-
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  limit?: number;
 }

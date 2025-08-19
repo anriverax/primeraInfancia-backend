@@ -5,7 +5,7 @@ import { DepartmentDto } from "./dto/department.dto";
 import { IGetAllDepartment } from "./dto/department.type";
 
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { AddDepartmentCommand } from "./cqrs/commands/addDepartment.command";
 import { GetAllDepartmentQuery } from "./cqrs/queries/getAllDepartment.query";
 

@@ -73,11 +73,12 @@ model Department {
 }
 
 model Municipality {
-  id           Int        @id @default(autoincrement())
-  name         String     @unique
+  id           Int          @id @default(autoincrement())
+  name         String       @unique
   departmentId Int
-  Department   Department @relation(fields: [departmentId], references: [id])
+  Department   Department   @relation(fields: [departmentId], references: [id])
   District     District[]
+  PersonRole   PersonRole[]
 }
 
 model District {
@@ -214,20 +215,22 @@ model PrincipalSchool {
 }
 
 model PersonRole {
-  id                 Int                  @id @default(autoincrement())
-  typePersonId       Int
-  typePerson         TypePerson           @relation(fields: [typePersonId], references: [id])
-  personId           Int
-  Person             Person               @relation(fields: [personId], references: [id])
-  MentorRegistration MentorRegistration[]
-  Inscription        Inscription[]
-  GroupLeader        GroupLeader[]
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
+  id                     Int                  @id @default(autoincrement())
+  typePersonId           Int
+  typePerson             TypePerson           @relation(fields: [typePersonId], references: [id])
+  personId               Int
+  Person                 Person               @relation(fields: [personId], references: [id])
+  assignedMunicipalityId Int
+  Municipality           Municipality         @relation(fields: [assignedMunicipalityId], references: [id])
+  MentorRegistration     MentorRegistration[]
+  Inscription            Inscription[]
+  GroupLeader            GroupLeader[]
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+  deletedAt              DateTime?
+  createdBy              Int?
+  updatedBy              Int?
+  deletedBy              Int?
 }
 
 model Academic {

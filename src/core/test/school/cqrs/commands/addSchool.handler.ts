@@ -1,7 +1,7 @@
 import { CommandHandler } from "@nestjs/cqrs";
 import { SchoolProjection } from "../projections/school.projection";
 import { AddShoolCommand } from "./AddSchool.command";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(AddShoolCommand)
 export class AddSchoolHandler {

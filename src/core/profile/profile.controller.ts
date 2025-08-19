@@ -15,7 +15,7 @@ import { GetByIdUserQuery } from "./cqrs/queries/getByIdUser.query";
 // import { UploadCvCommand } from "./cqrs/commands/cv/uploadCv.command";
 import { UploadAvatarCommand } from "./cqrs/commands/avatar/uploadAvatar.command";
 import { UploadDuiCommand } from "./cqrs/commands/dui/uploadDui.command";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { UploadFilesDto } from "./dto/profile.dto";
 import { ProfileService } from "./profile.service";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";

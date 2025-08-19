@@ -1,5 +1,5 @@
 import { Command } from "@nestjs/cqrs";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { IMunicipality } from "../../dto/municipality.type";
 
 export class AddMunicipalityCommand extends Command<NestResponse<void>> {

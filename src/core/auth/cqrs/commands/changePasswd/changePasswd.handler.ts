@@ -5,7 +5,7 @@ import { AuthService } from "@/core/auth/services/auth.service";
 import { UserProjection } from "../../projections/user.projection";
 import { PasswdChangedEvent } from "../../events/passwdChanged/passwdChanged.event";
 import { EventBusWithStore } from "@/services/events/eventBusWithStore";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(ChangePasswdCommand)
 export class ChangePasswdHandler implements ICommandHandler<ChangePasswdCommand> {

@@ -1,4 +1,4 @@
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { IUpdateGroup } from "@/core/group/dto/group.type";
 import { Command } from "@nestjs/cqrs";
 

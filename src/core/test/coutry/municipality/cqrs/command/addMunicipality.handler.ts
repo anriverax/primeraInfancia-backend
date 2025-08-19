@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { AddMunicipalityCommand } from "./addMunicipality.command";
 import { MunicipalityProjection } from "../projections/municipality.projection";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 
 @CommandHandler(AddMunicipalityCommand)
 export class AddMunicipalityHandler implements ICommandHandler<AddMunicipalityCommand> {

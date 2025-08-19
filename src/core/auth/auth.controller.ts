@@ -14,7 +14,7 @@ import { AuthService } from "./services/auth.service";
 import { AuthDto, ChangePasswdDto, LoginDto } from "./dto/auth.dto";
 import { ILoginResponse } from "./dto/auth.type";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { TokenService } from "./services/token.service";
 import { RefreshTokenGuard } from "@/common/guards/refreshToken.guard";

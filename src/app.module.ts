@@ -18,7 +18,7 @@ import { CatalogueModule } from "./core/catalogue/common/catalogue.module";
 import { ProfileModule } from "./core/profile/profile.module";
 import { ZoneModule } from "./core/catalogue/zone/zone.module";
 import { GroupModule } from "./core/group/group.module";
-import { GroupLeaderModule } from "./core/groupLeader/groupLeader.module";
+import { AssignTypePersonModule } from "./core/assignTypePerson/assignTypePerson.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -50,7 +50,7 @@ import { SchoolModule } from "./core/test/school/school.module";
     ProfileModule,
     ZoneModule,
     GroupModule,
-    GroupLeaderModule,
+    AssignTypePersonModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -82,8 +82,8 @@ import { SchoolModule } from "./core/test/school/school.module";
             module: GroupModule
           },
           {
-            path: "group-leader",
-            module: GroupLeaderModule
+            path: "assign-person",
+            module: AssignTypePersonModule
           },
           {
             path: "test",

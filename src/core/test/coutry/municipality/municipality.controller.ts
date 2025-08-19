@@ -4,7 +4,7 @@ import { Municipality } from "@prisma/client";
 import { MunicipalityDto } from "./dto/municipality.dto";
 import { GetAllMunicipalityQuery } from "./cqrs/queries/getAllMunicipality.query";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-import { NestResponse } from "@/common/helpers/dto";
+import { NestResponse } from "@/common/helpers/types";
 import { AddMunicipalityCommand } from "./cqrs/command/addMunicipality.command";
 
 @Controller()

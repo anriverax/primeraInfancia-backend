@@ -1,22 +1,13 @@
-export interface NestResponse<T> {
-  statusCode: number;
-  message: string[] | string;
-  data?: T | T[];
-}
+import { IsNumber, IsOptional, IsPositive } from "class-validator";
 
-export interface IPagination {
-  total: number;
-  currentPage: number;
-  perPage: number;
-  lastPage: number;
-  prev: number | null;
-  next: number | null;
-}
-export interface NestResponseWithPagination<T> extends NestResponse<T> {
-  meta: IPagination;
-}
-
-export interface IPaginatedQueryParams {
+export class PaginationDto {
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
   page?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
   limit?: number;
 }
