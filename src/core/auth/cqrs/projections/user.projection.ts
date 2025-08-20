@@ -20,6 +20,7 @@ export class UserProjection {
       privateKey,
       typePersonId,
       schoolId,
+      assignedMunicipalityId,
       ...personData
     } = data;
 
@@ -34,7 +35,7 @@ export class UserProjection {
             create: { email, passwd, roleId, isVerified, UserKey: { create: { publicKey, privateKey } } }
           },
           ...(schoolId > 0 && { PrincipalSchool: { create: { schoolId } } }),
-          PersonRole: { create: { typePersonId } }
+          PersonRole: { create: { typePersonId, assignedMunicipalityId } }
         }
       });
     } catch (error) {

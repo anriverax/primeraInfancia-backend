@@ -8,7 +8,6 @@ import { IPersonRole } from "@/core/assignTypePerson/dto/assignTypePerson.type";
 export class getAllPersonRoleHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(query: GetAllPersonRoleQuery): Promise<IPersonRole[]> {
     const { typePersonId, zoneId, memberCount } = query;
 
@@ -50,5 +49,4 @@ export class getAllPersonRoleHandler {
 
     return [];
   }
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 }

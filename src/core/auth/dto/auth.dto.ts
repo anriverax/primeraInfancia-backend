@@ -67,6 +67,9 @@ export class AuthDto {
   @IsNotEmpty({ message: "El tipo de persona es obligatorio." })
   @IsNumber()
   typePersonId: number;
+  @IsNotEmpty({ message: "El municipio asignado es obligatorio." })
+  @IsNumber()
+  assignedMunicipalityId: number;
 
   @IsOptional()
   @IsNumber()

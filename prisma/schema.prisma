@@ -73,12 +73,12 @@ model Department {
 }
 
 model Municipality {
-  id           Int          @id @default(autoincrement())
-  name         String       @unique
-  departmentId Int
-  Department   Department   @relation(fields: [departmentId], references: [id])
-  District     District[]
-  PersonRole   PersonRole[]
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  departmentId   Int
+  Department     Department       @relation(fields: [departmentId], references: [id])
+  District       District[]
+  WorkAssignment WorkAssignment[]
 }
 
 model District {
@@ -198,6 +198,7 @@ model Person {
   updatedBy       Int?
   deletedBy       Int?
   PersonRole      PersonRole[]
+  WorkAssignment  WorkAssignment[]
 }
 
 model PrincipalSchool {
@@ -215,18 +216,30 @@ model PrincipalSchool {
 }
 
 model PersonRole {
-  id                     Int                  @id @default(autoincrement())
-  typePersonId           Int
-  typePerson             TypePerson           @relation(fields: [typePersonId], references: [id])
+  id                 Int                  @id @default(autoincrement())
+  typePersonId       Int
+  typePerson         TypePerson           @relation(fields: [typePersonId], references: [id])
+  personId           Int
+  Person             Person               @relation(fields: [personId], references: [id])
+  MentorRegistration MentorRegistration[]
+  Inscription        Inscription[]
+  GroupLeader        GroupLeader[]
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model WorkAssignment {
+  id                     Int          @id @default(autoincrement())
   personId               Int
-  Person                 Person               @relation(fields: [personId], references: [id])
+  Person                 Person       @relation(fields: [personId], references: [id])
   assignedMunicipalityId Int
-  Municipality           Municipality         @relation(fields: [assignedMunicipalityId], references: [id])
-  MentorRegistration     MentorRegistration[]
-  Inscription            Inscription[]
-  GroupLeader            GroupLeader[]
-  createdAt              DateTime             @default(now())
-  updatedAt              DateTime             @updatedAt
+  Municipality           Municipality @relation(fields: [assignedMunicipalityId], references: [id])
+  createdAt              DateTime     @default(now())
+  updatedAt              DateTime     @updatedAt
   deletedAt              DateTime?
   createdBy              Int?
   updatedBy              Int?

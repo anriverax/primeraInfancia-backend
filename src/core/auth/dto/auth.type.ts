@@ -20,7 +20,7 @@ export type IAuth = Pick<
   | "birthdate"
   | "districtId"
 > &
-  Pick<PersonRole, "typePersonId"> &
+  Pick<PersonRole, "typePersonId" | "assignedMunicipalityId"> &
   Pick<PrincipalSchool, "schoolId"> &
   Pick<Academic, "career" | "nip"> &
   Pick<User, "email" | "passwd" | "roleId">;
