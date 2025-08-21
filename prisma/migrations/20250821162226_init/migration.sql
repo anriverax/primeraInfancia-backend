@@ -75,12 +75,6 @@ CREATE TABLE "School" (
     "sector" TEXT NOT NULL,
     "districtId" INTEGER NOT NULL,
     "coordenates" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "deletedAt" TIMESTAMP(3),
-    "createdBy" INTEGER,
-    "updatedBy" INTEGER,
-    "deletedBy" INTEGER,
 
     CONSTRAINT "School_pkey" PRIMARY KEY ("id")
 );
@@ -137,7 +131,7 @@ CREATE TABLE "Person" (
     "id" SERIAL NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName1" TEXT NOT NULL,
-    "lastName2" TEXT NOT NULL,
+    "lastName2" TEXT,
     "dui" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "gender" "TypeGender" NOT NULL,
@@ -183,6 +177,21 @@ CREATE TABLE "PersonRole" (
     "deletedBy" INTEGER,
 
     CONSTRAINT "PersonRole_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "WorkAssignment" (
+    "id" SERIAL NOT NULL,
+    "personId" INTEGER NOT NULL,
+    "assignedMunicipalityId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+    "createdBy" INTEGER,
+    "updatedBy" INTEGER,
+    "deletedBy" INTEGER,
+
+    CONSTRAINT "WorkAssignment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -447,6 +456,12 @@ ALTER TABLE "PersonRole" ADD CONSTRAINT "PersonRole_typePersonId_fkey" FOREIGN K
 
 -- AddForeignKey
 ALTER TABLE "PersonRole" ADD CONSTRAINT "PersonRole_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "WorkAssignment" ADD CONSTRAINT "WorkAssignment_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "WorkAssignment" ADD CONSTRAINT "WorkAssignment_assignedMunicipalityId_fkey" FOREIGN KEY ("assignedMunicipalityId") REFERENCES "Municipality"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Academic" ADD CONSTRAINT "Academic_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

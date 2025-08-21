@@ -35,7 +35,8 @@ export class UserProjection {
             create: { email, passwd, roleId, isVerified, UserKey: { create: { publicKey, privateKey } } }
           },
           ...(schoolId > 0 && { PrincipalSchool: { create: { schoolId } } }),
-          PersonRole: { create: { typePersonId, assignedMunicipalityId } }
+          PersonRole: { create: { typePersonId } },
+          WorkAssignment: { create: [{ assignedMunicipalityId }] }
         }
       });
     } catch (error) {

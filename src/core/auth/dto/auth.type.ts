@@ -6,7 +6,8 @@ import {
   PrincipalSchool,
   Role,
   User,
-  UserKey
+  UserKey,
+  WorkAssignment
 } from "@prisma/client";
 export type IAuth = Pick<
   Person,
@@ -20,7 +21,8 @@ export type IAuth = Pick<
   | "birthdate"
   | "districtId"
 > &
-  Pick<PersonRole, "typePersonId" | "assignedMunicipalityId"> &
+  Pick<PersonRole, "typePersonId"> &
+  Pick<WorkAssignment, "assignedMunicipalityId"> &
   Pick<PrincipalSchool, "schoolId"> &
   Pick<Academic, "career" | "nip"> &
   Pick<User, "email" | "passwd" | "roleId">;
