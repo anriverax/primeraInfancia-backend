@@ -8,10 +8,11 @@ import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types
 import { Group } from "@prisma/client";
 import { UpdateGroupCommand } from "./cqrs/command/update/updateGroup.command";
 import { DeleteGroupCommand } from "./cqrs/command/delete/deleteGroup.command";
-import { GetAllGroupQuery } from "./cqrs/queries/findMany/getAllGroup.query";
+import { GetAllGroupQuery } from "./cqrs/queries/group/findMany/getAllGroup.query";
 import { IGetAllGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
-import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
+import { GetByIdGroupQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
+import { GetAllPersonRoleQuery } from "./cqrs/queries/personRole/findMany/getAllPersonRole.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -24,6 +25,8 @@ export class GroupController {
   @AuthRequired()
   @Post("create")
   async create(@Body() data: GroupDto, @Req() req: Request): Promise<NestResponse<Group>> {
+    const result = await this.queryBus.execute(new GetAllPersonRoleQuery());
+    console.log(result);
     return this.commandBus.execute(
       new CreateGroupCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );
