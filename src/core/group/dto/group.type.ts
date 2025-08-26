@@ -1,12 +1,12 @@
 import { IPagination } from "@/common/helpers/types";
-import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
+// import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
 import { Group, Person } from "@prisma/client";
 
-export type ICreateGroup = Pick<Group, "name" | "memberCount" | "zoneId" | "createdBy">;
-export type IUpdateGroup = Pick<Group, "id" | "name" | "memberCount" | "zoneId" | "updatedBy">;
+export type ICreateGroup = Pick<Group, "name" | "memberCount" | "createdBy">;
+export type IUpdateGroup = Pick<Group, "id" | "name" | "memberCount" | "updatedBy">;
 export type IDeleteGroup = Pick<Group, "id" | "deletedBy">;
 export interface IGetAllGroup extends Pick<Group, "id" | "name" | "memberCount"> {
-  Zone: Omit<IGetZone, "_count">;
+  //Zone: Omit<IGetZone, "_count">;
 
   _count: {
     Inscription: number;
@@ -68,4 +68,11 @@ export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLea
     Person: Pick<InscriptionPerson, "id" | "fullName">;
   }[];
   Inscription: GroupInscriptionWithFullName[];
+}
+
+export interface ITrainer {
+  id: number;
+  departmentId: number;
+  trainerId: number;
+  groups: string;
 }

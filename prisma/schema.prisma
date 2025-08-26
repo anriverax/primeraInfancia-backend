@@ -58,7 +58,6 @@ model TypePerson {
 model Zone {
   id         Int          @id @default(autoincrement())
   name       String
-  Group      Group[]
   Department Department[]
 }
 
@@ -70,6 +69,7 @@ model Department {
   zoneId       Int
   Zone         Zone           @relation(fields: [zoneId], references: [id])
   Municipality Municipality[]
+  Group        Group[]
 }
 
 model Municipality {
@@ -305,8 +305,8 @@ model Group {
   id           Int            @id @default(autoincrement())
   name         String // example: "Grupo #1 (CFD Santa Ana)"
   memberCount  Int
-  zoneId       Int
-  Zone         Zone           @relation(fields: [zoneId], references: [id])
+  departmentId Int
+  Department   Department     @relation(fields: [departmentId], references: [id])
   GroupSeminar GroupSeminar[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt

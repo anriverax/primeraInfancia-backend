@@ -16,9 +16,9 @@ export class GetByIdGroupHandler {
         id: true,
         name: true,
         memberCount: true,
-        Zone: {
+        /*Zone: {
           select: { id: true, name: true }
-        },
+        },*/
         GroupLeader: {
           where: {
             deletedAt: null,

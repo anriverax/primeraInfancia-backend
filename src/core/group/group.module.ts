@@ -8,10 +8,16 @@ import { CreateGroupHandler } from "./cqrs/command/create/createGroup.handler";
 import { DeleteGroupHandler } from "./cqrs/command/delete/deleteGroup.handler";
 import { UpdateGroupHandler } from "./cqrs/command/update/updateGroup.handler";
 import { GetByIdGroupHandler } from "./cqrs/queries/group/findUnique/getByIdGroup.handler";
-import { GetAllPersonRoleHandler } from './cqrs/queries/personRole/findMany/getAllPersonRole.handler';
+import { GetAllTrainerHandler } from "./cqrs/queries/personRole/trainer/getAllTrainer.handler";
+import { GetAllTeacherHandler } from "./cqrs/queries/personRole/teacher/getAllTeacher.handler";
 
 const CommandHandlers = [CreateGroupHandler, UpdateGroupHandler, DeleteGroupHandler];
-const QueryHandlers = [GetAllGroupHandler, GetByIdGroupHandler, GetAllPersonRoleHandler];
+const QueryHandlers = [
+  GetAllGroupHandler,
+  GetByIdGroupHandler,
+  GetAllTrainerHandler,
+  GetAllTeacherHandler
+];
 
 @Module({
   imports: [CqrsModule, JwtModule],

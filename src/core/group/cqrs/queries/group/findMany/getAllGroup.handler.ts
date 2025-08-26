@@ -19,9 +19,9 @@ export class GetAllGroupHandler {
           id: true,
           name: true,
           memberCount: true,
-          Zone: {
+          /*Zone: {
             select: { id: true, name: true }
-          },
+          },*/
           _count: {
             select: { Inscription: true }
           }

@@ -12,7 +12,8 @@ import { GetAllGroupQuery } from "./cqrs/queries/group/findMany/getAllGroup.quer
 import { IGetAllGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
 import { GetByIdGroupQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
-import { GetAllPersonRoleQuery } from "./cqrs/queries/personRole/findMany/getAllPersonRole.query";
+import { GetAllTrainerQuery } from "./cqrs/queries/personRole/trainer/getAllTrainer.query";
+import { GetAllTeacherQuery } from "./cqrs/queries/personRole/teacher/getAllTeacher.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -25,8 +26,11 @@ export class GroupController {
   @AuthRequired()
   @Post("create")
   async create(@Body() data: GroupDto, @Req() req: Request): Promise<NestResponse<Group>> {
-    const result = await this.queryBus.execute(new GetAllPersonRoleQuery());
-    console.log(result);
+    await this.queryBus.execute(new GetAllTrainerQuery());
+    await this.queryBus.execute(new GetAllTeacherQuery());
+
+    console.log("============================================================");
+
     return this.commandBus.execute(
       new CreateGroupCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );
