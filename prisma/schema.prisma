@@ -534,3 +534,173 @@ model ModuleEvaluation {
   updatedBy              Int?
   deletedBy              Int?
 }
+
+model DetailOption {
+  id              Int               @id @default(autoincrement())
+  textToDisplay   String?           
+  optionId        Int
+  option          Option            @relation(fields: [optionId], references: [id])
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
+}
+
+model ResponseSelectionOption {
+  id                Int             @id @default(autoincrement())
+  answerId          Int
+  optionId          Int
+  answer            Answer          @relation(fields: [answerId], references: [id])
+  option            Option          @relation(fields: [optionId], references: [id])
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
+
+model Option {
+  id                Int                 @id @default(autoincrement())
+  text              String?             @db.VarChar(500)
+  value             String?             @db.VarChar(500)
+  questionId        Int
+  question          Question            @relation(fields: [questionId], references: [id])
+  DetailOption      DetailOption[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+  ResponseSelectionOption ResponseSelectionOption[]
+}
+
+model Answer {
+  id                 Int                       @id @default(autoincrement())
+  valueText          String?                   
+  valueNumber        Int?
+  valueBoolean       Boolean?
+  valueDate          DateTime?                 
+  valueInt           Int?
+  questionId         Int
+  responseSessionId  Int
+  question           Question                  @relation(fields: [questionId], references: [id])
+  responseSession    ResponseSession           @relation(fields: [responseSessionId], references: [id])
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+  ResponseSelectionOption ResponseSelectionOption[]
+}
+
+model Question {
+  id                 Int            @id @default(autoincrement())
+  text               String?        
+  questionType       String?        
+  code               String?        
+  subQuestion        String?        
+  isMandatory        Boolean?
+  sectionId          Int
+  section            Section        @relation(fields: [sectionId], references: [id])
+  options            Option[]
+  answers            Answer[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Section {
+  id                Int             @id @default(autoincrement())
+  title             String?         
+  summary           String?         
+  orderBy           Int?            
+  instrumentId      Int
+  instrument        Instrument      @relation(fields: [instrumentId], references: [id])
+  questions         Question[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
+
+model ResponseSession {
+  id                 Int             @id @default(autoincrement())
+  status             String?         
+  answerId           Int? // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+  trackingId         Int? // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+  answers            Answer[]
+  tracking           Tracking?       @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Tracking {
+  id                 Int                 @id @default(autoincrement())
+  name               String?             
+  description        String?             
+  start              DateTime?           
+  email              String?             
+  trackingTypeId     Int
+  trackingType       TrackingType        @relation(fields: [trackingTypeId], references: [id])
+  responseSessions   ResponseSession[]
+  evidences          Evidence[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Evidence {
+  id                 Int             @id @default(autoincrement())
+  trackingId         Int
+  tracking           Tracking        @relation(fields: [trackingId], references: [id])
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model TrackingType {
+  id                 Int             @id @default(autoincrement())
+  name               String?         
+  deliveryMethod     String?         
+  trackings          Tracking[]
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Instrument {
+  id                Int             @id @default(autoincrement())
+  title             String?         
+  subTitle          String?         
+  description       String?         
+  sections          Section[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
