@@ -1,8 +1,8 @@
+import { ITeacher } from "@/core/group/dto/group.type";
 import { Query } from "@nestjs/cqrs";
 
-/* eslint-disable @typescript-eslint/no-explicit-any*/
-export class GetAllTeacherQuery extends Query<any> {
-  constructor() {
+export class GetAllTeacherQuery extends Query<ITeacher[]> {
+  constructor(public readonly departmentId: number) {
     super();
   }
 }

@@ -1,22 +1,69 @@
 import { IPagination } from "@/common/helpers/types";
 // import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
-import { Group, Person } from "@prisma/client";
+import { Department, District, Group, GroupMentor, Municipality, Person, School } from "@prisma/client";
 
-export type ICreateGroup = Pick<Group, "name" | "memberCount" | "createdBy">;
-export type IUpdateGroup = Pick<Group, "id" | "name" | "memberCount" | "updatedBy">;
-export type IDeleteGroup = Pick<Group, "id" | "deletedBy">;
-export interface IGetAllGroup extends Pick<Group, "id" | "name" | "memberCount"> {
-  //Zone: Omit<IGetZone, "_count">;
+export interface ITrainer {
+  departmentId: number;
+  GroupLeader: {
+    create: {
+      trainerId: number;
+    };
+  };
+  name: string;
+}
 
-  _count: {
-    Inscription: number;
+export interface ITeacher extends Pick<School, "id" | "name" | "coordenates"> {
+  District: Pick<District, "id" | "name"> & {
+    Municipality: Pick<Municipality, "id" | "name"> & {
+      Department: Pick<Department, "id" | "name">;
+    };
+  };
+  PrincipalSchool: {
+    Person: Pick<Person, "id" | "firstName">;
+  }[];
+}
+
+export interface INewTeacher extends Pick<ITeacher, "id" | "name" | "District"> {
+  teachers: Pick<Person, "id" | "firstName">[];
+}
+
+export interface IGroupedTeachersByMunicipality {
+  [municipio: string]: INewTeacher[];
+}
+
+export interface IMentor {
+  id: number;
+  Person: {
+    WorkAssignment: {
+      Municipality: Pick<Municipality, "id" | "name">;
+    }[];
   };
 }
 
+export interface INewMentor {
+  mentorId: number;
+  workAssignment: Pick<Municipality, "id" | "name">;
+}
+
+export interface IGroupedMentorsByMunicipality {
+  [municipio: string]: INewMentor[];
+}
+
+export type ICreateGroup = Pick<Group, "name" | "departmentId" | "memberCount" | "createdBy">;
+export interface IGroup extends Pick<Group, "id"> {
+  Department: Pick<Department, "id" | "name">;
+}
+
 export interface IGroupsWithPagination {
-  data: IGetAllGroup[];
+  data: IGroup[] & { memberCount: number }[];
   meta: IPagination;
 }
+
+export type ICreateGroupMentor = Pick<GroupMentor, "mentorId" | "groupId" | "createdBy">;
+
+//---------------------------------------------------------------
+export type IUpdateGroup = Pick<Group, "id" | "name" | "memberCount" | "updatedBy">;
+export type IDeleteGroup = Pick<Group, "id" | "deletedBy">;
 
 interface InscriptionPerson
   extends Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> {
@@ -51,7 +98,7 @@ interface GroupInscriptionWithFullName extends Omit<GroupInscription, "PersonRol
     Person: Omit<InscriptionPerson, "firstName" | "lastName1" | "lastName2">; // Only names, no User or District details
   };
 }
-export interface IGetByIdGroup extends IGetAllGroup {
+export interface IGetByIdGroup extends IGroup {
   GroupLeader: {
     id: number;
     PersonRole: {
@@ -69,10 +116,4 @@ export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLea
   }[];
   Inscription: GroupInscriptionWithFullName[];
 }
-
-export interface ITrainer {
-  id: number;
-  departmentId: number;
-  trainerId: number;
-  groups: string;
-}
+//---

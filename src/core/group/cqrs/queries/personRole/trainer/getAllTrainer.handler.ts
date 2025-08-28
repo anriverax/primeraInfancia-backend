@@ -14,7 +14,6 @@ export class GetAllTrainerHandler {
         id: true,
         Person: {
           select: {
-            id: true,
             WorkAssignment: {
               select: {
                 Municipality: {
@@ -27,9 +26,10 @@ export class GetAllTrainerHandler {
       }
     });
 
-    //    let deptCounters = 0;
+    let deptCounters = 0;
 
     const groupedData = data.map((item) => {
+      deptCounters += 1;
       const municipalitiesNames = item.Person.WorkAssignment.map((wa) => {
         const region = wa.Municipality.name.split(" ");
         return region.at(-1);
@@ -38,13 +38,16 @@ export class GetAllTrainerHandler {
       const unitedMunicipalities = municipalitiesNames.join("-");
       const deptName = item.Person.WorkAssignment[0]?.Municipality.Department.name;
       const deptId = item.Person.WorkAssignment[0]?.Municipality.Department.id;
-      // const groups = `Grupo ${deptCounters} - CFDC ${deptName} ${unitedMunicipalities}`;
+      const groups = `Grupo ${deptCounters} - CFDC ${deptName} ${unitedMunicipalities}`;
 
       return {
-        id: item.id,
         departmentId: deptId,
-        trainerId: item.Person.id,
-        groups: `${deptName} ${unitedMunicipalities}`
+        GroupLeader: {
+          create: {
+            trainerId: item.id
+          }
+        },
+        name: groups
       };
     });
 

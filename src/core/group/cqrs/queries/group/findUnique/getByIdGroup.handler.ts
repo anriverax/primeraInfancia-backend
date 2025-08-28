@@ -33,7 +33,7 @@ export class GetByIdGroupHandler {
               }
             }
           }
-        },
+        } /*,
         Inscription: {
           select: {
             id: true,
@@ -69,7 +69,7 @@ export class GetByIdGroupHandler {
         },
         _count: {
           select: { Inscription: true }
-        }
+        }*/
       }
     });
 

@@ -11,7 +11,7 @@ export class GroupProjection {
 
   async create(data: ICreateGroup): Promise<Group> {
     try {
-      return await this.prisma.group.create({ data: { ...data, departmentId: 2 } });
+      return await this.prisma.group.create({ data: { ...data, memberCount: 0 } });
     } catch (error) {
       handlePrismaError("GroupProjection", error);
     }

@@ -6,6 +6,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 export function handlePrismaError(module: string, error: any): never {
   const logger = new Logger(module);
   if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
+    console.log(error);
     throw new ForbiddenException("Este correo electrónico ya está asociado a una cuenta.");
   }
 

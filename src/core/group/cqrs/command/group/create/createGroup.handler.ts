@@ -1,8 +1,8 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { CreateGroupCommand } from "./createGroup.command";
-import { GroupProjection } from "../../projections/group.projection";
 import { NestResponse } from "@/common/helpers/types";
 import { Group } from "@prisma/client";
+import { GroupProjection } from "../../../projections/group.projection";
 
 @CommandHandler(CreateGroupCommand)
 export class CreateGroupHandler implements ICommandHandler<CreateGroupCommand> {

@@ -216,20 +216,20 @@ model PrincipalSchool {
 }
 
 model PersonRole {
-  id                 Int                  @id @default(autoincrement())
-  typePersonId       Int
-  typePerson         TypePerson           @relation(fields: [typePersonId], references: [id])
-  personId           Int
-  Person             Person               @relation(fields: [personId], references: [id])
-  MentorRegistration MentorRegistration[]
-  Inscription        Inscription[]
-  GroupLeader        GroupLeader[]
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
+  id           Int           @id @default(autoincrement())
+  typePersonId Int
+  TypePerson   TypePerson    @relation(fields: [typePersonId], references: [id])
+  personId     Int
+  Person       Person        @relation(fields: [personId], references: [id])
+  GroupMentor  GroupMentor[]
+  Inscription  Inscription[]
+  GroupLeader  GroupLeader[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  deletedAt    DateTime?
+  createdBy    Int?
+  updatedBy    Int?
+  deletedBy    Int?
 }
 
 model WorkAssignment {
@@ -314,8 +314,9 @@ model Group {
   createdBy    Int?
   updatedBy    Int?
   deletedBy    Int?
-  Inscription  Inscription[]
+  Inscriptions Inscription[]
   GroupLeader  GroupLeader[]
+  GroupMentors GroupMentor[]
 }
 
 model GroupLeader {
@@ -332,34 +333,46 @@ model GroupLeader {
   deletedBy  Int?
 }
 
-model Inscription {
-  id                 Int                  @id @default(autoincrement())
-  groupId            Int
-  teacherId          Int
-  PersonRole         PersonRole           @relation(fields: [teacherId], references: [id])
-  Group              Group                @relation(fields: [groupId], references: [id])
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
-  MentorRegistration MentorRegistration[]
+model GroupMentor {
+  id         Int        @id @default(autoincrement())
+  mentorId   Int
+  groupId    Int
+  PersonRole PersonRole @relation(fields: [mentorId], references: [id])
+  Group      Group      @relation(fields: [groupId], references: [id])
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  deletedAt  DateTime?
+  createdBy  Int?
+  updatedBy  Int?
+  deletedBy  Int?
+
+  // Relación: cada mentor tiene asignados docentes
+  MentorAssignments MentorAssignment[]
+
+  @@unique([mentorId, groupId])
 }
 
-model MentorRegistration {
+model Inscription {
+  id               Int                @id @default(autoincrement())
+  groupId          Int
+  teacherId        Int
+  PersonRole       PersonRole         @relation(fields: [teacherId], references: [id])
+  Group            Group              @relation(fields: [groupId], references: [id])
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int?
+  updatedBy        Int?
+  deletedBy        Int?
+  MentorAssignment MentorAssignment[]
+}
+
+model MentorAssignment {
   id            Int         @id @default(autoincrement())
   mentorId      Int
   inscriptionId Int
+  GroupMentor   GroupMentor @relation(fields: [mentorId], references: [id])
   Inscription   Inscription @relation(fields: [inscriptionId], references: [id])
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  deletedAt     DateTime?
-  createdBy     Int?
-  updatedBy     Int?
-  deletedBy     Int?
-  PersonRole    PersonRole  @relation(fields: [personRoleId], references: [id])
-  personRoleId  Int
 }
 
 // ====== END - GROUP & INSCRIPTION ======
