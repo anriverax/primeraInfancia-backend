@@ -19,7 +19,23 @@ export class GetAllEnrollmentHandler {
           id: true,
           teacherId: true,
           groupId: true,
-          administrativeStatus: true
+          administrativeStatus: true,
+          personRole: {
+            select: {
+              person: {
+                select: {
+                  firstName: true,
+                  lastName1: true,
+                  lastName2: true
+                }
+              }
+            }
+          },
+          group: {
+            select: {
+              name: true
+            }
+          }
         },
         orderBy: {
           id: "asc"
