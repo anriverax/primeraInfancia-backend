@@ -7,8 +7,7 @@ export class TeacherService {
   order(teachers: ITeacher[]): INewTeacher[] {
     const teachersData = teachers.map((school) => {
       const data = school.PrincipalSchool.map((ps) => ({
-        id: ps.Person.id,
-        firstName: ps.Person.firstName
+        id: ps.Person.id
       }));
       return {
         id: school.id,

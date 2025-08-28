@@ -1,7 +1,11 @@
-import { IGroupedMentorsByMunicipality, IGroupedTeachersByMunicipality } from "../dto/group.type";
+import {
+  IGroupedMentorsByMunicipality,
+  IGroupedTeachersByMunicipality,
+  IMentorsByMunicipality
+} from "../dto/group.type";
 
 export class AssignTeacherService {
-  numericalDistribution(teachers: number, mentors: number) {
+  numericalDistribution(teachers: number, mentors: number): { limit: number; remains: number } {
     const limit = Math.floor(teachers / mentors);
     const remains = teachers % mentors;
 
@@ -12,21 +16,21 @@ export class AssignTeacherService {
 
     return { limit, remains };
   }
-  /* eslint-disable @typescript-eslint/no-explicit-any */
+
   distributeSchools(
     teachers: IGroupedTeachersByMunicipality,
     mentors: IGroupedMentorsByMunicipality,
     distribution: { limit: number; remains: number },
     groupId: number
-  ) {
-    console.log(groupId);
-    const result: any = [];
+  ): IMentorsByMunicipality[] {
+    const result: IMentorsByMunicipality[] = [];
     for (const [m, s] of Object.entries(teachers)) {
       // Clonamos el array de mentores de ese municipio
-      const mentorsByMunicipality: any = mentors[m].map((m) => ({
+      const mentorsByMunicipality: IMentorsByMunicipality[] = mentors[m].map((m) => ({
         ...m,
         teachers: [],
         limit: distribution.limit + (distribution.remains-- > 0 ? 1 : 0),
+        groupId,
         assignedSchools: new Set<string>() // Para evitar compartir escuela
       }));
 
@@ -41,21 +45,17 @@ export class AssignTeacherService {
             .filter((m) => !m.assignedSchools.has(school.name) && m.teachers.length < m.limit)
             .sort((a, b) => a.teachers.length - b.teachers.length || a.limit - b.limit);
 
-          if (availableMentors.length === 0) {
-            // Todos los mentores alcanzaron su límite o ya tienen esta escuela
-            break;
-          }
+          if (availableMentors.length === 0) break;
 
           const mentor = availableMentors[0];
           const slotsAvailable = mentor.limit - mentor.teachers.length;
           const teachersToAssign = remainingTeachers.splice(0, slotsAvailable);
-
+          console.log(teachersToAssign);
           mentor.teachers.push(...teachersToAssign);
           mentor.assignedSchools.add(school.name);
         }
-
-        result.push(...mentorsByMunicipality);
       }
+      result.push(...mentorsByMunicipality);
     }
 
     return result;

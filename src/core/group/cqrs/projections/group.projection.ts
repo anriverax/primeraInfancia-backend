@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { ICreateGroup, IDeleteGroup, IUpdateGroup } from "../../dto/group.type";
+import { ICreateGroupWithTrainer, IDeleteGroup, IUpdateGroup } from "../../dto/group.type";
 import { Group } from "@prisma/client";
 import { handlePrismaError } from "@/common/helpers/functions";
 
@@ -9,7 +9,7 @@ import { handlePrismaError } from "@/common/helpers/functions";
 export class GroupProjection {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: ICreateGroup): Promise<Group> {
+  async create(data: ICreateGroupWithTrainer): Promise<Group> {
     try {
       return await this.prisma.group.create({ data: { ...data, memberCount: 0 } });
     } catch (error) {

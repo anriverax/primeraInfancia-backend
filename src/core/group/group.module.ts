@@ -14,12 +14,18 @@ import { GetAllMentorHandler } from "./cqrs/queries/personRole/mentor/getAllMent
 import { TeacherService } from "./services/teacher.service";
 import { MentorService } from "./services/mentor.service";
 import { AssignTeacherService } from "./services/assignTeacher.service";
-import { CreateGroupMentorHandler } from "./cqrs/command/groupMentor/create/createGroup.handler";
+import { CreateGroupMentorHandler } from "./cqrs/command/groupMentor/create/createGroupMentor.handler";
 import { GroupMentorProjection } from "./cqrs/projections/groupMentor.projection";
+import { GroupService } from "./services/group.service";
+import { GroupMentorService } from "./services/groupMentor.service";
+import { InscriptionService } from "./services/inscription.service";
+import { InscriptionProjection } from "./cqrs/projections/inscription.projection";
+import { CreateInscriptionHandler } from "./cqrs/command/inscription/create/createInscription.handler";
 
 const CommandHandlers = [
   CreateGroupHandler,
   CreateGroupMentorHandler,
+  CreateInscriptionHandler,
   UpdateGroupHandler,
   DeleteGroupHandler
 ];
@@ -37,11 +43,15 @@ const QueryHandlers = [
   providers: [
     GroupProjection,
     GroupMentorProjection,
+    InscriptionProjection,
     ...CommandHandlers,
     ...QueryHandlers,
     TeacherService,
     MentorService,
-    AssignTeacherService
+    AssignTeacherService,
+    GroupService,
+    GroupMentorService,
+    InscriptionService
   ]
 })
 export class GroupModule {}

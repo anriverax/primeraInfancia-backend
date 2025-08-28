@@ -4,7 +4,7 @@ import { IGroupedMentorsByMunicipality, IMentor, INewMentor } from "../dto/group
 @Injectable()
 export class MentorService {
   // Sort mentors by municipality name
-  sort(mentors: INewMentor[]) {
+  sort(mentors: INewMentor[]): INewMentor[] {
     const mentorsSorted = mentors.sort((a, b) => {
       const nameA = a.workAssignment.name || "";
       const nameB = b.workAssignment.name || "";

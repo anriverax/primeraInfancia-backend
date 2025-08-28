@@ -6,109 +6,48 @@ import { GroupDto } from "./dto/group.dto";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { UpdateGroupCommand } from "./cqrs/command/update/updateGroup.command";
 import { DeleteGroupCommand } from "./cqrs/command/delete/deleteGroup.command";
-import { IGroup, IGetByIdGroupWithFullName, IGroupedMentorsByMunicipality } from "./dto/group.type";
+import { IGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
 import { GetByIdGroupQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
-import { GetAllTrainerQuery } from "./cqrs/queries/personRole/trainer/getAllTrainer.query";
-import { GetAllTeacherQuery } from "./cqrs/queries/personRole/teacher/getAllTeacher.query";
-import { GetAllMentorQuery } from "./cqrs/queries/personRole/mentor/getAllMentor.query";
-import { TeacherService } from "./services/teacher.service";
-import { MentorService } from "./services/mentor.service";
-import { AssignTeacherService } from "./services/assignTeacher.service";
 import { GetAllGroupPaginationQuery } from "./cqrs/queries/group/pagination/getAllGroupPagination.query";
-import { GetAllGroupQuery } from "./cqrs/queries/group/findMany/getAllGroup.query";
-import { CreateGroupMentorCommand } from "./cqrs/command/groupMentor/create/createGroupMentor.command";
-import { CreateGroupCommand } from "./cqrs/command/group/create/createGroup.command";
-import { GroupMentor } from "@prisma/client";
+import { GroupService } from "./services/group.service";
+import { GroupMentorService } from "./services/groupMentor.service";
+import { InscriptionService } from "./services/inscription.service";
 @Controller()
 @UseFilters(HttpExceptionFilter)
 export class GroupController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
-    private readonly teacherService: TeacherService,
-    private readonly mentorService: MentorService,
-    private readonly assignTeacherService: AssignTeacherService
+    private readonly groupMentorService: GroupMentorService,
+    private readonly groupService: GroupService,
+    private readonly inscriptionService: InscriptionService
   ) {}
 
   @AuthRequired()
   @Post("create")
   async create(@Req() req: Request): Promise<string> {
-    const groupsMentors: GroupMentor[] = [];
-    let mentorData: IGroupedMentorsByMunicipality = {};
-    let totalMentors: number = 0;
-    let groupIndex = 0;
-    const groupsWithTrainer = await this.queryBus.execute(new GetAllTrainerQuery());
+    const groups = await this.groupService.create(parseInt(req["user"].sub));
 
-    // create groups with leader
-    for (const group of groupsWithTrainer) {
-      await this.commandBus.execute(
-        new CreateGroupCommand({ ...group, memberCount: 0, createdBy: parseInt(req["user"].sub) })
-      );
-    }
-
-    const groups = await this.queryBus.execute(new GetAllGroupQuery());
+    const departmentIds = [...new Set(groups.map((g) => g.Department.id))];
 
     if (groups.length > 0) {
-      for (const g of groups) {
-        if (g.Department.id === 1) {
-          const mentors = await this.queryBus.execute(new GetAllMentorQuery(g.Department.id));
-          const mentorsOrdered = this.mentorService.order(mentors);
+      const { mentorData, totalMentors } = await this.groupMentorService.assignMentor(
+        groups,
+        parseInt(req["user"].sub),
+        departmentIds
+      );
 
-          const mentorsPerGroup = Math.floor(
-            mentorsOrdered.length / groups.filter((g) => g.Department.id === 1).length
-          );
+      const result = await this.inscriptionService.distributeTeachers(
+        groups,
+        totalMentors,
+        mentorData,
+        departmentIds
+      );
 
-          const startIndex = groupIndex * mentorsPerGroup;
-          const endIndex = (groupIndex + 1) * mentorsPerGroup;
-          const sliceMentors = mentorsOrdered.slice(startIndex, endIndex);
-          // add mentors to groups
-          for (const sm of sliceMentors) {
-            await this.commandBus.execute(
-              new CreateGroupMentorCommand({
-                mentorId: sm.mentorId,
-                groupId: g.id,
-                createdBy: parseInt(req["user"].sub)
-              })
-            );
-          }
+      console.log(result);
 
-          console.log(mentorsOrdered);
-          totalMentors = mentorsOrdered.length;
-          groupIndex++;
-
-          mentorData = this.mentorService.group(mentorsOrdered);
-          console.log(groupsMentors);
-        }
-      }
-      if (totalMentors === 1203494) {
-        for (const g of groups) {
-          const teachers = await this.queryBus.execute(new GetAllTeacherQuery(g.Department.id));
-          groupsWithTrainer.sort((a, b) => a.departmentId - b.departmentId);
-
-          const totalTeachers = teachers.reduce((acc, escuela) => {
-            return acc + escuela.PrincipalSchool.length;
-          }, 0);
-
-          const teacherData = this.teacherService.sort(teachers);
-
-          console.log(groupsWithTrainer);
-          console.log(teacherData);
-
-          const distribution = this.assignTeacherService.numericalDistribution(
-            totalTeachers,
-            totalMentors
-          );
-
-          const result = this.assignTeacherService.distributeSchools(
-            teacherData,
-            mentorData,
-            distribution,
-            g.id
-          );
-          console.log(result);
-        }
-      }
+      await this.inscriptionService.add(result, parseInt(req["user"].sub));
     }
 
     return "OK";

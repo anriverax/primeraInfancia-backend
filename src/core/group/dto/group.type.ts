@@ -1,36 +1,38 @@
 import { IPagination } from "@/common/helpers/types";
-// import { IGetZone } from "@/core/catalogue/zone/dto/zone.dto";
-import { Department, District, Group, GroupMentor, Municipality, Person, School } from "@prisma/client";
+import {
+  Department,
+  District,
+  Group,
+  GroupMentor,
+  Inscription,
+  Municipality,
+  Person,
+  School
+} from "@prisma/client";
 
-export interface ITrainer {
-  departmentId: number;
+export interface ICreateGroupWithTrainer
+  extends Pick<Group, "name" | "departmentId" | "memberCount" | "createdBy"> {
   GroupLeader: {
     create: {
       trainerId: number;
     };
   };
-  name: string;
 }
 
-export interface ITeacher extends Pick<School, "id" | "name" | "coordenates"> {
-  District: Pick<District, "id" | "name"> & {
-    Municipality: Pick<Municipality, "id" | "name"> & {
-      Department: Pick<Department, "id" | "name">;
+export interface ITrainer extends Pick<Group, "name" | "departmentId"> {
+  GroupLeader: {
+    create: {
+      trainerId: number;
     };
   };
-  PrincipalSchool: {
-    Person: Pick<Person, "id" | "firstName">;
-  }[];
 }
 
-export interface INewTeacher extends Pick<ITeacher, "id" | "name" | "District"> {
-  teachers: Pick<Person, "id" | "firstName">[];
+export type ICreateGroup = Pick<Group, "name" | "departmentId" | "memberCount" | "createdBy">;
+export interface IGroup extends Pick<Group, "id"> {
+  Department: Pick<Department, "id" | "name">;
 }
 
-export interface IGroupedTeachersByMunicipality {
-  [municipio: string]: INewTeacher[];
-}
-
+export type ICreateGroupMentor = Pick<GroupMentor, "mentorId" | "groupId" | "createdBy">;
 export interface IMentor {
   id: number;
   Person: {
@@ -49,20 +51,45 @@ export interface IGroupedMentorsByMunicipality {
   [municipio: string]: INewMentor[];
 }
 
-export type ICreateGroup = Pick<Group, "name" | "departmentId" | "memberCount" | "createdBy">;
-export interface IGroup extends Pick<Group, "id"> {
-  Department: Pick<Department, "id" | "name">;
+export interface IMentorsByMunicipality {
+  teachers: { id: number }[];
+  limit: number;
+  groupId: number;
+  assignedSchools: Set<string>;
+  mentorId: number;
+  workAssignment: Pick<Municipality, "id" | "name">;
 }
 
+export interface ITeacher extends Pick<School, "id" | "name" | "coordenates"> {
+  District: Pick<District, "id" | "name"> & {
+    Municipality: Pick<Municipality, "id" | "name"> & {
+      Department: Pick<Department, "id" | "name">;
+    };
+  };
+  PrincipalSchool: {
+    Person: Pick<Person, "id">;
+  }[];
+}
+
+export interface INewTeacher extends Pick<ITeacher, "id" | "name" | "District"> {
+  teachers: Pick<Person, "id">[];
+}
+
+export interface IGroupedTeachersByMunicipality {
+  [municipio: string]: INewTeacher[];
+}
+
+export interface InscriptionTeacher extends Pick<Inscription, "teacherId" | "groupId" | "createdBy"> {
+  MentorAssignment: {
+    create: { mentorId: number };
+  };
+}
 export interface IGroupsWithPagination {
   data: IGroup[] & { memberCount: number }[];
   meta: IPagination;
 }
 
-export type ICreateGroupMentor = Pick<GroupMentor, "mentorId" | "groupId" | "createdBy">;
-
 //---------------------------------------------------------------
-export type IUpdateGroup = Pick<Group, "id" | "name" | "memberCount" | "updatedBy">;
 export type IDeleteGroup = Pick<Group, "id" | "deletedBy">;
 
 interface InscriptionPerson
@@ -108,6 +135,7 @@ export interface IGetByIdGroup extends IGroup {
   }[];
   Inscription: GroupInscription[];
 }
+export type IUpdateGroup = Pick<Group, "id" | "name" | "memberCount" | "updatedBy">;
 
 export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLeader" | "Inscription"> {
   GroupLeader: {

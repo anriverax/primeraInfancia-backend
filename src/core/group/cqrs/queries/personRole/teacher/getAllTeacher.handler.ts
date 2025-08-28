@@ -50,8 +50,7 @@ export class GetAllTeacherHandler {
           select: {
             Person: {
               select: {
-                id: true,
-                firstName: true
+                id: true
               }
             }
           }
