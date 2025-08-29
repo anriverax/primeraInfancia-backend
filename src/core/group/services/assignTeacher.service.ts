@@ -1,10 +1,29 @@
 import {
   IGroupedMentorsByMunicipality,
   IGroupedTeachersByMunicipality,
-  IMentorsByMunicipality
+  IMentorsByMunicipality,
+  INewMentor
 } from "../dto/group.type";
 
 export class AssignTeacherService {
+  searchRegion(query: string, data: IGroupedMentorsByMunicipality): INewMentor[] | null {
+    for (const key of Object.keys(data)) {
+      const dep = key.slice(0, key.lastIndexOf(" "));
+      const zones = key.slice(key.lastIndexOf(" ") + 1).split("-");
+
+      const [qDep, qZone] = [
+        query.slice(0, query.lastIndexOf(" ")),
+        query.slice(query.lastIndexOf(" ") + 1)
+      ];
+
+      if (dep === qDep && zones.includes(qZone)) {
+        return data[key];
+      }
+    }
+
+    return null;
+  }
+
   numericalDistribution(teachers: number, mentors: number): { limit: number; remains: number } {
     const limit = Math.floor(teachers / mentors);
     const remains = teachers % mentors;
@@ -25,25 +44,26 @@ export class AssignTeacherService {
   ): IMentorsByMunicipality[] {
     const result: IMentorsByMunicipality[] = [];
 
-    console.log(mentors);
     for (const [m, s] of Object.entries(teachers)) {
+      let mentorFound: INewMentor[] | null = [];
       // Clonamos el array de mentores de ese municipio
-
-      console.log(mentors[m]);
-
+      console.log(mentors);
       if (mentors[m] === undefined) {
+        mentorFound = this.searchRegion(m, mentors);
+
         console.log("===================================");
-        console.log(m);
+        console.log(mentorFound);
         console.log("===================================");
-      }
-      const mentorsByMunicipality: IMentorsByMunicipality[] = mentors[m].map((m) => ({
+      } else mentorFound = mentors[m];
+
+      const mentorsByMunicipality: IMentorsByMunicipality[] = mentorFound?.map((m) => ({
         ...m,
         teachers: [],
         limit: distribution.limit + (distribution.remains-- > 0 ? 1 : 0),
         groupId,
         assignedSchools: new Set<string>() // Para evitar compartir escuela
-      }));
-      console.log(mentorsByMunicipality);
+      })) as IMentorsByMunicipality[];
+
       const orderSchool = s.sort((a, b) => b.teachers.length - a.teachers.length);
 
       for (const school of orderSchool) {
@@ -60,7 +80,7 @@ export class AssignTeacherService {
           const mentor = availableMentors[0];
           const slotsAvailable = mentor.limit - mentor.teachers.length;
           const teachersToAssign = remainingTeachers.splice(0, slotsAvailable);
-          console.log(teachersToAssign);
+
           mentor.teachers.push(...teachersToAssign);
           mentor.assignedSchools.add(school.name);
         }

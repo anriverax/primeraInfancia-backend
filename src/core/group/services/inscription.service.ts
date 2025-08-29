@@ -60,6 +60,8 @@ export class InscriptionService {
     console.log(data);
     for (const d of data) {
       const groupMentorId = groupMentorIds.find((gm) => gm.mentorId === d.mentorId);
+      console.log(d.mentorId);
+      console.log(groupMentorId);
       for (const t of d.teachers) {
         await this.commandBus.execute(
           new CreateInscriptionCommand({

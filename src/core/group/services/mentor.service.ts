@@ -3,6 +3,32 @@ import { IGroupedMentorsByMunicipality, IMentor, INewMentor } from "../dto/group
 
 @Injectable()
 export class MentorService {
+  groupByDepartment(
+    workAssignment: {
+      Municipality: Pick<
+        {
+          name: string;
+          id: number;
+          departmentId: number;
+        },
+        "name" | "id"
+      >;
+    }[]
+  ): string {
+    const grouped: Record<string, string[]> = {};
+
+    for (const r of workAssignment) {
+      const idx = r.Municipality.name.lastIndexOf(" ");
+      const dep = r.Municipality.name.slice(0, idx);
+      const zone = r.Municipality.name.slice(idx + 1);
+      if (!grouped[dep]) grouped[dep] = [];
+      grouped[dep].push(zone);
+    }
+
+    const resultado = Object.entries(grouped).map(([dep, zones]) => `${dep} ${zones.join("-")}`);
+
+    return resultado[0];
+  }
   // Sort mentors by municipality name
   sort(mentors: INewMentor[]): INewMentor[] {
     const mentorsSorted = mentors.sort((a, b) => {
@@ -15,13 +41,16 @@ export class MentorService {
 
   // Transform the data object to obtain only the main data from the mentors.
   order(mentors: IMentor[]): INewMentor[] {
-    const mentorsData = mentors.map((t) => ({
-      mentorId: t.id,
-      workAssignment: {
-        id: t.Person.WorkAssignment[0]?.Municipality.id,
-        name: t.Person.WorkAssignment[0]?.Municipality.name
-      }
-    }));
+    const mentorsData = mentors.map((t) => {
+      const zoneNames = this.groupByDepartment(t.Person.WorkAssignment);
+      return {
+        mentorId: t.id,
+        workAssignment: {
+          id: t.Person.WorkAssignment[0]?.Municipality.id,
+          name: zoneNames
+        }
+      };
+    });
 
     const mentorsSorted = this.sort(mentorsData);
     return mentorsSorted;

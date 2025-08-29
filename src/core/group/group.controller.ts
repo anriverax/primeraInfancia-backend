@@ -37,14 +37,16 @@ export class GroupController {
         parseInt(req["user"].sub),
         departmentIds
       );
+      console.log(groupMentorIds);
 
+      console.log(totalMentors);
       const result = await this.inscriptionService.distributeTeachers(
         groups,
         totalMentors,
         mentorData,
         departmentIds
       );
-      console.log(result);
+
       await this.inscriptionService.add(result, parseInt(req["user"].sub), groupMentorIds);
     }
 
@@ -90,7 +92,7 @@ export class GroupController {
   @Get(":id")
   async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupWithFullName>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
-
+    console.log(result);
     /* eslint-disable @typescript-eslint/no-explicit-any */
     let leaders: any[] = [];
     let inscriptionPerson: any[] = [];
@@ -121,7 +123,7 @@ export class GroupController {
               `${inscription.PersonRole.Person.firstName ?? ""} ${inscription.PersonRole.Person.lastName1 ?? ""} ${inscription.PersonRole.Person.lastName2 ?? ""}`.trim(),
             phoneNumber: inscription.PersonRole.Person.phoneNumber,
             User: inscription.PersonRole.Person.User,
-            District: inscription.PersonRole.Person.District
+            WorkAssignment: inscription.PersonRole.Person.District
           }
         }
       }));

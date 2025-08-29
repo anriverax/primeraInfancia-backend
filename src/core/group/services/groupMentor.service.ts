@@ -4,7 +4,7 @@ import { GetAllMentorQuery } from "../cqrs/queries/personRole/mentor/getAllMento
 import { IGroup, IGroupedMentorsByMunicipality, INewMentor } from "../dto/group.type";
 import { CreateGroupMentorCommand } from "../cqrs/command/groupMentor/create/createGroupMentor.command";
 import { Injectable } from "@nestjs/common";
-
+// import * as fs from "fs";
 @Injectable()
 export class GroupMentorService {
   constructor(
@@ -24,8 +24,7 @@ export class GroupMentorService {
     let totalMentors: number = 0;
     const mentorsOrderedByDepartment: Record<number, INewMentor[]> = {};
     let mentorData: IGroupedMentorsByMunicipality = {};
-    let groupIndex: number = 0;
-    let cloneDpId = 0;
+
     const groupMentorIds: { id: number; mentorId: number }[] = [];
 
     for (const deptId of departmentIds) {
@@ -33,37 +32,38 @@ export class GroupMentorService {
       mentorsOrderedByDepartment[deptId] = this.mentorService.order(mentors);
     }
 
-    for (const g of groups) {
-      const mentorsOrdered = mentorsOrderedByDepartment[g.Department.id];
+    const departments = [...new Set(groups.map((g) => g.Department.id))];
 
-      const dpId: number = g.Department.id;
+    for (const deptId of departments) {
+      const mentorsOrdered = mentorsOrderedByDepartment[deptId];
 
-      const mentorsPerGroup = Math.floor(
-        mentorsOrdered.length / groups.filter((gr) => gr.Department.id === dpId).length
-      );
+      const groupsByDept = groups.filter((gr) => gr.Department.id === deptId);
+      let startIndex = 0;
 
-      const startIndex = cloneDpId === dpId ? groupIndex * mentorsPerGroup : 0;
-      const endIndex = cloneDpId === dpId ? (groupIndex + 1) * mentorsPerGroup : mentorsPerGroup;
-      const sliceMentors = mentorsOrdered.slice(startIndex, endIndex);
+      groupsByDept.forEach(async (g, i) => {
+        // Calcular cuántos mentores van a este grupo
+        const mentorsForThisGroup =
+          Math.floor(mentorsOrdered.length / groupsByDept.length) +
+          (i < mentorsOrdered.length % groupsByDept.length ? 1 : 0);
 
-      // add mentors to groups
-      for (const sm of sliceMentors) {
-        const gm = await this.commandBus.execute(
-          new CreateGroupMentorCommand({
-            mentorId: sm.mentorId,
-            groupId: g.id,
-            createdBy: userId
-          })
-        );
+        const sliceMentors = mentorsOrdered.slice(startIndex, startIndex + mentorsForThisGroup);
+        startIndex += mentorsForThisGroup;
 
-        groupMentorIds.push({ id: gm.id, mentorId: gm.mentorId });
-      }
+        // Guardar mentores asignados al grupo
+        for (const sm of sliceMentors) {
+          const gm = await this.commandBus.execute(
+            new CreateGroupMentorCommand({
+              mentorId: sm.mentorId,
+              groupId: g.id,
+              createdBy: userId
+            })
+          );
+          groupMentorIds.push({ id: gm.id, mentorId: gm.mentorId });
+        }
+      });
 
-      totalMentors = mentorsOrdered.length;
-      groupIndex++;
-
+      totalMentors += mentorsOrdered.length;
       mentorData = { ...mentorData, ...this.mentorService.group(mentorsOrdered) };
-      cloneDpId = g.Department.id;
     }
 
     return { mentorData, totalMentors, groupMentorIds };
