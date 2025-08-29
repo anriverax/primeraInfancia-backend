@@ -21,6 +21,7 @@ import { GroupMentorService } from "./services/groupMentor.service";
 import { InscriptionService } from "./services/inscription.service";
 import { InscriptionProjection } from "./cqrs/projections/inscription.projection";
 import { CreateInscriptionHandler } from "./cqrs/command/inscription/create/createInscription.handler";
+import { GetAllGroupPaginationHandler } from "./cqrs/queries/group/pagination/getAllGroupPagination.handler";
 
 const CommandHandlers = [
   CreateGroupHandler,
@@ -34,7 +35,8 @@ const QueryHandlers = [
   GetByIdGroupHandler,
   GetAllTrainerHandler,
   GetAllTeacherHandler,
-  GetAllMentorHandler
+  GetAllMentorHandler,
+  GetAllGroupPaginationHandler
 ];
 
 @Module({

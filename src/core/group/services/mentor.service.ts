@@ -31,6 +31,7 @@ export class MentorService {
   group(mentors: INewMentor[]): IGroupedMentorsByMunicipality {
     const groupedMetorsByMunicipality = mentors.reduce((acc, curr) => {
       const key = curr.workAssignment.name;
+
       if (!acc[key]) {
         acc[key] = [];
       }

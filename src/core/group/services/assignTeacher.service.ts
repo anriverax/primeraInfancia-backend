@@ -24,8 +24,18 @@ export class AssignTeacherService {
     groupId: number
   ): IMentorsByMunicipality[] {
     const result: IMentorsByMunicipality[] = [];
+
+    console.log(mentors);
     for (const [m, s] of Object.entries(teachers)) {
       // Clonamos el array de mentores de ese municipio
+
+      console.log(mentors[m]);
+
+      if (mentors[m] === undefined) {
+        console.log("===================================");
+        console.log(m);
+        console.log("===================================");
+      }
       const mentorsByMunicipality: IMentorsByMunicipality[] = mentors[m].map((m) => ({
         ...m,
         teachers: [],
@@ -33,7 +43,7 @@ export class AssignTeacherService {
         groupId,
         assignedSchools: new Set<string>() // Para evitar compartir escuela
       }));
-
+      console.log(mentorsByMunicipality);
       const orderSchool = s.sort((a, b) => b.teachers.length - a.teachers.length);
 
       for (const school of orderSchool) {

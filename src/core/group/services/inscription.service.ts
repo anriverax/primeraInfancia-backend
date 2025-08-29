@@ -39,35 +39,34 @@ export class InscriptionService {
     }
 
     for (const g of groups) {
-      if (g.Department.id === 1) {
-        const teacherData = teachersOrderedByDepartment[g.Department.id];
+      const teacherData = teachersOrderedByDepartment[g.Department.id];
 
-        const distribution = this.assignTeacherService.numericalDistribution(
-          totalTeachersByDepartment[g.Department.id],
-          totalMentors
-        );
+      const distribution = this.assignTeacherService.numericalDistribution(
+        totalTeachersByDepartment[g.Department.id],
+        totalMentors
+      );
 
-        result = this.assignTeacherService.distributeSchools(
-          teacherData,
-          mentorData,
-          distribution,
-          g.id
-        );
-      }
+      result = this.assignTeacherService.distributeSchools(teacherData, mentorData, distribution, g.id);
     }
 
     return result;
   }
 
-  async add(data: IMentorsByMunicipality[], userId: number) {
+  async add(
+    data: IMentorsByMunicipality[],
+    userId: number,
+    groupMentorIds: { id: number; mentorId: number }[]
+  ): Promise<void> {
+    console.log(data);
     for (const d of data) {
+      const groupMentorId = groupMentorIds.find((gm) => gm.mentorId === d.mentorId);
       for (const t of d.teachers) {
         await this.commandBus.execute(
           new CreateInscriptionCommand({
             groupId: d.groupId,
             teacherId: t.id,
             createdBy: userId,
-            MentorAssignment: { create: { mentorId: d.mentorId } }
+            MentorAssignment: { create: { mentorId: groupMentorId?.id as number } }
           })
         );
       }

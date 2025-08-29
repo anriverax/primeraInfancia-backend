@@ -32,7 +32,7 @@ export class GroupController {
     const departmentIds = [...new Set(groups.map((g) => g.Department.id))];
 
     if (groups.length > 0) {
-      const { mentorData, totalMentors } = await this.groupMentorService.assignMentor(
+      const { mentorData, totalMentors, groupMentorIds } = await this.groupMentorService.assignMentor(
         groups,
         parseInt(req["user"].sub),
         departmentIds
@@ -44,10 +44,8 @@ export class GroupController {
         mentorData,
         departmentIds
       );
-
       console.log(result);
-
-      await this.inscriptionService.add(result, parseInt(req["user"].sub));
+      await this.inscriptionService.add(result, parseInt(req["user"].sub), groupMentorIds);
     }
 
     return "OK";
@@ -56,7 +54,7 @@ export class GroupController {
   @Get()
   async getAll(@Query() filterPagination: PaginationDto): Promise<NestResponseWithPagination<IGroup[]>> {
     const result = await this.queryBus.execute(new GetAllGroupPaginationQuery(filterPagination));
-
+    console.log(result.data);
     return {
       statusCode: 200,
       message: "Listado de grupos registrados",

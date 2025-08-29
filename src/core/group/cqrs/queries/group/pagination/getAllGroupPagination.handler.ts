@@ -23,7 +23,7 @@ export class GetAllGroupPaginationHandler {
             select: { id: true, name: true }
           },
           _count: {
-            select: { Inscriptions: true }
+            select: { Inscription: true }
           }
         },
         orderBy: {

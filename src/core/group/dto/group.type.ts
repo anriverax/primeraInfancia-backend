@@ -30,6 +30,9 @@ export interface ITrainer extends Pick<Group, "name" | "departmentId"> {
 export type ICreateGroup = Pick<Group, "name" | "departmentId" | "memberCount" | "createdBy">;
 export interface IGroup extends Pick<Group, "id"> {
   Department: Pick<Department, "id" | "name">;
+  _count?: {
+    Inscription: number;
+  };
 }
 
 export type ICreateGroupMentor = Pick<GroupMentor, "mentorId" | "groupId" | "createdBy">;
