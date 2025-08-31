@@ -32,6 +32,9 @@ import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
 import { TrackingModule } from "./core/tracking/tracking.module";
 import { InstrumentModule } from "./core/instrument/instrument.module";
 import { SectionModule } from "./core/section/section.module";
+import { QuestionModule } from "./core/question/question.module";
+import { OptionModule } from "./core/option/option.module";
+import { DetailOptionModule } from "./core/detailOption/detailOption.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -80,6 +83,9 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     TrackingModule,
     InstrumentModule,
     SectionModule,
+    QuestionModule,
+    OptionModule,
+    DetailOptionModule,
     RouterModule.register([
       {
         path: "api",
@@ -163,6 +169,18 @@ import { PermissionModule } from "./core/test/permission/permission.module";
             module: SectionModule
           },
           {
+            path: "Question",
+            module: QuestionModule
+          },
+          {
+            path: "Option",
+            module: OptionModule
+          },
+          {
+            path: "DetailOption",
+            module: DetailOptionModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -197,4 +215,4 @@ import { PermissionModule } from "./core/test/permission/permission.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
