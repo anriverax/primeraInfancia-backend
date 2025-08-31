@@ -28,6 +28,7 @@ import { ModuleReportModule } from "./core/moduleReport/moduleReport.module";
 import { TrainingReportModule } from "./core/trainingReport/trainingReport.module";
 import { TrainingEvaluationModule } from "./core/trainingEvaluation/trainingEvaluation.module";
 import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation.module";
+import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -68,6 +69,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     TrainingReportModule,
     TrainingEvaluationModule,
     ModuleEvaluationModule,
+    TrackingTypeModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -136,6 +138,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
           {
             path: "ModuleEvaluation",
             module: ModuleEvaluationModule
+          },
+          {
+            path: "TrackingType",
+            module: TrackingTypeModule
           },
           {
             path: "test",
