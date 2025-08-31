@@ -29,6 +29,7 @@ import { TrainingReportModule } from "./core/trainingReport/trainingReport.modul
 import { TrainingEvaluationModule } from "./core/trainingEvaluation/trainingEvaluation.module";
 import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation.module";
 import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
+import { TrackingModule } from "./core/tracking/tracking.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -73,6 +74,8 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
+    TrackingTypeModule,
+    TrackingModule,
     RouterModule.register([
       {
         path: "api",
@@ -144,6 +147,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
             module: TrackingTypeModule
           },
           {
+            path: "Tracking",
+            module: TrackingModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -178,4 +185,4 @@ import { PermissionModule } from "./core/test/permission/permission.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
