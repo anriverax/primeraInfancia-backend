@@ -28,10 +28,10 @@ export class InstrumentProjection {
   }
 
   async delete(data: IDeleteInstrument): Promise<Instrument> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("instrument", { id }, { deletedBy  });
+      return await this.prisma.softDelete("instrument", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("InstrumentProjection", error);
     }

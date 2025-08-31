@@ -602,9 +602,9 @@ model Question {
   id                 Int            @id @default(autoincrement())
   text               String        
   questionType       String        
-  code               String        
-  subQuestion        String        
-  isMandatory        Boolean
+  orderBy            Int
+  subSection         String        
+  isRequired         Boolean
   sectionId          Int
   section            Section        @relation(fields: [sectionId], references: [id])
   options            Option[]

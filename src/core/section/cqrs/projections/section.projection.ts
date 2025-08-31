@@ -28,10 +28,10 @@ export class SectionProjection {
   }
 
   async delete(data: IDeleteSection): Promise<Section> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("section", { id }, { deletedBy  });
+      return await this.prisma.softDelete("section", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("SectionProjection", error);
     }

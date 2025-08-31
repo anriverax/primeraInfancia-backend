@@ -1,18 +1,21 @@
 import { IPagination } from "@/common/helpers/dto";
 import { Instrument } from "@prisma/client";
 
-export type ICreateInstrument = Pick<
-  Instrument, "title" | "subTitle" | "description" | "createdBy" 
->;
+export type ICreateInstrument = Pick<Instrument, "title" | "subTitle" | "description" | "createdBy">;
 
 export type IUpdateInstrument = Pick<
   Instrument,
-  "id" | "title" | "subTitle" | "description" | "updatedBy" 
+  "id" | "title" | "subTitle" | "description" | "updatedBy"
 >;
 
-export type IDeleteInstrument = Pick<Instrument, "id" | "deletedBy" >;
+export type IDeleteInstrument = Pick<Instrument, "id" | "deletedBy">;
 
-export interface IGetAllInstrument extends Pick<Instrument, "id" | "title" | "subTitle" | "description" > { }
+export interface IGetAllInstrument {
+  id: number;
+  title: string;
+  subTitle: string;
+  description: string;
+}
 
 export interface IInstrumentsWithPagination {
   data: IGetAllInstrument[];
@@ -20,5 +23,5 @@ export interface IInstrumentsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdInstrument  { }
+export interface IGetByIdInstrument {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

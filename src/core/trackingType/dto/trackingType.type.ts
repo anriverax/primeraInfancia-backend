@@ -19,5 +19,5 @@ export interface ITrackingTypesWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdTrackingType { }
+export interface IGetByIdTrackingType {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

@@ -6,17 +6,16 @@ export class InstrumentDto {
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El título debe ser una cadena de texto." })
   title: string;
-  
+
   @IsNotEmpty({ message: "El sub título es obligatorio." })
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El sub título debe ser una cadena de texto." })
   subTitle: string;
-  
+
   @IsNotEmpty({ message: "La descripción es obligatorio." })
   @Transform(({ value }) => value.trim())
   @IsString({ message: "La descripción debe ser una cadena de texto." })
   description: string;
-  
 }
 
 export class InstrumentPaginationDto {
