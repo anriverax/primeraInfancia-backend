@@ -9,8 +9,8 @@ export type IDeleteTrackingType = Pick<TrackingType, "id" | "deletedBy">;
 
 export interface IGetAllTrackingType {
   id: number;
-  name: string | null;
-  deliveryMethod: string | null;
+  name: string;
+  deliveryMethod: string;
 }
 
 export interface ITrackingTypesWithPagination {
@@ -19,5 +19,5 @@ export interface ITrackingTypesWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdTrackingType {}
+export interface IGetByIdTrackingType { }
 /* eslint-enable @typescript-eslint/no-empty-object-type*/
