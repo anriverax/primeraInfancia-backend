@@ -17,6 +17,7 @@ const modelsWithSoftDelete = [
   "ModuleEvaluation",
   "TrackingType",
   "Tracking",
+  "Instrument",
 ];
 
 const prismaWithExtension = new PrismaClient().$extends({
