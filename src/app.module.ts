@@ -31,6 +31,7 @@ import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation
 import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
 import { TrackingModule } from "./core/tracking/tracking.module";
 import { InstrumentModule } from "./core/instrument/instrument.module";
+import { SectionModule } from "./core/section/section.module";
 
 // test
 import { DepartmentModule } from "./core/test/coutry/department/department.module";
@@ -78,6 +79,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
     TrackingTypeModule,
     TrackingModule,
     InstrumentModule,
+    SectionModule,
     RouterModule.register([
       {
         path: "api",
@@ -155,6 +157,10 @@ import { PermissionModule } from "./core/test/permission/permission.module";
           {
             path: "Instrument",
             module: InstrumentModule
+          },
+          {
+            path: "Section",
+            module: SectionModule
           },
           {
             path: "test",
