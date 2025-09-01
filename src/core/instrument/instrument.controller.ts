@@ -10,7 +10,7 @@ import { UpdateInstrumentCommand } from "./cqrs/commands/update/updateInstrument
 import { DeleteInstrumentCommand } from "./cqrs/commands/delete/deleteInstrument.command";
 import { GetAllInstrumentQuery } from "./cqrs/queries/findMany/getAllInstrument.query";
 import { IGetAllInstrument, IGetByIdInstrument } from "./dto/instrument.type";
-import { GetByIdInstrumentQuery } from "./cqrs/queries/findUnique/getByIdInstrument.query";
+import { GetByIdInstrumentQuery ,GetByDetailInstrumentQuery} from "./cqrs/queries/findUnique/getByIdInstrument.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -73,6 +73,17 @@ export class InstrumentController {
     return {
       statusCode: 200,
       message: "Instrumento por ID.",
+      data: result
+    };
+  }
+
+  @Get("detail/:id")
+  async getDetailById(@Param("id") id: string): Promise<NestResponse<IGetByIdInstrument>> {
+    const result = await this.queryBus.execute(new GetByDetailInstrumentQuery(parseInt(id)));
+
+    return {
+      statusCode: 200,
+      message: "Detalle del instrumento por ID.",
       data: result
     };
   }

@@ -24,4 +24,5 @@ export interface IInstrumentsWithPagination {
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface IGetByIdInstrument {}
+export interface IGetByIdInstrumentDetail {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/
