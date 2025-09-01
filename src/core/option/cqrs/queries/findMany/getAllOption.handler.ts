@@ -16,8 +16,10 @@ export class GetAllOptionHandler {
         skip,
         take: limit,
         select: {
-          id : true,
-          text : true, value : true, questionId : true,
+          id: true,
+          text: true,
+          value: true,
+          questionId: true
         },
         orderBy: {
           id: "asc"

@@ -6,17 +6,16 @@ export class OptionDto {
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El enunciado debe ser una cadena de texto." })
   text: string;
-  
+
   @IsNotEmpty({ message: "El valor de la opción es obligatorio." })
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El valor de la opción debe ser una cadena de texto." })
   value: string;
-  
+
   @IsNotEmpty({ message: "La pregunta es obligatorio." })
   @IsNumber()
   @Min(1, { message: "La pregunta debe ser un número." })
   questionId: number;
-  
 }
 
 export class OptionPaginationDto {

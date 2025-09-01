@@ -9,7 +9,11 @@ import { GetByIdDetailOptionHandler } from "./cqrs/queries/findUnique/getByIdDet
 import { DeleteDetailOptionHandler } from "./cqrs/commands/delete/deleteDetailOption.handler";
 import { UpdateDetailOptionHandler } from "./cqrs/commands/update/updateDetailOption.handler";
 
-const CommandHandlers = [CreateDetailOptionHandler, UpdateDetailOptionHandler, DeleteDetailOptionHandler];
+const CommandHandlers = [
+  CreateDetailOptionHandler,
+  UpdateDetailOptionHandler,
+  DeleteDetailOptionHandler
+];
 const QueryHandlers = [GetAllDetailOptionHandler, GetByIdDetailOptionHandler];
 
 @Module({

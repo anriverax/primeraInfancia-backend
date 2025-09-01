@@ -1,31 +1,35 @@
 import { QueryHandler } from "@nestjs/cqrs";
-import { GetAllDetailOptionQuery } from "./getAllDetailOption.query";
+import { GetAllAnswerQuery } from "./getAllAnswer.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IDetailOptionsWithPagination } from "@/core/detailOption/dto/detailOption.type";
+import { IAnswersWithPagination } from "@/core/answer/dto/answer.type";
 
-@QueryHandler(GetAllDetailOptionQuery)
-export class GetAllDetailOptionHandler {
+@QueryHandler(GetAllAnswerQuery)
+export class GetAllAnswerHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(query: GetAllDetailOptionQuery): Promise<IDetailOptionsWithPagination> {
+  async execute(query: GetAllAnswerQuery): Promise<IAnswersWithPagination> {
     const { page = 1, limit = 10 } = query.data;
 
     const skip = (page - 1) * limit;
     const [data, total] = await Promise.all([
-      this.prisma.detailOption.findMany({
+      this.prisma.answer.findMany({
         skip,
         take: limit,
         select: {
           id: true,
-          textToDisplay: true,
-          optionId: true
+          valueText: true,
+          valueNumber: true,
+          valueDate: true,
+          valueBoolean: true,
+          questionId: true,
+          responseSessionId: true
         },
         orderBy: {
           id: "asc"
         }
       }),
 
-      this.prisma.detailOption.count()
+      this.prisma.answer.count()
     ]);
 
     const lastPage = Math.ceil(total / limit);

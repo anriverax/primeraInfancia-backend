@@ -1,18 +1,18 @@
 import { IPagination } from "@/common/helpers/dto";
 import { Option } from "@prisma/client";
 
-export type ICreateOption = Pick<
-  Option, "text" | "value" | "questionId" | "createdBy" 
->;
+export type ICreateOption = Pick<Option, "text" | "value" | "questionId" | "createdBy">;
 
-export type IUpdateOption = Pick<
-  Option,
-  "id" | "text" | "value" | "questionId" | "updatedBy" 
->;
+export type IUpdateOption = Pick<Option, "id" | "text" | "value" | "questionId" | "updatedBy">;
 
-export type IDeleteOption = Pick<Option, "id" | "deletedBy" >;
+export type IDeleteOption = Pick<Option, "id" | "deletedBy">;
 
-export interface IGetAllOption extends Pick<Option, "id" | "text" | "value" | "questionId" > { }
+export interface IGetAllOption {
+  id: number;
+  text: string;
+  value: string;
+  questionId: number;
+}
 
 export interface IOptionsWithPagination {
   data: IGetAllOption[];
@@ -20,5 +20,5 @@ export interface IOptionsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdOption  { }
+export interface IGetByIdOption {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

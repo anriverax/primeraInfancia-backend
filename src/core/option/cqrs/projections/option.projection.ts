@@ -28,10 +28,10 @@ export class OptionProjection {
   }
 
   async delete(data: IDeleteOption): Promise<Option> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("option", { id }, { deletedBy  });
+      return await this.prisma.softDelete("option", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("OptionProjection", error);
     }

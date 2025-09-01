@@ -584,7 +584,6 @@ model Answer {
   valueNumber        Int
   valueBoolean       Boolean
   valueDate          DateTime                 
-  valueInt           Int
   questionId         Int
   responseSessionId  Int
   question           Question                  @relation(fields: [questionId], references: [id])
