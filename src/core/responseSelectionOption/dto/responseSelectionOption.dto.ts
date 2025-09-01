@@ -10,7 +10,6 @@ export class ResponseSelectionOptionDto {
   @IsNumber()
   @Min(1, { message: "La opción debe ser un número." })
   optionId: number;
-
 }
 
 export class ResponseSelectionOptionPaginationDto {

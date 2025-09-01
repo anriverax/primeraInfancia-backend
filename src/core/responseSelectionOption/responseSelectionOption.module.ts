@@ -9,7 +9,11 @@ import { GetByIdResponseSelectionOptionHandler } from "./cqrs/queries/findUnique
 import { DeleteResponseSelectionOptionHandler } from "./cqrs/commands/delete/deleteResponseSelectionOption.handler";
 import { UpdateResponseSelectionOptionHandler } from "./cqrs/commands/update/updateResponseSelectionOption.handler";
 
-const CommandHandlers = [CreateResponseSelectionOptionHandler, UpdateResponseSelectionOptionHandler, DeleteResponseSelectionOptionHandler];
+const CommandHandlers = [
+  CreateResponseSelectionOptionHandler,
+  UpdateResponseSelectionOptionHandler,
+  DeleteResponseSelectionOptionHandler
+];
 const QueryHandlers = [GetAllResponseSelectionOptionHandler, GetByIdResponseSelectionOptionHandler];
 
 @Module({

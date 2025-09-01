@@ -2,17 +2,22 @@ import { IPagination } from "@/common/helpers/dto";
 import { ResponseSelectionOption } from "@prisma/client";
 
 export type ICreateResponseSelectionOption = Pick<
-  ResponseSelectionOption, "answerId" | "optionId" | "createdBy" 
+  ResponseSelectionOption,
+  "answerId" | "optionId" | "createdBy"
 >;
 
 export type IUpdateResponseSelectionOption = Pick<
   ResponseSelectionOption,
-  "id" | "answerId" | "optionId" | "updatedBy" 
+  "id" | "answerId" | "optionId" | "updatedBy"
 >;
 
-export type IDeleteResponseSelectionOption = Pick<ResponseSelectionOption, "id" | "deletedBy" >;
+export type IDeleteResponseSelectionOption = Pick<ResponseSelectionOption, "id" | "deletedBy">;
 
-export interface IGetAllResponseSelectionOption extends Pick<ResponseSelectionOption, "id" | "answerId" | "optionId" > { }
+export interface IGetAllResponseSelectionOption {
+  id: number;
+  answerId: number;
+  optionId: number;
+}
 
 export interface IResponseSelectionOptionsWithPagination {
   data: IGetAllResponseSelectionOption[];
@@ -20,5 +25,5 @@ export interface IResponseSelectionOptionsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdResponseSelectionOption  { }
+export interface IGetByIdResponseSelectionOption {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

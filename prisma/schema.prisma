@@ -587,7 +587,7 @@ model Answer {
   questionId         Int
   responseSessionId  Int
   question           Question                  @relation(fields: [questionId], references: [id])
-  responseSession    ResponseSession           @relation(fields: [responseSessionId], references: [id])
+//  responseSession    ResponseSession           @relation(fields: [responseSessionId], references: [id])
   createdAt          DateTime                  @default(now())
   updatedAt          DateTime                  @updatedAt
   deletedAt          DateTime?
@@ -635,10 +635,10 @@ model Section {
 model ResponseSession {
   id                 Int             @id @default(autoincrement())
   status             String         
-  answerId           Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
-  trackingId         Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
-  answers            Answer[]
-  tracking           Tracking       @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
+//  answerId           Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+//  trackingId         Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+//  answers            Answer[]
+//  tracking           Tracking       @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
   deletedAt          DateTime?
@@ -655,7 +655,7 @@ model Tracking {
   finish             DateTime                 
   trackingTypeId     Int
   trackingType       TrackingType        @relation(fields: [trackingTypeId], references: [id])
-  responseSessions   ResponseSession[]
+//  responseSessions   ResponseSession[]
   evidences          Evidence[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt

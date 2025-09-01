@@ -5,18 +5,20 @@ import { IGetByIdResponseSelectionOption } from "@/core/responseSelectionOption/
 
 @QueryHandler(GetByIdResponseSelectionOptionQuery)
 export class GetByIdResponseSelectionOptionHandler {
-  constructor(private readonly prisma: PrismaService) { }
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  async execute(query: GetByIdResponseSelectionOptionQuery): Promise<IGetByIdResponseSelectionOption | null> {
+  constructor(private readonly prisma: PrismaService) {}
+
+  async execute(
+    query: GetByIdResponseSelectionOptionQuery
+  ): Promise<IGetByIdResponseSelectionOption | null> {
     const responseSelectionOptions = await this.prisma.responseSelectionOption.findUnique({
       where: { id: query.id },
       select: {
         id: true,
-        answerId: true, optionId: true,
+        answerId: true,
+        optionId: true
       }
     });
 
     return responseSelectionOptions;
   }
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */

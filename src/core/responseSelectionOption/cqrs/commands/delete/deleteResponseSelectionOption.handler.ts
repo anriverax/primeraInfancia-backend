@@ -4,7 +4,9 @@ import { ResponseSelectionOptionProjection } from "../../projections/responseSel
 import { NestResponse } from "@/common/helpers/dto";
 
 @CommandHandler(DeleteResponseSelectionOptionCommand)
-export class DeleteResponseSelectionOptionHandler implements ICommandHandler<DeleteResponseSelectionOptionCommand> {
+export class DeleteResponseSelectionOptionHandler
+  implements ICommandHandler<DeleteResponseSelectionOptionCommand>
+{
   constructor(private readonly responseSelectionOptionProjection: ResponseSelectionOptionProjection) {}
   async execute(command: DeleteResponseSelectionOptionCommand): Promise<NestResponse<void>> {
     const { data } = command;

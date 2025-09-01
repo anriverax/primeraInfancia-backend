@@ -5,9 +5,13 @@ import { NestResponse } from "@/common/helpers/dto";
 import { ResponseSelectionOption } from "@prisma/client";
 
 @CommandHandler(CreateResponseSelectionOptionCommand)
-export class CreateResponseSelectionOptionHandler implements ICommandHandler<CreateResponseSelectionOptionCommand> {
+export class CreateResponseSelectionOptionHandler
+  implements ICommandHandler<CreateResponseSelectionOptionCommand>
+{
   constructor(private readonly responseSelectionOptionProjection: ResponseSelectionOptionProjection) {}
-  async execute(command: CreateResponseSelectionOptionCommand): Promise<NestResponse<ResponseSelectionOption>> {
+  async execute(
+    command: CreateResponseSelectionOptionCommand
+  ): Promise<NestResponse<ResponseSelectionOption>> {
     const { data } = command;
 
     const res = await this.responseSelectionOptionProjection.create(data);

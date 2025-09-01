@@ -2,14 +2,20 @@ import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { ResponseSelectionOptionDto, ResponseSelectionOptionPaginationDto } from "./dto/responseSelectionOption.dto";
+import {
+  ResponseSelectionOptionDto,
+  ResponseSelectionOptionPaginationDto
+} from "./dto/responseSelectionOption.dto";
 import { CreateResponseSelectionOptionCommand } from "./cqrs/commands/create/createResponseSelectionOption.command";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/dto";
 import { ResponseSelectionOption } from "@prisma/client";
 import { UpdateResponseSelectionOptionCommand } from "./cqrs/commands/update/updateResponseSelectionOption.command";
 import { DeleteResponseSelectionOptionCommand } from "./cqrs/commands/delete/deleteResponseSelectionOption.command";
 import { GetAllResponseSelectionOptionQuery } from "./cqrs/queries/findMany/getAllResponseSelectionOption.query";
-import { IGetAllResponseSelectionOption, IGetByIdResponseSelectionOption } from "./dto/responseSelectionOption.type";
+import {
+  IGetAllResponseSelectionOption,
+  IGetByIdResponseSelectionOption
+} from "./dto/responseSelectionOption.type";
 import { GetByIdResponseSelectionOptionQuery } from "./cqrs/queries/findUnique/getByIdResponseSelectionOption.query";
 
 @Controller()
@@ -22,7 +28,10 @@ export class ResponseSelectionOptionController {
 
   @AuthRequired()
   @Post("create")
-  async create(@Body() data: ResponseSelectionOptionDto, @Req() req: Request): Promise<NestResponse<ResponseSelectionOption>> {
+  async create(
+    @Body() data: ResponseSelectionOptionDto,
+    @Req() req: Request
+  ): Promise<NestResponse<ResponseSelectionOption>> {
     return this.commandBus.execute(
       new CreateResponseSelectionOptionCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );
@@ -62,7 +71,10 @@ export class ResponseSelectionOptionController {
   @Delete("delete/:id")
   async delete(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<void>> {
     return this.commandBus.execute(
-      new DeleteResponseSelectionOptionCommand({ id: parseInt(id), deletedBy: parseInt(req["user"].sub) })
+      new DeleteResponseSelectionOptionCommand({
+        id: parseInt(id),
+        deletedBy: parseInt(req["user"].sub)
+      })
     );
   }
 
