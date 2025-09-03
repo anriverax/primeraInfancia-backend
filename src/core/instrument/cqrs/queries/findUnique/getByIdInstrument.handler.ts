@@ -5,7 +5,7 @@ import { IGetByIdInstrument, IGetByIdInstrumentDetail } from "@/core/instrument/
 
 @QueryHandler(GetByIdInstrumentQuery)
 export class GetByIdInstrumentHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetByIdInstrumentQuery): Promise<IGetByIdInstrument | null> {
     const instruments = await this.prisma.instrument.findUnique({
@@ -24,7 +24,7 @@ export class GetByIdInstrumentHandler {
 
 @QueryHandler(GetByDetailInstrumentQuery)
 export class GetByIdDetailInstrumentHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetByDetailInstrumentQuery): Promise<IGetByIdInstrumentDetail | null> {
     const instruments = await this.prisma.instrument.findUnique({
@@ -36,14 +36,14 @@ export class GetByIdDetailInstrumentHandler {
               include: {
                 options: {
                   include: {
-                    DetailOption: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
+                    DetailOption: true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     });
 
     return instruments;

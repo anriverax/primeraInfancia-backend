@@ -3,16 +3,17 @@ import { ResponseSession } from "@prisma/client";
 
 export type ICreateResponseSession = Pick<
   ResponseSession,
-  "status" |
-  // | "inscriptionId" | "instrumentId" | "trackingId" | 
-  "createdBy"
+  | "status"
+  // | "inscriptionId" | "instrumentId" | "trackingId" |
+  | "createdBy"
 >;
 
 export type IUpdateResponseSession = Pick<
   ResponseSession,
-  "id" | "status" |
+  | "id"
+  | "status"
   //"inscriptionId" | "instrumentId" | "trackingId" |
-  "updatedBy"
+  | "updatedBy"
 >;
 
 export type IDeleteResponseSession = Pick<ResponseSession, "id" | "deletedBy">;
@@ -31,5 +32,5 @@ export interface IResponseSessionsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdResponseSession { }
+export interface IGetByIdResponseSession {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

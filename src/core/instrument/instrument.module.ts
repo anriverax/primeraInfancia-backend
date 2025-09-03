@@ -5,12 +5,19 @@ import { InstrumentProjection } from "./cqrs/projections/instrument.projection";
 import { InstrumentController } from "./instrument.controller";
 import { CreateInstrumentHandler } from "./cqrs/commands/create/createInstrument.handler";
 import { JwtModule } from "@nestjs/jwt";
-import { GetByIdInstrumentHandler } from "./cqrs/queries/findUnique/getByIdInstrument.handler";
+import {
+  GetByIdInstrumentHandler,
+  GetByIdDetailInstrumentHandler
+} from "./cqrs/queries/findUnique/getByIdInstrument.handler";
 import { DeleteInstrumentHandler } from "./cqrs/commands/delete/deleteInstrument.handler";
 import { UpdateInstrumentHandler } from "./cqrs/commands/update/updateInstrument.handler";
 
 const CommandHandlers = [CreateInstrumentHandler, UpdateInstrumentHandler, DeleteInstrumentHandler];
-const QueryHandlers = [GetAllInstrumentHandler, GetByIdInstrumentHandler];
+const QueryHandlers = [
+  GetAllInstrumentHandler,
+  GetByIdInstrumentHandler,
+  GetByIdDetailInstrumentHandler
+];
 
 @Module({
   imports: [CqrsModule, JwtModule],

@@ -12,7 +12,7 @@ export class GetByIdResponseSessionHandler {
       where: { id: query.id },
       select: {
         id: true,
-        status: true,
+        status: true
         // inscriptionId: true,
         // instrumentId: true,
         // trackingId: true

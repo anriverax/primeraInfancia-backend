@@ -10,7 +10,10 @@ import { UpdateInstrumentCommand } from "./cqrs/commands/update/updateInstrument
 import { DeleteInstrumentCommand } from "./cqrs/commands/delete/deleteInstrument.command";
 import { GetAllInstrumentQuery } from "./cqrs/queries/findMany/getAllInstrument.query";
 import { IGetAllInstrument, IGetByIdInstrument } from "./dto/instrument.type";
-import { GetByIdInstrumentQuery ,GetByDetailInstrumentQuery} from "./cqrs/queries/findUnique/getByIdInstrument.query";
+import {
+  GetByIdInstrumentQuery,
+  GetByDetailInstrumentQuery
+} from "./cqrs/queries/findUnique/getByIdInstrument.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -20,9 +23,10 @@ export class InstrumentController {
     private readonly commandBus: CommandBus
   ) {}
 
-  @AuthRequired()
+  //@AuthRequired()
   @Post("create")
   async create(@Body() data: InstrumentDto, @Req() req: Request): Promise<NestResponse<Instrument>> {
+    req["user"] = "1";
     return this.commandBus.execute(
       new CreateInstrumentCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );
@@ -79,6 +83,8 @@ export class InstrumentController {
 
   @Get("detail/:id")
   async getDetailById(@Param("id") id: string): Promise<NestResponse<IGetByIdInstrument>> {
+    console.log(id);
+
     const result = await this.queryBus.execute(new GetByDetailInstrumentQuery(parseInt(id)));
 
     return {

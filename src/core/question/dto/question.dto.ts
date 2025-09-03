@@ -18,7 +18,7 @@ export class QuestionDto {
   orderBy: number;
 
   @IsNotEmpty({ message: "La sub sección es obligatorio." })
-  @Transform(({ value }) => value.trim())
+  //@Transform(({ value }) => value.trim())
   @IsString({ message: "La sub sección debe ser una cadena de texto." })
   subSection: string;
 

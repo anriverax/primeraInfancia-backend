@@ -17,7 +17,7 @@ export class GetAllResponseSessionHandler {
         take: limit,
         select: {
           id: true,
-          status: true,
+          status: true
           // inscriptionId: true,
           // instrumentId: true,
           // trackingId: true
