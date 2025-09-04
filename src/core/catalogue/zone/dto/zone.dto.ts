@@ -1,8 +1,13 @@
 import { Zone } from "@prisma/client";
 
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface IGetZone extends Pick<Zone, "id" | "name"> {
-  /*_count: {
-    Group: number;
-  };*/
+  Department: {
+    name: string;
+    _count: { Group: number };
+  }[];
+}
+
+export interface IGetZoneWithDept extends Omit<IGetZone, "Department"> {
+  departmets: string;
+  total: number;
 }

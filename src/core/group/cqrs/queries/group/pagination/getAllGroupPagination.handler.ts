@@ -20,7 +20,10 @@ export class GetAllGroupPaginationHandler {
           name: true,
           memberCount: true,
           Department: {
-            select: { id: true, name: true }
+            select: {
+              id: true,
+              name: true
+            }
           },
           _count: {
             select: { Inscription: true }
