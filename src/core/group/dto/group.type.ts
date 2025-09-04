@@ -1,15 +1,15 @@
 import { IPagination } from "@/common/helpers/types";
-import { Department, Group, Person } from "@prisma/client";
+import { Group, Inscription, Person } from "@prisma/client";
 
-export interface IGroup extends Pick<Group, "id"> {
-  Department: Pick<Department, "id" | "name">;
+export interface IGroup extends Pick<Group, "id" | "memberCount"> {
+  department: string;
   _count?: {
     Inscription: number;
   };
 }
 
 export interface IGroupsWithPagination {
-  data: IGroup[] & { memberCount: number }[];
+  data: IGroup[];
   meta: IPagination;
 }
 
@@ -63,4 +63,55 @@ export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLea
     Person: Pick<InscriptionPerson, "id" | "fullName">;
   }[];
   Inscription: GroupInscriptionWithFullName[];
+}
+
+export interface ILeader {
+  id: number;
+  PersonRole: {
+    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
+  };
+}
+
+export interface IMentor {
+  id: number;
+  PersonRole: {
+    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> & {
+      WorkAssignment: {
+        Municipality: {
+          name: string;
+        };
+      };
+    };
+  };
+}
+export interface INewLeader {
+  id: number;
+  fullName: string;
+}
+
+export interface IInscription extends Pick<Inscription, "id" | "deletedAt"> {
+  PersonRole: {
+    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> & {
+      User: {
+        email: string;
+        avatar: string | null;
+      };
+      PrincipalSchool: {
+        School: {
+          name: string;
+        };
+      }[];
+    };
+  };
+}
+
+export interface IInscriptionPerson extends Pick<Inscription, "id" | "deletedAt"> {
+  teacher: Pick<Person, "id" | "phoneNumber"> & {
+    fullName: string;
+    User: {
+      email: string;
+      avatar: string | null;
+    };
+    school: string;
+  };
 }

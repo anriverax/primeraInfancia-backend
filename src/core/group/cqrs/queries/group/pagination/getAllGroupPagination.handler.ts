@@ -39,8 +39,17 @@ export class GetAllGroupPaginationHandler {
 
     const lastPage = Math.ceil(total / limit);
 
+    const groupData = data.map((group) => {
+      const { Department, ...rest } = group;
+
+      return {
+        ...rest,
+        department: group.Department.name
+      };
+    });
+
     return {
-      data,
+      data: groupData,
       meta: {
         total,
         currentPage: page,

@@ -314,7 +314,7 @@ model Group {
   createdBy    Int?
   updatedBy    Int?
   deletedBy    Int?
-  Inscription Inscription[]
+  Inscription  Inscription[]
   GroupLeader  GroupLeader[]
   GroupMentors GroupMentor[]
 }

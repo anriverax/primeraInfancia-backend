@@ -16,13 +16,31 @@ export class GetByIdGroupHandler {
         id: true,
         name: true,
         memberCount: true,
+        Department: {
+          select: {
+            name: true
+          }
+        },
+        GroupMentors: {
+          where: {
+            deletedAt: null,
+            deletedBy: null
+          },
+          select: {
+            PersonRole: {
+              select: {
+                id: true,
+                Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+              }
+            }
+          }
+        },
         GroupLeader: {
           where: {
             deletedAt: null,
             deletedBy: null
           },
           select: {
-            id: true,
             PersonRole: {
               select: {
                 id: true,
@@ -37,7 +55,6 @@ export class GetByIdGroupHandler {
             deletedAt: true,
             PersonRole: {
               select: {
-                id: true,
                 Person: {
                   select: {
                     id: true,
@@ -45,19 +62,16 @@ export class GetByIdGroupHandler {
                     lastName1: true,
                     lastName2: true,
                     phoneNumber: true,
-                    District: {
+                    User: { select: { email: true, avatar: true } },
+                    WorkAssignment: {
+                      where: {
+                        deletedAt: null,
+                        deletedBy: null
+                      },
                       select: {
-                        Municipality: {
-                          select: {
-                            name: true,
-                            Department: {
-                              select: { name: true }
-                            }
-                          }
-                        }
+                        Municipality: { select: { name: true } }
                       }
-                    },
-                    User: { select: { email: true, avatar: true } }
+                    }
                   }
                 }
               }
@@ -70,7 +84,13 @@ export class GetByIdGroupHandler {
       }
     });
 
-    return group as any;
+    if (!group) return null;
+
+    const { Department, ...rest } = group;
+
+    const newGroup = { ...rest, department: Department.name } as IGetByIdGroup;
+
+    return newGroup;
   }
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */

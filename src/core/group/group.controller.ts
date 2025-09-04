@@ -29,7 +29,7 @@ export class GroupController {
   @Get(":id")
   async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupWithFullName>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
-    console.log(result);
+
     /* eslint-disable @typescript-eslint/no-explicit-any */
     let leaders: any[] = [];
     let inscriptionPerson: any[] = [];
