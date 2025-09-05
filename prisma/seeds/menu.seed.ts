@@ -21,6 +21,15 @@ export async function menuSeed() {
     }
   });
 
+  // Menú principal: Asistencia
+  await prisma.menuItem.create({
+    data: {
+      title: "Asistencia",
+      path: menuJson.asistencia,
+      icon: "CalendarClock"
+    }
+  });
+
   // Menú principal: Evaluaciones
   const evaluaciones = await prisma.menuItem.create({
     data: {

@@ -86,7 +86,8 @@ export interface IInscription extends Pick<Inscription, "id" | "deletedAt"> {
   };
 }
 
-export interface IInscriptionPerson extends Pick<Inscription, "id" | "deletedAt"> {
+export interface IInscriptionPerson extends Pick<Inscription, "id"> {
+  status: "Activo" | "Inactivo";
   teacher: Pick<Person, "id" | "phoneNumber"> & {
     fullName: string;
     User: {
@@ -110,9 +111,7 @@ export interface IMentor {
 }
 
 export interface INewMentor {
-  mentor: {
-    id: number;
-    fullName: string;
-    assignedMunicipality: string;
-  };
+  id: number;
+  fullName: string;
+  assignedMunicipality: string;
 }

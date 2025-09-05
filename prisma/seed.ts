@@ -49,6 +49,30 @@ async function typePerson() {
   });
 }
 
+async function eventType() {
+  
+  await prisma.eventType.createMany({
+    data: [
+      {
+        name: "Taller"
+      },
+      {
+        name: "Seminario"
+      },
+      {
+        name: "Comunidad de practica"
+      },
+      {
+        name: "Mentoria"
+      },
+      {
+        name: "Sesión sincronica"
+      }
+    ],
+    skipDuplicates: true
+  });
+}
+
 /*
 async function typeContent() {
   await prisma.typeContent.createMany({
@@ -83,6 +107,7 @@ async function main() {
   await typePerson();
   await menuSeed();
   await authorizationSeed();
+  await eventType();
 }
 main()
   .then(async () => {

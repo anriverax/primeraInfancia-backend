@@ -34,10 +34,8 @@ export async function authorizationSeed() {
         name: PermissionEnum.VIEW_DASHBOARD,
         description: "Ver dashboard"
       },
-      { name: PermissionEnum.VIEW_GROUPS, description: "Ver zonas y grupos" },
-      { name: PermissionEnum.CREATE_GROUPS, description: "Crear zonas y grupos" },
-      { name: PermissionEnum.EDIT_GROUPS, description: "Editar zonas y grupos" },
-      { name: PermissionEnum.DELETE_GROUPS, description: "Eliminar zonas y grupos" },
+      { name: PermissionEnum.VIEW_GROUPS, description: "Ver grupos" },
+      { name: PermissionEnum.VIEW_ATTENDANCE, description: "Ver asistencias" },
       { name: PermissionEnum.VIEW_CATALOGUES, description: "Ver catálogos" },
       { name: PermissionEnum.VIEW_CATALOGUE_SCHOOL, description: "Ver centros escolares" },
       { name: PermissionEnum.VIEW_CATALOGUE_ZONE, description: "Ver zonas" }

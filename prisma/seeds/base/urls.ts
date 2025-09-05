@@ -1,11 +1,11 @@
 export const menuJson = {
   dashboard: "/admin/dashboard",
   grupos: "/admin/grupos",
+  asistencia: "/admin/asistencia",
   evaluaciones: "/admin/evaluaciones",
   autoEvaluacion: "/admin/evaluaciones/auto-evaluación",
   portafolio: "/admin/evaluaciones/portafolio",
   diagnostico: "/admin/evaluaciones/diagnostico",
-  asistencia: "/admin/asistencia",
   talleres: "/admin/asistencia/talleres",
   seminarios: "/admin/asistencia/seminarios",
   comunidadesPractica: "/admin/asistencia/comunidades-practica",

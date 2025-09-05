@@ -8,6 +8,7 @@ export async function getMenuItems(
   const menuPermissionMap: Record<string, PermissionEnum> = {
     [menuJson.dashboard]: PermissionEnum.VIEW_DASHBOARD,
     [menuJson.grupos]: PermissionEnum.VIEW_GROUPS,
+    [menuJson.asistencia]: PermissionEnum.VIEW_ATTENDANCE,
     [menuJson.catalogos]: PermissionEnum.VIEW_CATALOGUES,
     [menuJson.centrosEscolares]: PermissionEnum.VIEW_CATALOGUE_SCHOOL,
     [menuJson.zonas]: PermissionEnum.VIEW_CATALOGUE_ZONE

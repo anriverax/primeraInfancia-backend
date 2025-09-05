@@ -41,7 +41,8 @@ export class GroupService {
         const { User, PrincipalSchool, ...restPerson } = Person;
 
         return {
-          ...restIns,
+          id: restIns.id,
+          status: restIns.deletedAt ? "Inactivo" : "Activo",
           teacher: {
             id: restPerson.id,
             fullName:
@@ -56,28 +57,15 @@ export class GroupService {
 
     if (groupMentors && Array.isArray(groupMentors)) {
       mentors = groupMentors.map((mentor) => {
-        const {
-          PersonRole: { Person },
-          ...rest
-        } = mentor;
+        const Person = mentor.PersonRole.Person;
+
         return {
-          ...rest,
-          mentor: {
-            id: Person.id,
-            fullName:
-              `${Person.firstName ?? ""} ${Person.lastName1 ?? ""} ${Person.lastName2 ?? ""}`.trim(),
-            assignedMunicipality: Person.WorkAssignment[0].Municipality.name
-          }
+          id: Person.id,
+          fullName:
+            `${Person.firstName ?? ""} ${Person.lastName1 ?? ""} ${Person.lastName2 ?? ""}`.trim(),
+          assignedMunicipality: Person.WorkAssignment[0].Municipality.name
         };
       });
-      const {
-        PersonRole: { Person }
-      } = groupLeader[0];
-
-      leaders = {
-        id: Person.id,
-        fullName: `${Person.firstName ?? ""} ${Person.lastName1 ?? ""} ${Person.lastName2 ?? ""}`.trim()
-      };
     }
 
     return {

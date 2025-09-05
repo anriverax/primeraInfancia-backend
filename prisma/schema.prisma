@@ -224,6 +224,7 @@ model PersonRole {
   GroupMentor  GroupMentor[]
   Inscription  Inscription[]
   GroupLeader  GroupLeader[]
+  Attendances  Attendance[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   deletedAt    DateTime?
@@ -376,6 +377,41 @@ model MentorAssignment {
 }
 
 // ====== END - GROUP & INSCRIPTION ======
+
+/**
+ * ================================
+ * | Attendance Module |
+ * ================================
+ */
+
+// ====== START - ATTENDANCE ======
+model Attendance {
+  id           Int         @id @default(autoincrement())
+  eventId      Int?
+  personRoleId Int?
+  checkIn      DateTime?
+  checkOut     DateTime?
+  Event        Event?      @relation(fields: [eventId], references: [id])
+  PersonRole   PersonRole? @relation(fields: [personRoleId], references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  createdBy    Int?
+  updatedBy    Int?
+}
+
+model EventType {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique // Ej: Taller, Seminario, Comunidad de practica, Mentoria, Sesión sincronica
+  Event Event[]
+}
+
+model Event {
+  id          Int          @id @default(autoincrement())
+  name        String
+  eventTypeId Int
+  eventType   EventType    @relation(fields: [eventTypeId], references: [id])
+  Attendances Attendance[]
+}
 
 model Seminar {
   id             Int            @id @default(autoincrement())
