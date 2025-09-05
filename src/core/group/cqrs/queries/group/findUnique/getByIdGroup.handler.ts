@@ -6,7 +6,7 @@ import { IGetByIdGroup } from "@/core/group/dto/group.type";
 @QueryHandler(GetByIdGroupQuery)
 export class GetByIdGroupHandler {
   constructor(private readonly prisma: PrismaService) {}
-  /* eslint-disable @typescript-eslint/no-explicit-any */
+
   async execute(query: GetByIdGroupQuery): Promise<IGetByIdGroup | null> {
     const group = await this.prisma.group.findUnique({
       where: {
@@ -29,8 +29,23 @@ export class GetByIdGroupHandler {
           select: {
             PersonRole: {
               select: {
-                id: true,
-                Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+                Person: {
+                  select: {
+                    id: true,
+                    firstName: true,
+                    lastName1: true,
+                    lastName2: true,
+                    WorkAssignment: {
+                      where: {
+                        deletedAt: null,
+                        deletedBy: null
+                      },
+                      select: {
+                        Municipality: { select: { name: true } }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -63,13 +78,9 @@ export class GetByIdGroupHandler {
                     lastName2: true,
                     phoneNumber: true,
                     User: { select: { email: true, avatar: true } },
-                    WorkAssignment: {
-                      where: {
-                        deletedAt: null,
-                        deletedBy: null
-                      },
+                    PrincipalSchool: {
                       select: {
-                        Municipality: { select: { name: true } }
+                        School: { select: { name: true } }
                       }
                     }
                   }
@@ -93,4 +104,3 @@ export class GetByIdGroupHandler {
     return newGroup;
   }
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */

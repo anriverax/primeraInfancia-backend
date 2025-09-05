@@ -15,75 +15,56 @@ export interface IGroupsWithPagination {
 
 interface InscriptionPerson
   extends Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> {
-  fullName?: string;
   User: {
     email: string;
     avatar: string | null;
   };
-  District: {
-    Municipality: {
+  PrincipalSchool: {
+    School: {
       name: string;
-      Department: {
-        name: string;
-      };
     };
-  };
+  }[];
 }
 
-interface GroupInscription {
-  id: number;
-  deletedAt?: Date | null;
+interface GroupInscription extends Pick<Inscription, "id" | "deletedAt"> {
   PersonRole: {
-    id: number;
     Person: InscriptionPerson;
   };
 }
 
-interface GroupInscriptionWithFullName extends Omit<GroupInscription, "PersonRole" | "deletedAt"> {
-  status: "Activo" | "Inactivo";
-  PersonRole: {
-    id: number;
-    Person: Omit<InscriptionPerson, "firstName" | "lastName1" | "lastName2">; // Only names, no User or District details
-  };
-}
 export interface IGetByIdGroup extends IGroup {
   GroupLeader: {
-    id: number;
     PersonRole: {
       id: number;
       Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
     };
   }[];
+  GroupMentors: {
+    PersonRole: {
+      Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> & {
+        WorkAssignment: {
+          Municipality: {
+            name: string;
+          };
+        }[];
+      };
+    };
+  }[];
   Inscription: GroupInscription[];
 }
 
-export interface IGetByIdGroupWithFullName extends Omit<IGetByIdGroup, "GroupLeader" | "Inscription"> {
-  GroupLeader: {
-    id: number;
-    Person: Pick<InscriptionPerson, "id" | "fullName">;
-  }[];
-  Inscription: GroupInscriptionWithFullName[];
+export interface IGetByIdGroupWithFullName extends IGroup {
+  leaders: INewLeader;
+  inscriptionPerson: IInscriptionPerson[];
+  mentors: INewMentor[];
 }
 
 export interface ILeader {
-  id: number;
   PersonRole: {
     Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
   };
 }
 
-export interface IMentor {
-  id: number;
-  PersonRole: {
-    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> & {
-      WorkAssignment: {
-        Municipality: {
-          name: string;
-        };
-      };
-    };
-  };
-}
 export interface INewLeader {
   id: number;
   fullName: string;
@@ -113,5 +94,25 @@ export interface IInscriptionPerson extends Pick<Inscription, "id" | "deletedAt"
       avatar: string | null;
     };
     school: string;
+  };
+}
+
+export interface IMentor {
+  PersonRole: {
+    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> & {
+      WorkAssignment: {
+        Municipality: {
+          name: string;
+        };
+      }[];
+    };
+  };
+}
+
+export interface INewMentor {
+  mentor: {
+    id: number;
+    fullName: string;
+    assignedMunicipality: string;
   };
 }

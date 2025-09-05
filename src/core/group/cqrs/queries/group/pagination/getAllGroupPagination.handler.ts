@@ -44,7 +44,7 @@ export class GetAllGroupPaginationHandler {
 
       return {
         ...rest,
-        department: group.Department.name
+        department: Department.name
       };
     });
 

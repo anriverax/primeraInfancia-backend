@@ -1,11 +1,24 @@
 import { Injectable } from "@nestjs/common";
-import { IInscription, IInscriptionPerson, ILeader, IMentor, INewLeader } from "../dto/group.type";
+import {
+  IInscription,
+  IInscriptionPerson,
+  ILeader,
+  IMentor,
+  INewLeader,
+  INewMentor
+} from "../dto/group.type";
 
 @Injectable()
 export class GroupService {
-  order(groupLeader: ILeader[], inscriptions: IInscription[], groupMentors: IMentor[]) {
-    let leaders: INewLeader;
+  order(
+    groupLeader: ILeader[],
+    inscriptions: IInscription[],
+    groupMentors: IMentor[]
+  ): { leaders: INewLeader; inscriptionPerson: IInscriptionPerson[]; mentors: INewMentor[] } {
+    let leaders: INewLeader = {} as INewLeader;
     let inscriptionPerson: IInscriptionPerson[] = [];
+
+    let mentors: INewMentor[] = [];
 
     if (groupLeader && Array.isArray(groupLeader)) {
       const {
@@ -42,6 +55,21 @@ export class GroupService {
     }
 
     if (groupMentors && Array.isArray(groupMentors)) {
+      mentors = groupMentors.map((mentor) => {
+        const {
+          PersonRole: { Person },
+          ...rest
+        } = mentor;
+        return {
+          ...rest,
+          mentor: {
+            id: Person.id,
+            fullName:
+              `${Person.firstName ?? ""} ${Person.lastName1 ?? ""} ${Person.lastName2 ?? ""}`.trim(),
+            assignedMunicipality: Person.WorkAssignment[0].Municipality.name
+          }
+        };
+      });
       const {
         PersonRole: { Person }
       } = groupLeader[0];
@@ -51,5 +79,11 @@ export class GroupService {
         fullName: `${Person.firstName ?? ""} ${Person.lastName1 ?? ""} ${Person.lastName2 ?? ""}`.trim()
       };
     }
+
+    return {
+      leaders,
+      inscriptionPerson,
+      mentors
+    };
   }
 }
