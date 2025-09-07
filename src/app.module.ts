@@ -156,4 +156,4 @@ import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}
