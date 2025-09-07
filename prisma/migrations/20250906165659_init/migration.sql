@@ -249,7 +249,7 @@ CREATE TABLE "Group" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "memberCount" INTEGER NOT NULL,
-    "zoneId" INTEGER NOT NULL,
+    "departmentId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
@@ -276,6 +276,21 @@ CREATE TABLE "GroupLeader" (
 );
 
 -- CreateTable
+CREATE TABLE "GroupMentor" (
+    "id" SERIAL NOT NULL,
+    "mentorId" INTEGER NOT NULL,
+    "groupId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+    "createdBy" INTEGER,
+    "updatedBy" INTEGER,
+    "deletedBy" INTEGER,
+
+    CONSTRAINT "GroupMentor_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Inscription" (
     "id" SERIAL NOT NULL,
     "groupId" INTEGER NOT NULL,
@@ -291,19 +306,44 @@ CREATE TABLE "Inscription" (
 );
 
 -- CreateTable
-CREATE TABLE "MentorRegistration" (
+CREATE TABLE "MentorAssignment" (
     "id" SERIAL NOT NULL,
     "mentorId" INTEGER NOT NULL,
     "inscriptionId" INTEGER NOT NULL,
+
+    CONSTRAINT "MentorAssignment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Attendance" (
+    "id" SERIAL NOT NULL,
+    "eventId" INTEGER,
+    "personRoleId" INTEGER,
+    "checkIn" TIMESTAMP(3),
+    "checkOut" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "deletedAt" TIMESTAMP(3),
     "createdBy" INTEGER,
     "updatedBy" INTEGER,
-    "deletedBy" INTEGER,
-    "personRoleId" INTEGER NOT NULL,
 
-    CONSTRAINT "MentorRegistration_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Attendance_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "EventType" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "EventType_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Event" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "eventTypeId" INTEGER NOT NULL,
+
+    CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -413,6 +453,12 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "User_personId_key" ON "User"("personId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "GroupMentor_mentorId_groupId_key" ON "GroupMentor"("mentorId", "groupId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "EventType_name_key" ON "EventType"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "GroupSeminar_groupId_seminarId_key" ON "GroupSeminar"("groupId", "seminarId");
 
 -- AddForeignKey
@@ -476,7 +522,7 @@ ALTER TABLE "User" ADD CONSTRAINT "User_personId_fkey" FOREIGN KEY ("personId") 
 ALTER TABLE "UserKey" ADD CONSTRAINT "UserKey_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Group" ADD CONSTRAINT "Group_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Group" ADD CONSTRAINT "Group_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "GroupLeader" ADD CONSTRAINT "GroupLeader_trainerId_fkey" FOREIGN KEY ("trainerId") REFERENCES "PersonRole"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -485,16 +531,31 @@ ALTER TABLE "GroupLeader" ADD CONSTRAINT "GroupLeader_trainerId_fkey" FOREIGN KE
 ALTER TABLE "GroupLeader" ADD CONSTRAINT "GroupLeader_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "GroupMentor" ADD CONSTRAINT "GroupMentor_mentorId_fkey" FOREIGN KEY ("mentorId") REFERENCES "PersonRole"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "GroupMentor" ADD CONSTRAINT "GroupMentor_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Inscription" ADD CONSTRAINT "Inscription_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "PersonRole"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Inscription" ADD CONSTRAINT "Inscription_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MentorRegistration" ADD CONSTRAINT "MentorRegistration_inscriptionId_fkey" FOREIGN KEY ("inscriptionId") REFERENCES "Inscription"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "MentorAssignment" ADD CONSTRAINT "MentorAssignment_mentorId_fkey" FOREIGN KEY ("mentorId") REFERENCES "GroupMentor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MentorRegistration" ADD CONSTRAINT "MentorRegistration_personRoleId_fkey" FOREIGN KEY ("personRoleId") REFERENCES "PersonRole"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "MentorAssignment" ADD CONSTRAINT "MentorAssignment_inscriptionId_fkey" FOREIGN KEY ("inscriptionId") REFERENCES "Inscription"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_personRoleId_fkey" FOREIGN KEY ("personRoleId") REFERENCES "PersonRole"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Event" ADD CONSTRAINT "Event_eventTypeId_fkey" FOREIGN KEY ("eventTypeId") REFERENCES "EventType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "GroupSeminar" ADD CONSTRAINT "GroupSeminar_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
