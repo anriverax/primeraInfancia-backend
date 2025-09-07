@@ -31,6 +31,7 @@ import { ModuleReportModule } from "./core/moduleReport/moduleReport.module";
 import { TrainingReportModule } from "./core/trainingReport/trainingReport.module";
 import { TrainingEvaluationModule } from "./core/trainingEvaluation/trainingEvaluation.module";
 import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluationInstrument.module";
+import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation.module";
 
 @Module({
   imports: [
@@ -65,7 +66,7 @@ import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluati
     TrainingReportModule,
     TrainingEvaluationModule,
     EvaluationInstrumentModule,
-
+    ModuleEvaluationModule,
     RouterModule.register([
       {
         path: "api",
@@ -108,8 +109,13 @@ import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluati
             path: "training-evaluation",
             module: TrainingEvaluationModule
           },
-          {path:"evaluation-instrument",
-            module:EvaluationInstrumentModule
+          {
+            path: "evaluation-instrument",
+            module: EvaluationInstrumentModule
+          },
+          {
+            path: "module-evaluation",
+            module: ModuleEvaluationModule
           },
           {
             path: "test",
