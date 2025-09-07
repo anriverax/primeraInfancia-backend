@@ -32,6 +32,7 @@ import { TrainingReportModule } from "./core/trainingReport/trainingReport.modul
 import { TrainingEvaluationModule } from "./core/trainingEvaluation/trainingEvaluation.module";
 import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluationInstrument.module";
 import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation.module";
+import { InscriptionModule } from "./core/inscription/inscription.module";
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation
     TrainingEvaluationModule,
     EvaluationInstrumentModule,
     ModuleEvaluationModule,
+    InscriptionModule,
     RouterModule.register([
       {
         path: "api",
@@ -118,6 +120,10 @@ import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation
             module: ModuleEvaluationModule
           },
           {
+            path: "inscription",
+            module: InscriptionModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -156,4 +162,4 @@ import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
