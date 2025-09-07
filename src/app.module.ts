@@ -28,6 +28,7 @@ import { SchoolModule } from "./core/test/school/school.module";
 //Evaluation and grades
 import { TrainingModuleModule } from "./core/trainingModule/trainingModule.module";
 import { ModuleReportModule } from "./core/moduleReport/moduleReport.module";
+import { TrainingReportModule } from "./core/trainingReport/trainingReport.module";
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { ModuleReportModule } from "./core/moduleReport/moduleReport.module";
     SchoolModule,
     TrainingModuleModule,
     ModuleReportModule,
+    TrainingReportModule,
     RouterModule.register([
       {
         path: "api",
@@ -92,6 +94,10 @@ import { ModuleReportModule } from "./core/moduleReport/moduleReport.module";
           {
             path: "module-report",
             module: ModuleReportModule
+          },
+          {
+            path: "training-report",
+            module: TrainingReportModule
           },
           {
             path: "test",
