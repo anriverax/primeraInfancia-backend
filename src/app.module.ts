@@ -25,6 +25,9 @@ import { MunicipalityModule } from "./core/test/coutry/municipality/municipality
 import { PermissionModule } from "./core/test/permission/permission.module";
 import { SchoolModule } from "./core/test/school/school.module";
 
+//Evaluation and grades
+import { TrainingModuleModule } from "./core/trainingModule/trainingModule.module";
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -53,6 +56,7 @@ import { SchoolModule } from "./core/test/school/school.module";
     MunicipalityModule,
     PermissionModule,
     SchoolModule,
+    TrainingModuleModule,
     RouterModule.register([
       {
         path: "api",
@@ -78,6 +82,10 @@ import { SchoolModule } from "./core/test/school/school.module";
           {
             path: "group",
             module: GroupModule
+          },
+          {
+            path: "training-module",
+            module: TrainingModuleModule
           },
           {
             path: "test",
@@ -118,4 +126,4 @@ import { SchoolModule } from "./core/test/school/school.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
