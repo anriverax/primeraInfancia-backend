@@ -57,7 +57,7 @@ export async function authorizationSeed() {
   });
 
   const userPerms = allPermissions.filter((p) =>
-    [PermissionEnum.VIEW_DASHBOARD].includes(p.name as PermissionEnum)
+    [PermissionEnum.VIEW_ATTENDANCE].includes(p.name as PermissionEnum)
   );
 
   await prisma.rolePermission.createMany({

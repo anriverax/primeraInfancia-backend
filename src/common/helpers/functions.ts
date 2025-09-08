@@ -40,3 +40,22 @@ export function generateCode(length = 6): string {
 export function firstCapitalLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function formatDate(d: Date) {
+  if (isNaN(d.getTime())) {
+    throw new Error("Fecha inválida");
+  }
+
+  const options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  };
+
+  const formatted = new Intl.DateTimeFormat("es-ES", options).format(d);
+
+  return formatted;
+}

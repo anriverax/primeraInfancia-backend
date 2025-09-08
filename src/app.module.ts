@@ -15,6 +15,7 @@ import { RedisModule } from "./services/redis/redis.module";
 // module - Controller
 import { AuthModule } from "./core/auth/auth.module";
 import { CatalogueModule } from "./core/catalogue/common/catalogue.module";
+import { EventModule } from "./core/catalogue/event/event.module";
 import { ProfileModule } from "./core/profile/profile.module";
 import { ZoneModule } from "./core/catalogue/zone/zone.module";
 import { GroupModule } from "./core/group/group.module";
@@ -24,6 +25,7 @@ import { DepartmentModule } from "./core/test/coutry/department/department.modul
 import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
 import { PermissionModule } from "./core/test/permission/permission.module";
 import { SchoolModule } from "./core/test/school/school.module";
+import { AttendanceModule } from "./core/attendance/attendance.module";
 
 @Module({
   imports: [
@@ -53,6 +55,8 @@ import { SchoolModule } from "./core/test/school/school.module";
     MunicipalityModule,
     PermissionModule,
     SchoolModule,
+    EventModule,
+    AttendanceModule,
     RouterModule.register([
       {
         path: "api",
@@ -68,6 +72,10 @@ import { SchoolModule } from "./core/test/school/school.module";
               {
                 path: "zone",
                 module: ZoneModule
+              },
+              {
+                path: "events",
+                module: EventModule
               }
             ]
           },
@@ -78,6 +86,10 @@ import { SchoolModule } from "./core/test/school/school.module";
           {
             path: "group",
             module: GroupModule
+          },
+          {
+            path: "attendance",
+            module: AttendanceModule
           },
           {
             path: "test",

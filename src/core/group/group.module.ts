@@ -5,9 +5,10 @@ import { Module } from "@nestjs/common";
 import { GetByIdGroupHandler } from "./cqrs/queries/group/findUnique/getByIdGroup.handler";
 import { GetAllGroupPaginationHandler } from "./cqrs/queries/group/pagination/getAllGroupPagination.handler";
 import { GroupService } from "./services/group.service";
+import { FindMentorByUserIdHandler } from "./cqrs/queries/mentorAssignment/findMentorByUser.handler";
 
 const CommandHandlers = [];
-const QueryHandlers = [GetByIdGroupHandler, GetAllGroupPaginationHandler];
+const QueryHandlers = [GetByIdGroupHandler, GetAllGroupPaginationHandler, FindMentorByUserIdHandler];
 
 @Module({
   imports: [CqrsModule, JwtModule],

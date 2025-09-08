@@ -1,6 +1,6 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Controller, Get, Param, Query, UseFilters } from "@nestjs/common";
+import { Controller, Get, Param, Query, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { IGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
@@ -8,6 +8,7 @@ import { GetByIdGroupQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.
 import { PaginationDto } from "../../common/helpers/dto";
 import { GetAllGroupPaginationQuery } from "./cqrs/queries/group/pagination/getAllGroupPagination.query";
 import { GroupService } from "./services/group.service";
+import { FindMentorByUserIdQuery } from "./cqrs/queries/mentorAssignment/findMentorByUserId.query";
 @Controller()
 @UseFilters(HttpExceptionFilter)
 export class GroupController {
@@ -44,5 +45,14 @@ export class GroupController {
       message: "Listado de grupos por ID",
       data: { ...rest, leaders, inscriptionPerson, mentors }
     };
+  }
+
+  @AuthRequired()
+  @Get("findMentors")
+  async findMentorsByUserId(@Req() req: Request) {
+    const userId = req["user"].sub;
+    const result = await this.queryBus.execute(new FindMentorByUserIdQuery(parseInt(userId)));
+    console.log(result);
+    return result;
   }
 }

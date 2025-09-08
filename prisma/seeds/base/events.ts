@@ -39,7 +39,7 @@ export const events = [
     }
   },
   {
-    name: "Sesión sincronica",
+    name: "Seminario",
     Event: {
       create: [
         {
@@ -47,6 +47,19 @@ export const events = [
         },
         {
           name: "Seminario de Transformación Digital"
+        }
+      ]
+    }
+  },
+  {
+    name: "Sesión sincronica",
+    Event: {
+      create: [
+        {
+          name: "Sesión Sincrónica sobre Metodologías Ágiles"
+        },
+        {
+          name: "Sesión Sincrónica de Revisión de Proyecto"
         }
       ]
     }
