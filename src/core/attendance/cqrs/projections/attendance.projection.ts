@@ -2,7 +2,6 @@ import { handlePrismaError } from "@/common/helpers/functions";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
 import { IAttendance, IAttendanceResult } from "../../dto/attendance.type";
-import { Attendance } from "@prisma/client";
 
 @Injectable()
 export class AttendanceProjection {
@@ -26,7 +25,7 @@ export class AttendanceProjection {
     }
   }
 
-  async update(id: number, userId: number): Promise<Attendance> {
+  async update(id: number, userId: number): Promise<IAttendanceResult> {
     try {
       return await this.prisma.attendance.update({
         where: {
@@ -35,6 +34,10 @@ export class AttendanceProjection {
         data: {
           checkOut: new Date(),
           updatedBy: userId
+        },
+        select: {
+          id: true,
+          coordenates: true
         }
       });
     } catch (error) {

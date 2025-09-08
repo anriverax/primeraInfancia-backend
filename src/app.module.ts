@@ -26,6 +26,7 @@ import { MunicipalityModule } from "./core/test/coutry/municipality/municipality
 import { PermissionModule } from "./core/test/permission/permission.module";
 import { SchoolModule } from "./core/test/school/school.module";
 import { AttendanceModule } from "./core/attendance/attendance.module";
+import { MentorAssignmentModule } from "./core/mentorAssignment/mentorAssignment.module";
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { AttendanceModule } from "./core/attendance/attendance.module";
     SchoolModule,
     EventModule,
     AttendanceModule,
+    MentorAssignmentModule,
     RouterModule.register([
       {
         path: "api",
@@ -90,6 +92,10 @@ import { AttendanceModule } from "./core/attendance/attendance.module";
           {
             path: "attendance",
             module: AttendanceModule
+          },
+          {
+            path: "mentorAssignment",
+            module: MentorAssignmentModule
           },
           {
             path: "test",

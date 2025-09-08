@@ -42,16 +42,20 @@ export class AttendanceController {
 
   @AuthRequired()
   @Put("update/:id")
-  async update(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<void>> {
+  async update(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<IAttendanceResult>> {
     const userId = req["user"].sub;
 
-    this.commandBus.execute(new UpdateAttendanceCommand(parseInt(id), userId));
+    const attendanceUpdated = await this.commandBus.execute(
+      new UpdateAttendanceCommand(parseInt(id), userId)
+    );
 
     return {
       statusCode: 200,
-      message: "Finalización de jornada."
+      message: "Finalización de jornada.",
+      data: attendanceUpdated
     };
   }
+
   @AuthRequired()
   @Get("byUser")
   async getAttendanceByUser(
