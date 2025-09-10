@@ -13,7 +13,7 @@ export class GetByIdInscriptionHandler {
       select: {
         id: true,
         teacherId: true,
-        groupId: true,
+        groupId: true
       }
     });
 

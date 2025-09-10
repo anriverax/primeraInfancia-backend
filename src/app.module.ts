@@ -162,4 +162,4 @@ import { InscriptionModule } from "./core/inscription/inscription.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}
