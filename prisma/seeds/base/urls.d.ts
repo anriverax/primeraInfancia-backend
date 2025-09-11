@@ -1,0 +1,22 @@
+export declare const menuJson: {
+    dashboard: string;
+    grupos: string;
+    asistencia: string;
+    evaluaciones: string;
+    autoEvaluacion: string;
+    portafolio: string;
+    diagnostico: string;
+    talleres: string;
+    seminarios: string;
+    comunidadesPractica: string;
+    sesionesSincronicas: string;
+    mentorias: string;
+    triplePerfil: string;
+    formadores: string;
+    mentores: string;
+    tecnicosApoyo: string;
+    docentes: string;
+    catalogos: string;
+    centrosEscolares: string;
+    zonas: string;
+};

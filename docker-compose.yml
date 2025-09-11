@@ -3,39 +3,9 @@ version: "3.8"
 services:
   api:
     container_name: fpiBackend
-    build: .
+    image: 434807866199.dkr.ecr.eu-west-3.amazonaws.com/oei-backend:latest
     env_file:
-      - .env
+      - .env.prod
     ports:
       - "3001:3001"
-    depends_on:
-      - postgres
-      - redis
-    command: ["./wait-for-it.sh", "postgres:5432", "--", "npm", "run", "start:prod"]
-
-  # eliminar las iimagenes de los contenedores de base datos y redis - en prod
-  redis:
-    image: redis
-    container_name: fpiRedis
-    restart: always
-    ports:
-      - 6379:6379
-    volumes:
-      - redis_data:/data
-
-  postgres:
-    image: postgres
-    container_name: fpiPostgres
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=fpi-db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  redis_data:
-  postgres_data:
+    # No depend_on, la infraestructura se gestiona fuera (RDS, ElastiCache)
