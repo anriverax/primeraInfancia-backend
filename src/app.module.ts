@@ -27,7 +27,7 @@ import { PermissionModule } from "./core/test/permission/permission.module";
 import { SchoolModule } from "./core/test/school/school.module";
 import { AttendanceModule } from "./core/attendance/attendance.module";
 import { MentorAssignmentModule } from "./core/mentorAssignment/mentorAssignment.module";
-import { HealthModule } from './core/health/health.module';
+import { HealthModule } from "./core/health/health.module";
 
 @Module({
   imports: [

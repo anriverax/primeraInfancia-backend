@@ -29,31 +29,31 @@ interface IEnv {
 }
 
 export default (): IEnv => ({
-  nodeEnv: process.env.NODE_ENV,
+  nodeEnv: process.env.NODE_ENV?.toString(),
   port: parseInt(process.env.PORT || "3001"),
   database: {
-    host: process.env.POSTGRES_HOST,
+    host: process.env.POSTGRES_HOST?.toString(),
     port: parseInt(process.env.POSTGRES_PORT || "5432"),
-    username: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    name: process.env.POSTGRES_DB,
-    url: process.env.DATABASE_URL
+    username: process.env.POSTGRES_USER?.toString(),
+    password: process.env.POSTGRES_PASSWORD?.toString(),
+    name: process.env.POSTGRES_DB?.toString(),
+    url: process.env.DATABASE_URL?.toString()
   },
   jwt: {
-    expiration: process.env.JWT_EXPIRATION,
-    refreshToken: process.env.JWT_REFRESH_TOKEN,
-    refreshSecret: process.env.JWT_REFRESH_SECRET,
-    privateKey: process.env.JWT_PRIVATE_KEY_PATH,
-    publicKey: process.env.JWT_PUBLIC_KEY_PATH
+    expiration: process.env.JWT_EXPIRATION?.toString(),
+    refreshToken: process.env.JWT_REFRESH_TOKEN?.toString(),
+    refreshSecret: process.env.JWT_REFRESH_SECRET?.toString(),
+    privateKey: process.env.JWT_PRIVATE_KEY_PATH?.toString(),
+    publicKey: process.env.JWT_PUBLIC_KEY_PATH?.toString()
   },
-  redis: process.env.REDIS,
-  resend: process.env.RESEND,
-  privatekeySecret: process.env.PRIVATE_KEY_SECRET,
+  redis: process.env.REDIS?.toString(),
+  resend: process.env.RESEND?.toString(),
+  privatekeySecret: process.env.PRIVATE_KEY_SECRET?.toString(),
   aws: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-    bucketName: process.env.AWS_BUCKET_NAME,
-    url: process.env.AWS_URL
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID?.toString(),
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY?.toString(),
+    region: process.env.AWS_REGION?.toString(),
+    bucketName: process.env.AWS_BUCKET_NAME?.toString(),
+    url: process.env.AWS_URL?.toString()
   }
 });
