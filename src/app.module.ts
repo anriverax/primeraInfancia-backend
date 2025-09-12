@@ -6,7 +6,6 @@ import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 
 // config
 import config from "./config/config";
-import { validate } from "./config/env.config";
 
 // module - Services
 import { PrismaModule } from "./services/prisma/prisma.module";
@@ -33,7 +32,6 @@ import { HealthModule } from "./core/health/health.module";
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      validate,
       load: [config]
     }),
     JwtModule.registerAsync({
