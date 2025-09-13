@@ -42,6 +42,7 @@ import { OptionModule } from "./core/option/option.module";
 import { ResponseSelectionOptionModule } from "./core/responseSelectionOption/responseSelectionOption.module";
 import { AnswerModule } from "./core/answer/answer.module";
 import { ResponseSessionModule } from "./core/responseSession/responseSession.module";
+import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
 
 @Module({
   imports: [
@@ -85,6 +86,7 @@ import { ResponseSessionModule } from "./core/responseSession/responseSession.mo
     ResponseSelectionOptionModule,
     AnswerModule,
     ResponseSessionModule,
+    TrackingTypeModule,
     RouterModule.register([
       {
         path: "api",
@@ -166,6 +168,10 @@ import { ResponseSessionModule } from "./core/responseSession/responseSession.mo
           {
             path: "response-session",
             module: ResponseSessionModule
+          },
+          {
+            path: "tracking-type",
+            module: TrackingTypeModule
           },
           {
             path: "test",

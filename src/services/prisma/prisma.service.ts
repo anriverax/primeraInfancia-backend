@@ -25,7 +25,8 @@ const modelsWithSoftDelete = [
   "Option",
   "ResponseSelectionOption",
   "Answer",
-  "ResponseSection"
+  "ResponseSection",
+  "TrackingType"
 ];
 
 const prismaWithExtension = new PrismaClient().$extends({
