@@ -4,10 +4,13 @@ import { ConfigService } from "@nestjs/config";
 import { Prisma, PrismaClient } from "@prisma/client";
 
 const modelsWithSoftDelete = [
+  //Group and Inscription Module
   "Group",
   "GroupLeader",
+  //Profile Module
   "PersonRole",
   "WorkAssignment",
+  //Grades
   "TrainingModule",
   "ModuleReport",
   "TrainingReport",
@@ -15,10 +18,12 @@ const modelsWithSoftDelete = [
   "EvaluationInstrument",
   "ModuleEvaluation",
   "Inscription",
+  //Attachment
   "Instrument",
   "Section",
   "Question",
-  "Option"
+  "Option",
+
 ];
 
 const prismaWithExtension = new PrismaClient().$extends({
