@@ -34,6 +34,9 @@ import { EvaluationInstrumentModule } from "./core/evaluationInstrument/evaluati
 import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation.module";
 import { InscriptionModule } from "./core/inscription/inscription.module";
 
+//Attachment
+import { InstrumentModule } from "./core/instrument/instrument.module";
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -69,6 +72,7 @@ import { InscriptionModule } from "./core/inscription/inscription.module";
     EvaluationInstrumentModule,
     ModuleEvaluationModule,
     InscriptionModule,
+    InstrumentModule,
     RouterModule.register([
       {
         path: "api",
@@ -124,6 +128,10 @@ import { InscriptionModule } from "./core/inscription/inscription.module";
             module: InscriptionModule
           },
           {
+            path: "instrument",
+            module: InstrumentModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -162,4 +170,4 @@ import { InscriptionModule } from "./core/inscription/inscription.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
