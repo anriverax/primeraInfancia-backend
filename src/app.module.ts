@@ -43,6 +43,7 @@ import { ResponseSelectionOptionModule } from "./core/responseSelectionOption/re
 import { AnswerModule } from "./core/answer/answer.module";
 import { ResponseSessionModule } from "./core/responseSession/responseSession.module";
 import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
+import { TrackingModule } from "./core/tracking/tracking.module";
 
 @Module({
   imports: [
@@ -172,6 +173,10 @@ import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
           {
             path: "tracking-type",
             module: TrackingTypeModule
+          },
+          {
+            path: "tracking",
+            module: TrackingModule
           },
           {
             path: "test",
