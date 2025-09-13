@@ -39,6 +39,7 @@ import { InstrumentModule } from "./core/instrument/instrument.module";
 import { SectionModule } from "./core/section/section.module";
 import { QuestionModule } from "./core/question/question.module";
 import { OptionModule } from "./core/option/option.module";
+import { ResponseSelectionOptionModule } from "./core/responseSelectionOption/responseSelectionOption.module";
 
 @Module({
   imports: [
@@ -79,6 +80,7 @@ import { OptionModule } from "./core/option/option.module";
     SectionModule,
     QuestionModule,
     OptionModule,
+    ResponseSelectionOptionModule,
     RouterModule.register([
       {
         path: "api",
@@ -148,6 +150,10 @@ import { OptionModule } from "./core/option/option.module";
           {
             path: "option",
             module: OptionModule
+          },
+          {
+            path: "response-selection-option",
+            module: ResponseSelectionOptionModule
           },
           {
             path: "test",
