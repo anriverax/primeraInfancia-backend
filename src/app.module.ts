@@ -36,6 +36,7 @@ import { InscriptionModule } from "./core/inscription/inscription.module";
 
 //Attachment
 import { InstrumentModule } from "./core/instrument/instrument.module";
+import { SectionModule } from "./core/section/section.module";
 
 @Module({
   imports: [
@@ -73,6 +74,7 @@ import { InstrumentModule } from "./core/instrument/instrument.module";
     ModuleEvaluationModule,
     InscriptionModule,
     InstrumentModule,
+    SectionModule,
     RouterModule.register([
       {
         path: "api",
@@ -132,6 +134,10 @@ import { InstrumentModule } from "./core/instrument/instrument.module";
             module: InstrumentModule
           },
           {
+            path: "section",
+            module: SectionModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -170,4 +176,4 @@ import { InstrumentModule } from "./core/instrument/instrument.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}
