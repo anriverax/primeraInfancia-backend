@@ -24,7 +24,8 @@ const modelsWithSoftDelete = [
   "Question",
   "Option",
   "ResponseSelectionOption",
-  "Answer"
+  "Answer",
+  "ResponseSection"
 ];
 
 const prismaWithExtension = new PrismaClient().$extends({
