@@ -44,6 +44,7 @@ import { AnswerModule } from "./core/answer/answer.module";
 import { ResponseSessionModule } from "./core/responseSession/responseSession.module";
 import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
 import { TrackingModule } from "./core/tracking/tracking.module";
+import { EvidenceModule } from "./core/evidence/evidence.module";
 
 @Module({
   imports: [
@@ -88,6 +89,7 @@ import { TrackingModule } from "./core/tracking/tracking.module";
     AnswerModule,
     ResponseSessionModule,
     TrackingTypeModule,
+    EvidenceModule,
     RouterModule.register([
       {
         path: "api",
@@ -179,6 +181,10 @@ import { TrackingModule } from "./core/tracking/tracking.module";
             module: TrackingModule
           },
           {
+            path: "evidence",
+            module: EvidenceModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -217,4 +223,4 @@ import { TrackingModule } from "./core/tracking/tracking.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}

@@ -730,6 +730,7 @@ model Tracking {
 
 model Evidence {
   id                 Int             @id @default(autoincrement())
+  Evidence           String
   trackingId         Int
   Tracking           Tracking        @relation(fields: [trackingId], references: [id])
   createdAt          DateTime        @default(now())
