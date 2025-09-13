@@ -589,3 +589,182 @@ model ModuleEvaluation {
 
 
  // ====== END - Grades ======
+
+ /**
+ * ================================
+ * | Attachment |
+ * ================================
+ */
+
+// ====== START - ATTACHMENT ======
+
+model DetailOption {
+  id              Int               @id @default(autoincrement())
+  textToDisplay   String           
+  optionId        Int
+  Option          Option            @relation(fields: [optionId], references: [id])
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int?
+  updatedBy       Int?
+  deletedBy       Int?
+}
+
+model ResponseSelectionOption {
+  id                Int             @id @default(autoincrement())
+  answerId          Int
+  Answer            Answer          @relation(fields: [answerId], references: [id])
+  optionId          Int
+  Option            Option          @relation(fields: [optionId], references: [id])
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
+
+model Option {
+  id                Int                 @id @default(autoincrement())
+  text              String              @db.VarChar(500)
+  value             String              @db.VarChar(500)
+  questionId        Int
+  Question          Question            @relation(fields: [questionId], references: [id])
+  DetailOption      DetailOption[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+  ResponseSelectionOption ResponseSelectionOption[]
+}
+
+model Answer {
+  id                 Int                       @id @default(autoincrement())
+  valueText          String                   
+  valueNumber        Int
+  valueBoolean       Boolean
+  valueDate          DateTime                 
+  questionId         Int
+  Question           Question                  @relation(fields: [questionId], references: [id])
+  responseSessionId  Int
+//  ResponseSession    ResponseSession           @relation(fields: [responseSessionId], references: [id])
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+  ResponseSelectionOption ResponseSelectionOption[]
+}
+
+model Question {
+  id                 Int            @id @default(autoincrement())
+  text               String        
+  questionType       String        
+  orderBy            Int
+  subSection         String        
+  isRequired         Boolean
+  sectionId          Int
+  Section            Section        @relation(fields: [sectionId], references: [id])
+  Option             Option[]
+  Answer             Answer[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Section {
+  id                Int             @id @default(autoincrement())
+  title             String         
+  summary           String         
+  orderBy           Int            
+  instrumentId      Int
+  Instrument        Instrument      @relation(fields: [instrumentId], references: [id])
+  Question          Question[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
+
+model ResponseSession {
+  id                 Int             @id @default(autoincrement())
+  status             String         
+//  answerId           Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+//  trackingId         Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+//  Answer            Answer[]
+//  Tracking           Tracking       @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Tracking {
+  id                 Int                 @id @default(autoincrement())
+  name               String            
+  description        String             
+  start              DateTime   
+  finish             DateTime                 
+  trackingTypeId     Int
+  TrackingType       TrackingType        @relation(fields: [trackingTypeId], references: [id])
+//  ResponseSession   ResponseSession[]
+  Evidence          Evidence[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Evidence {
+  id                 Int             @id @default(autoincrement())
+  trackingId         Int
+  Tracking           Tracking        @relation(fields: [trackingId], references: [id])
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model TrackingType {
+  id                 Int             @id @default(autoincrement())
+  name               String         
+  deliveryMethod     String         
+  Tracking           Tracking[]
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int?
+  updatedBy          Int?
+  deletedBy          Int?
+}
+
+model Instrument {
+  id                Int             @id @default(autoincrement())
+  title             String         
+  subTitle          String         
+  description       String         
+  Section           Section[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
+
+// ====== END - ATTACHMENT ======
