@@ -38,6 +38,7 @@ import { InscriptionModule } from "./core/inscription/inscription.module";
 import { InstrumentModule } from "./core/instrument/instrument.module";
 import { SectionModule } from "./core/section/section.module";
 import { QuestionModule } from "./core/question/question.module";
+import { OptionModule } from "./core/option/option.module";
 
 @Module({
   imports: [
@@ -77,6 +78,7 @@ import { QuestionModule } from "./core/question/question.module";
     InstrumentModule,
     SectionModule,
     QuestionModule,
+    OptionModule,
     RouterModule.register([
       {
         path: "api",
@@ -142,6 +144,10 @@ import { QuestionModule } from "./core/question/question.module";
           {
             path: "question",
             module: QuestionModule
+          },
+          {
+            path: "option",
+            module: OptionModule
           },
           {
             path: "test",
