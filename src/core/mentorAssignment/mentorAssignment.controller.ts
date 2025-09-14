@@ -4,6 +4,7 @@ import { Controller, Get, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { FindByUserIdQuery } from "./cqrs/queries/findByUserId.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
+import { IMentorAssignmentByUserResult } from "./dto/mentorAssignment.type";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -15,7 +16,7 @@ export class MentorAssignmentController {
 
   @AuthRequired()
   @Get("user")
-  async findMentorsByUserId(@Req() req: Request) {
+  async findMentorsByUserId(@Req() req: Request): Promise<IMentorAssignmentByUserResult> {
     const userId = req["user"].sub;
 
     const result = await this.queryBus.execute(new FindByUserIdQuery(parseInt(userId)));

@@ -1,7 +1,7 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { GetAllZoneQuery } from "./getAllZone.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IGetZone, IGetZoneWithDept } from "@/core/catalogue/zone/dto/zone.dto";
+import { IGetZone, IGetZoneWithDept } from "@/core/catalogue/zone/dto/zone.type";
 
 @QueryHandler(GetAllZoneQuery)
 export class GetAllZoneHandler {

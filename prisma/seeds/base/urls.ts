@@ -6,10 +6,6 @@ export const menuJson = {
   autoEvaluacion: "/admin/evaluaciones/auto-evaluación",
   portafolio: "/admin/evaluaciones/portafolio",
   diagnostico: "/admin/evaluaciones/diagnostico",
-  talleres: "/admin/asistencia/talleres",
-  seminarios: "/admin/asistencia/seminarios",
-  comunidadesPractica: "/admin/asistencia/comunidades-practica",
-  sesionesSincronicas: "/admin/asistencia/sesiones-sincronicas",
   mentorias: "/admin/asistencia/mentorias",
   triplePerfil: "/admin/triple-perfil",
   formadores: "/admin/triple-perfil/formadores",
@@ -17,6 +13,7 @@ export const menuJson = {
   tecnicosApoyo: "/admin//triple-perfil/tecnicos-apoyo",
   docentes: "/admin/docentes",
   catalogos: "/admin/catalogo",
+  modulos: "/admin/catalogo/modulos-formativos",
   centrosEscolares: "/admin/catalogo/centros-escolares",
   zonas: "/admin/catalogo/zonas"
 };

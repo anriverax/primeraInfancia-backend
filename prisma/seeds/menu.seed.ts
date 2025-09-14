@@ -60,34 +60,6 @@ export async function menuSeed() {
     ]
   });
 
-  // Menú principal: Asistencia
-  const asistencia = await prisma.menuItem.create({
-    data: {
-      title: "Asistencia",
-      path: menuJson.asistencia,
-      icon: "Calendar"
-    }
-  });
-
-  // Submenús de Asistencia
-  await prisma.menuItem.createMany({
-    data: [
-      { title: "Talleres", path: menuJson.talleres, parentId: asistencia.id },
-      { title: "Seminarios", path: menuJson.seminarios, parentId: asistencia.id },
-      {
-        title: "Comunidades de practica",
-        path: menuJson.comunidadesPractica,
-        parentId: asistencia.id
-      },
-      {
-        title: "Sesiones sincronicas",
-        path: menuJson.sesionesSincronicas,
-        parentId: asistencia.id
-      },
-      { title: "Mentorias", path: menuJson.mentorias, parentId: asistencia.id }
-    ]
-  });
-
   // Menú principal: Triple perfil
   const triplePerfil = await prisma.menuItem.create({
     data: {
@@ -146,7 +118,12 @@ export async function menuSeed() {
         icon: "School",
         parentId: catalogo.id
       },
-
+      {
+        title: "Módulos Formativos",
+        path: menuJson.modulos,
+        icon: "School",
+        parentId: catalogo.id
+      },
       {
         title: "Zonas",
         path: menuJson.zonas,

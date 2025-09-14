@@ -27,6 +27,7 @@ import { SchoolModule } from "./core/test/school/school.module";
 import { AttendanceModule } from "./core/attendance/attendance.module";
 import { MentorAssignmentModule } from "./core/mentorAssignment/mentorAssignment.module";
 import { HealthModule } from "./core/health/health.module";
+import { TrainingModule } from "./core/catalogue/trainingModule/trainingModule.module";
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { HealthModule } from "./core/health/health.module";
     EventModule,
     AttendanceModule,
     MentorAssignmentModule,
+    TrainingModule,
     RouterModule.register([
       {
         path: "api",
@@ -78,6 +80,10 @@ import { HealthModule } from "./core/health/health.module";
               {
                 path: "events",
                 module: EventModule
+              },
+              {
+                path: "trainingModule",
+                module: TrainingModule
               }
             ]
           },

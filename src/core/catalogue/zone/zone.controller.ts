@@ -1,7 +1,7 @@
 import { Controller, Get, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-import { IGetZoneWithDept } from "./dto/zone.dto";
+import { IGetZoneWithDept } from "./dto/zone.type";
 import { GetAllZoneQuery } from "./cqrs/queries/findMany/getAllZone.query";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { NestResponse } from "@/common/helpers/types";

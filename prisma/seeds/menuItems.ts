@@ -11,6 +11,7 @@ export async function getMenuItems(
     [menuJson.asistencia]: PermissionEnum.VIEW_ATTENDANCE,
     [menuJson.catalogos]: PermissionEnum.VIEW_CATALOGUES,
     [menuJson.centrosEscolares]: PermissionEnum.VIEW_CATALOGUE_SCHOOL,
+    [menuJson.modulos]: PermissionEnum.VIEW_CATALOGUE_MODULE,
     [menuJson.zonas]: PermissionEnum.VIEW_CATALOGUE_ZONE
   };
 

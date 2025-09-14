@@ -50,6 +50,83 @@ async function typePerson() {
   });
 }
 
+async function eventType() {
+  await prisma.eventType.createMany({
+    data: [
+      {
+        name: "Taller"
+      },
+      {
+        name: "Seminario"
+      },
+      {
+        name: "Comunidad de practica"
+      },
+      {
+        name: "Mentoria"
+      },
+      {
+        name: "Sesión sincronica"
+      }
+    ],
+    skipDuplicates: true
+  });
+}
+
+async function trainingModule() {
+  await prisma.trainingModule.createMany({
+    data: [
+      {
+        name: "Módulo 1"
+      },
+      {
+        name: "Módulo 2"
+      },
+      {
+        name: "Módulo 3"
+      },
+      {
+        name: "Módulo 4"
+      },
+      {
+        name: "Módulo 5"
+      }
+    ]
+  });
+}
+
+export async function evaluationInstrument() {
+  await prisma.evaluationInstrument.createMany({
+    data: [
+      {
+        name: "Portafolio Digital",
+        periodicity: "Durante el módulo",
+        percentage: 50
+      },
+      {
+        name: "Lista de Cotejo",
+        periodicity: "Durante el módulo",
+        percentage: 10
+      },
+      {
+        name: "Cuestionario",
+        periodicity: "Al finalizar el módulo",
+        percentage: 10
+      },
+      {
+        name: "Auto-evaluación",
+        periodicity: "Al finalizar el módulo",
+        percentage: 10
+      },
+      {
+        name: "Proyecto Final",
+        periodicity: "Al finalizar el módulo",
+        percentage: 10
+      }
+    ],
+    skipDuplicates: true
+  });
+}
 /*
 async function typeContent() {
   await prisma.typeContent.createMany({
@@ -79,11 +156,15 @@ async function typeContent() {
   });
 }
 */
+
 async function main() {
   await zones();
   await typePerson();
   await menuSeed();
   await authorizationSeed();
+  await eventType();
+  await trainingModule();
+  await evaluationInstrument();
 }
 main()
   .then(async () => {
