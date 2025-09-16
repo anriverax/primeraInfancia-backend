@@ -768,4 +768,34 @@ model Instrument {
   deletedBy         Int?
 }
 
+model Appendix {
+  id                Int             @id @default(autoincrement())
+  name              String
+  textquestion      String         
+  textanswer        String         
+  teacherroleid     Int         
+  mentorroleid      Int
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
+
+model AppendixTest {
+  id                Int             @id @default(autoincrement())
+  name              String
+  textQuestion      String         
+  textAnswer        String         
+  teacherRoleId     Int         
+  mentorRoleId      Int
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int?
+  updatedBy         Int?
+  deletedBy         Int?
+}
+
 // ====== END - ATTACHMENT ======

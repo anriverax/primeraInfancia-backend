@@ -45,6 +45,7 @@ import { ResponseSessionModule } from "./core/responseSession/responseSession.mo
 import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
 import { TrackingModule } from "./core/tracking/tracking.module";
 import { EvidenceModule } from "./core/evidence/evidence.module";
+import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
 
 @Module({
   imports: [
@@ -90,6 +91,7 @@ import { EvidenceModule } from "./core/evidence/evidence.module";
     ResponseSessionModule,
     TrackingTypeModule,
     EvidenceModule,
+    AppendixTestModule,
     RouterModule.register([
       {
         path: "api",
@@ -183,6 +185,10 @@ import { EvidenceModule } from "./core/evidence/evidence.module";
           {
             path: "evidence",
             module: EvidenceModule
+          },
+          {
+            path: "appendix-test",
+            module: AppendixTestModule
           },
           {
             path: "test",

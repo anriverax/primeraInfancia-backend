@@ -6,7 +6,7 @@ import { IGetByIdEvidence } from "@/core/evidence/dto/evidence.type";
 @QueryHandler(GetByIdEvidenceQuery)
 export class GetByIdEvidenceHandler {
   constructor(private readonly prisma: PrismaService) {}
-   
+
   async execute(query: GetByIdEvidenceQuery): Promise<IGetByIdEvidence | null> {
     const evidences = await this.prisma.evidence.findUnique({
       where: { id: query.id },
@@ -20,4 +20,3 @@ export class GetByIdEvidenceHandler {
     return evidences;
   }
 }
- 
