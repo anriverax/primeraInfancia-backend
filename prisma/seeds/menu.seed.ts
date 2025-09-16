@@ -12,7 +12,7 @@ export async function menuSeed() {
     }
   });
 
-  // Menú principal: Zonas y Grupos
+  // Menú principal: Grupos
   await prisma.menuItem.create({
     data: {
       title: "Grupos",
@@ -28,6 +28,53 @@ export async function menuSeed() {
       path: menuJson.asistencia,
       icon: "CalendarClock"
     }
+  });
+
+  await prisma.menuItem.create({
+    data: {
+      title: "Mentoría",
+      path: menuJson.mentoria,
+      icon: "ListTodo"
+    }
+  });
+  // Menú principal: Triple perfil
+  await prisma.menuItem.create({
+    data: {
+      title: "Usuarios",
+      path: menuJson.triplePerfil,
+      icon: "Users"
+    }
+  });
+
+  const catalogo = await prisma.menuItem.create({
+    data: {
+      title: "Catálogos",
+      path: menuJson.catalogos,
+      icon: "BookMarked"
+    }
+  });
+
+  await prisma.menuItem.createMany({
+    data: [
+      {
+        title: "Centros Escolares",
+        path: menuJson.centrosEscolares,
+        icon: "",
+        parentId: catalogo.id
+      },
+      {
+        title: "Módulos Formativos",
+        path: menuJson.modulos,
+        icon: "",
+        parentId: catalogo.id
+      },
+      {
+        title: "Zonas",
+        path: menuJson.zonas,
+        icon: "",
+        parentId: catalogo.id
+      }
+    ]
   });
 
   // Menú principal: Evaluaciones
@@ -56,79 +103,6 @@ export async function menuSeed() {
         title: "Diagnostico",
         path: menuJson.diagnostico,
         parentId: evaluaciones.id
-      }
-    ]
-  });
-
-  // Menú principal: Triple perfil
-  const triplePerfil = await prisma.menuItem.create({
-    data: {
-      title: "Triple perfil",
-      path: menuJson.triplePerfil,
-      icon: "Users"
-    }
-  });
-
-  // Submenús de Triple perfil
-  await prisma.menuItem.createMany({
-    data: [
-      {
-        title: "Formadores",
-        path: menuJson.formadores,
-        icon: "ContactRound",
-        parentId: triplePerfil.id
-      },
-      {
-        title: "Mentores",
-        path: menuJson.mentores,
-        icon: "SquareUserRound",
-        parentId: triplePerfil.id
-      },
-      {
-        title: "Ténicos de apoyo",
-        path: menuJson.tecnicosApoyo,
-        icon: "CircleUserRound",
-        parentId: triplePerfil.id
-      }
-    ]
-  });
-
-  // Menú principal: Docentes
-  await prisma.menuItem.create({
-    data: {
-      title: "Docentes",
-      path: menuJson.docentes,
-      icon: "User"
-    }
-  });
-
-  const catalogo = await prisma.menuItem.create({
-    data: {
-      title: "Catálogos",
-      path: menuJson.catalogos,
-      icon: "BookMarked"
-    }
-  });
-
-  await prisma.menuItem.createMany({
-    data: [
-      {
-        title: "Centros Escolares",
-        path: menuJson.centrosEscolares,
-        icon: "School",
-        parentId: catalogo.id
-      },
-      {
-        title: "Módulos Formativos",
-        path: menuJson.modulos,
-        icon: "School",
-        parentId: catalogo.id
-      },
-      {
-        title: "Zonas",
-        path: menuJson.zonas,
-        icon: "School",
-        parentId: catalogo.id
       }
     ]
   });

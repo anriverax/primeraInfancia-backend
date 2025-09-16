@@ -1,14 +1,14 @@
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
 import { School } from "@prisma/client";
-import { ISchool } from "../../dto/school.type";
+import { ICreateSchool } from "../../dto/school.type";
 
 @Injectable()
 export class SchoolProjection {
   private readonly logger = new Logger("SchoolProjection");
   constructor(private prisma: PrismaService) {}
 
-  async add(data: ISchool): Promise<School> {
+  async add(data: ICreateSchool): Promise<School> {
     try {
       return await this.prisma.school.create({ data });
     } catch (error) {

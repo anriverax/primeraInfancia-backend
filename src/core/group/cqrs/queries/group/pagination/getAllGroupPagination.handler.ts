@@ -11,6 +11,7 @@ export class GetAllGroupPaginationHandler {
     const { page = 1, limit = 10 } = query.data;
 
     const skip = (page - 1) * limit;
+
     const [data, total] = await Promise.all([
       this.prisma.group.findMany({
         skip,

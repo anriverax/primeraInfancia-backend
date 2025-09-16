@@ -1,9 +1,9 @@
 import { NestResponse } from "@/common/helpers/types";
 import { Command } from "@nestjs/cqrs";
-import { ISchool } from "../../dto/school.type";
+import { ICreateSchool } from "../../dto/school.type";
 
 export class AddShoolCommand extends Command<NestResponse<void>> {
-  constructor(public readonly data: ISchool) {
+  constructor(public readonly data: ICreateSchool) {
     super();
   }
 }

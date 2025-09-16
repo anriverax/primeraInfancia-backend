@@ -9,6 +9,7 @@ export async function getMenuItems(
     [menuJson.dashboard]: PermissionEnum.VIEW_DASHBOARD,
     [menuJson.grupos]: PermissionEnum.VIEW_GROUPS,
     [menuJson.asistencia]: PermissionEnum.VIEW_ATTENDANCE,
+    [menuJson.mentoria]: PermissionEnum.VIEW_MENTORING,
     [menuJson.catalogos]: PermissionEnum.VIEW_CATALOGUES,
     [menuJson.centrosEscolares]: PermissionEnum.VIEW_CATALOGUE_SCHOOL,
     [menuJson.modulos]: PermissionEnum.VIEW_CATALOGUE_MODULE,
