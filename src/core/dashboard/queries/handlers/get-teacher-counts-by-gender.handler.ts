@@ -8,12 +8,12 @@ export class GetSchoolCountsByGenderHandler implements IQueryHandler<GetTeacherC
 
     //async execute(query: GetSchoolCountsByZoneQuery) {
     async execute() {
-        const schoolsByZone = await this.prisma.person.groupBy({
+        const schoolsByGender = await this.prisma.person.groupBy({
             by: ['gender'],
             _count: { id: true },
         });
 
-        return schoolsByZone.map(item => ({
+        return schoolsByGender.map(item => ({
             zone: item.gender,
             count: item._count.id,
         }));
