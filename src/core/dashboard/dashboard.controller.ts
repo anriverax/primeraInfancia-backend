@@ -3,6 +3,7 @@ import { QueryBus } from '@nestjs/cqrs';
 import { GetSchoolCountsBySectorQuery } from './queries/get-school-counts-by-sector.query';
 import { GetSchoolCountsByZoneQuery } from './queries/get-school-counts-by-zone.query';
 import { GetTeacherCountsByGenderQuery } from './queries/get-teacher-counts-by-gender.query';
+import { GetTeacherCountsByCareerQuery } from './queries/get-teacher-counts-by-career.query';
 
 @Controller('/participant')
 export class DashboardController {
@@ -13,17 +14,20 @@ export class DashboardController {
     const schoolsBySectorPromise = this.queryBus.execute(new GetSchoolCountsBySectorQuery());
     const schoolsByZonePromise = this.queryBus.execute(new GetSchoolCountsByZoneQuery());
     const teachersByGenderPromise = this.queryBus.execute(new GetTeacherCountsByGenderQuery());
+    const teachersByCareerPromise = this.queryBus.execute(new GetTeacherCountsByCareerQuery);
 
-    const [schoolsBySector, schoolsByZone, teacherByGender] = await Promise.all([
+    const [schoolsBySector, schoolsByZone, teacherByGender, teachersByCareer] = await Promise.all([
       schoolsBySectorPromise,
       schoolsByZonePromise,
-      teachersByGenderPromise
+      teachersByGenderPromise,
+      teachersByCareerPromise
     ]);
 
     return {
       schoolsBySector,
       schoolsByZone,
       teacherByGender,
+      teachersByCareer
     };
   }
 }

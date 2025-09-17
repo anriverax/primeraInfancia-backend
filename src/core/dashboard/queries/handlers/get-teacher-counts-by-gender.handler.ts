@@ -14,7 +14,7 @@ export class GetSchoolCountsByGenderHandler implements IQueryHandler<GetTeacherC
         });
 
         return schoolsByGender.map(item => ({
-            zone: item.gender,
+            gender: item.gender,
             count: item._count.id,
         }));
     }

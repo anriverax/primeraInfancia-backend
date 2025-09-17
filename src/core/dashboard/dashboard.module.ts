@@ -7,8 +7,10 @@ import { DashboardController } from "./dashboard.controller"
 import { GetSchoolCountsBySectorHandler } from './queries/handlers/get-school-counts-by-sector.handler';
 import { GetSchoolCountsByZoneHandler } from './queries/handlers/get-school-counts-by-zone.handler';
 import { GetSchoolCountsByGenderHandler } from './queries/handlers/get-teacher-counts-by-gender.handler';
+import { GetSchoolCountsByCareerHandler } from './queries/handlers/get-teacher-counts-by-career.handler';
+
 // Define an array of all query handlers for easier management
-export const QueryHandlers = [GetSchoolCountsBySectorHandler, GetSchoolCountsByZoneHandler, GetSchoolCountsByGenderHandler];
+export const QueryHandlers = [GetSchoolCountsBySectorHandler, GetSchoolCountsByZoneHandler, GetSchoolCountsByGenderHandler,GetSchoolCountsByCareerHandler];
 
 @Module({
     imports: [CqrsModule],
