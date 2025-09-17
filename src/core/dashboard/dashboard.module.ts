@@ -6,9 +6,9 @@ import { DashboardController } from "./dashboard.controller"
 // Import all command and query handlers here
 import { GetSchoolCountsBySectorHandler } from './queries/handlers/get-school-counts-by-sector.handler';
 import { GetSchoolCountsByZoneHandler } from './queries/handlers/get-school-counts-by-zone.handler';
-
+import { GetSchoolCountsByGenderHandler } from './queries/handlers/get-teacher-counts-by-gender.handler';
 // Define an array of all query handlers for easier management
-export const QueryHandlers = [GetSchoolCountsBySectorHandler, GetSchoolCountsByZoneHandler];
+export const QueryHandlers = [GetSchoolCountsBySectorHandler, GetSchoolCountsByZoneHandler, GetSchoolCountsByGenderHandler];
 
 @Module({
     imports: [CqrsModule],

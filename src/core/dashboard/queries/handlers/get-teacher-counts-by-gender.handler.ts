@@ -1,0 +1,21 @@
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { PrismaService } from "@/services/prisma/prisma.service";
+import { GetTeacherCountsByGenderQuery } from '../get-teacher-counts-by-gender.query';
+
+@QueryHandler(GetTeacherCountsByGenderQuery)
+export class GetSchoolCountsByGenderHandler implements IQueryHandler<GetTeacherCountsByGenderQuery> {
+    constructor(private prisma: PrismaService) { }
+
+    //async execute(query: GetSchoolCountsByZoneQuery) {
+    async execute() {
+        const schoolsByZone = await this.prisma.person.groupBy({
+            by: ['gender'],
+            _count: { id: true },
+        });
+
+        return schoolsByZone.map(item => ({
+            zone: item.gender,
+            count: item._count.id,
+        }));
+    }
+}
