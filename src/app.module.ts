@@ -237,4 +237,4 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}
