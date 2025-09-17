@@ -47,6 +47,9 @@ import { TrackingModule } from "./core/tracking/tracking.module";
 import { EvidenceModule } from "./core/evidence/evidence.module";
 import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
 
+//Dashboard
+import { DashboardModule } from "./core/dashboard/dashboard.module";
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -92,6 +95,7 @@ import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
     TrackingTypeModule,
     EvidenceModule,
     AppendixTestModule,
+    DashboardModule,
     RouterModule.register([
       {
         path: "api",
@@ -191,6 +195,10 @@ import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
             module: AppendixTestModule
           },
           {
+            path: "dashboard",
+            module: DashboardModule
+          },
+          {
             path: "test",
             children: [
               {
@@ -229,4 +237,4 @@ import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
