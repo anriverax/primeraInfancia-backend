@@ -1,32 +1,26 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { GetTeacherCountsByDepartmentQuery } from "../get-teacher-counts-by-department.query";
+import { GetSchoolCountsByDepartmentQuery } from "../get-school-counts-by-department.query";
 
-@QueryHandler(GetTeacherCountsByDepartmentQuery)
-export class GetTeacherCountByDepartmentHandler
-  implements IQueryHandler<GetTeacherCountsByDepartmentQuery>
+@QueryHandler(GetSchoolCountsByDepartmentQuery)
+export class GetSchoolCountsByDepartmentHandler
+  implements IQueryHandler<GetSchoolCountsByDepartmentQuery>
 {
   constructor(private prisma: PrismaService) {}
 
-  //async execute(query: GetSchoolCountsByZoneQuery) {
+  //async execute(query: GetSchoolCountsByDepartmentQuery) {
   async execute() {
-    const teachersByDepartment = await this.prisma.person.groupBy({
-      by: ["districtId"], // Group by districtId first for the join
+    const schoolsByDistrict = await this.prisma.school.groupBy({
+      by: ["districtId"],
       _count: {
         id: true
-      },
-      where: {
-        PersonRole: {
-          some: {
-            typePersonId: 2 // Filter for teachers
-          }
-        }
       }
     });
 
-    // Post-process the result to get department names
     const departmentCounts = {};
-    for (const item of teachersByDepartment) {
+
+    for (const item of schoolsByDistrict) {
+      // Find the department name for the current districtId
       const district = await this.prisma.district.findUnique({
         where: {
           id: item.districtId
@@ -45,15 +39,17 @@ export class GetTeacherCountByDepartmentHandler
       });
 
       const departmentName = district?.Municipality?.Department?.name;
+
       if (departmentName) {
+        // Add the count to the corresponding department
         departmentCounts[departmentName] = (departmentCounts[departmentName] || 0) + item._count.id;
       }
     }
 
-    // Convert the object to an array of objects
+    // Format the final result into an array of objects
     const result = Object.entries(departmentCounts).map(([name, count]) => ({
       department: name,
-      teacherCount: count
+      schoolCount: count
     }));
 
     return result;

@@ -3,7 +3,7 @@ import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetTeacherCountsByCareerQuery } from "../get-teacher-counts-by-career.query";
 
 @QueryHandler(GetTeacherCountsByCareerQuery)
-export class GetSchoolCountsByCareerHandler implements IQueryHandler<GetTeacherCountsByCareerQuery> {
+export class GetTeacherCountByCareerHandler implements IQueryHandler<GetTeacherCountsByCareerQuery> {
   constructor(private prisma: PrismaService) {}
 
   //async execute(query: GetSchoolCountsByZoneQuery) {
