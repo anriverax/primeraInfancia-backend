@@ -500,6 +500,31 @@ model TrainingModule {
 }
 
 // ====== END - GRADES ======
+
+/**
+ * ================================
+ * | Attachment |
+ * ================================
+ */
+
+// ====== START - ATTACHMENT ======
+
+model AppendixTest {
+  id            Int       @id @default(autoincrement())
+  name          String
+  textQuestion  String
+  textAnswer    String
+  teacherRoleId Int
+  mentorRoleId  Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
+  createdBy     Int?
+  updatedBy     Int?
+  deletedBy     Int?
+}
+
+// ====== END - ATTACHMENT ======
 model Seminar {
   id             Int            @id @default(autoincrement())
   name           String // example: todo
