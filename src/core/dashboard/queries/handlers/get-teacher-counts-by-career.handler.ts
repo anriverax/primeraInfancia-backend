@@ -4,10 +4,9 @@ import { GetTeacherCountsByCareerQuery } from "../get-teacher-counts-by-career.q
 
 @QueryHandler(GetTeacherCountsByCareerQuery)
 export class GetTeacherCountByCareerHandler implements IQueryHandler<GetTeacherCountsByCareerQuery> {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  //async execute(query: GetSchoolCountsByZoneQuery) {
-  async execute() {
+  async execute(): Promise<{ career: string | null; count: number }[]> {
     const teachersByCareer = await this.prisma.academic.groupBy({
       by: ["career"],
       _count: {

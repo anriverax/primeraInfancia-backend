@@ -4,9 +4,9 @@ import { GetTeacherCountsByGenderQuery } from "../get-teacher-counts-by-gender.q
 
 @QueryHandler(GetTeacherCountsByGenderQuery)
 export class GetTeacherCountsByGenderHandler implements IQueryHandler<GetTeacherCountsByGenderQuery> {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  async execute() {
+  async execute(): Promise<{ gender: string | null; count: number }[]> {
     const schoolsByGender = await this.prisma.person.groupBy({
       by: ["gender"],
       _count: { id: true }

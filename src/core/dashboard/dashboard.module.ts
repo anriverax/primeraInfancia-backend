@@ -26,4 +26,4 @@ export const QueryHandlers = [
   controllers: [DashboardController],
   providers: [PrismaService, ...QueryHandlers] // Provide Prisma and the query handlers
 })
-export class DashboardModule { }
+export class DashboardModule {}

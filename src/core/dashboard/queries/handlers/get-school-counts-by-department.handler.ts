@@ -4,12 +4,10 @@ import { GetSchoolCountsByDepartmentQuery } from "../get-school-counts-by-depart
 
 @QueryHandler(GetSchoolCountsByDepartmentQuery)
 export class GetSchoolCountsByDepartmentHandler
-  implements IQueryHandler<GetSchoolCountsByDepartmentQuery>
-{
-  constructor(private prisma: PrismaService) {}
+  implements IQueryHandler<GetSchoolCountsByDepartmentQuery> {
+  constructor(private prisma: PrismaService) { }
 
-  //async execute(query: GetSchoolCountsByDepartmentQuery) {
-  async execute() {
+  async execute(): Promise<{ department: string | null; schoolCount: number }[]> {
     const schoolsByDistrict = await this.prisma.school.groupBy({
       by: ["districtId"],
       _count: {

@@ -12,7 +12,15 @@ export class DashboardController {
   constructor(private queryBus: QueryBus) { }
 
   @Get()
-  async getDashboardData() {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  async getDashboardData(): Promise<{
+    schoolsBySector: any;
+    schoolsByZone: any;
+    schoolsByDepartament: any;
+    teacherByGender: any;
+    teachersByCareer: any;
+    teachersByDepartment: any;
+  }> {
     const schoolsBySectorPromise = this.queryBus.execute(new GetSchoolCountsBySectorQuery());
     const schoolsByZonePromise = this.queryBus.execute(new GetSchoolCountsByZoneQuery());
     const schoolsByDepartamentPromise = this.queryBus.execute(new GetSchoolCountsByDepartmentQuery());
@@ -42,7 +50,8 @@ export class DashboardController {
       schoolsByDepartament,
       teacherByGender,
       teachersByCareer,
-      teachersByDepartment,
+      teachersByDepartment
     };
   }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
