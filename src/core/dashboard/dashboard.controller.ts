@@ -9,7 +9,7 @@ import { GetTeacherCountsByDepartmentQuery } from "./queries/get-teacher-counts-
 
 @Controller("/participant")
 export class DashboardController {
-  constructor(private queryBus: QueryBus) { }
+  constructor(private queryBus: QueryBus) {}
 
   @Get()
   /* eslint-disable @typescript-eslint/no-explicit-any */

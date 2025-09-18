@@ -4,7 +4,7 @@ import { GetSchoolCountsBySectorQuery } from "../get-school-counts-by-sector.que
 
 @QueryHandler(GetSchoolCountsBySectorQuery)
 export class GetSchoolCountsBySectorHandler implements IQueryHandler<GetSchoolCountsBySectorQuery> {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async execute(): Promise<{ sector: string | null; count: number }[]> {
     const schoolsBySector = await this.prisma.school.groupBy({

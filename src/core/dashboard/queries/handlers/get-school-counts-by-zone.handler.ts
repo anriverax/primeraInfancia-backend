@@ -4,7 +4,7 @@ import { GetSchoolCountsByZoneQuery } from "../get-school-counts-by-zone.query";
 
 @QueryHandler(GetSchoolCountsByZoneQuery)
 export class GetSchoolCountsByZoneHandler implements IQueryHandler<GetSchoolCountsByZoneQuery> {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async execute(): Promise<{ zone: string | null; count: number }[]> {
     const schoolsByZone = await this.prisma.school.groupBy({

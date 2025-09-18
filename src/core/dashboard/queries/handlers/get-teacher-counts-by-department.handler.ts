@@ -7,7 +7,7 @@ export class GetTeacherCountByDepartmentHandler
   implements IQueryHandler<GetTeacherCountsByDepartmentQuery> {
   constructor(private prisma: PrismaService) { }
 
-  async execute(): Promise<{ department: string | null; teacherCount: number }[]> {
+  async execute() {
     const teachersByDepartment = await this.prisma.person.groupBy({
       by: ["districtId"], // Group by districtId first for the join
       _count: {
