@@ -30,6 +30,7 @@ import { TrainingModule } from "./core/catalogue/trainingModule/trainingModule.m
 import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrument/evaluationInstrument.module";
 import { SchoolModule } from "./core/catalogue/school/school.module";
 import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
+import { DashboardModule } from "./core/dashboard/dashboard.module";
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
     TrainingModule,
     EvaluationInstrumentModule,
     AppendixTestModule,
+    DashboardModule,
     RouterModule.register([
       {
         path: "api",
@@ -118,6 +120,10 @@ import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
           {
             path: "appendix-test",
             module: AppendixTestModule
+          },
+          {
+            path: "dashboard",
+            module: DashboardModule
           },
           {
             path: "test",

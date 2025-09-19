@@ -524,6 +524,116 @@ model AppendixTest {
   deletedBy     Int?
 }
 
+model Option {
+  id                      Int                       @id @default(autoincrement())
+  text                    String                    @db.VarChar(500)
+  value                   String                    @db.VarChar(500)
+  questionId              Int
+  Question                Question                  @relation(fields: [questionId], references: [id])
+  DetailOption            DetailOption[]
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+  deletedAt               DateTime?
+  createdBy               Int?
+  updatedBy               Int?
+  deletedBy               Int?
+  ResponseSelectionOption ResponseSelectionOption[]
+}
+
+model DetailOption {
+  id            Int       @id @default(autoincrement())
+  textToDisplay String
+  optionId      Int
+  Option        Option    @relation(fields: [optionId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
+  createdBy     Int?
+  updatedBy     Int?
+  deletedBy     Int?
+}
+
+model ResponseSelectionOption {
+  id        Int       @id @default(autoincrement())
+  answerId  Int
+  Answer    Answer    @relation(fields: [answerId], references: [id])
+  optionId  Int
+  Option    Option    @relation(fields: [optionId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int?
+  updatedBy Int?
+  deletedBy Int?
+}
+
+model Answer {
+  id                      Int                       @id @default(autoincrement())
+  valueText               String
+  valueNumber             Int
+  valueBoolean            Boolean
+  valueDate               DateTime
+  questionId              Int
+  Question                Question                  @relation(fields: [questionId], references: [id])
+  responseSessionId       Int
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+  deletedAt               DateTime?
+  createdBy               Int?
+  updatedBy               Int?
+  deletedBy               Int?
+  ResponseSelectionOption ResponseSelectionOption[]
+}
+
+model Question {
+  id           Int       @id @default(autoincrement())
+  text         String
+  questionType String
+  orderBy      Int
+  subSection   String
+  isRequired   Boolean
+  sectionId    Int
+  Section      Section   @relation(fields: [sectionId], references: [id])
+  Option       Option[]
+  Answer       Answer[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+  createdBy    Int?
+  updatedBy    Int?
+  deletedBy    Int?
+}
+
+model Section {
+  id         Int        @id @default(autoincrement())
+  title      String
+  summary    String
+  orderBy    Int
+  appendixId Int
+  Instrument Appendix   @relation(fields: [appendixId], references: [id])
+  Question   Question[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  deletedAt  DateTime?
+  createdBy  Int?
+  updatedBy  Int?
+  deletedBy  Int?
+}
+
+model Appendix {
+  id          Int       @id @default(autoincrement())
+  title       String
+  subTitle    String
+  description String
+  Section     Section[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int?
+  updatedBy   Int?
+  deletedBy   Int?
+}
+
 // ====== END - ATTACHMENT ======
 model Seminar {
   id             Int            @id @default(autoincrement())

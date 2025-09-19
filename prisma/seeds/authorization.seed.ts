@@ -34,13 +34,29 @@ export async function authorizationSeed() {
         name: PermissionEnum.VIEW_DASHBOARD,
         description: "Ver dashboard"
       },
+      {
+        name: PermissionEnum.VIEW_DASHBOARD_ATTENDANCE,
+        description: "Ver dashboard de asistencias"
+      },
+      {
+        name: PermissionEnum.VIEW_DASHBOARD_EVALUATION,
+        description: "Ver dashboard de evaluaciones"
+      },
+      {
+        name: PermissionEnum.VIEW_DASHBOARD_MENTORING,
+        description: "Ver dashboard de mentorías"
+      },
+      {
+        name: PermissionEnum.VIEW_DASHBOARD_PARTICIPANTS,
+        description: "Ver dashboard de participantes"
+      },
       { name: PermissionEnum.VIEW_GROUPS, description: "Ver grupos" },
       { name: PermissionEnum.VIEW_ATTENDANCE, description: "Ver asistencias" },
       { name: PermissionEnum.VIEW_MENTORING, description: "Ver mentorías" },
       { name: PermissionEnum.VIEW_CATALOGUES, description: "Ver catálogos" },
-      { name: PermissionEnum.VIEW_CATALOGUE_SCHOOL, description: "Ver centros escolares" },
-      { name: PermissionEnum.VIEW_CATALOGUE_MODULE, description: "Ver módulos formativos" },
-      { name: PermissionEnum.VIEW_CATALOGUE_ZONE, description: "Ver zonas" }
+      { name: PermissionEnum.VIEW_CATALOGUE_SCHOOL, description: "Ver catálogo centros escolares" },
+      { name: PermissionEnum.VIEW_CATALOGUE_MODULE, description: "Ver catálogo módulos formativos" },
+      { name: PermissionEnum.VIEW_CATALOGUE_ZONE, description: "Ver catálogo zonas" }
     ],
     skipDuplicates: true
   });

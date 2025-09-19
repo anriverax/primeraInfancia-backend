@@ -4,12 +4,41 @@ const prisma = new PrismaClient();
 
 export async function menuSeed() {
   // Menú principal: Dashboard
-  await prisma.menuItem.create({
+  const dashboard = await prisma.menuItem.create({
     data: {
       title: "Dashboard",
       path: menuJson.dashboard,
       icon: "Home"
     }
+  });
+
+  await prisma.menuItem.createMany({
+    data: [
+      {
+        title: "Asistencia",
+        path: menuJson.asistenciaDashboard,
+        icon: "",
+        parentId: dashboard.id
+      },
+      {
+        title: "Evaluación",
+        path: menuJson.evaluacionDashboard,
+        icon: "",
+        parentId: dashboard.id
+      },
+      {
+        title: "Mentoría",
+        path: menuJson.mentoriaDashboard,
+        icon: "",
+        parentId: dashboard.id
+      },
+      {
+        title: "Participantes",
+        path: menuJson.participantesDashboard,
+        icon: "",
+        parentId: dashboard.id
+      }
+    ]
   });
 
   // Menú principal: Grupos

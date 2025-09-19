@@ -1,5 +1,9 @@
 export const menuJson = {
   dashboard: "/admin/dashboard",
+  asistenciaDashboard: "/admin/dashboard/asistencia",
+  evaluacionDashboard: "/admin/dashboard/evaluacion",
+  mentoriaDashboard: "/admin/dashboard/mentoria",
+  participantesDashboard: "/admin/dashboard/participantes",
   grupos: "/admin/grupos",
   asistencia: "/admin/asistencia",
   mentoria: "/admin/mentoria",
@@ -7,7 +11,6 @@ export const menuJson = {
   modulos: "/admin/catalogo/modulos-formativos",
   centrosEscolares: "/admin/catalogo/centros-escolares",
   zonas: "/admin/catalogo/zonas",
-
   triplePerfil: "/admin/triple-perfil",
   formadores: "/admin/triple-perfil/formadores",
   mentores: "/admin/triple-perfil/mentores",
