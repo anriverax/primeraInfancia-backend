@@ -6,21 +6,17 @@ import { IGetByIdAnswer } from "@/core/answer/dto/answer.type";
 @QueryHandler(GetByIdAnswerQuery)
 export class GetByIdAnswerHandler {
   constructor(private readonly prisma: PrismaService) {}
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(query: GetByIdAnswerQuery): Promise<IGetByIdAnswer | null> {
     const answers = await this.prisma.answer.findUnique({
       where: { id: query.id },
       select: {
-        id: true,
-        valueText: true,
-        valueNumber: true,
-        valueDate: true,
-        valueBoolean: true,
-        questionId: true,
-        responseSessionId: true
+        id : true,
+        answerDetail : true, questionId : true, responseSessionId : true,
       }
     });
 
     return answers;
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */

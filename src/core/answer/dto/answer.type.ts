@@ -2,38 +2,21 @@ import { IPagination } from "@/common/helpers/types";
 import { Answer } from "@prisma/client";
 
 export type ICreateAnswer = Pick<
-  Answer,
-  | "valueText"
-  | "valueNumber"
-  | "valueDate"
-  | "valueBoolean"
-  | "questionId"
-  | "responseSessionId"
-  | "createdBy"
+  Answer, "valueText" | "questionId" | "responseSessionId" | "createdBy"
 >;
 
 export type IUpdateAnswer = Pick<
   Answer,
-  | "id"
-  | "valueText"
-  | "valueNumber"
-  | "valueDate"
-  | "valueBoolean"
-  | "questionId"
-  | "responseSessionId"
-  | "updatedBy"
+  "id" | "valueText" | "questionId" | "responseSessionId" | "updatedBy"
 >;
 
 export type IDeleteAnswer = Pick<Answer, "id" | "deletedBy">;
 
 export interface IGetAllAnswer {
-  id: number;
-  valueText: string;
-  valueNumber: number;
-  valueDate: Date;
-  valueBoolean: boolean;
-  questionId: number;
-  responseSessionId: number;
+  "id": number,
+  "valueText": string,
+  "questionId": string,
+  "responseSessionId": string,
 }
 
 export interface IAnswersWithPagination {
@@ -42,5 +25,5 @@ export interface IAnswersWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdAnswer {}
+export interface IGetByIdAnswer { }
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

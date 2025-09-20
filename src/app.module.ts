@@ -39,7 +39,7 @@ import { AppendixModule } from "./core/appendix/appendix.module";
 import { SectionModule } from "./core/section/section.module";
 import { QuestionModule } from "./core/question/question.module";
 import { OptionModule } from "./core/option/option.module";
-import { ResponseSelectionOptionModule } from "./core/responseSelectionOption/responseSelectionOption.module";
+import { MultipleAnswerModule } from "./core/multipleAnswer/multipleAnswer.module";
 import { AnswerModule } from "./core/answer/answer.module";
 import { ResponseSessionModule } from "./core/responseSession/responseSession.module";
 import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
@@ -89,7 +89,7 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
     SectionModule,
     QuestionModule,
     OptionModule,
-    ResponseSelectionOptionModule,
+    MultipleAnswerModule,
     AnswerModule,
     ResponseSessionModule,
     TrackingTypeModule,
@@ -167,8 +167,8 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
             module: OptionModule
           },
           {
-            path: "response-selection-option",
-            module: ResponseSelectionOptionModule
+            path: "multi-answer",
+            module: MultipleAnswerModule
           },
           {
             path: "answer",
@@ -237,4 +237,4 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }

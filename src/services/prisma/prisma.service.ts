@@ -23,7 +23,7 @@ const modelsWithSoftDelete = [
   "Section",
   "Question",
   "Option",
-  "ResponseSelectionOption",
+  "MultiAnswer",
   "Answer",
   "ResponseSection",
   "TrackingType",
