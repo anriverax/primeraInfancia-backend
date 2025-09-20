@@ -611,7 +611,7 @@ model DetailOption {
   deletedBy       Int?
 }
 
-model ResponseSelectionOption {
+model MultipleAnswer {
   id                Int             @id @default(autoincrement())
   answerId          Int
   Answer            Answer          @relation(fields: [answerId], references: [id])
@@ -638,26 +638,23 @@ model Option {
   createdBy         Int?
   updatedBy         Int?
   deletedBy         Int?
-  ResponseSelectionOption ResponseSelectionOption[]
+  MultipleAnswer    MultipleAnswer[]
 }
 
 model Answer {
   id                 Int                       @id @default(autoincrement())
-  valueText          String                   
-  valueNumber        Int
-  valueBoolean       Boolean
-  valueDate          DateTime                 
+  valueText          String                                 
   questionId         Int
   Question           Question                  @relation(fields: [questionId], references: [id])
   responseSessionId  Int
-//  ResponseSession    ResponseSession           @relation(fields: [responseSessionId], references: [id])
+  ResponseSession    ResponseSession           @relation(fields: [responseSessionId], references: [id])
   createdAt          DateTime                  @default(now())
   updatedAt          DateTime                  @updatedAt
   deletedAt          DateTime?
   createdBy          Int?
   updatedBy          Int?
   deletedBy          Int?
-  ResponseSelectionOption ResponseSelectionOption[]
+  MultipleAnswer     MultipleAnswer[]
 }
 
 model Question {
@@ -684,8 +681,8 @@ model Section {
   title             String         
   summary           String         
   orderBy           Int            
-  instrumentId      Int
-  Instrument        Instrument      @relation(fields: [instrumentId], references: [id])
+  appendixId        Int
+  Appendix          Appendix        @relation(fields: [appendixId], references: [id])
   Question          Question[]
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
@@ -698,10 +695,10 @@ model Section {
 model ResponseSession {
   id                 Int             @id @default(autoincrement())
   status             String         
-//  answerId           Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
-//  trackingId         Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
-//  Answer            Answer[]
-//  Tracking           Tracking       @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
+  answerId           Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+  trackingId         Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+  Answer             Answer[]
+  Tracking           Tracking       @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
   deletedAt          DateTime?
@@ -718,8 +715,8 @@ model Tracking {
   finish             DateTime                 
   trackingTypeId     Int
   TrackingType       TrackingType        @relation(fields: [trackingTypeId], references: [id])
-//  ResponseSession   ResponseSession[]
-  Evidence          Evidence[]
+  ResponseSession    ResponseSession[]
+  Evidence           Evidence[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   deletedAt          DateTime?
@@ -754,27 +751,12 @@ model TrackingType {
   deletedBy          Int?
 }
 
-model Instrument {
+model Appendix {
   id                Int             @id @default(autoincrement())
   title             String         
   subTitle          String         
   description       String         
   Section           Section[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  deletedAt         DateTime?
-  createdBy         Int?
-  updatedBy         Int?
-  deletedBy         Int?
-}
-
-model Appendix {
-  id                Int             @id @default(autoincrement())
-  name              String
-  textquestion      String         
-  textanswer        String         
-  teacherroleid     Int         
-  mentorroleid      Int
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   deletedAt         DateTime?
