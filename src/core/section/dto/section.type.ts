@@ -1,14 +1,11 @@
 import { IPagination } from "@/common/helpers/types";
 import { Section } from "@prisma/client";
 
-export type ICreateSection = Pick<
-  Section,
-  "title" | "summary" | "orderBy" | "instrumentId" | "createdBy"
->;
+export type ICreateSection = Pick<Section, "title" | "summary" | "orderBy" | "appendixId" | "createdBy">;
 
 export type IUpdateSection = Pick<
   Section,
-  "id" | "title" | "summary" | "orderBy" | "instrumentId" | "updatedBy"
+  "id" | "title" | "summary" | "orderBy" | "appendixId" | "updatedBy"
 >;
 
 export type IDeleteSection = Pick<Section, "id" | "deletedBy">;
@@ -17,8 +14,8 @@ export interface IGetAllSection {
   id: number;
   title: string;
   summary: string;
-  orderBy: number;
-  instrumentId: number;
+  orderBy: string;
+  appendixId: string;
 }
 
 export interface ISectionsWithPagination {

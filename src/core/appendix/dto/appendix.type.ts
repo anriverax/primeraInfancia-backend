@@ -8,10 +8,10 @@ export type IUpdateAppendix = Pick<Appendix, "id" | "title" | "subTitle" | "desc
 export type IDeleteAppendix = Pick<Appendix, "id" | "deletedBy">;
 
 export interface IGetAllAppendix {
-  "id": number,
-  "title": string,
-  "subTitle": string,
-  "description": string
+  id: number;
+  title: string;
+  subTitle: string;
+  description: string;
 }
 
 export interface IAppendixsWithPagination {
@@ -20,5 +20,5 @@ export interface IAppendixsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdAppendix { }
+export interface IGetByIdAppendix {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

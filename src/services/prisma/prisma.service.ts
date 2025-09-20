@@ -19,7 +19,7 @@ const modelsWithSoftDelete = [
   "ModuleEvaluation",
   "Inscription",
   //Attachment
-  "Instrument",
+  "Appendix",
   "Section",
   "Question",
   "Option",

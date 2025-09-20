@@ -35,7 +35,7 @@ import { ModuleEvaluationModule } from "./core/moduleEvaluation/moduleEvaluation
 import { InscriptionModule } from "./core/inscription/inscription.module";
 
 //Attachment
-import { InstrumentModule } from "./core/instrument/instrument.module";
+import { AppendixModule } from "./core/appendix/appendix.module";
 import { SectionModule } from "./core/section/section.module";
 import { QuestionModule } from "./core/question/question.module";
 import { OptionModule } from "./core/option/option.module";
@@ -85,7 +85,7 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
     EvaluationInstrumentModule,
     ModuleEvaluationModule,
     InscriptionModule,
-    InstrumentModule,
+    AppendixModule,
     SectionModule,
     QuestionModule,
     OptionModule,
@@ -151,8 +151,8 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
             module: InscriptionModule
           },
           {
-            path: "instrument",
-            module: InstrumentModule
+            path: "appendix",
+            module: AppendixModule
           },
           {
             path: "section",

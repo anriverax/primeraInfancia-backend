@@ -20,10 +20,9 @@ export class SectionController {
     private readonly commandBus: CommandBus
   ) {}
 
-  //@AuthRequired()
+  @AuthRequired()
   @Post("create")
   async create(@Body() data: SectionDto, @Req() req: Request): Promise<NestResponse<Section>> {
-    req["user"] = "1";
     return this.commandBus.execute(
       new CreateSectionCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );

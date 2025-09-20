@@ -15,7 +15,7 @@ export class GetByIdSectionHandler {
         title: true,
         summary: true,
         orderBy: true,
-        instrumentId: true
+        appendixId: true
       }
     });
 
