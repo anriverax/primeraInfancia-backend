@@ -6,17 +6,18 @@ import { IGetByIdAppendix } from "@/core/appendix/dto/appendix.type";
 @QueryHandler(GetByIdAppendixQuery)
 export class GetByIdAppendixHandler {
   constructor(private readonly prisma: PrismaService) {}
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
   async execute(query: GetByIdAppendixQuery): Promise<IGetByIdAppendix | null> {
     const appendixs = await this.prisma.appendix.findUnique({
       where: { id: query.id },
       select: {
-        id : true,
-        title : true, subTitle : true, description : true,
+        id: true,
+        title: true,
+        subTitle: true,
+        description: true
       }
     });
 
     return appendixs;
   }
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */

@@ -16,8 +16,10 @@ export class GetAllAppendixHandler {
         skip,
         take: limit,
         select: {
-          id : true,
-          title : true, subTitle : true, description : true,
+          id: true,
+          title: true,
+          subTitle: true,
+          description: true
         },
         orderBy: {
           id: "asc"

@@ -28,10 +28,10 @@ export class AppendixProjection {
   }
 
   async delete(data: IDeleteAppendix): Promise<Appendix> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("appendix", { id }, { deletedBy  });
+      return await this.prisma.softDelete("appendix", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("AppendixProjection", error);
     }
