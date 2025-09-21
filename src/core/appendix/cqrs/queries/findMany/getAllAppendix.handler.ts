@@ -19,7 +19,10 @@ export class GetAllAppendixHandler {
           id: true,
           title: true,
           subTitle: true,
-          description: true
+          description: true,
+          periodicity: true,
+          iconName: true,
+          color: true
         },
         orderBy: {
           id: "asc"

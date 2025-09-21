@@ -12,10 +12,25 @@ export class AppendixDto {
   @IsString({ message: "El sub título debe ser una cadena de texto." })
   subTitle: string;
 
-  @IsNotEmpty({ message: "La descripción es obligatorio." })
-  @Transform(({ value }) => value.trim())
+  @IsNotEmpty({ message: "La descripción es obligatoria." })
+  // @Transform(({ value }) => value.trim())
   @IsString({ message: "La descripción debe ser una cadena de texto." })
   description: string;
+
+  @IsNotEmpty({ message: "La periocidad es obligatoria." })
+  @Transform(({ value }) => value.trim())
+  @IsString({ message: "La periocidad debe ser una cadena de texto." })
+  periodicity: string;
+
+  @IsNotEmpty({ message: "El nombre del icono es obligatorio." })
+  @Transform(({ value }) => value.trim())
+  @IsString({ message: "El nombre del icono debe ser una cadena de texto." })
+  iconName: string;
+
+  @IsNotEmpty({ message: "El color es obligatorio." })
+  @Transform(({ value }) => value.trim())
+  @IsString({ message: "El color debe ser una cadena de texto." })
+  color: string;
 }
 
 export class AppendixPaginationDto {

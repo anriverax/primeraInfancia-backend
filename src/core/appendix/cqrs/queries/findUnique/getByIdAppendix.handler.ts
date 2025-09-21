@@ -5,7 +5,7 @@ import { IGetByIdAppendix, IGetByIdAppendixDetail } from "@/core/appendix/dto/ap
 
 @QueryHandler(GetByIdAppendixQuery)
 export class GetByIdAppendixHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetByIdAppendixQuery): Promise<IGetByIdAppendix | null> {
     const appendixs = await this.prisma.appendix.findUnique({
@@ -24,19 +24,37 @@ export class GetByIdAppendixHandler {
 
 @QueryHandler(GetByDetailAppendixQuery)
 export class GetByIdDetailAppendixHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetByDetailAppendixQuery): Promise<IGetByIdAppendixDetail | null> {
     const appendixs = await this.prisma.appendix.findUnique({
       where: { id: query.id },
-      include: {
+      select: {
+        id: true,
+        title: true,
+        subTitle: true,
+        description: true,
         Section: {
-          include: {
+          select: {
+            title: true,
+            summary: true,
+            orderBy: true,
             Question: {
-              include: {
+              select: {
+                text: true,
+                questionType: true,
+                orderBy: true,
+                subSection: true,
+                isRequired: true,
                 Option: {
-                  include: {
-                    DetailOption: true
+                  select: {
+                    text: true,
+                    value: true,
+                    DetailOption: {
+                      select: {
+                        textToDisplay: true
+                      }
+                    }
                   }
                 }
               }

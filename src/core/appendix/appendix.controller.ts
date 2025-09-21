@@ -10,7 +10,10 @@ import { UpdateAppendixCommand } from "./cqrs/commands/update/updateAppendix.com
 import { DeleteAppendixCommand } from "./cqrs/commands/delete/deleteAppendix.command";
 import { GetAllAppendixQuery } from "./cqrs/queries/findMany/getAllAppendix.query";
 import { IGetAllAppendix, IGetByIdAppendix } from "./dto/appendix.type";
-import { GetByIdAppendixQuery } from "./cqrs/queries/findUnique/getByIdAppendix.query";
+import {
+  GetByIdAppendixQuery,
+  GetByDetailAppendixQuery
+} from "./cqrs/queries/findUnique/getByIdAppendix.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -73,6 +76,17 @@ export class AppendixController {
     return {
       statusCode: 200,
       message: "Instrumento por ID.",
+      data: result
+    };
+  }
+
+  @Get("detail/:id")
+  async getDetailById(@Param("id") id: string): Promise<NestResponse<IGetByIdAppendix>> {
+    const result = await this.queryBus.execute(new GetByDetailAppendixQuery(parseInt(id)));
+
+    return {
+      statusCode: 200,
+      message: "Detalle del instrumento por ID.",
       data: result
     };
   }

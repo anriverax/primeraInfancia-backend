@@ -759,7 +759,10 @@ model Appendix {
   id                Int             @id @default(autoincrement())
   title             String         
   subTitle          String         
-  description       String         
+  description       String       
+  periodicity       String  
+  iconName          String
+  color             String
   Section           Section[]
   ResponseSession   ResponseSession[]
   createdAt         DateTime        @default(now())

@@ -5,12 +5,15 @@ import { AppendixProjection } from "./cqrs/projections/appendix.projection";
 import { AppendixController } from "./appendix.controller";
 import { CreateAppendixHandler } from "./cqrs/commands/create/createAppendix.handler";
 import { JwtModule } from "@nestjs/jwt";
-import { GetByIdAppendixHandler } from "./cqrs/queries/findUnique/getByIdAppendix.handler";
+import {
+  GetByIdAppendixHandler,
+  GetByIdDetailAppendixHandler
+} from "./cqrs/queries/findUnique/getByIdAppendix.handler";
 import { DeleteAppendixHandler } from "./cqrs/commands/delete/deleteAppendix.handler";
 import { UpdateAppendixHandler } from "./cqrs/commands/update/updateAppendix.handler";
 
 const CommandHandlers = [CreateAppendixHandler, UpdateAppendixHandler, DeleteAppendixHandler];
-const QueryHandlers = [GetAllAppendixHandler, GetByIdAppendixHandler];
+const QueryHandlers = [GetAllAppendixHandler, GetByIdAppendixHandler, GetByIdDetailAppendixHandler];
 
 @Module({
   imports: [CqrsModule, JwtModule],
