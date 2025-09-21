@@ -9,7 +9,11 @@ import { GetByIdMultipleAnswerHandler } from "./cqrs/queries/findUnique/getByIdM
 import { DeleteMultipleAnswerHandler } from "./cqrs/commands/delete/deleteMultipleAnswer.handler";
 import { UpdateMultipleAnswerHandler } from "./cqrs/commands/update/updateMultipleAnswer.handler";
 
-const CommandHandlers = [CreateMultipleAnswerHandler, UpdateMultipleAnswerHandler, DeleteMultipleAnswerHandler];
+const CommandHandlers = [
+  CreateMultipleAnswerHandler,
+  UpdateMultipleAnswerHandler,
+  DeleteMultipleAnswerHandler
+];
 const QueryHandlers = [GetAllMultipleAnswerHandler, GetByIdMultipleAnswerHandler];
 
 @Module({

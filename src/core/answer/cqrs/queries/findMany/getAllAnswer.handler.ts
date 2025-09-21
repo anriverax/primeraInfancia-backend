@@ -16,8 +16,10 @@ export class GetAllAnswerHandler {
         skip,
         take: limit,
         select: {
-          id : true,
-          answerDetail : true, questionId : true, responseSessionId : true,
+          id: true,
+          valueText: true,
+          questionId: true,
+          responseSessionId: true
         },
         orderBy: {
           id: "asc"

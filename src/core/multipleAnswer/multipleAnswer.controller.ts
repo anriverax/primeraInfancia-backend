@@ -22,7 +22,10 @@ export class MultipleAnswerController {
 
   @AuthRequired()
   @Post("create")
-  async create(@Body() data: MultipleAnswerDto, @Req() req: Request): Promise<NestResponse<MultipleAnswer>> {
+  async create(
+    @Body() data: MultipleAnswerDto,
+    @Req() req: Request
+  ): Promise<NestResponse<MultipleAnswer>> {
     return this.commandBus.execute(
       new CreateMultipleAnswerCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );

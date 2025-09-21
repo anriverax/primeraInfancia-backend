@@ -1,18 +1,17 @@
 import { IPagination } from "@/common/helpers/types";
 import { MultipleAnswer } from "@prisma/client";
 
-export type ICreateMultipleAnswer = Pick<
-  MultipleAnswer, "answerId" | "optionId" | "createdBy" 
->;
+export type ICreateMultipleAnswer = Pick<MultipleAnswer, "answerId" | "optionId" | "createdBy">;
 
-export type IUpdateMultipleAnswer = Pick<
-  MultipleAnswer,
-  "id" | "answerId" | "optionId" | "updatedBy" 
->;
+export type IUpdateMultipleAnswer = Pick<MultipleAnswer, "id" | "answerId" | "optionId" | "updatedBy">;
 
-export type IDeleteMultipleAnswer = Pick<MultipleAnswer, "id" | "deletedBy" >;
+export type IDeleteMultipleAnswer = Pick<MultipleAnswer, "id" | "deletedBy">;
 
-export interface IGetAllMultipleAnswer extends Pick<MultipleAnswer, "id" | "answerId" | "optionId" > { }
+export interface IGetAllMultipleAnswer {
+  id: number;
+  answerId: number;
+  optionId: number;
+}
 
 export interface IMultipleAnswersWithPagination {
   data: IGetAllMultipleAnswer[];
@@ -20,5 +19,5 @@ export interface IMultipleAnswersWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdMultipleAnswer  { }
+export interface IGetByIdMultipleAnswer {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

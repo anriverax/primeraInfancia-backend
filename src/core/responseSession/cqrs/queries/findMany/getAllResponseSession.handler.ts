@@ -5,7 +5,7 @@ import { IResponseSessionsWithPagination } from "@/core/responseSession/dto/resp
 
 @QueryHandler(GetAllResponseSessionQuery)
 export class GetAllResponseSessionHandler {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async execute(query: GetAllResponseSessionQuery): Promise<IResponseSessionsWithPagination> {
     const { page = 1, limit = 10 } = query.data;
@@ -17,10 +17,10 @@ export class GetAllResponseSessionHandler {
         take: limit,
         select: {
           id: true,
-          status: true
-          // inscriptionId: true,
-          // instrumentId: true,
-          // trackingId: true
+          status: true,
+          inscriptionId: true,
+          appendixId: true,
+          trackingId: true
         },
         orderBy: {
           id: "asc"

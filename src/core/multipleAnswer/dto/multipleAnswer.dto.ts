@@ -10,7 +10,6 @@ export class MultipleAnswerDto {
   @IsNumber()
   @Min(1, { message: "La opción debe ser un número." })
   optionId: number;
-
 }
 
 export class MultipleAnswerPaginationDto {

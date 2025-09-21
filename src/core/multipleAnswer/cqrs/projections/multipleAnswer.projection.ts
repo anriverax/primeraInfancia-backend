@@ -2,7 +2,11 @@ import { Injectable } from "@nestjs/common";
 import { MultipleAnswer } from "@prisma/client";
 
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { ICreateMultipleAnswer, IDeleteMultipleAnswer, IUpdateMultipleAnswer } from "../../dto/multipleAnswer.type";
+import {
+  ICreateMultipleAnswer,
+  IDeleteMultipleAnswer,
+  IUpdateMultipleAnswer
+} from "../../dto/multipleAnswer.type";
 import { handlePrismaError } from "@/common/helpers/functions";
 
 @Injectable()
@@ -28,10 +32,10 @@ export class MultipleAnswerProjection {
   }
 
   async delete(data: IDeleteMultipleAnswer): Promise<MultipleAnswer> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("multipleAnswer", { id }, { deletedBy  });
+      return await this.prisma.softDelete("multipleAnswer", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("MultipleAnswerProjection", error);
     }

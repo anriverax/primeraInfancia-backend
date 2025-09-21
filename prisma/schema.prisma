@@ -365,6 +365,7 @@ model Inscription {
   createdBy            Int?
   updatedBy            Int?
   deletedBy            Int?
+  ResponseSession      ResponseSession[]
   MentorAssignment     MentorAssignment[]
   ModuleReport         ModuleReport[]
   ModuleEvaluation     ModuleEvaluation[]
@@ -695,10 +696,13 @@ model Section {
 model ResponseSession {
   id                 Int             @id @default(autoincrement())
   status             String         
-  answerId           Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+  inscriptionId      Int
+  Inscription        Inscription     @relation(fields: [inscriptionId], references: [id])
   trackingId         Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
+  Tracking           Tracking        @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
+  appendixId         Int
+  Appendix           Appendix        @relation(fields:[appendixId], references:[id])
   Answer             Answer[]
-  Tracking           Tracking       @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
   deletedAt          DateTime?
@@ -757,6 +761,7 @@ model Appendix {
   subTitle          String         
   description       String         
   Section           Section[]
+  ResponseSession   ResponseSession[]
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   deletedAt         DateTime?

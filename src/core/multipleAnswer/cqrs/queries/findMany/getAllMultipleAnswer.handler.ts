@@ -16,8 +16,9 @@ export class GetAllMultipleAnswerHandler {
         skip,
         take: limit,
         select: {
-          id : true,
-          answerId : true, optionId : true,
+          id: true,
+          answerId: true,
+          optionId: true
         },
         orderBy: {
           id: "asc"

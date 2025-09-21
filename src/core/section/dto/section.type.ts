@@ -14,8 +14,8 @@ export interface IGetAllSection {
   id: number;
   title: string;
   summary: string;
-  orderBy: string;
-  appendixId: string;
+  orderBy: number;
+  appendixId: number;
 }
 
 export interface ISectionsWithPagination {

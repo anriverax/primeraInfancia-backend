@@ -15,7 +15,7 @@ export class ResponseSessionDto {
   @IsNotEmpty({ message: "El instrumento es obligatorio." })
   @IsNumber()
   @Min(1, { message: "El instrumento debe ser un número." })
-  instrumentId: number;
+  appendixId: number;
 
   @IsNotEmpty({ message: "El segumiento es obligatorio." })
   @IsNumber()

@@ -8,7 +8,8 @@ export class GetSchoolCountsByDepartmentHandler
 {
   constructor(private prisma: PrismaService) {}
 
-  async execute(): Promise<{ department: string | null; schoolCount: number }[]> {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  async execute(): Promise<any> {
     const schoolsByDistrict = await this.prisma.school.groupBy({
       by: ["districtId"],
       _count: {
@@ -53,4 +54,5 @@ export class GetSchoolCountsByDepartmentHandler
 
     return result;
   }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
