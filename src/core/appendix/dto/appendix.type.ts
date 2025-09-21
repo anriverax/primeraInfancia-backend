@@ -20,5 +20,6 @@ export interface IAppendixsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdAppendix {}
+export interface IGetByIdAppendix { }
+export interface IGetByIdAppendixDetail { }
 /* eslint-enable @typescript-eslint/no-empty-object-type*/
