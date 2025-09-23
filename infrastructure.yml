@@ -209,12 +209,6 @@ Resources:
     Properties:
       LogGroupName: /ecs/backend-oei
       RetentionInDays: 14
-
-    OeiServiceLogGroup:
-      Type: AWS::Logs::LogGroup
-      Properties:
-        LogGroupName: /ecs/oei-service
-        RetentionInDays: 14
   ## --------------------------
   ## IAM Roles ECS
   ## --------------------------
@@ -311,9 +305,9 @@ Resources:
       Protocol: HTTP
       VpcId: !Ref OeiVpc
       TargetType: ip
-      HealthCheckPath: /
+      HealthCheckPath: /health
       Matcher:
-        HttpCode: "200"
+        HttpCode: "200-399"
 
   OeiListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
@@ -331,7 +325,6 @@ Resources:
       - OeiListener
       - OeiTargetGroup
       - OeiBackendLogGroup
-      - OeiServiceLogGroup
     Properties:
       ServiceName: oei-service
       Cluster: !Ref OeiCluster
