@@ -1,0 +1,182 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "VPC + RDS PostgreSQL + Redis ElastiCache"
+
+Parameters:
+  DBUser:
+    Type: String
+    Default: OeiUser
+    Description: master user for database
+  DBPassword:
+    Type: String
+    NoEcho: true
+    Description: master password
+  DBName:
+    Type: String
+    Default: oeidb
+    Description: database name
+
+Resources:
+  OeiVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: oei-vpc
+
+  OeiInternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  OeiVpcGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref OeiVpc
+      InternetGatewayId: !Ref OeiInternetGateway
+
+  ## --------------------------
+  ## Subnets
+  ## --------------------------
+  OeiPublicSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref OeiVpc
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select [0, !GetAZs ""]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Oei-public-subnet-a
+
+  OeiPrivateSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref OeiVpc
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: !Select [0, !GetAZs ""]
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: Oei-private-subnet-a
+
+  OeiPrivateSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref OeiVpc
+      CidrBlock: 10.0.3.0/24
+      AvailabilityZone: !Select [1, !GetAZs ""]
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: Oei-private-subnet-b
+
+  ## --------------------------
+  ## Routing
+  ## --------------------------
+  OeiPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref OeiVpc
+
+  OeiPublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref OeiPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref OeiInternetGateway
+
+  OeiPublicSubnetARouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref OeiPublicSubnetA
+      RouteTableId: !Ref OeiPublicRouteTable
+
+  ## --------------------------
+  ## Security Groups
+  ## --------------------------
+  OeiRDSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: RDS Security Group
+      VpcId: !Ref OeiVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          CidrIp: 10.0.0.0/16
+
+  OeiRedisSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Redis Security Group
+      VpcId: !Ref OeiVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 6379
+          ToPort: 6379
+          CidrIp: 10.0.0.0/16
+
+  ## --------------------------
+  ## RDS PostgreSQL
+  ## --------------------------
+  OeiPostgresSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for RDS
+      SubnetIds:
+        - !Ref OeiPrivateSubnetA
+        - !Ref OeiPrivateSubnetB
+
+  OeiPostgres:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: oei-postgres
+      AllocatedStorage: 20
+      DBInstanceClass: db.t3.micro
+      Engine: postgres
+      EngineVersion: "16.4"
+      MasterUsername: !Ref DBUser
+      MasterUserPassword: !Ref DBPassword
+      VPCSecurityGroups:
+        - !Ref OeiRDSSecurityGroup
+      DBName: !Ref DBName
+      DBSubnetGroupName: !Ref OeiPostgresSubnetGroup
+      PubliclyAccessible: false
+      BackupRetentionPeriod: 7
+      StorageType: gp2
+      DeletionProtection: false
+
+  ## --------------------------
+  ## Redis ElastiCache
+  ## --------------------------
+  OeiRedisSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Properties:
+      Description: Subnet group for Redis
+      SubnetIds:
+        - !Ref OeiPrivateSubnetA
+        - !Ref OeiPrivateSubnetB
+
+  OeiRedisCluster:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      ClusterName: oeiredis
+      Engine: redis
+      CacheNodeType: cache.t3.micro
+      NumCacheNodes: 1
+      VpcSecurityGroupIds:
+        - !Ref OeiRedisSecurityGroup
+      CacheSubnetGroupName: !Ref OeiRedisSubnetGroup
+
+Outputs:
+  VpcId:
+    Description: VPC ID
+    Value: !Ref OeiVpc
+  RDSEndpoint:
+    Description: RDS endpoint
+    Value: !GetAtt OeiPostgres.Endpoint.Address
+  RedisEndpoint:
+    Description: Redis endpoint
+    Value: !GetAtt OeiRedisCluster.RedisEndpoint.Address
+
