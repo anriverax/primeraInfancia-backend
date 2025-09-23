@@ -204,6 +204,17 @@ Resources:
         - !Ref OeiRedisSecurityGroup
       CacheSubnetGroupName: !Ref OeiRedisSubnetGroup
 
+  OeiBackendLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /ecs/backend-oei
+      RetentionInDays: 14
+
+    OeiServiceLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        LogGroupName: /ecs/oei-service
+        RetentionInDays: 14
   ## --------------------------
   ## IAM Roles ECS
   ## --------------------------
@@ -257,7 +268,7 @@ Resources:
       ExecutionRoleArn: !GetAtt OeiECSExecutionRole.Arn
       TaskRoleArn: !GetAtt OeiECSTaskRole.Arn
       ContainerDefinitions:
-        - Name: backend-fpi
+        - Name: backend-oei
           Image: !Ref ContainerImage
           Essential: true
           PortMappings:
@@ -276,7 +287,7 @@ Resources:
           LogConfiguration:
             LogDriver: awslogs
             Options:
-              awslogs-group: /ecs/backend-fpi
+              awslogs-group: /ecs/backend-oei
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: ecs
 
@@ -316,6 +327,11 @@ Resources:
 
   OeiService:
     Type: AWS::ECS::Service
+    DependsOn:
+      - OeiListener
+      - OeiTargetGroup
+      - OeiBackendLogGroup
+      - OeiServiceLogGroup
     Properties:
       ServiceName: oei-service
       Cluster: !Ref OeiCluster
@@ -331,7 +347,7 @@ Resources:
           SecurityGroups:
             - !Ref OeiECSSecurityGroup
       LoadBalancers:
-        - ContainerName: backend-fpi
+        - ContainerName: backend-oei
           ContainerPort: 3001
           TargetGroupArn: !Ref OeiTargetGroup
 
