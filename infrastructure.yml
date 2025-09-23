@@ -16,6 +16,9 @@ Parameters:
     Description: database name
 
 Resources:
+  ## --------------------------
+  ## VPC
+  ## --------------------------
   OeiVpc:
     Type: AWS::EC2::VPC
     Properties:
@@ -161,7 +164,7 @@ Resources:
   OeiRedisCluster:
     Type: AWS::ElastiCache::CacheCluster
     Properties:
-      ClusterName: oeiredis
+      ClusterName: oei-redis
       Engine: redis
       CacheNodeType: cache.t3.micro
       NumCacheNodes: 1
@@ -169,6 +172,39 @@ Resources:
         - !Ref OeiRedisSecurityGroup
       CacheSubnetGroupName: !Ref OeiRedisSubnetGroup
 
+  ## --------------------------
+  ## IAM Roles para ECS
+  ## --------------------------
+  OeiECSExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: oei-ecs-execution-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+
+  OeiECSTaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: oei-ecs-task-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+        - arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess
 Outputs:
   VpcId:
     Description: VPC ID
@@ -179,4 +215,9 @@ Outputs:
   RedisEndpoint:
     Description: Redis endpoint
     Value: !GetAtt OeiRedisCluster.RedisEndpoint.Address
-
+  ECSExecutionRoleArn:
+    Description: ECS Execution Role ARN
+    Value: !GetAtt OeiECSExecutionRole.Arn
+  ECSTaskRoleArn:
+    Description: ECS Task Role ARN
+    Value: !GetAtt OeiECSTaskRole.Arn
