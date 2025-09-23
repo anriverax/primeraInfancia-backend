@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "VPC + RDS PostgreSQL + Redis ElastiCache"
+Description: "VPC + RDS PostgreSQL + Redis ElastiCache + ECS Fargate Service"
 
 Parameters:
   DBUser:
@@ -14,6 +14,10 @@ Parameters:
     Type: String
     Default: oeidb
     Description: database name
+  ContainerImage:
+    Type: String
+    Default: 434807866199.dkr.ecr.us-east-1.amazonaws.com/backend-oei:latest
+    Description: Docker image URI en ECR
 
 Resources:
   ## --------------------------
@@ -51,6 +55,17 @@ Resources:
       Tags:
         - Key: Name
           Value: Oei-public-subnet-a
+
+  OeiPublicSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref OeiVpc
+      CidrBlock: 10.0.4.0/24
+      AvailabilityZone: !Select [1, !GetAZs ""]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Oei-public-subnet-b
 
   OeiPrivateSubnetA:
     Type: AWS::EC2::Subnet
@@ -95,6 +110,12 @@ Resources:
       SubnetId: !Ref OeiPublicSubnetA
       RouteTableId: !Ref OeiPublicRouteTable
 
+  OeiPublicSubnetBRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref OeiPublicSubnetB
+      RouteTableId: !Ref OeiPublicRouteTable
+
   ## --------------------------
   ## Security Groups
   ## --------------------------
@@ -119,6 +140,17 @@ Resources:
           FromPort: 6379
           ToPort: 6379
           CidrIp: 10.0.0.0/16
+
+  OeiECSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: ECS Service SG
+      VpcId: !Ref OeiVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3001
+          ToPort: 3001
+          CidrIp: 0.0.0.0/0
 
   ## --------------------------
   ## RDS PostgreSQL
@@ -173,7 +205,7 @@ Resources:
       CacheSubnetGroupName: !Ref OeiRedisSubnetGroup
 
   ## --------------------------
-  ## IAM Roles para ECS
+  ## IAM Roles ECS
   ## --------------------------
   OeiECSExecutionRole:
     Type: AWS::IAM::Role
@@ -205,19 +237,111 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonRDSFullAccess
         - arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess
+
+  ## --------------------------
+  ## ECS + ALB
+  ## --------------------------
+  OeiCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: oei-cluster
+
+  OeiTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: oei-task
+      Cpu: "512"
+      Memory: "1024"
+      NetworkMode: awsvpc
+      RequiresCompatibilities: [FARGATE]
+      ExecutionRoleArn: !GetAtt OeiECSExecutionRole.Arn
+      TaskRoleArn: !GetAtt OeiECSTaskRole.Arn
+      ContainerDefinitions:
+        - Name: backend-fpi
+          Image: !Ref ContainerImage
+          Essential: true
+          PortMappings:
+            - ContainerPort: 3001
+          Environment:
+            - Name: NODE_ENV
+              Value: production
+            - Name: PORT
+              Value: "3001"
+            - Name: DATABASE_URL
+              Value: !Sub "postgresql://${DBUser}:${DBPassword}@${OeiPostgres.Endpoint.Address}:5432/${DBName}"
+            - Name: REDIS_HOST
+              Value: !GetAtt OeiRedisCluster.RedisEndpoint.Address
+            - Name: REDIS_PORT
+              Value: "6379"
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: /ecs/backend-fpi
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: ecs
+
+  OeiALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: oei-alb
+      Subnets:
+        - !Ref OeiPublicSubnetA
+        - !Ref OeiPublicSubnetB
+      SecurityGroups:
+        - !Ref OeiECSSecurityGroup
+      Scheme: internet-facing
+      Type: application
+
+  OeiTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: oei-target
+      Port: 3001
+      Protocol: HTTP
+      VpcId: !Ref OeiVpc
+      TargetType: ip
+      HealthCheckPath: /
+      Matcher:
+        HttpCode: "200"
+
+  OeiListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref OeiALB
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref OeiTargetGroup
+
+  OeiService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: oei-service
+      Cluster: !Ref OeiCluster
+      DesiredCount: 1
+      LaunchType: FARGATE
+      TaskDefinition: !Ref OeiTaskDefinition
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+            - !Ref OeiPublicSubnetA
+            - !Ref OeiPublicSubnetB
+          SecurityGroups:
+            - !Ref OeiECSSecurityGroup
+      LoadBalancers:
+        - ContainerName: backend-fpi
+          ContainerPort: 3001
+          TargetGroupArn: !Ref OeiTargetGroup
+
 Outputs:
-  VpcId:
-    Description: VPC ID
-    Value: !Ref OeiVpc
   RDSEndpoint:
     Description: RDS endpoint
     Value: !GetAtt OeiPostgres.Endpoint.Address
   RedisEndpoint:
     Description: Redis endpoint
     Value: !GetAtt OeiRedisCluster.RedisEndpoint.Address
-  ECSExecutionRoleArn:
-    Description: ECS Execution Role ARN
-    Value: !GetAtt OeiECSExecutionRole.Arn
-  ECSTaskRoleArn:
-    Description: ECS Task Role ARN
-    Value: !GetAtt OeiECSTaskRole.Arn
+  ALBEndpoint:
+    Description: Public ALB DNS
+    Value: !GetAtt OeiALB.DNSName
