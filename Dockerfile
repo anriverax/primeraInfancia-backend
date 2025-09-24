@@ -1,4 +1,5 @@
-FROM node:20-alpine3.21 as builder
+# Etapa 1: Builder
+FROM node:20-alpine3.21 AS builder
 
 WORKDIR /fpi-backend
 
@@ -20,37 +21,21 @@ RUN npm run build
 # -------------------------------------
 
 # Fase 2: Runner
-FROM node:20-alpine3.21 as runner
+FROM node:20-alpine3.21 AS runner
 
 WORKDIR /fpi-backend
 
-# Definimos variables de entorno por defecto
-ENV ENV NODE_ENV=prod \
-    PORT=3001 \
-    REDIS_PORT=${REDIS_PORT} \
-    REDIS_HOST=${REDIS_HOST} \
-    REDIS_DATABASE=${REDIS_DATABASE} \
-    DATABASE_URL=${DATABASE_URL} \
-    POSTGRES_USER=${POSTGRES_USER} \
-    POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
-    POSTGRES_DB=${POSTGRES_DB} \
-    POSTGRES_HOST=${POSTGRES_HOST} \
-    POSTGRES_PORT=${POSTGRES_PORT}
+# Variables de entorno
+ENV NODE_ENV=production
+ENV PORT=3001
 
-# Solo copiamos package.json y package-lock.json
+COPY --from=builder /fpi-backend/node_modules ./node_modules
+COPY --from=builder /fpi-backend/dist ./dist
 COPY package*.json ./
 
-# Instalamos solo dependencias de producción
-RUN npm install --omit=dev
-
-# Copiamos el build ya generado
-COPY --from=builder /fpi-backend/dist ./dist
-
-# Usamos un usuario no-root por seguridad
+RUN chown -R node:node /fpi-backend
 USER node
 
-# Exponemos el puerto que usa la app
 EXPOSE 3001
 
-# Comando de arranque
-CMD ["npm", "run", "start:prod"]
+CMD ["node", "dist/main.js"]
