@@ -224,6 +224,25 @@ Resources:
   ## --------------------------
   ## IAM Roles ECS
   ## --------------------------
+  ECSExecUserPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: ecs-exec-cli-policy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - ssmmessages:CreateControlChannel
+              - ssmmessages:CreateDataChannel
+              - ssmmessages:OpenControlChannel
+              - ssmmessages:OpenDataChannel
+              - ssm:StartSession
+              - ssm:DescribeSessions
+              - ssm:TerminateSession
+            Resource: "*"
+      Users:
+        - Anibalrvr
   OeiECSExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -239,6 +258,7 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
         - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
       Policies:
         - PolicyName: ECSSecretsManagerAccess
           PolicyDocument:
@@ -273,6 +293,9 @@ Resources:
     Type: AWS::ECS::Cluster
     Properties:
       ClusterName: oei-cluster
+      Configuration:
+        ExecuteCommandConfiguration:
+          Logging: DEFAULT
 
   OeiTaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -338,7 +361,11 @@ Resources:
       Protocol: HTTP
       VpcId: !Ref OeiVpc
       TargetType: ip
-      HealthCheckPath: /health
+      HealthCheckPath: /api/health
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 10
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 5
       Matcher:
         HttpCode: "200-399"
 
