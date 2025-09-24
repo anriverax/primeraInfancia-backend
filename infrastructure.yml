@@ -128,6 +128,10 @@ Resources:
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
   OeiRDSSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -340,6 +344,17 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: ecs
 
+  OeiListenerHttps:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref OeiALB
+      Port: 443
+      Protocol: HTTPS
+      Certificates:
+        - CertificateArn: arn:aws:acm:us-east-1:434807866199:certificate/cb650945-1cf3-4040-83cb-ce93103ac4e0
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref OeiTargetGroup
   OeiALB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
