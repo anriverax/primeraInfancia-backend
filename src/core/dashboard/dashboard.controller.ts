@@ -61,9 +61,9 @@ export class DashboardController {
   async getDashboardAppendix8Data(): Promise<{
     answerAppendix8: any;
   }> {
-    let answerAppendix8Promise = this.queryBus.execute(new GetAppendix8Query());
+    const answerAppendix8Promise = this.queryBus.execute(new GetAppendix8Query());
 
-    let [answerAppendix8] = await Promise.all([answerAppendix8Promise]);
+    const [answerAppendix8] = await Promise.all([answerAppendix8Promise]);
 
     return {
       answerAppendix8

@@ -4,7 +4,7 @@ import { GetAppendix8Query } from "../get-appendix8.query";
 
 @QueryHandler(GetAppendix8Query)
 export class GetAppendix8Handler implements IQueryHandler<GetAppendix8Query> {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(): Promise<any> {
@@ -19,11 +19,10 @@ export class GetAppendix8Handler implements IQueryHandler<GetAppendix8Query> {
       }
     });
 
-    let dimensionMap = new Map<string, Map<string, Map<string, number>>>();
+    const dimensionMap = new Map<string, Map<string, Map<string, number>>>();
 
     // Procesar 'textQuestion'
     for (const record of records) {
-      
       const parts = record.textQuestion.split("||");
 
       if (parts.length >= 2) {
@@ -31,24 +30,21 @@ export class GetAppendix8Handler implements IQueryHandler<GetAppendix8Query> {
         const dimension = parts[1];
         const answer = record.textAnswer;
 
-        
         if (!dimensionMap.has(dimension)) {
           dimensionMap.set(dimension, new Map());
         }
-        let timeMap = dimensionMap.get(dimension);
+        const timeMap = dimensionMap.get(dimension);
 
-        
         if (!timeMap?.has(time)) {
           timeMap?.set(time, new Map());
         }
         const answerMap = timeMap?.get(time);
 
-        
         answerMap?.set(answer, (answerMap.get(answer) || 0) + 1);
       }
     }
 
-    // Estructura 
+    // Estructura
     const results = {
       dimensionList: Array.from(dimensionMap.entries()).map(([dimension, timeMap]) => {
         const answersData = [{}];
