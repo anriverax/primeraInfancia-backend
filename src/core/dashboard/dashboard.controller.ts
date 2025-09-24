@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Post } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { GetSchoolCountsBySectorQuery } from "./queries/get-school-counts-by-sector.query";
 import { GetSchoolCountsByZoneQuery } from "./queries/get-school-counts-by-zone.query";
@@ -6,6 +6,7 @@ import { GetSchoolCountsByDepartmentQuery } from "./queries/get-school-counts-by
 import { GetTeacherCountsByGenderQuery } from "./queries/get-teacher-counts-by-gender.query";
 import { GetTeacherCountsByCareerQuery } from "./queries/get-teacher-counts-by-career.query";
 import { GetTeacherCountsByDepartmentQuery } from "./queries/get-teacher-counts-by-department.query";
+import { GetAppendix8Query } from "./queries/get-appendix8.query";
 
 @Controller("/participant")
 export class DashboardController {
@@ -51,6 +52,21 @@ export class DashboardController {
       teacherByGender,
       teachersByCareer,
       teachersByDepartment
+    };
+  }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+
+  @Post("")
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  async getDashboardAppendix8Data(): Promise<{
+    answerAppendix8: any;
+  }> {
+    let answerAppendix8Promise = this.queryBus.execute(new GetAppendix8Query());
+
+    let [answerAppendix8] = await Promise.all([answerAppendix8Promise]);
+
+    return {
+      answerAppendix8
     };
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */

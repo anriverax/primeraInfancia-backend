@@ -10,6 +10,7 @@ import { GetSchoolCountsByDepartmentHandler } from "./queries/handlers/get-schoo
 import { GetTeacherCountsByGenderHandler } from "./queries/handlers/get-teacher-counts-by-gender.handler";
 import { GetTeacherCountByCareerHandler } from "./queries/handlers/get-teacher-counts-by-career.handler";
 import { GetTeacherCountByDepartmentHandler } from "./queries/handlers/get-teacher-counts-by-department.handler";
+import { GetAppendix8Handler } from "./queries/handlers/get-appendix8.handler";
 
 // Define an array of all query handlers for easier management
 export const QueryHandlers = [
@@ -18,7 +19,8 @@ export const QueryHandlers = [
   GetSchoolCountsByDepartmentHandler,
   GetTeacherCountsByGenderHandler,
   GetTeacherCountByCareerHandler,
-  GetTeacherCountByDepartmentHandler
+  GetTeacherCountByDepartmentHandler,
+  GetAppendix8Handler
 ];
 
 @Module({
