@@ -11,6 +11,8 @@ import { GetTeacherCountsByGenderHandler } from "./queries/handlers/get-teacher-
 import { GetTeacherCountByCareerHandler } from "./queries/handlers/get-teacher-counts-by-career.handler";
 import { GetTeacherCountByDepartmentHandler } from "./queries/handlers/get-teacher-counts-by-department.handler";
 import { GetAppendix8Handler } from "./queries/handlers/get-appendix8.handler";
+import { GetTeacherCountsByYearsExperienceHandler } from "./queries/handlers/get-teacher-counts-by-years-experience.handler";
+import { GetTeacherCountsByAgeChildrenHandler } from "./queries/handlers/get-teacher-counts-by-age-children.handler";
 
 // Define an array of all query handlers for easier management
 export const QueryHandlers = [
@@ -20,7 +22,9 @@ export const QueryHandlers = [
   GetTeacherCountsByGenderHandler,
   GetTeacherCountByCareerHandler,
   GetTeacherCountByDepartmentHandler,
-  GetAppendix8Handler
+  GetAppendix8Handler,
+  GetTeacherCountsByYearsExperienceHandler,
+  GetTeacherCountsByAgeChildrenHandler
 ];
 
 @Module({
@@ -28,4 +32,4 @@ export const QueryHandlers = [
   controllers: [DashboardController],
   providers: [PrismaService, ...QueryHandlers] // Provide Prisma and the query handlers
 })
-export class DashboardModule {}
+export class DashboardModule { }
