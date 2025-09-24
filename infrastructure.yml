@@ -18,7 +18,6 @@ Parameters:
     Type: String
     Default: 434807866199.dkr.ecr.us-east-1.amazonaws.com/backend-oei:latest
     Description: Docker image URI en ECR
-
 Resources:
   ## --------------------------
   ## VPC
@@ -119,6 +118,16 @@ Resources:
   ## --------------------------
   ## Security Groups
   ## --------------------------
+  OeiALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: ALB Security Group
+      VpcId: !Ref OeiVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
   OeiRDSSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -204,6 +213,9 @@ Resources:
         - !Ref OeiRedisSecurityGroup
       CacheSubnetGroupName: !Ref OeiRedisSubnetGroup
 
+  ## --------------------------
+  ## CloudWatch Logs
+  ## --------------------------
   OeiBackendLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -227,7 +239,18 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
         - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
-
+      Policies:
+        - PolicyName: ECSSecretsManagerAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                  - secretsmanager:DescribeSecret
+                Resource:
+                  - arn:aws:secretsmanager:us-east-1:434807866199:secret:jwt-private-key-*
+                  - arn:aws:secretsmanager:us-east-1:434807866199:secret:jwt-public-key-*
   OeiECSTaskRole:
     Type: AWS::IAM::Role
     Properties:
@@ -278,6 +301,15 @@ Resources:
               Value: !GetAtt OeiRedisCluster.RedisEndpoint.Address
             - Name: REDIS_PORT
               Value: "6379"
+            - Name: REDIS_URL
+              Value: !Sub "redis://${OeiRedisCluster.RedisEndpoint.Address}:6379"
+            - Name: REDIS
+              Value: !Sub "redis://${OeiRedisCluster.RedisEndpoint.Address}:6379"
+          Secrets:
+            - Name: JWT_PRIVATE_KEY
+              ValueFrom: arn:aws:secretsmanager:us-east-1:434807866199:secret:jwt-private-key-s8NuYB
+            - Name: JWT_PUBLIC_KEY
+              ValueFrom: arn:aws:secretsmanager:us-east-1:434807866199:secret:jwt-public-key-ThJgXn
           LogConfiguration:
             LogDriver: awslogs
             Options:
@@ -294,6 +326,7 @@ Resources:
         - !Ref OeiPublicSubnetB
       SecurityGroups:
         - !Ref OeiECSSecurityGroup
+        - !Ref OeiALBSecurityGroup
       Scheme: internet-facing
       Type: application
 
@@ -331,6 +364,7 @@ Resources:
       DesiredCount: 1
       LaunchType: FARGATE
       TaskDefinition: !Ref OeiTaskDefinition
+      HealthCheckGracePeriodSeconds: 360
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
@@ -354,3 +388,6 @@ Outputs:
   ALBEndpoint:
     Description: Public ALB DNS
     Value: !GetAtt OeiALB.DNSName
+
+
+
