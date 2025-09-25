@@ -3,6 +3,19 @@ import { authorizationSeed } from "./seeds/authorization.seed";
 import { menuSeed } from "./seeds/menu.seed";
 
 const prisma = new PrismaClient();
+async function cohorts() {
+  await prisma.cohort.createMany({
+    data: [
+      {
+        name: "COHORTE 1"
+      },
+      {
+        name: "COHORTE 2"
+      }
+    ],
+    skipDuplicates: true
+  });
+}
 
 async function zones() {
   await prisma.zone.createMany({
@@ -54,19 +67,29 @@ async function eventType() {
   await prisma.eventType.createMany({
     data: [
       {
-        name: "Taller"
+        name: "Taller",
+        totalHours: 60,
+        cohortId: 1
       },
       {
-        name: "Seminario"
+        name: "Seminario",
+        totalHours: 60,
+        cohortId: 1
       },
       {
-        name: "Comunidad de practica"
+        name: "Comunidad de practica",
+        totalHours: 0,
+        cohortId: 1
       },
       {
-        name: "Mentoria"
+        name: "Mentoria",
+        totalHours: 24,
+        cohortId: 1
       },
       {
-        name: "Sesión sincronica"
+        name: "Sesión sincronica",
+        totalHours: 0,
+        cohortId: 1
       }
     ],
     skipDuplicates: true
@@ -77,19 +100,24 @@ async function trainingModule() {
   await prisma.trainingModule.createMany({
     data: [
       {
-        name: "Módulo 1"
+        name: "Módulo 1",
+        cohortId: 1
       },
       {
-        name: "Módulo 2"
+        name: "Módulo 2",
+        cohortId: 1
       },
       {
-        name: "Módulo 3"
+        name: "Módulo 3",
+        cohortId: 1
       },
       {
-        name: "Módulo 4"
+        name: "Módulo 4",
+        cohortId: 1
       },
       {
-        name: "Módulo 5"
+        name: "Módulo 5",
+        cohortId: 1
       }
     ]
   });
@@ -127,44 +155,16 @@ export async function evaluationInstrument() {
     skipDuplicates: true
   });
 }
-/*
-async function typeContent() {
-  await prisma.typeContent.createMany({
-    data: [
-      {
-        id: 1,
-        name: "In_Person_Workshop",
-        createdAt: new Date()
-      },
-      {
-        id: 2,
-        name: "Webinar",
-        createdAt: new Date()
-      },
-      {
-        id: 3,
-        name: "Asynchronous_Session",
-        createdAt: new Date()
-      },
-      {
-        id: 4,
-        name: "Community_Of_Practice",
-        createdAt: new Date()
-      }
-    ],
-    skipDuplicates: true
-  });
-}
-*/
 
 async function main() {
+  await cohorts();
   await zones();
   await typePerson();
-  await menuSeed();
-  await authorizationSeed();
   await eventType();
   await trainingModule();
   await evaluationInstrument();
+  await menuSeed();
+  await authorizationSeed();
 }
 main()
   .then(async () => {

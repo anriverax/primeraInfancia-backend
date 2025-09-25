@@ -12,6 +12,7 @@ export class FindLastAttendanceHandler {
 
     const attendance = await this.prisma.attendance.findFirst({
       where: {
+        checkOut: null,
         PersonRole: {
           Person: {
             User: {

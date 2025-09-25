@@ -13,7 +13,7 @@ import {
 
 enum TypeGender {
   M = "M",
-  F = "F"
+  H = "H"
 }
 
 export class AuthDto {
@@ -45,8 +45,8 @@ export class AuthDto {
 
   @IsNotEmpty({ message: "El genero es obligatorio." })
   @IsString({ message: "El género debe ser una cadena de texto." })
-  @IsEnum(TypeGender, { message: "El género debe ser M o F." })
-  @IsIn(["M", "F"], { message: "El género debe ser 'M' o 'F'." })
+  @IsEnum(TypeGender, { message: "El género debe ser M o H." })
+  @IsIn(["M", "H"], { message: "El género debe ser 'M' o 'H'." })
   gender: TypeGender;
 
   @IsNotEmpty({ message: "El teléfono es obligatorio." })

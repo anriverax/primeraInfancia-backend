@@ -28,4 +28,4 @@ export interface ISchoolWithPagination {
   meta: IPagination;
 }
 
-export type IGetByIdSchool = Omit<ISchool, "_count"> & Pick<School, "sector" | "zone">;
+export type IGetByIdSchool = Omit<ISchool, "_count"> & Pick<School, "zone">;

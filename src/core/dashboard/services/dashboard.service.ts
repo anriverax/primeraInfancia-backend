@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { IGroupCount } from "../dto/dashboard.type";
 
 @Injectable()
 export class DashboardService {
@@ -12,35 +13,26 @@ export class DashboardService {
     return age;
   }
 
-  groupByRanges(
-    ages: number[],
-    step = 10
-  ): {
-    range: string;
-    quantity: number;
-  }[] {
+  groupByRanges(ages: number[], step = 10): IGroupCount[] {
     const groups: Record<string, number> = {};
 
     for (const age of ages) {
       const min = Math.floor(age / step) * step;
       const max = min + step - 1;
-      const range = `${min}-${max}`;
-      groups[range] = (groups[range] || 0) + 1;
+      const label = `${min}-${max}`;
+      groups[label] = (groups[label] || 0) + 1;
     }
 
     // Ordenar rangos por edad mínima
     return Object.entries(groups)
       .sort(([a], [b]) => parseInt(a.split("-")[0]) - parseInt(b.split("-")[0]))
-      .map(([range, quantity]) => ({
-        range,
-        quantity
+      .map(([label, count]) => ({
+        label,
+        count
       }));
   }
 
-  calculateAge(data: { birthdate: string | null }[]): {
-    range: string;
-    quantity: number;
-  }[] {
+  calculateAge(data: { birthdate: string | null }[]): IGroupCount[] {
     const filterNull = data.filter((f: { birthdate: string | null }) => f.birthdate !== null) as {
       birthdate: string;
     }[];

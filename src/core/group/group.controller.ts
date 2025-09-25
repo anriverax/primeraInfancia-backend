@@ -3,10 +3,10 @@ import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Controller, Get, Param, Query, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
-import { IGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
-import { GetByIdGroupQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.query";
+import { IGroup, IGetByIdGroupOrderAssignedRole } from "./dto/group.type";
+import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
-import { GetAllGroupPaginationQuery } from "./cqrs/queries/group/pagination/getAllGroupPagination.query";
+import { GetAllGroupPaginationQuery } from "./cqrs/queries/pagination/getAllGroupPagination.query";
 import { GroupService } from "./services/group.service";
 
 @Controller()
@@ -32,18 +32,19 @@ export class GroupController {
 
   @AuthRequired()
   @Get(":id")
-  async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupWithFullName>> {
+  async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupOrderAssignedRole>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
 
-    const { GroupLeader, Inscription, GroupMentors, ...rest } = result;
+    const { GroupTechSupport, Inscription, ...rest } = result;
 
-    const newOrder = this.groupService.order(GroupLeader, Inscription, GroupMentors);
+    const newOrder = this.groupService.order(GroupTechSupport, Inscription);
 
-    const { leaders, inscriptionPerson, mentors } = newOrder;
+    const { techSupport, trainer, teachers, mentors } = newOrder;
+
     return {
       statusCode: 200,
       message: "Listado de grupos por ID",
-      data: { ...rest, leaders, inscriptionPerson, mentors }
+      data: { ...rest, trainer, techSupport, mentors, teachers }
     };
   }
 }

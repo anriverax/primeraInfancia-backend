@@ -25,6 +25,10 @@ export class SchoolDto {
   @IsNumber()
   districtId: number;
 
+  @IsNotEmpty({ message: "La cohorte es un campo obligatorio." })
+  @IsNumber()
+  cohortId: number;
+
   @IsNotEmpty({ message: "Las coordenadas son obligatorias." })
   @Transform(({ value }) => value.trim())
   @IsString({ message: "Las coordenadas debe ser una cadena de texto válida." })

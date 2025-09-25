@@ -1,15 +1,17 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Get, Param, Post, Put, Req, UseFilters } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AttendanceDto } from "./dto/attendance.dto";
 import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.command";
 import { GetPersonRoleByUserQuery } from "./cqrs/queries/PersonRole/getPersonRoleByUser.query";
 import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/findLastAttendance.query";
-import { IAttendanceResult, IAttendanceWithFormatteDate } from "./dto/attendance.type";
-import { NestResponse } from "@/common/helpers/types";
+import { IAttendance, IAttendanceResult, IAttendanceWithFormatteDate } from "./dto/attendance.type";
+import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { formatDate } from "@/common/helpers/functions";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
+import { PaginationDto } from "@/common/helpers/dto";
+import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -53,6 +55,26 @@ export class AttendanceController {
       statusCode: 200,
       message: "Finalización de jornada.",
       data: attendanceUpdated
+    };
+  }
+
+  @AuthRequired()
+  @Get()
+  async getAll(
+    @Req() req: Request,
+    @Query() filterPagination: PaginationDto
+  ): Promise<NestResponseWithPagination<IAttendance[]>> {
+    const userId = req["user"].sub;
+
+    const result = await this.queryBus.execute(
+      new GetAllAttendancePaginationQuery(parseInt(userId), filterPagination)
+    );
+
+    return {
+      statusCode: 200,
+      message: "Listado de asistencias registrados",
+      data: result.data,
+      meta: result.meta
     };
   }
 

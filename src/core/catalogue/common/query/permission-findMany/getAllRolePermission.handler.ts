@@ -29,6 +29,7 @@ export class GetAllRolePermissionHandler implements IQueryHandler<GetAllRolePerm
                             title: true,
                             path: true,
                             icon: true,
+                            order: true,
                             parentId: true
                           }
                         }

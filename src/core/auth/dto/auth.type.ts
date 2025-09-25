@@ -15,7 +15,6 @@ export type IAuth = Pick<
   Pick<Academic, "career" | "nip"> &
   Pick<User, "email" | "passwd" | "roleId"> & {
     schoolId?: number;
-    assignedMunicipalityId: number | string;
   };
 
 export type IAuthEvent = IAuth & Pick<User, "isVerified"> & Pick<UserKey, "publicKey" | "privateKey">;

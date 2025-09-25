@@ -18,7 +18,6 @@ export class GetByIdSchoolHandler {
         code: true,
         coordenates: true,
         zone: true,
-        sector: true,
         District: {
           select: {
             id: true,

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { getMenuItems } from "./menuItems";
-import { PermissionEnum } from "./base/enum";
+import { permissionData, setPermissions } from "./base/permissions";
 
 const prisma = new PrismaClient();
 
@@ -29,62 +29,21 @@ export async function authorizationSeed() {
    *  ==============================
    */
   await prisma.permission.createMany({
-    data: [
-      {
-        name: PermissionEnum.VIEW_DASHBOARD,
-        description: "Ver dashboard"
-      },
-      {
-        name: PermissionEnum.VIEW_DASHBOARD_ATTENDANCE,
-        description: "Ver dashboard de asistencias"
-      },
-      {
-        name: PermissionEnum.VIEW_DASHBOARD_EVALUATION,
-        description: "Ver dashboard de evaluaciones"
-      },
-      {
-        name: PermissionEnum.VIEW_DASHBOARD_MENTORING,
-        description: "Ver dashboard de mentorías"
-      },
-      {
-        name: PermissionEnum.VIEW_DASHBOARD_PARTICIPANTS,
-        description: "Ver dashboard de participantes"
-      },
-      { name: PermissionEnum.VIEW_GROUPS, description: "Ver grupos" },
-      { name: PermissionEnum.VIEW_ATTENDANCE, description: "Ver asistencias" },
-      { name: PermissionEnum.VIEW_MENTORING, description: "Ver mentorías" },
-      { name: PermissionEnum.VIEW_CATALOGUES, description: "Ver catálogos" },
-      { name: PermissionEnum.VIEW_CATALOGUE_SCHOOL, description: "Ver catálogo centros escolares" },
-      { name: PermissionEnum.VIEW_CATALOGUE_MODULE, description: "Ver catálogo módulos formativos" },
-      { name: PermissionEnum.VIEW_CATALOGUE_ZONE, description: "Ver catálogo zonas" }
-    ],
+    data: permissionData,
     skipDuplicates: true
   });
 
   const admin = await prisma.role.findUnique({ where: { id: 1 } });
-  const user = await prisma.role.findUnique({ where: { id: 2 } });
+  const trainer = await prisma.role.findUnique({ where: { id: 3 } });
+  const mentor = await prisma.role.findUnique({ where: { id: 4 } });
+  const tech = await prisma.role.findUnique({ where: { id: 5 } });
 
   const allPermissions = await prisma.permission.findMany();
 
-  await prisma.rolePermission.createMany({
-    data: allPermissions.map((p) => ({
-      roleId: admin!.id,
-      isActive: true,
-      permissionId: p.id
-    }))
-  });
-
-  const userPerms = allPermissions.filter((p) =>
-    [PermissionEnum.VIEW_ATTENDANCE].includes(p.name as PermissionEnum)
-  );
-
-  await prisma.rolePermission.createMany({
-    data: userPerms.map((p) => ({
-      roleId: user!.id,
-      isActive: true,
-      permissionId: p.id
-    }))
-  });
+  await setPermissions(allPermissions, "A", admin!.id);
+  await setPermissions(allPermissions, "M", trainer!.id);
+  await setPermissions(allPermissions, "F", mentor!.id);
+  await setPermissions(allPermissions, "T", tech!.id);
 
   /** ===============================
    * | links permissions to each menu |

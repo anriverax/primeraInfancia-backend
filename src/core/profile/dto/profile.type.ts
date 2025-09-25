@@ -1,6 +1,7 @@
 import { UploadFilesDto } from "./profile.dto";
 
 export type IFile = UploadFilesDto;
+
 export interface IUploadProfile {
   Person: {
     id: number;
@@ -27,20 +28,6 @@ export interface IUploadDui extends Pick<IUploadCv, "dui"> {
   duiImg: Express.Multer.File[];
 }
 
-export interface IUpdateAcademicCv extends Pick<IUploadCv, "academicId"> {
-  cvName: string;
-}
-
 export interface IUpdateUserAvatar extends Pick<IUploadAvatar, "userId"> {
   avatar: string;
-}
-
-export interface IUpdatePersonDui extends Pick<IUploadDui, "personId"> {
-  duiName: string[];
-}
-
-export interface UploadFiles {
-  cv?: Express.Multer.File[];
-  avatar?: Express.Multer.File[];
-  images?: Express.Multer.File[];
 }

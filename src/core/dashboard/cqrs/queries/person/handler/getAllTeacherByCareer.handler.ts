@@ -1,12 +1,13 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAllTeacherByCareerQuery } from "../queries/getAllTeacherByCareer.query";
+import { IGroupCount } from "@/core/dashboard/dto/dashboard.type";
 
 @QueryHandler(GetAllTeacherByCareerQuery)
 export class GetAllTeacherByCareerHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(): Promise<{ career: string; count: number }[]> {
+  async execute(): Promise<IGroupCount[]> {
     const teachersByCareer = await this.prisma.academic.groupBy({
       by: ["career"],
       _count: {
@@ -30,9 +31,9 @@ export class GetAllTeacherByCareerHandler {
 
     return teachersByCareer
       .map((item) => ({
-        career: item.career,
+        label: item.career,
         count: item._count._all
       }))
-      .sort((a, b) => a.career.localeCompare(b.career));
+      .sort((a, b) => a.label.localeCompare(b.label));
   }
 }

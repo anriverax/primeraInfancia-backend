@@ -1,5 +1,5 @@
 import { IPagination } from "@/common/helpers/types";
-import { Group, Inscription, Person } from "@prisma/client";
+import { Group, Inscription, Person, TypePersonEnum } from "@prisma/client";
 
 export interface IGroup extends Pick<Group, "id" | "memberCount"> {
   department: string;
@@ -33,39 +33,24 @@ interface GroupInscription extends Pick<Inscription, "id" | "deletedAt"> {
 }
 
 export interface IGetByIdGroup extends IGroup {
-  GroupLeader: {
-    PersonRole: {
-      id: number;
-      Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
-    };
-  }[];
-  GroupMentors: {
-    PersonRole: {
-      Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> & {
-        WorkAssignment: {
-          Municipality: {
-            name: string;
-          };
-        }[];
-      };
-    };
-  }[];
+  GroupTechSupport: IGroupTechSupport[];
   Inscription: GroupInscription[];
 }
 
-export interface IGetByIdGroupWithFullName extends IGroup {
-  leaders: INewLeader;
-  inscriptionPerson: IInscriptionPerson[];
-  mentors: INewMentor[];
-}
+export type IGetByIdGroupOrderAssignedRole = IGroup & IOrderAssignedRole;
 
-export interface ILeader {
-  PersonRole: {
+export interface IGroupTechSupport {
+  id: number;
+  TechSupport: {
+    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
+  };
+  AssignedRole: {
+    TypePerson: { name: TypePersonEnum };
     Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
   };
 }
 
-export interface INewLeader {
+export interface IAssignedRole {
   id: number;
   fullName: string;
 }
@@ -98,20 +83,9 @@ export interface IInscriptionPerson extends Pick<Inscription, "id"> {
   };
 }
 
-export interface IMentor {
-  PersonRole: {
-    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> & {
-      WorkAssignment: {
-        Municipality: {
-          name: string;
-        };
-      }[];
-    };
-  };
-}
-
-export interface INewMentor {
-  id: number;
-  fullName: string;
-  assignedMunicipality: string;
+export interface IOrderAssignedRole {
+  techSupport: IAssignedRole;
+  trainer: IAssignedRole;
+  teachers: IInscriptionPerson[];
+  mentors: IAssignedRole[];
 }

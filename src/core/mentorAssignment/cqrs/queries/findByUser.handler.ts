@@ -9,8 +9,8 @@ export class FindByUserIdHandler {
   async execute(query: FindByUserIdQuery): Promise<any> {
     const mentorAssignment = await this.prisma.mentorAssignment.findMany({
       where: {
-        GroupMentor: {
-          PersonRole: {
+        Mentor: {
+          AssignedRole: {
             Person: {
               User: {
                 id: query.id

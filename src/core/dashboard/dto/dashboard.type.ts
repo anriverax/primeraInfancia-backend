@@ -1,15 +1,49 @@
-export interface dashboardPerson {
-  zone: { name: string; count: number }[];
+export interface IGroupCount {
+  label: string;
+  count: number;
+}
+export interface DashboardPerson {
+  zone: IGroupCount[];
   department: { department: string; school: number; teacher: number }[];
-  career: { career: string; count: number }[];
-  sex: { sex: string; count: number }[];
+  career: IGroupCount[];
+  sex: IGroupCount[];
   nip: number;
-  ages: {
-    range: string;
-    quantity: number;
-  }[];
+  ages: IGroupCount[];
+  experience: IGroupCount[];
+  educationalLevel: IGroupCount[];
   total: {
     school: number;
-    teacher: number;
+    teacher: ITeacherStatus;
   };
+}
+
+export interface DashboardAttendance {
+  eventType: IGroupCount[];
+  mentoring: IGroupCount[];
+  events: IEventType[];
+}
+
+export interface IEventType {
+  totalEvents: number;
+  name: string;
+  Event: {
+    name: string;
+  }[];
+}
+
+export interface ITeacherStatus {
+  inactive: number;
+  active: number;
+}
+
+export interface IAppendix8 {
+  dimension: string;
+  answers: {
+    time: number;
+    labels: IGroupCount[];
+  }[];
+}
+
+export interface DashboardMentoring {
+  appendix8: IAppendix8[];
 }

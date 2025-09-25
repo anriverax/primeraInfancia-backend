@@ -9,8 +9,8 @@ import { AppendixTest } from "@prisma/client";
 import { UpdateAppendixTestCommand } from "./cqrs/commands/update/updateAppendixTest.command";
 import { DeleteAppendixTestCommand } from "./cqrs/commands/delete/deleteAppendixTest.command";
 import { GetAllAppendixTestQuery } from "./cqrs/queries/findMany/getAllAppendixTest.query";
-import { IGetAllAppendixTest, IGetByIdAppendixTest } from "./dto/appendixTest.type";
 import { GetByIdAppendixTestQuery } from "./cqrs/queries/findUnique/getByIdAppendixTest.query";
+import { IGetAllAppendixTest, IGetByIdAppendixTest } from "./dto/appendixTest.type";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
