@@ -9,6 +9,7 @@ import { GetTeacherCountsByDepartmentQuery } from "./queries/get-teacher-counts-
 import { GetAppendix8Query } from "./queries/get-appendix8.query";
 import { GetTeacherCountsByYearsExperienceQuery } from "./queries/get-teacher-counts-by-years-experience.query";
 import { GetTeacherCountsByAgeChildrenQuery } from "./queries/get-teacher-counts-by-age-children.query";
+import { GetTeacherCountsByEducationalLevelServedQuery } from "./queries/get-teacher-counts-by-educational-level-served.query";
 
 @Controller("/participant")
 export class DashboardController {
@@ -23,8 +24,9 @@ export class DashboardController {
     teacherByGender: any;
     teachersByCareer: any;
     teachersByDepartment: any;
-    teachersByYearsExperience: any
+    teachersByYearsExperience: any;
     teachersByAgeChildren: any;
+    teacherByEducationalLevelServed: any;
   }> {
     const schoolsBySectorPromise = this.queryBus.execute(new GetSchoolCountsBySectorQuery());
     const schoolsByZonePromise = this.queryBus.execute(new GetSchoolCountsByZoneQuery());
@@ -32,8 +34,13 @@ export class DashboardController {
     const teachersByGenderPromise = this.queryBus.execute(new GetTeacherCountsByGenderQuery());
     const teachersByCareerPromise = this.queryBus.execute(new GetTeacherCountsByCareerQuery());
     const teachersByDepartmentPromise = this.queryBus.execute(new GetTeacherCountsByDepartmentQuery());
-    const teachersByYearsExperiencePromise = this.queryBus.execute(new GetTeacherCountsByYearsExperienceQuery());
-    const GetTeacherCountsByAgeChildrenPromise = this.queryBus.execute(new GetTeacherCountsByAgeChildrenQuery());
+    const teachersByYearsExperiencePromise = this.queryBus.execute(
+      new GetTeacherCountsByYearsExperienceQuery()
+    );
+    const GetTeacherCountsByAgeChildrenPromise = this.queryBus.execute(
+      new GetTeacherCountsByAgeChildrenQuery()
+    );
+    const GetTeacherCountsByEducationalLevelServedPromise = this.queryBus.execute(new GetTeacherCountsByEducationalLevelServedQuery());
 
     const [
       schoolsBySector,
@@ -43,7 +50,8 @@ export class DashboardController {
       teachersByCareer,
       teachersByDepartment,
       teachersByYearsExperience,
-      teachersByAgeChildren
+      teachersByAgeChildren,
+      teacherByEducationalLevelServed
     ] = await Promise.all([
       schoolsBySectorPromise,
       schoolsByZonePromise,
@@ -53,6 +61,7 @@ export class DashboardController {
       teachersByDepartmentPromise,
       teachersByYearsExperiencePromise,
       GetTeacherCountsByAgeChildrenPromise,
+      GetTeacherCountsByEducationalLevelServedPromise,
     ]);
 
     return {
@@ -63,7 +72,8 @@ export class DashboardController {
       teachersByCareer,
       teachersByDepartment,
       teachersByYearsExperience,
-      teachersByAgeChildren
+      teachersByAgeChildren,
+      teacherByEducationalLevelServed
     };
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */
