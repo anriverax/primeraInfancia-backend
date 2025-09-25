@@ -13,7 +13,7 @@ import { GetTeacherCountsByEducationalLevelServedQuery } from "./queries/get-tea
 
 @Controller("/participant")
 export class DashboardController {
-  constructor(private queryBus: QueryBus) { }
+  constructor(private queryBus: QueryBus) {}
 
   @Get()
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -40,7 +40,9 @@ export class DashboardController {
     const GetTeacherCountsByAgeChildrenPromise = this.queryBus.execute(
       new GetTeacherCountsByAgeChildrenQuery()
     );
-    const GetTeacherCountsByEducationalLevelServedPromise = this.queryBus.execute(new GetTeacherCountsByEducationalLevelServedQuery());
+    const GetTeacherCountsByEducationalLevelServedPromise = this.queryBus.execute(
+      new GetTeacherCountsByEducationalLevelServedQuery()
+    );
 
     const [
       schoolsBySector,
@@ -61,7 +63,7 @@ export class DashboardController {
       teachersByDepartmentPromise,
       teachersByYearsExperiencePromise,
       GetTeacherCountsByAgeChildrenPromise,
-      GetTeacherCountsByEducationalLevelServedPromise,
+      GetTeacherCountsByEducationalLevelServedPromise
     ]);
 
     return {

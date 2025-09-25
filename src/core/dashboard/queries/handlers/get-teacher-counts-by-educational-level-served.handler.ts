@@ -4,8 +4,9 @@ import { GetTeacherCountsByEducationalLevelServedQuery } from "../get-teacher-co
 
 @QueryHandler(GetTeacherCountsByEducationalLevelServedQuery)
 export class GetTeacherCountsByEducationalLevelServedHandler
-  implements IQueryHandler<GetTeacherCountsByEducationalLevelServedQuery> {
-  constructor(private prisma: PrismaService) { }
+  implements IQueryHandler<GetTeacherCountsByEducationalLevelServedQuery>
+{
+  constructor(private prisma: PrismaService) {}
 
   async execute(): Promise<{ textQuestion: string | null; count: number }[]> {
     const records = await this.prisma.appendixTest.groupBy({
