@@ -6,9 +6,8 @@ import { AppendixTest } from "@prisma/client";
 
 @CommandHandler(CreateAppendixTestCommand)
 export class CreateAppendixTestHandler implements ICommandHandler<CreateAppendixTestCommand> {
-  constructor(private readonly appendixTestProjection: AppendixTestProjection) { }
+  constructor(private readonly appendixTestProjection: AppendixTestProjection) {}
   async execute(command: CreateAppendixTestCommand): Promise<NestResponse<AppendixTest>> {
-
     const { data } = command;
 
     const res = await this.appendixTestProjection.create(data);

@@ -1,3 +1,3 @@
 export class GetTeacherCountsByAgeChildrenQuery {
-  constructor() { }
+  constructor() {}
 }
