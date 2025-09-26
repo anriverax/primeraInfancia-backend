@@ -36,6 +36,7 @@ export class AuthController {
 
   @Post("register")
   async register(@Body() data: AuthDto): Promise<NestResponse<void>> {
+    console.log(22132132);
     return this.commandBus.execute(new RegisterUserCommand(data));
   }
 
