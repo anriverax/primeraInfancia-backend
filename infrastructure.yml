@@ -177,6 +177,16 @@ Resources:
           FromPort: 443
           ToPort: 443
           CidrIp: 0.0.0.0/0
+  OeiECSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: ECS Service SG
+      VpcId: !Ref OeiVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3001
+          ToPort: 3001
+          CidrIp: 0.0.0.0/0
   OeiRDSSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -187,7 +197,10 @@ Resources:
           FromPort: 5432
           ToPort: 5432
           SourceSecurityGroupId: !Ref OeiBastionSecurityGroup
-
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          SourceSecurityGroupId: !Ref OeiECSSecurityGroup
   OeiRedisSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -197,17 +210,6 @@ Resources:
         - IpProtocol: tcp
           FromPort: 6379
           ToPort: 6379
-          CidrIp: 0.0.0.0/0
-
-  OeiECSSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: ECS Service SG
-      VpcId: !Ref OeiVpc
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 3001
-          ToPort: 3001
           CidrIp: 0.0.0.0/0
   OeiBastionSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -513,14 +515,15 @@ Resources:
         AwsvpcConfiguration:
           AssignPublicIp: DISABLED
           Subnets:
-            - !Ref OeiPublicSubnetA
-            - !Ref OeiPublicSubnetB
+            - !Ref OeiPrivateSubnetA
+            - !Ref OeiPrivateSubnetB
           SecurityGroups:
             - !Ref OeiECSSecurityGroup
       LoadBalancers:
         - ContainerName: backend-oei
           ContainerPort: 3001
           TargetGroupArn: !Ref OeiTargetGroup
+
 
 Outputs:
   RDSEndpoint:
