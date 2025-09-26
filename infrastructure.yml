@@ -18,6 +18,10 @@ Parameters:
     Type: String
     Default: 434807866199.dkr.ecr.us-east-1.amazonaws.com/backend-oei:latest
     Description: Docker image URI en ECR
+  KeyPairName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: bastion-new-key
+    Description: bastion
 Resources:
   ## --------------------------
   ## VPC
@@ -40,6 +44,47 @@ Resources:
     Properties:
       VpcId: !Ref OeiVpc
       InternetGatewayId: !Ref OeiInternetGateway
+
+  OeiNatEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+
+  OeiNatGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt OeiNatEIP.AllocationId
+      SubnetId: !Ref OeiPublicSubnetA
+      Tags:
+        - Key: Name
+          Value: oei-nat
+
+  OeiPrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref OeiVpc
+      Tags:
+        - Key: Name
+          Value: oei-private-rt
+
+  OeiPrivateRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref OeiPrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref OeiNatGateway
+
+  OeiPrivateSubnetARouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref OeiPrivateSubnetA
+      RouteTableId: !Ref OeiPrivateRouteTable
+
+  OeiPrivateSubnetBRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref OeiPrivateSubnetB
+      RouteTableId: !Ref OeiPrivateRouteTable
 
   ## --------------------------
   ## Subnets
@@ -141,7 +186,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 5432
           ToPort: 5432
-          CidrIp: 10.0.0.0/16
+          SourceSecurityGroupId: !Ref OeiBastionSecurityGroup
 
   OeiRedisSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -152,7 +197,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 6379
           ToPort: 6379
-          CidrIp: 10.0.0.0/16
+          CidrIp: 0.0.0.0/0
 
   OeiECSSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -164,7 +209,65 @@ Resources:
           FromPort: 3001
           ToPort: 3001
           CidrIp: 0.0.0.0/0
+  OeiBastionSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Bastion Host SG
+      VpcId: !Ref OeiVpc
+      SecurityGroupIngress:
+        - IpProtocol: udp
+          FromPort: 1194
+          ToPort: 1194
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+  OeiBastionHost:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.medium
+      KeyName: !Ref KeyPairName
+      ImageId: ami-0c7217cdde317cfec   # Amazon Linux 2 en us-east-1
+      SubnetId: !Ref OeiPublicSubnetA
+      SecurityGroupIds:
+        - !Ref OeiBastionSecurityGroup
+      Tags:
+        - Key: Name
+          Value: oei-bastion-vpn
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -eux
+          # update system
+          sudo apt update && sudo apt upgrade -y
+          # install curl
+          sudo apt install -y curl
+          # download openvpn-install script
+          curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+          chmod +x openvpn-install.sh
+          # run unattended installation with defaults
+          AUTO_INSTALL=y ./openvpn-install.sh
+  OeiRDSSecurityGroupIngressFromBastion:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref OeiRDSSecurityGroup
+      IpProtocol: tcp
+      FromPort: 5432
+      ToPort: 5432
+      SourceSecurityGroupId: !Ref OeiBastionSecurityGroup
 
+  OeiRedisSecurityGroupIngressFromBastion:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref OeiRedisSecurityGroup
+      IpProtocol: tcp
+      FromPort: 6379
+      ToPort: 6379
+      SourceSecurityGroupId: !Ref OeiBastionSecurityGroup
   ## --------------------------
   ## RDS PostgreSQL
   ## --------------------------
@@ -190,7 +293,6 @@ Resources:
         - !Ref OeiRDSSecurityGroup
       DBName: !Ref DBName
       DBSubnetGroupName: !Ref OeiPostgresSubnetGroup
-      PubliclyAccessible: false
       BackupRetentionPeriod: 7
       StorageType: gp2
       DeletionProtection: false
@@ -409,7 +511,7 @@ Resources:
       HealthCheckGracePeriodSeconds: 360
       NetworkConfiguration:
         AwsvpcConfiguration:
-          AssignPublicIp: ENABLED
+          AssignPublicIp: DISABLED
           Subnets:
             - !Ref OeiPublicSubnetA
             - !Ref OeiPublicSubnetB
@@ -430,6 +532,9 @@ Outputs:
   ALBEndpoint:
     Description: Public ALB DNS
     Value: !GetAtt OeiALB.DNSName
+  BastionPublicIP:
+    Description: Public IP of Bastion Host
+    Value: !GetAtt OeiBastionHost.PublicIp
 
 
 
