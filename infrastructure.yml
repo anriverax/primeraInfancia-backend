@@ -288,7 +288,7 @@ Resources:
       AllocatedStorage: 20
       DBInstanceClass: db.t3.micro
       Engine: postgres
-      EngineVersion: "16.4"
+      EngineVersion: "16.6"
       MasterUsername: !Ref DBUser
       MasterUserPassword: !Ref DBPassword
       VPCSecurityGroups:
@@ -436,6 +436,21 @@ Resources:
               Value: !Sub "redis://${OeiRedisCluster.RedisEndpoint.Address}:6379"
             - Name: REDIS
               Value: !Sub "redis://${OeiRedisCluster.RedisEndpoint.Address}:6379"
+            - Name: PLAIN_TEXT
+              Value: "1c4554963c60c7c5de945a4b2a88f4fb6bcc7b040646a17991d04c4f40ca81f7"
+            - Name: RESEND
+              Value: "re_NAzsrZo2_HQBK2NLpM9AyUdLMTK7BmoAT"
+            - Name: PRIVATE_KEY_SECRET
+              Value: "c69f24337ce3f2b9a6f7e08c2e9ff41f2184a279abc644de6b5e8609f184a546"
+            - Name: JWT_EXPIRATION
+              Value: "15m"
+            - Name: JWT_REFRESH_TOKEN
+              Value: "7d"
+            - Name: JWT_REFRESH_SECRET
+              Value: "eeb6127450e0a1b9e0c82c54d5ad53e57140d5c2c5cc680354b5f19c0d53ca91"
+            - Name: sample
+              Value: "sample"
+
           Secrets:
             - Name: JWT_PRIVATE_KEY
               ValueFrom: arn:aws:secretsmanager:us-east-1:434807866199:secret:jwt-private-key-s8NuYB

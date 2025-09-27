@@ -12,9 +12,10 @@ RUN npm install
 # Copiamos todo el código
 COPY . .
 
+
 # Generamos Prisma Client
 RUN npx prisma generate
-
+COPY prisma ./prisma
 # Compilamos la aplicación
 RUN npm run build
 
@@ -28,14 +29,20 @@ WORKDIR /fpi-backend
 # Variables de entorno
 ENV NODE_ENV=production
 ENV PORT=3001
-
+COPY --from=builder /fpi-backend/prisma ./prisma
 COPY --from=builder /fpi-backend/node_modules ./node_modules
 COPY --from=builder /fpi-backend/dist ./dist
+
 COPY package*.json ./
 
+# Copiar entrypoint desde repo
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 RUN chown -R node:node /fpi-backend
+# Usamos usuario no-root
 USER node
 
 EXPOSE 3001
 
-CMD ["node", "dist/main.js"]
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
