@@ -4,7 +4,10 @@ import { Controller, Get, Param, Query, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { IGroup, IGetByIdGroupWithFullName, IGetByIdGroupGradeDetail } from "./dto/group.type";
-import { GetByIdGroupQuery, GetByIdGroupGradeDetailQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.query";
+import {
+  GetByIdGroupQuery,
+  GetByIdGroupGradeDetailQuery
+} from "./cqrs/queries/group/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
 import { GetAllGroupPaginationQuery } from "./cqrs/queries/group/pagination/getAllGroupPagination.query";
 import { GroupService } from "./services/group.service";
@@ -14,7 +17,7 @@ export class GroupController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly groupService: GroupService
-  ) { }
+  ) {}
 
   @AuthRequired()
   @Get()

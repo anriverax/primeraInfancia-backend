@@ -53,9 +53,8 @@ export interface IGetByIdGroup extends IGroup {
   Inscription: GroupInscription[];
 }
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdGroupGradeDetail { }
+export interface IGetByIdGroupGradeDetail {}
 /* eslint-enable @typescript-eslint/no-empty-object-type */
-
 
 export interface IGetByIdGroupWithFullName extends IGroup {
   leaders: INewLeader;

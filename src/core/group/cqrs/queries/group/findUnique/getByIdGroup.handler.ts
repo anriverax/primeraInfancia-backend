@@ -5,7 +5,7 @@ import { IGetByIdGroup, IGetByIdGroupGradeDetail } from "@/core/group/dto/group.
 
 @QueryHandler(GetByIdGroupQuery)
 export class GetByIdGroupHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetByIdGroupQuery): Promise<IGetByIdGroup | null> {
     const group = await this.prisma.group.findUnique({
@@ -107,7 +107,7 @@ export class GetByIdGroupHandler {
 
 @QueryHandler(GetByIdGroupGradeDetailQuery)
 export class GetByIdGroupGradeDetailHandler {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetByIdGroupGradeDetailQuery): Promise<IGetByIdGroupGradeDetail | null> {
     const groupGradeDetail = await this.prisma.group.findUnique({
@@ -118,7 +118,7 @@ export class GetByIdGroupGradeDetailHandler {
           // ⚠️ filter Inscriptions not null
           where: {
             OR: [
-              { ModuleEvaluation: { some: {} } },    // Inscription has at least one ModuleEvaluation
+              { ModuleEvaluation: { some: {} } }, // Inscription has at least one ModuleEvaluation
               { TrainingEvaluation: { some: {} } } // Inscription has at least one TrainingEvaluation
             ],
             deletedAt: null // Include soft-deleted records
@@ -154,7 +154,7 @@ export class GetByIdGroupGradeDetailHandler {
                     id: true,
                     instrumentName: true
                   }
-                },
+                }
               }
             }
           }
