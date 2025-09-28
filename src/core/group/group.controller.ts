@@ -3,8 +3,8 @@ import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Controller, Get, Param, Query, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
-import { IGroup, IGetByIdGroupWithFullName } from "./dto/group.type";
-import { GetByIdGroupQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.query";
+import { IGroup, IGetByIdGroupWithFullName, IGetByIdGroupGradeDetail } from "./dto/group.type";
+import { GetByIdGroupQuery, GetByIdGroupGradeDetailQuery } from "./cqrs/queries/group/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
 import { GetAllGroupPaginationQuery } from "./cqrs/queries/group/pagination/getAllGroupPagination.query";
 import { GroupService } from "./services/group.service";
@@ -14,7 +14,7 @@ export class GroupController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly groupService: GroupService
-  ) {}
+  ) { }
 
   @AuthRequired()
   @Get()
@@ -43,6 +43,17 @@ export class GroupController {
       statusCode: 200,
       message: "Listado de grupos por ID",
       data: { ...rest, leaders, inscriptionPerson, mentors }
+    };
+  }
+
+  @Get("grade-detail/:id")
+  async getDetailById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupGradeDetail>> {
+    const result = await this.queryBus.execute(new GetByIdGroupGradeDetailQuery(parseInt(id)));
+
+    return {
+      statusCode: 200,
+      message: "Detalle del grupo por ID incluendo todas sus calificaciones.",
+      data: result
     };
   }
 }

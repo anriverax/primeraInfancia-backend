@@ -1,11 +1,11 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { GetByIdGroupQuery } from "./getByIdGroup.query";
-import { IGetByIdGroup } from "@/core/group/dto/group.type";
+import { GetByIdGroupQuery, GetByIdGroupGradeDetailQuery } from "./getByIdGroup.query";
+import { IGetByIdGroup, IGetByIdGroupGradeDetail } from "@/core/group/dto/group.type";
 
 @QueryHandler(GetByIdGroupQuery)
 export class GetByIdGroupHandler {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async execute(query: GetByIdGroupQuery): Promise<IGetByIdGroup | null> {
     const group = await this.prisma.group.findUnique({
@@ -102,5 +102,106 @@ export class GetByIdGroupHandler {
     const newGroup = { ...rest, department: Department.name } as IGetByIdGroup;
 
     return newGroup;
+  }
+}
+
+@QueryHandler(GetByIdGroupGradeDetailQuery)
+export class GetByIdGroupGradeDetailHandler {
+  constructor(private readonly prisma: PrismaService) { }
+
+  async execute(query: GetByIdGroupGradeDetailQuery): Promise<IGetByIdGroupGradeDetail | null> {
+    const groupGradeDetail = await this.prisma.group.findUnique({
+      where: { id: query.id },
+      select: {
+        id: true,
+        Inscription: {
+          // ⚠️ Add the 'where' clause here to filter Inscriptions
+          where: {
+            OR: [
+              { ModuleEvaluation: { some: {} } },    // Inscription has at least one ModuleEvaluation
+              { TrainingEvaluation: { some: {} } } // Inscription has at least one TrainingEvaluation
+            ],
+            deletedAt: null // You might want to filter out soft-deleted records here too
+          },
+          select: {
+            id: true,
+            ModuleEvaluation: {
+              select: {
+                id: true,
+                grade: true,
+                comment: true,
+                EvaluationInstrument: {
+                  select: {
+                    id: true,
+                    instrumentName: true
+                  }
+                },
+                TrainingModule: {
+                  select: {
+                    id: true,
+                    moduleName: true
+                  }
+                }
+              }
+            },
+            TrainingEvaluation: {
+              select: {
+                id: true,
+                grade: true,
+                comment: true,
+                EvaluationInstrument: {
+                  select: {
+                    id: true,
+                    instrumentName: true
+                  }
+                },
+              }
+            }
+          }
+        }
+      }
+      // select: {
+      //   id: true,
+      //   Inscription: {
+      //     select: {
+      //       id: true,
+      //       ModuleEvaluation: {
+      //         select: {
+      //           id: true,
+      //           grade: true,
+      //           comment: true,
+      //           EvaluationInstrument: {
+      //             select: {
+      //               id: true,
+      //               instrumentName: true
+      //             }
+      //           },
+      //           TrainingModule: {
+      //             select: {
+      //               id: true,
+      //               moduleName: true
+      //             }
+      //           }
+      //         }
+      //       },
+      //       TrainingEvaluation: {
+      //         select: {
+      //           id: true,
+      //           grade: true,
+      //           comment: true,
+      //           EvaluationInstrument: {
+      //             select: {
+      //               id: true,
+      //               instrumentName: true
+      //             }
+      //           },
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+    });
+
+    return groupGradeDetail;
   }
 }

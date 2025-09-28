@@ -52,6 +52,8 @@ export interface IGetByIdGroup extends IGroup {
   }[];
   Inscription: GroupInscription[];
 }
+export interface IGetByIdGroupGradeDetail {}
+
 
 export interface IGetByIdGroupWithFullName extends IGroup {
   leaders: INewLeader;
