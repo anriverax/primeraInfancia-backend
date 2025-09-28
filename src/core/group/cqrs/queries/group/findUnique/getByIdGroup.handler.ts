@@ -115,13 +115,13 @@ export class GetByIdGroupGradeDetailHandler {
       select: {
         id: true,
         Inscription: {
-          // ⚠️ Add the 'where' clause here to filter Inscriptions
+          // ⚠️ filter Inscriptions not null
           where: {
             OR: [
               { ModuleEvaluation: { some: {} } },    // Inscription has at least one ModuleEvaluation
               { TrainingEvaluation: { some: {} } } // Inscription has at least one TrainingEvaluation
             ],
-            deletedAt: null // You might want to filter out soft-deleted records here too
+            deletedAt: null // Include soft-deleted records
           },
           select: {
             id: true,
