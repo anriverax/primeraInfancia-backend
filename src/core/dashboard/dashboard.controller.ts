@@ -14,7 +14,7 @@ import { GetAppendixByMentorQuery } from "./queries/get-appendix-by-mentor.query
 
 @Controller("/participant")
 export class DashboardController {
-  constructor(private queryBus: QueryBus) {}
+  constructor(private queryBus: QueryBus) { }
 
   @Get()
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -28,7 +28,6 @@ export class DashboardController {
     teachersByYearsExperience: any;
     teachersByAgeChildren: any;
     teacherByEducationalLevelServed: any;
-    answerAppendixByMentor: any;
   }> {
     const schoolsBySectorPromise = this.queryBus.execute(new GetSchoolCountsBySectorQuery());
     const schoolsByZonePromise = this.queryBus.execute(new GetSchoolCountsByZoneQuery());
@@ -45,7 +44,7 @@ export class DashboardController {
     const GetTeacherCountsByEducationalLevelServedPromise = this.queryBus.execute(
       new GetTeacherCountsByEducationalLevelServedQuery()
     );
-    const appendixByMentorPromise = this.queryBus.execute(new GetAppendixByMentorQuery());
+
 
     const [
       schoolsBySector,
@@ -56,8 +55,7 @@ export class DashboardController {
       teachersByDepartment,
       teachersByYearsExperience,
       teachersByAgeChildren,
-      teacherByEducationalLevelServed,
-      appendixByMentor,
+      teacherByEducationalLevelServed
     ] = await Promise.all([
       schoolsBySectorPromise,
       schoolsByZonePromise,
@@ -67,8 +65,7 @@ export class DashboardController {
       teachersByDepartmentPromise,
       teachersByYearsExperiencePromise,
       GetTeacherCountsByAgeChildrenPromise,
-      GetTeacherCountsByEducationalLevelServedPromise,
-      appendixByMentorPromise,
+      GetTeacherCountsByEducationalLevelServedPromise
     ]);
 
     return {
@@ -80,8 +77,7 @@ export class DashboardController {
       teachersByDepartment,
       teachersByYearsExperience,
       teachersByAgeChildren,
-      teacherByEducationalLevelServed,
-      appendixByMentor
+      teacherByEducationalLevelServed
     };
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -97,6 +93,25 @@ export class DashboardController {
 
     return {
       answerAppendix8
+    };
+  }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+
+  @Get("/appendix-mentor")
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  async getDashboardAppendixData(): Promise<{
+    answerAppendixByMentor: any;
+  }> {
+    const appendixByMentorPromise = this.queryBus.execute(new GetAppendixByMentorQuery());
+
+    const [
+      answerAppendixByMentor
+    ] = await Promise.all([
+      appendixByMentorPromise
+    ]);
+
+    return {
+      answerAppendixByMentor
     };
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */
