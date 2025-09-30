@@ -10,6 +10,7 @@ import { GetAppendix8Query } from "./queries/get-appendix8.query";
 import { GetTeacherCountsByYearsExperienceQuery } from "./queries/get-teacher-counts-by-years-experience.query";
 import { GetTeacherCountsByAgeChildrenQuery } from "./queries/get-teacher-counts-by-age-children.query";
 import { GetTeacherCountsByEducationalLevelServedQuery } from "./queries/get-teacher-counts-by-educational-level-served.query";
+import { GetAppendixByMentorQuery } from "./queries/get-appendix-by-mentor.query";
 
 @Controller("/participant")
 export class DashboardController {
@@ -27,6 +28,7 @@ export class DashboardController {
     teachersByYearsExperience: any;
     teachersByAgeChildren: any;
     teacherByEducationalLevelServed: any;
+    answerAppendixByMentor: any;
   }> {
     const schoolsBySectorPromise = this.queryBus.execute(new GetSchoolCountsBySectorQuery());
     const schoolsByZonePromise = this.queryBus.execute(new GetSchoolCountsByZoneQuery());
@@ -43,6 +45,7 @@ export class DashboardController {
     const GetTeacherCountsByEducationalLevelServedPromise = this.queryBus.execute(
       new GetTeacherCountsByEducationalLevelServedQuery()
     );
+    const appendixByMentorPromise = this.queryBus.execute(new GetAppendixByMentorQuery());
 
     const [
       schoolsBySector,
@@ -53,7 +56,8 @@ export class DashboardController {
       teachersByDepartment,
       teachersByYearsExperience,
       teachersByAgeChildren,
-      teacherByEducationalLevelServed
+      teacherByEducationalLevelServed,
+      appendixByMentor,
     ] = await Promise.all([
       schoolsBySectorPromise,
       schoolsByZonePromise,
@@ -63,7 +67,8 @@ export class DashboardController {
       teachersByDepartmentPromise,
       teachersByYearsExperiencePromise,
       GetTeacherCountsByAgeChildrenPromise,
-      GetTeacherCountsByEducationalLevelServedPromise
+      GetTeacherCountsByEducationalLevelServedPromise,
+      appendixByMentorPromise,
     ]);
 
     return {
@@ -75,7 +80,8 @@ export class DashboardController {
       teachersByDepartment,
       teachersByYearsExperience,
       teachersByAgeChildren,
-      teacherByEducationalLevelServed
+      teacherByEducationalLevelServed,
+      appendixByMentor
     };
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */
