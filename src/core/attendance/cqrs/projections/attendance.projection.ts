@@ -13,7 +13,6 @@ export class AttendanceProjection {
         data: {
           ...data,
           checkIn: new Date(),
-          status: "PRESENTE",
           createdBy: userId
         },
         select: {

@@ -14,7 +14,6 @@ import { RedisModule } from "./services/redis/redis.module";
 // module - Controller
 import { AuthModule } from "./core/auth/auth.module";
 import { CatalogueModule } from "./core/catalogue/common/catalogue.module";
-import { EventModule } from "./core/catalogue/event/event.module";
 import { ProfileModule } from "./core/profile/profile.module";
 import { ZoneModule } from "./core/catalogue/zone/zone.module";
 import { GroupModule } from "./core/group/group.module";
@@ -24,7 +23,6 @@ import { DepartmentModule } from "./core/test/coutry/department/department.modul
 import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
 import { PermissionModule } from "./core/test/permission/permission.module";
 import { AttendanceModule } from "./core/attendance/attendance.module";
-import { MentorAssignmentModule } from "./core/mentorAssignment/mentorAssignment.module";
 import { HealthModule } from "./core/health/health.module";
 import { TrainingModule } from "./core/catalogue/trainingModule/trainingModule.module";
 import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrument/evaluationInstrument.module";
@@ -61,9 +59,7 @@ import { AppendixModule } from "./core/appendix/appendix.module";
     MunicipalityModule,
     PermissionModule,
     SchoolModule,
-    EventModule,
     AttendanceModule,
-    MentorAssignmentModule,
     TrainingModule,
     EvaluationInstrumentModule,
     DashboardModule,
@@ -84,10 +80,6 @@ import { AppendixModule } from "./core/appendix/appendix.module";
               {
                 path: "zone",
                 module: ZoneModule
-              },
-              {
-                path: "events",
-                module: EventModule
               },
               {
                 path: "trainingModule",
@@ -114,10 +106,6 @@ import { AppendixModule } from "./core/appendix/appendix.module";
           {
             path: "attendance",
             module: AttendanceModule
-          },
-          {
-            path: "mentorAssignment",
-            module: MentorAssignmentModule
           },
           {
             path: "appendix-test",

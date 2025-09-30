@@ -4,7 +4,6 @@ import { PrismaService } from "@/services/prisma/prisma.service";
 import { DashboardController } from "./dashboard.controller";
 import { GetAllSchoolByZoneHandler } from "./cqrs/queries/school/handler/getAllSchoolByZone.handler";
 import { GetAllSchoolByDepartmentHandler } from "./cqrs/queries/school/handler/getAllSchoolByDepartment.handler";
-import { GetAllSchoolHandler } from "./cqrs/queries/school/handler/getAllSchool.handler";
 import { GetAllRegisteredTeachersHandler } from "./cqrs/queries/person/handler/getAllRegisteredTeachers.handler";
 import { GetAllBirthdateHandler } from "./cqrs/queries/person/handler/getAllBirthdate.handler";
 import { DashboardService } from "./services/dashboard.service";
@@ -21,7 +20,6 @@ import { GetAppendix8Handler } from "./cqrs/queries/appendix/handler/getAppendix
 export const QueryHandlers = [
   GetAllSchoolByZoneHandler,
   GetAllSchoolByDepartmentHandler,
-  GetAllSchoolHandler,
   GetAllRegisteredTeachersHandler,
   GetAllBirthdateHandler,
   GetAllTeacherByCareerHandler,

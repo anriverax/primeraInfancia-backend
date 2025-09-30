@@ -1,12 +1,13 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { FindByUserIdQuery } from "./findByUserId.query";
+import { ITeachersAssignmentMentor } from "@/core/attendance/dto/attendance.type";
 
 @QueryHandler(FindByUserIdQuery)
 export class FindByUserIdHandler {
   constructor(private readonly prisma: PrismaService) {}
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  async execute(query: FindByUserIdQuery): Promise<any> {
+
+  async execute(query: FindByUserIdQuery): Promise<ITeachersAssignmentMentor[]> {
     const mentorAssignment = await this.prisma.mentorAssignment.findMany({
       where: {
         Mentor: {

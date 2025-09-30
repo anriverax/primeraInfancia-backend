@@ -1,7 +1,7 @@
 import { QueryHandler } from "@nestjs/cqrs";
-import { GetAllEventQuery } from "./getAllEvent.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IGetAllEvent } from "../../../dto/event.dto";
+import { GetAllEventQuery } from "./getAllEvent.query";
+import { IGetAllEvent } from "@/core/attendance/dto/attendance.type";
 
 @QueryHandler(GetAllEventQuery)
 export class GetAllEventHandler {

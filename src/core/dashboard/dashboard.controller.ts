@@ -3,7 +3,6 @@ import { QueryBus } from "@nestjs/cqrs";
 import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/queries/getAllSchoolByZone.query";
 import { DashboardAttendance, DashboardMentoring, DashboardPerson } from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
-import { GetAllSchoolQuery } from "./cqrs/queries/school/queries/getAllSchool.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
 import { DashboardService } from "./services/dashboard.service";
 import { GetAllBirthdateQuery } from "./cqrs/queries/person/queries/getAllBirthdate.query";
@@ -28,7 +27,6 @@ export class DashboardController {
   async getDashboardData(): Promise<DashboardPerson> {
     const schoolsByZone = await this.queryBus.execute(new GetAllSchoolByZoneQuery());
     const schoolsByDepartment = await this.queryBus.execute(new GetAllSchoolByDepartmentQuery());
-    const allSchool = await this.queryBus.execute(new GetAllSchoolQuery());
     const allPerson = await this.queryBus.execute(new GetAllRegisteredTeachersQuery());
     const getAllAges = await this.queryBus.execute(new GetAllBirthdateQuery());
     const teachersByCareer = await this.queryBus.execute(new GetAllTeacherByCareerQuery());
@@ -51,10 +49,7 @@ export class DashboardController {
       ages,
       experience: teachersByYearsExperience,
       educationalLevel,
-      total: {
-        school: allSchool,
-        teacher: allPerson
-      }
+      totalTeacher: allPerson
     };
   }
 

@@ -401,6 +401,7 @@ model Attendance {
   comment          String? // comentario por inasistencia o nota del técnico
   justificationUrl String?
   coordenates      String?
+  modality         String
   Event            Event          @relation(fields: [eventId], references: [id])
   PersonRole       PersonRole     @relation(fields: [personRoleId], references: [id])
   createdAt        DateTime       @default(now())

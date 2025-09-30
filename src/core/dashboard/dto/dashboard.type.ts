@@ -11,10 +11,7 @@ export interface DashboardPerson {
   ages: IGroupCount[];
   experience: IGroupCount[];
   educationalLevel: IGroupCount[];
-  total: {
-    school: number;
-    teacher: ITeacherStatus;
-  };
+  totalTeacher: ITeacherStatus;
 }
 
 export interface DashboardAttendance {

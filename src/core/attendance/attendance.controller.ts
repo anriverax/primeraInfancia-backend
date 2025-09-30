@@ -6,20 +6,42 @@ import { AttendanceDto } from "./dto/attendance.dto";
 import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.command";
 import { GetPersonRoleByUserQuery } from "./cqrs/queries/PersonRole/getPersonRoleByUser.query";
 import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/findLastAttendance.query";
-import { IAttendance, IAttendanceResult, IAttendanceWithFormatteDate } from "./dto/attendance.type";
+import {
+  IAttendance,
+  IAttendanceResult,
+  IAttendanceWithFormatteDate,
+  ITeachersAssignmentWithEvents
+} from "./dto/attendance.type";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { formatDate } from "@/common/helpers/functions";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
 import { PaginationDto } from "@/common/helpers/dto";
 import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
+import { GetAllEventQuery } from "./cqrs/queries/event/getAllEvent.query";
+import { FindByUserIdQuery } from "./cqrs/queries/mentorAssignment/findByUserId.query";
+import { MentorAssignmentService } from "./services/mentorAssignment.service";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
 export class AttendanceController {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus
+    private readonly queryBus: QueryBus,
+    private readonly mentorAssignmentService: MentorAssignmentService
   ) {}
+
+  @AuthRequired()
+  @Get("teachersWithEvents")
+  async getTeachersWithEvents(@Req() req: Request): Promise<ITeachersAssignmentWithEvents> {
+    const userId = req["user"].sub;
+
+    const events = await this.queryBus.execute(new GetAllEventQuery(userId));
+
+    const result = await this.queryBus.execute(new FindByUserIdQuery(parseInt(userId)));
+    const data = this.mentorAssignmentService.order(result);
+
+    return { events, teachers: data };
+  }
 
   @AuthRequired()
   @Post("create")
