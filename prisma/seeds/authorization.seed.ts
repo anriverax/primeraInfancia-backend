@@ -38,12 +38,16 @@ export async function authorizationSeed() {
   const mentor = await prisma.role.findUnique({ where: { id: 4 } });
   const tech = await prisma.role.findUnique({ where: { id: 5 } });
 
-  const allPermissions = await prisma.permission.findMany();
+  if (!admin || !trainer || !mentor || !tech) {
+    throw new Error("Uno o más roles principales no existen en la base de datos.");
+  }
 
-  await setPermissions(allPermissions, "A", admin!.id);
-  await setPermissions(allPermissions, "M", trainer!.id);
-  await setPermissions(allPermissions, "F", mentor!.id);
-  await setPermissions(allPermissions, "T", tech!.id);
+  const permissions = await prisma.permission.findMany();
+
+  await setPermissions(permissions, "A", admin.id);
+  await setPermissions(permissions, "M", trainer.id);
+  await setPermissions(permissions, "F", mentor.id);
+  await setPermissions(permissions, "T", tech.id);
 
   /** ===============================
    * | links permissions to each menu |
@@ -51,7 +55,6 @@ export async function authorizationSeed() {
    */
 
   const menuItem = await prisma.menuItem.findMany();
-  const permissions = await prisma.permission.findMany();
 
   const menuPermissions = await getMenuItems(menuItem, permissions);
 

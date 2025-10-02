@@ -6,9 +6,6 @@ export interface IUploadProfile {
   Person: {
     id: number;
     dui: string;
-    Academic: {
-      id: number;
-    } | null;
   };
 }
 

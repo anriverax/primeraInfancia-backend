@@ -8,18 +8,17 @@ export const menuJson = {
   participantesDashboard: "/admin/dashboard/participantes",
   grupos: "/admin/grupos",
   asistencia: "/admin/asistencia",
+  calificaciones: "/admin/calificaciones",
   mentoria: "/admin/mentoria",
   catalogos: "/admin/catalogo",
+  centrosEscolares: "/admin/catalogo/centros-educativos",
   modulos: "/admin/catalogo/modulos-formativos",
-  centrosEscolares: "/admin/catalogo/centros-escolares",
-  zonas: "/admin/catalogo/zonas",
-  evaluaciones: "/admin/evaluaciones",
-  autoEvaluacion: "/admin/evaluaciones/auto-evaluación",
-  portafolio: "/admin/evaluaciones/portafolio",
-  diagnostico: "/admin/evaluaciones/diagnostico"
-};
+  zonas: "/admin/catalogo/zonas"
+} as const;
 
-export const menuPermissionMap: Record<string, PermissionEnum> = {
+type MenuPath = (typeof menuJson)[keyof typeof menuJson];
+
+export const menuPermissionMap: Record<MenuPath, PermissionEnum> = {
   [menuJson.dashboard]: PermissionEnum.VIEW_DASHBOARD,
   [menuJson.asistenciaDashboard]: PermissionEnum.VIEW_DASHBOARD_ATTENDANCE,
   [menuJson.evaluacionDashboard]: PermissionEnum.VIEW_DASHBOARD_EVALUATION,
@@ -27,6 +26,7 @@ export const menuPermissionMap: Record<string, PermissionEnum> = {
   [menuJson.participantesDashboard]: PermissionEnum.VIEW_DASHBOARD_PARTICIPANTS,
   [menuJson.grupos]: PermissionEnum.VIEW_GROUPS,
   [menuJson.asistencia]: PermissionEnum.VIEW_ATTENDANCE,
+  [menuJson.calificaciones]: PermissionEnum.VIEW_EVALUATION,
   [menuJson.mentoria]: PermissionEnum.VIEW_MENTORING,
   [menuJson.catalogos]: PermissionEnum.VIEW_CATALOGUES,
   [menuJson.centrosEscolares]: PermissionEnum.VIEW_CATALOGUE_SCHOOL,

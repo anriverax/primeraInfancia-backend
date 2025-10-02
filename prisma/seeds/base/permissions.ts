@@ -10,38 +10,27 @@ export enum PermissionEnum {
   VIEW_DASHBOARD_PARTICIPANTS = "VIEW_DASHBOARD_PARTICIPANTS",
   VIEW_GROUPS = "VIEW_GROUPS",
   VIEW_ATTENDANCE = "VIEW_ATTENDANCE",
-  VIEW_MENTORING = "VIEW_MENTORING",
   VIEW_EVALUATION = "VIEW_EVALUATION",
+  VIEW_MENTORING = "VIEW_MENTORING",
   VIEW_CATALOGUES = "VIEW_CATALOGUES",
   VIEW_CATALOGUE_SCHOOL = "VIEW_CATALOGUE_SCHOOL",
   VIEW_CATALOGUE_MODULE = "VIEW_CATALOGUE_MODULE",
   VIEW_CATALOGUE_ZONE = "VIEW_CATALOGUE_ZONE"
 }
 
-export const permissionData = [
-  {
-    name: PermissionEnum.VIEW_DASHBOARD
-  },
-  {
-    name: PermissionEnum.VIEW_DASHBOARD_ATTENDANCE
-  },
-  {
-    name: PermissionEnum.VIEW_DASHBOARD_EVALUATION
-  },
-  {
-    name: PermissionEnum.VIEW_DASHBOARD_MENTORING
-  },
-  {
-    name: PermissionEnum.VIEW_DASHBOARD_PARTICIPANTS
-  },
-  { name: PermissionEnum.VIEW_GROUPS },
-  { name: PermissionEnum.VIEW_ATTENDANCE },
-  { name: PermissionEnum.VIEW_MENTORING },
-  { name: PermissionEnum.VIEW_CATALOGUES },
-  { name: PermissionEnum.VIEW_CATALOGUE_SCHOOL },
-  { name: PermissionEnum.VIEW_CATALOGUE_MODULE },
-  { name: PermissionEnum.VIEW_CATALOGUE_ZONE }
-];
+export const permissionData = Object.values(PermissionEnum).map((name) => ({ name }));
+
+const ASSIGNMENT_PERMISSIONS: Record<"A" | "M" | "F" | "T", PermissionEnum[]> = {
+  A: Object.values(PermissionEnum),
+  F: [PermissionEnum.VIEW_ATTENDANCE, PermissionEnum.VIEW_EVALUATION, PermissionEnum.VIEW_GROUPS],
+  M: [PermissionEnum.VIEW_ATTENDANCE, PermissionEnum.VIEW_MENTORING, PermissionEnum.VIEW_GROUPS],
+  T: [
+    PermissionEnum.VIEW_ATTENDANCE,
+    PermissionEnum.VIEW_MENTORING,
+    PermissionEnum.VIEW_EVALUATION,
+    PermissionEnum.VIEW_GROUPS
+  ]
+};
 
 export const setPermissions = async (
   p: {
@@ -49,39 +38,15 @@ export const setPermissions = async (
     name: string;
   }[],
   assignment: "A" | "M" | "F" | "T",
-  id: number
+  roleId: number
 ) => {
-  let result: {
-    id: number;
-    name: string;
-  }[] = [];
+  const allowed = ASSIGNMENT_PERMISSIONS[assignment];
 
-  if (assignment === "F") {
-    result = p.filter((p) =>
-      [
-        PermissionEnum.VIEW_ATTENDANCE,
-        PermissionEnum.VIEW_EVALUATION,
-        PermissionEnum.VIEW_GROUPS
-      ].includes(p.name as PermissionEnum)
-    );
-  } else if (assignment === "M") {
-    result = p.filter((p) =>
-      [PermissionEnum.VIEW_ATTENDANCE, PermissionEnum.VIEW_MENTORING].includes(p.name as PermissionEnum)
-    );
-  } else if (assignment === "T") {
-    result = p.filter((p) =>
-      [
-        PermissionEnum.VIEW_ATTENDANCE,
-        PermissionEnum.VIEW_MENTORING,
-        PermissionEnum.VIEW_EVALUATION,
-        PermissionEnum.VIEW_GROUPS
-      ].includes(p.name as PermissionEnum)
-    );
-  } else result = p;
+  const result = assignment === "A" ? p : p.filter((p) => allowed.includes(p.name as PermissionEnum));
 
   await prisma.rolePermission.createMany({
     data: result.map((p) => ({
-      roleId: id,
+      roleId,
       isActive: true,
       permissionId: p.id
     }))

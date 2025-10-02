@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { authorizationSeed } from "./seeds/authorization.seed";
 import { menuSeed } from "./seeds/menu.seed";
+import { evaluationInstrument } from "./seeds/evaluationInstrument";
 
 const prisma = new PrismaClient();
 async function cohorts() {
@@ -67,28 +68,33 @@ async function eventType() {
   await prisma.eventType.createMany({
     data: [
       {
-        name: "Taller",
-        totalHours: 60,
-        cohortId: 1
-      },
-      {
-        name: "Seminario",
-        totalHours: 60,
-        cohortId: 1
-      },
-      {
-        name: "Comunidad de practica",
-        totalHours: 0,
-        cohortId: 1
-      },
-      {
-        name: "Mentoria",
+        name: "Seminarios",
         totalHours: 24,
+        order: 1,
         cohortId: 1
       },
       {
-        name: "Sesión sincronica",
+        name: "Mentorías",
+        totalHours: 24,
+        order: 2,
+        cohortId: 1
+      },
+      {
+        name: "Talleres",
+        order: 3,
+        totalHours: 60,
+        cohortId: 1
+      },
+      {
+        name: "Comunidades de práctica formativa",
         totalHours: 0,
+        order: 4,
+        cohortId: 1
+      },
+      {
+        name: "Sesiones sincrónicas",
+        totalHours: 0,
+        order: 5,
         cohortId: 1
       }
     ],
@@ -101,58 +107,45 @@ async function trainingModule() {
     data: [
       {
         name: "Módulo 1",
+        title: "Desarrollo Integral y aprendizaje en la Primera Infancia",
+        startDate: new Date("2025-10-01"),
+        endDate: new Date("2025-11-11"),
+        hours: 48,
         cohortId: 1
       },
       {
         name: "Módulo 2",
+        title: "El juego en la Primera Infancia",
+        startDate: new Date("2025-11-12"),
+        endDate: new Date("2025-12-23"),
+        hours: 52,
         cohortId: 1
       },
       {
         name: "Módulo 3",
+        title: "Organización Curricular de la  Educación para la Primera Infancia",
+        startDate: new Date("2025-12-24"),
+        endDate: new Date("2026-02-03"),
+        hours: 52,
         cohortId: 1
       },
       {
         name: "Módulo 4",
+        title: "Las rutinas en el proceso de desarrollo y aprendizaje",
+        startDate: new Date("2026-02-04"),
+        endDate: new Date("2026-03-17"),
+        hours: 44,
         cohortId: 1
       },
       {
         name: "Módulo 5",
+        title: "La planificación y la evaluación del proceso de dearrollo y aprendizaje",
+        startDate: new Date("2026-03-18"),
+        endDate: new Date("2026-04-28"),
+        hours: 54,
         cohortId: 1
       }
     ]
-  });
-}
-
-export async function evaluationInstrument() {
-  await prisma.evaluationInstrument.createMany({
-    data: [
-      {
-        name: "Portafolio Digital",
-        periodicity: "Durante el módulo",
-        percentage: 50
-      },
-      {
-        name: "Lista de Cotejo",
-        periodicity: "Durante el módulo",
-        percentage: 10
-      },
-      {
-        name: "Cuestionario",
-        periodicity: "Al finalizar el módulo",
-        percentage: 10
-      },
-      {
-        name: "Auto-evaluación",
-        periodicity: "Al finalizar el módulo",
-        percentage: 10
-      },
-      {
-        name: "Proyecto Final",
-        periodicity: "Al finalizar el módulo",
-        percentage: 10
-      }
-    ],
-    skipDuplicates: true
   });
 }
 

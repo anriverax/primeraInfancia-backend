@@ -27,14 +27,11 @@ export class UserProjection {
       await this.prisma.person.create({
         data: {
           ...personData,
-          Academic: {
-            create: { career, nip }
-          },
           User: {
             create: { email, passwd, roleId, isVerified, UserKey: { create: { publicKey, privateKey } } }
           },
           ...(schoolId && { PrincipalSchool: { create: { schoolId } } }),
-          PersonRole: { create: { typePersonId } }
+          PersonRole: { create: { typePersonId, career, nip } }
         }
       });
     } catch (error) {

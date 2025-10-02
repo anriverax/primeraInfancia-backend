@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "public"."MenuItem" ALTER COLUMN "order" SET DATA TYPE DOUBLE PRECISION;

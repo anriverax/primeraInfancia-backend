@@ -66,38 +66,14 @@ export async function menuSeed() {
     }
   });
 
-  // Menú principal: Evaluaciones
-  const evaluaciones = await prisma.menuItem.create({
+  // Menú principal: Calificaciones
+  await prisma.menuItem.create({
     data: {
-      title: "Evaluaciones",
-      path: menuJson.evaluaciones,
+      title: "Calificaciones",
+      path: menuJson.calificaciones,
       order: 4,
       icon: "CalendarCheck"
     }
-  });
-
-  // Submenús de Evaluaciones
-  await prisma.menuItem.createMany({
-    data: [
-      {
-        title: "Auto-evaluación",
-        path: menuJson.autoEvaluacion,
-        order: 4.1,
-        parentId: evaluaciones.id
-      },
-      {
-        title: "Portafolio",
-        path: menuJson.portafolio,
-        order: 4.2,
-        parentId: evaluaciones.id
-      },
-      {
-        title: "Diagnostico",
-        path: menuJson.diagnostico,
-        order: 4.3,
-        parentId: evaluaciones.id
-      }
-    ]
   });
 
   await prisma.menuItem.create({
@@ -110,12 +86,11 @@ export async function menuSeed() {
   });
 
   // Menú principal: Triple perfil
-  
 
   const catalogo = await prisma.menuItem.create({
     data: {
       title: "Catálogos",
-      order: 7,
+      order: 6,
       path: menuJson.catalogos,
       icon: "BookMarked"
     }
@@ -124,24 +99,24 @@ export async function menuSeed() {
   await prisma.menuItem.createMany({
     data: [
       {
-        title: "Centros Escolares",
+        title: "Centros Educativos",
         path: menuJson.centrosEscolares,
         icon: "",
-        order: 7.1,
+        order: 6.1,
         parentId: catalogo.id
       },
       {
         title: "Módulos Formativos",
         path: menuJson.modulos,
         icon: "",
-        order: 7.2,
+        order: 6.2,
         parentId: catalogo.id
       },
       {
         title: "Zonas",
         path: menuJson.zonas,
         icon: "",
-        order: 7.3,
+        order: 6.3,
         parentId: catalogo.id
       }
     ]
