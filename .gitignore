@@ -38,7 +38,7 @@ wait-for-it.sh
 
 # dotenv environment variable files
 .env
-.env.development.local
+.env.dev
 .env.test.local
 .env.production.local
 .env.local
