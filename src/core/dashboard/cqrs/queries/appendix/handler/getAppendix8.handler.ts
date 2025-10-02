@@ -1,13 +1,13 @@
 import { QueryHandler } from "@nestjs/cqrs";
-import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAppendix8Query } from "../queries/getAppendix8.query";
 import { IAppendix8 } from "@/core/dashboard/dto/dashboard.type";
 
 @QueryHandler(GetAppendix8Query)
 export class GetAppendix8Handler {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor() {}
 
   async execute(): Promise<IAppendix8[]> {
+    /*
     const records = await this.prisma.appendixTest.findMany({
       where: {
         name: "Anexo 8"
@@ -66,6 +66,7 @@ export class GetAppendix8Handler {
       };
     });
 
-    return dimensionList;
+    return dimensionList;*/
+    return [];
   }
 }

@@ -1,7 +1,6 @@
 import { ClassSerializerInterceptor, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_INTERCEPTOR, RouterModule } from "@nestjs/core";
-import * as fs from "fs";
 import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 
 // config
@@ -27,7 +26,6 @@ import { HealthModule } from "./core/health/health.module";
 import { TrainingModule } from "./core/catalogue/trainingModule/trainingModule.module";
 import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrument/evaluationInstrument.module";
 import { SchoolModule } from "./core/catalogue/school/school.module";
-import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
 import { DashboardModule } from "./core/dashboard/dashboard.module";
 import { AppendixModule } from "./core/appendix/appendix.module";
 
@@ -40,11 +38,11 @@ import { AppendixModule } from "./core/appendix/appendix.module";
     JwtModule.registerAsync({
       useFactory: (): JwtModuleOptions => ({
         global: true,
-        privateKey: fs.readFileSync(process.env.JWT_PRIVATE_KEY_PATH!, "utf8"),
-        publicKey: fs.readFileSync(process.env.JWT_PUBLIC_KEY_PATH!, "utf8"),
+        privateKey: process.env.JWT_PRIVATE_KEY,
+        publicKey: process.env.JWT_PUBLIC_KEY,
         signOptions: {
-          algorithm: "RS256", // Algoritmo para firmar tokens
-          expiresIn: "15m" // Tiempo de vida del accessToken
+          algorithm: "RS256",
+          expiresIn: "15m"
         }
       })
     }),
@@ -64,7 +62,6 @@ import { AppendixModule } from "./core/appendix/appendix.module";
     EvaluationInstrumentModule,
     DashboardModule,
     AppendixModule,
-    AppendixTestModule,
     RouterModule.register([
       {
         path: "api",
@@ -106,10 +103,6 @@ import { AppendixModule } from "./core/appendix/appendix.module";
           {
             path: "attendance",
             module: AttendanceModule
-          },
-          {
-            path: "appendix-test",
-            module: AppendixTestModule
           },
           {
             path: "dashboard",

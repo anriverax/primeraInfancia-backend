@@ -1,4 +1,4 @@
-import { RequestMethod, ValidationPipe } from "@nestjs/common";
+import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as cookieParser from "cookie-parser";
 import { AppModule } from "./app.module";
@@ -23,16 +23,6 @@ async function bootstrap() {
     })
   );
   app.use(cookieParser()); // Configura cookie-parser
-
-  if (process.env.NODE_ENV !== "development") {
-    app.setGlobalPrefix("api", {
-      exclude: [
-        { path: "test/department", method: RequestMethod.GET },
-        { path: "test/permission/addMenuPermission", method: RequestMethod.GET },
-        { path: "test/permission/addAdminPermission", method: RequestMethod.GET }
-      ]
-    });
-  }
 
   await app.listen(3001, () =>
     console.log(`
