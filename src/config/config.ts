@@ -43,8 +43,8 @@ export default (): IEnv => ({
     expiration: process.env.JWT_EXPIRATION?.toString(),
     refreshToken: process.env.JWT_REFRESH_TOKEN?.toString(),
     refreshSecret: process.env.JWT_REFRESH_SECRET?.toString(),
-    privateKey: process.env.JWT_PRIVATE_KEY_PATH?.toString(),
-    publicKey: process.env.JWT_PUBLIC_KEY_PATH?.toString()
+    privateKey: process.env.JWT_PRIVATE_KEY?.toString(),
+    publicKey: process.env.JWT_PUBLIC_KEY?.toString()
   },
   redis: process.env.REDIS?.toString(),
   resend: process.env.RESEND?.toString(),

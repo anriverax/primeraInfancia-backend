@@ -2,13 +2,13 @@ import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as cookieParser from "cookie-parser";
 import { AppModule } from "./app.module";
-
+import * as process from "node:process";
 /* eslint-disable */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: "http://localhost:3000", // Cambia esto si tu frontend está en otro dominio/puerto
+    origin: process.env.SERVER_URL, // Cambia esto si tu frontend está en otro dominio/puerto
     credentials: true
   });
 

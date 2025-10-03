@@ -25,10 +25,14 @@ export class TokenService {
     const { id, email, rolId, role, permissions } = data;
     const tokenId = uuidv4();
 
+    const privateKey =
+      this.config.get<string>("jwt.privateKey") ||
+      fs.readFileSync(this.config.get<string>("jwt.privateKey")!, "utf8");
+
     const accessToken = this.jwtService.sign(
       { sub: id, email, rolId, role, tokenId, permissions },
       {
-        privateKey: fs.readFileSync(process.env.JWT_PRIVATE_KEY_PATH!, "utf8"),
+        privateKey: privateKey,
         algorithm: "RS256",
         expiresIn: this.config.get<string>("jwt.expiration") || "15m"
       }
