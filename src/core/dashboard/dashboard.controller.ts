@@ -14,7 +14,7 @@ import { GetAppendixByMentorQuery } from "./queries/get-appendix-by-mentor.query
 
 @Controller("/participant")
 export class DashboardController {
-  constructor(private queryBus: QueryBus) { }
+  constructor(private queryBus: QueryBus) {}
 
   @Get()
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -44,7 +44,6 @@ export class DashboardController {
     const GetTeacherCountsByEducationalLevelServedPromise = this.queryBus.execute(
       new GetTeacherCountsByEducationalLevelServedQuery()
     );
-
 
     const [
       schoolsBySector,
@@ -104,11 +103,7 @@ export class DashboardController {
   }> {
     const appendixByMentorPromise = this.queryBus.execute(new GetAppendixByMentorQuery());
 
-    const [
-      answerAppendixByMentor
-    ] = await Promise.all([
-      appendixByMentorPromise
-    ]);
+    const [answerAppendixByMentor] = await Promise.all([appendixByMentorPromise]);
 
     return {
       answerAppendixByMentor

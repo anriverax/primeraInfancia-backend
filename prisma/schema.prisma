@@ -660,6 +660,7 @@ model Answer {
 
 model Question {
   id                 Int            @id @default(autoincrement())
+  fieldName          String
   text               String        
   questionType       String        
   orderBy            Int

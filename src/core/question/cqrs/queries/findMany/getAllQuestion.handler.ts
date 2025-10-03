@@ -17,6 +17,7 @@ export class GetAllQuestionHandler {
         take: limit,
         select: {
           id: true,
+          fieldName: true,
           text: true,
           questionType: true,
           orderBy: true,

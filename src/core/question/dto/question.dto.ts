@@ -2,6 +2,11 @@ import { Transform } from "class-transformer";
 import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, Min } from "class-validator";
 
 export class QuestionDto {
+  @IsNotEmpty({ message: "El nombre del campo es obligatorio." })
+  @Transform(({ value }) => value.trim())
+  @IsString({ message: "El nombre del campo debe ser una cadena de texto." })
+  fieldName: string;
+
   @IsNotEmpty({ message: "El enunciado es obligatorio." })
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El enunciado debe ser una cadena de texto." })

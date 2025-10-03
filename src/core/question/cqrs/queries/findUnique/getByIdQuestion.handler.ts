@@ -12,6 +12,7 @@ export class GetByIdQuestionHandler {
       where: { id: query.id },
       select: {
         id: true,
+        fieldName: true,
         text: true,
         questionType: true,
         orderBy: true,

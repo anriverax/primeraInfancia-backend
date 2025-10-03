@@ -3,18 +3,34 @@ import { Question } from "@prisma/client";
 
 export type ICreateQuestion = Pick<
   Question,
-  "text" | "questionType" | "orderBy" | "subSection" | "isRequired" | "sectionId" | "createdBy"
+  | "fieldName"
+  | "text"
+  | "questionType"
+  | "orderBy"
+  | "subSection"
+  | "isRequired"
+  | "sectionId"
+  | "createdBy"
 >;
 
 export type IUpdateQuestion = Pick<
   Question,
-  "id" | "text" | "questionType" | "orderBy" | "subSection" | "isRequired" | "sectionId" | "updatedBy"
+  | "id"
+  | "fieldName"
+  | "text"
+  | "questionType"
+  | "orderBy"
+  | "subSection"
+  | "isRequired"
+  | "sectionId"
+  | "updatedBy"
 >;
 
 export type IDeleteQuestion = Pick<Question, "id" | "deletedBy">;
 
 export interface IGetAllQuestion {
   id: number;
+  fieldName: string;
   text: string;
   questionType: string;
   orderBy: number;
