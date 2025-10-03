@@ -11,7 +11,7 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
+.yarn
 wait-for-it.sh
 # OS
 .DS_Store
@@ -38,7 +38,7 @@ wait-for-it.sh
 
 # dotenv environment variable files
 .env
-.env.development.local
+.env.dev
 .env.test.local
 .env.production.local
 .env.local
@@ -46,7 +46,6 @@ wait-for-it.sh
 # temp directory
 .temp
 .tmp
-
 # Runtime data
 pids
 *.pid

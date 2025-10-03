@@ -78,8 +78,12 @@ export class AuthService {
       await this.redisService.del(refreshTokenKey);
 
       if (accessToken) {
+        const privateKey =
+          this.config.get<string>("jwt.publicKey") ||
+          fs.readFileSync(this.config.get<string>("jwt.publicKey")!, "utf8");
+
         const accessTokenPayload = await this.jwtService.verifyAsync(accessToken, {
-          publicKey: fs.readFileSync(this.config.get<string>("jwt.publicKey")!, "utf8"),
+          publicKey: privateKey,
           algorithms: ["RS256"]
         });
 

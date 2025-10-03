@@ -55,9 +55,13 @@ export class AccessTokenGuard implements CanActivate {
     }
 
     try {
+      const publicKey =
+        this.config.get<string>("jwt.publicKey") ||
+        fs.readFileSync(this.config.get<string>("jwt.publicKey")!, "utf8");
+
       // Verify the token using the public key
       const payload = await this.jwtService.verifyAsync(token, {
-        publicKey: fs.readFileSync(this.config.get<string>("jwt.publicKey")!, "utf8"),
+        publicKey: publicKey,
         algorithms: ["RS256"] // Algoritmo asimétrico
       });
 
