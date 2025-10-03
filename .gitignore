@@ -15,7 +15,7 @@ lerna-debug.log*
 wait-for-it.sh
 # OS
 .DS_Store
-
+infrastructure.yml
 # Tests
 /coverage
 /.nyc_output
@@ -46,7 +46,6 @@ wait-for-it.sh
 # temp directory
 .temp
 .tmp
-infrastructure.yml
 # Runtime data
 pids
 *.pid
