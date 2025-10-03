@@ -46,7 +46,7 @@ wait-for-it.sh
 # temp directory
 .temp
 .tmp
-
+infrastructure.yml
 # Runtime data
 pids
 *.pid
