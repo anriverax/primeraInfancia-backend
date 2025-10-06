@@ -4,11 +4,10 @@ import { JwtService } from "@nestjs/jwt";
 import * as argon from "argon2";
 import { Resend } from "resend";
 import { RedisService } from "@/services/redis/redis.service";
-import { generateCode } from "@/common/helpers/functions";
+import { generateCode, getPublicKey } from "@/common/helpers/functions";
 import { ILoginResponse, IUser } from "../dto/auth.type";
 import { renderedVerifyEmail } from "../templates/verifyEmail";
 import { renderedChangePasswd } from "../templates/changePasswd";
-import * as fs from "fs";
 
 @Injectable({})
 export class AuthService {
@@ -78,9 +77,7 @@ export class AuthService {
       await this.redisService.del(refreshTokenKey);
 
       if (accessToken) {
-        const publicKey =
-          this.config.get<string>("jwt.publicKey") ||
-          fs.readFileSync(this.config.get<string>("jwt.publicKey")!, "utf8");
+        const publicKey = getPublicKey(this.config);
 
         const accessTokenPayload = await this.jwtService.verifyAsync(accessToken, {
           publicKey: publicKey,

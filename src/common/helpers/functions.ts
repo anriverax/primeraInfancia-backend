@@ -1,6 +1,8 @@
 import { AES, enc } from "crypto-js";
 import { BadRequestException, ForbiddenException, Logger } from "@nestjs/common";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import * as fs from "fs";
+import { ConfigService } from "@nestjs/config";
 
 /* eslint-disable */
 export function handlePrismaError(module: string, error: any): never {
@@ -58,4 +60,26 @@ export function formatDate(d: Date) {
   const formatted = new Intl.DateTimeFormat("es-ES", options).format(d);
 
   return formatted;
+}
+
+export function getPrivateKey(configService: ConfigService): string {
+  if (process.env.NODE_ENV === "development")
+    return fs.readFileSync(process.env.JWT_PRIVATE_KEY!, "utf8");
+
+  const privateKey =
+    configService.get<string>("jwt.privateKey") ||
+    fs.readFileSync(configService.get<string>("jwt.privateKey")!, "utf8");
+
+  return privateKey;
+}
+
+export function getPublicKey(configService: ConfigService): string {
+  if (process.env.NODE_ENV === "development")
+    return fs.readFileSync(process.env.JWT_PUBLIC_KEY!, "utf8");
+
+  const publicKey =
+    configService.get<string>("jwt.publicKey") ||
+    fs.readFileSync(configService.get<string>("jwt.publicKey")!, "utf8");
+
+  return publicKey;
 }

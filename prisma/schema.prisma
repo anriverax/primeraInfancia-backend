@@ -242,6 +242,7 @@ model PersonRole {
   Event                            Event[]
   TechSupportAssignmentsAsTech     TechSupportAssignments[] @relation("TechSupportToAssignments")
   TechSupportAssignmentsAsAssigned TechSupportAssignments[] @relation("AssignedRoleToAssignments")
+  MentorAssignment                 MentorAssignment[]
 
   @@unique([personId, typePersonId])
 }
@@ -343,17 +344,19 @@ model Inscription {
 }
 
 model MentorAssignment {
-  id            Int                    @id @default(autoincrement())
-  mentorId      Int
-  inscriptionId Int
-  Mentor        TechSupportAssignments @relation(fields: [mentorId], references: [id])
-  Inscription   Inscription            @relation(fields: [inscriptionId], references: [id])
-  createdAt     DateTime               @default(now())
-  updatedAt     DateTime?              @updatedAt
-  deletedAt     DateTime?
-  createdBy     Int
-  updatedBy     Int?
-  deletedBy     Int?
+  id                      Int                    @id @default(autoincrement())
+  techSupportAssignmentId Int
+  mentorId                Int
+  inscriptionId           Int
+  TechSupportAssignment   TechSupportAssignments @relation(fields: [techSupportAssignmentId], references: [id])
+  Mentor                  PersonRole             @relation(fields: [mentorId], references: [id])
+  Inscription             Inscription            @relation(fields: [inscriptionId], references: [id])
+  createdAt               DateTime               @default(now())
+  updatedAt               DateTime?              @updatedAt
+  deletedAt               DateTime?
+  createdBy               Int
+  updatedBy               Int?
+  deletedBy               Int?
 
   @@unique([mentorId, inscriptionId])
 }

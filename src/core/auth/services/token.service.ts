@@ -4,8 +4,8 @@ import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
 import { RedisService } from "@/services/redis/redis.service";
 import { ILoginResponse, IUser } from "../dto/auth.type";
-import * as fs from "fs";
 import { Request } from "express";
+import { getPrivateKey } from "@/common/helpers/functions";
 
 @Injectable()
 export class TokenService {
@@ -25,9 +25,7 @@ export class TokenService {
     const { id, email, rolId, role, permissions } = data;
     const tokenId = uuidv4();
 
-    const privateKey =
-      this.config.get<string>("jwt.privateKey") ||
-      fs.readFileSync(this.config.get<string>("jwt.privateKey")!, "utf8");
+    const privateKey = getPrivateKey(this.config);
 
     const accessToken = this.jwtService.sign(
       { sub: id, email, rolId, role, tokenId, permissions },

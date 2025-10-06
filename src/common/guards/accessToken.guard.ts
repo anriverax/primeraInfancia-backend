@@ -11,7 +11,7 @@ import { RedisService } from "@/services/redis/redis.service";
 import { Request } from "express";
 import { AUTH_REQUIRED } from "@/common/decorators/authRequired.decorator";
 import { ConfigService } from "@nestjs/config";
-import * as fs from "fs";
+import { getPublicKey } from "../helpers/functions";
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {
@@ -55,9 +55,7 @@ export class AccessTokenGuard implements CanActivate {
     }
 
     try {
-      const publicKey =
-        this.config.get<string>("jwt.publicKey") ||
-        fs.readFileSync(this.config.get<string>("jwt.publicKey")!, "utf8");
+      const publicKey = getPublicKey(this.config);
 
       // Verify the token using the public key
       const payload = await this.jwtService.verifyAsync(token, {
