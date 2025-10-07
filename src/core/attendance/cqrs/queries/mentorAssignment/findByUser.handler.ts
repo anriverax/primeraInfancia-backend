@@ -11,11 +11,9 @@ export class FindByUserIdHandler {
     const mentorAssignment = await this.prisma.mentorAssignment.findMany({
       where: {
         Mentor: {
-          AssignedRole: {
-            Person: {
-              User: {
-                id: query.id
-              }
+          Person: {
+            User: {
+              id: query.id
             }
           }
         }

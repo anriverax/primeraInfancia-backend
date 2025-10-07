@@ -28,6 +28,7 @@ import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrumen
 import { SchoolModule } from "./core/catalogue/school/school.module";
 import { DashboardModule } from "./core/dashboard/dashboard.module";
 import { AppendixModule } from "./core/appendix/appendix.module";
+import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { AppendixModule } from "./core/appendix/appendix.module";
     EvaluationInstrumentModule,
     DashboardModule,
     AppendixModule,
+    TechsupportModule,
     RouterModule.register([
       {
         path: "api",
@@ -74,6 +76,10 @@ import { AppendixModule } from "./core/appendix/appendix.module";
             path: "catalogue",
             module: CatalogueModule,
             children: [
+              {
+                path: "cargar-data",
+                module: TechsupportModule
+              },
               {
                 path: "zone",
                 module: ZoneModule
