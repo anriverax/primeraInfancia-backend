@@ -1,7 +1,6 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAllAttendanceQuery } from "./getAllAttendance.query";
-import { AttendanceEnum } from "@prisma/client";
 import { IGroupCount } from "@/core/dashboard/dto/dashboard.type";
 
 @QueryHandler(GetAllAttendanceQuery)
@@ -9,12 +8,14 @@ export class GetAllAttendanceHandler {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetAllAttendanceQuery): Promise<IGroupCount[]> {
-    const { status } = query;
-
+    console.log(query);
     const attendances = await this.prisma.attendance.groupBy({
       by: ["eventId"],
       where: {
-        status: status as AttendanceEnum,
+        status: "PRESENTE",
+        Event: {
+          eventTypeId: { in: [2, 3, 4] }
+        },
         PersonRole: {
           deletedAt: null,
           deletedBy: null,
@@ -43,7 +44,7 @@ export class GetAllAttendanceHandler {
     );
 
     const data = result.filter((r) => r.label !== null) as { label: string; count: number }[];
-
+    console.log(data);
     const grouped = Object.values(
       data.reduce(
         (acc, item) => {
@@ -56,7 +57,7 @@ export class GetAllAttendanceHandler {
         {} as Record<string, { label: string; count: number }>
       )
     );
-
+    console.log(grouped);
     return grouped;
   }
 }

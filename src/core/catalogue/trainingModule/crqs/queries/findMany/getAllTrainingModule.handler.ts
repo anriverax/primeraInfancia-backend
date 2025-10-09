@@ -11,7 +11,11 @@ export class GetAllTrainingModuleHandler {
     const trainingModules = await this.prisma.trainingModule.findMany({
       select: {
         id: true,
-        name: true
+        name: true,
+        title: true,
+        startDate: true,
+        endDate: true,
+        hours: true
       },
       orderBy: {
         name: "asc"

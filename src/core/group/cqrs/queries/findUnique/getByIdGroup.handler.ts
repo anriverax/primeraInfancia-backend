@@ -35,29 +35,37 @@ export class GetByIdGroupHandler {
             },
             AssignedRole: {
               select: {
-                TypePerson: { select: { name: true } },
                 Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
               }
-            }
-          }
-        },
-        Inscription: {
-          select: {
-            id: true,
-            deletedAt: true,
-            PersonRole: {
+            },
+            MentorAssignment: {
               select: {
-                Person: {
+                Mentor: {
+                  select: {
+                    Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+                  }
+                },
+                Inscription: {
                   select: {
                     id: true,
-                    firstName: true,
-                    lastName1: true,
-                    lastName2: true,
-                    phoneNumber: true,
-                    User: { select: { email: true, avatar: true } },
-                    PrincipalSchool: {
+                    deletedAt: true,
+                    PersonRole: {
                       select: {
-                        School: { select: { name: true } }
+                        Person: {
+                          select: {
+                            id: true,
+                            firstName: true,
+                            lastName1: true,
+                            lastName2: true,
+                            phoneNumber: true,
+                            User: { select: { email: true, avatar: true } },
+                            PrincipalSchool: {
+                              select: {
+                                School: { select: { name: true } }
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -76,8 +84,8 @@ export class GetByIdGroupHandler {
     if (!group) return null;
 
     const { Department, ...rest } = group;
-    const newGroup = { ...rest, department: Department.name } as IGetByIdGroup;
+    const newGroup = { ...rest, department: Department.name };
 
-    return newGroup;
+    return newGroup as IGetByIdGroup;
   }
 }

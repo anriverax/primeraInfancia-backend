@@ -35,9 +35,9 @@ export class GroupController {
   async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupOrderAssignedRole>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
 
-    const { GroupTechSupport, Inscription, ...rest } = result;
+    const { GroupTechSupport, ...rest } = result;
 
-    const newOrder = this.groupService.order(GroupTechSupport, Inscription);
+    const newOrder = this.groupService.order(GroupTechSupport);
 
     const { techSupport, trainer, teachers, mentors } = newOrder;
 

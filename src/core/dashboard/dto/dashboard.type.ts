@@ -1,3 +1,5 @@
+import { IGetAllTrainingModule } from "@/core/catalogue/trainingModule/dto/trainingModule.type";
+
 export interface IGroupCount {
   label: string;
   count: number;
@@ -16,6 +18,7 @@ export interface DashboardPerson {
 
 export interface DashboardAttendance {
   eventType: IGroupCount[];
+  trainingModule: Pick<IGetAllTrainingModule, "id" | "name">[];
   mentoring: IGroupCount[];
   events: IEventType[];
 }

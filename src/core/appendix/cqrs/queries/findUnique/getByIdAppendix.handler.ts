@@ -45,18 +45,7 @@ export class GetByIdDetailAppendixHandler {
                 questionType: true,
                 orderBy: true,
                 subSection: true,
-                isRequired: true,
-                Option: {
-                  select: {
-                    text: true,
-                    value: true,
-                    DetailOption: {
-                      select: {
-                        textToDisplay: true
-                      }
-                    }
-                  }
-                }
+                isRequired: true
               }
             }
           }

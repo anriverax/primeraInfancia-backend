@@ -25,7 +25,7 @@ export class GetAllRegisteredTeachersHandler {
       activeTeachers = persons.filter((person) => person.PersonRole.deletedAt === null).length;
       inactiveTeachers = persons.filter((person) => person.PersonRole.deletedAt !== null).length;
     }
-
+    console.log(activeTeachers, inactiveTeachers);
     return { active: activeTeachers, inactive: inactiveTeachers };
   }
 }

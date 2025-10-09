@@ -7,6 +7,7 @@ import { GetAllTrainingModuleHandler } from "./crqs/queries/findMany/getAllTrain
 const QueryHandlers = [GetAllTrainingModuleHandler];
 
 @Module({
+  exports: [GetAllTrainingModuleHandler],
   imports: [CqrsModule, JwtModule],
   controllers: [TrainingModuleController],
   providers: [...QueryHandlers]

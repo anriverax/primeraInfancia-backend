@@ -1,5 +1,5 @@
 import { IPagination } from "@/common/helpers/types";
-import { Group, Inscription, Person, TypePersonEnum } from "@prisma/client";
+import { Group, Inscription, Person } from "@prisma/client";
 
 export interface IGroup extends Pick<Group, "id" | "memberCount"> {
   department: string;
@@ -26,7 +26,7 @@ interface InscriptionPerson
   }[];
 }
 
-interface GroupInscription extends Pick<Inscription, "id" | "deletedAt"> {
+export interface GroupInscription extends Pick<Inscription, "id" | "deletedAt"> {
   PersonRole: {
     Person: InscriptionPerson;
   };
@@ -34,7 +34,6 @@ interface GroupInscription extends Pick<Inscription, "id" | "deletedAt"> {
 
 export interface IGetByIdGroup extends IGroup {
   GroupTechSupport: IGroupTechSupport[];
-  Inscription: GroupInscription[];
 }
 
 export type IGetByIdGroupOrderAssignedRole = IGroup & IOrderAssignedRole;
@@ -45,9 +44,12 @@ export interface IGroupTechSupport {
     Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
   };
   AssignedRole: {
-    TypePerson: { name: TypePersonEnum };
     Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
   };
+  MentorAssignment: {
+    Mentor: { Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> };
+    Inscription: GroupInscription;
+  }[];
 }
 
 export interface IAssignedRole {

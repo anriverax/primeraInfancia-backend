@@ -15,6 +15,8 @@ import { GetAllEventByTypeQuery } from "./cqrs/queries/eventType/getAllEventByTy
 import { GetTeacherCountByYearExperienceQuery } from "./cqrs/queries/person/queries/getTeacherCountByYearExperiencie.query";
 import { GetTeacherCountByEducationalLevelQuery } from "./cqrs/queries/person/queries/getTeacherCountByEducationalLevel ";
 import { GetAppendix8Query } from "./cqrs/queries/appendix/queries/getAppendix8.query";
+import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/queries/findMany/getAllTrainingModule.query";
+import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
 
 @Controller()
 export class DashboardController {
@@ -55,10 +57,17 @@ export class DashboardController {
 
   @Get("/attendance/:status")
   async getDashboardAttendance(@Param("status") status: string): Promise<DashboardAttendance> {
-    const attendances = await this.queryBus.execute(new GetAllAttendanceQuery(status));
-    const mentoring = await this.queryBus.execute(new GetAllMentoringQuery(status));
+    const attendances = await this.queryBus.execute(new GetAllAttendanceQuery(status.toUpperCase()));
+    const mentoring = await this.queryBus.execute(new GetAllMentoringQuery(status.toUpperCase()));
     const events = await this.queryBus.execute(new GetAllEventByTypeQuery());
-    return { eventType: attendances, mentoring, events };
+    const trainingModule = await this.queryBus.execute(new GetAllTrainingModuleQuery());
+
+    const result = trainingModule.map((module: IGetAllTrainingModule) => ({
+      id: module.id,
+      name: module.name
+    }));
+
+    return { eventType: attendances, trainingModule: result, mentoring, events };
   }
 
   @Get("/mentoring")

@@ -1,31 +1,38 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAllEventByTypeQuery } from "./getAllEventByType.query";
-import { IEventType } from "@/core/dashboard/dto/dashboard.type";
+// import { IEventType } from "@/core/dashboard/dto/dashboard.type";
 
 @QueryHandler(GetAllEventByTypeQuery)
 export class GetAllEventByTypeHandler {
   constructor(private readonly prisma: PrismaService) {}
-
-  async execute(): Promise<IEventType[]> {
-    const events = await this.prisma.eventType.findMany({
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  async execute(): Promise<any[]> {
+    const events = await this.prisma.attendance.findMany({
+      where: {
+        checkOut: { not: null }
+      },
       select: {
-        name: true,
         Event: {
           select: {
-            name: true
+            EventType: {
+              select: {
+                name: true
+              }
+            }
           }
         }
       }
     });
-
+    console.log(events);
+    /*
     const result = events
       .map((e) => ({
         ...e,
         totalEvents: e.Event.length
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
-
-    return result;
+*/
+    return events;
   }
 }
