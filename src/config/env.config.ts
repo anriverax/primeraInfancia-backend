@@ -1,5 +1,5 @@
 import { plainToClass } from "class-transformer";
-import {  IsEnum, IsNumber, validateSync, IsString } from "class-validator";
+import { IsAlphanumeric, IsEnum, IsNumber, validateSync, IsString } from "class-validator";
 
 enum EnvType {
   Dev = "development",
@@ -23,15 +23,13 @@ class EnvVariables {
   @IsString()
   POSTGRES_USER: string;
 
-  //@IsAlphanumeric()
-  @IsString()
+  @IsAlphanumeric()
   POSTGRES_PASSWORD: string;
 
   @IsString()
   POSTGRES_DB: string;
 
-  //@IsAlphanumeric()
-  @IsString()
+  @IsAlphanumeric()
   POSTGRES_HOST: string;
 
   // DATABASE_URL is optional
