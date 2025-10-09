@@ -52,7 +52,7 @@ export class GroupService {
       { mentors: [] as IAssignedRole[] }
     );
 
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+     
     const getTeachers = groupTechSupport.reduce(
       (acc, ins) => {
         ins.MentorAssignment.forEach((item) => {
@@ -80,7 +80,7 @@ export class GroupService {
       },
       { teachers: [] as IInscriptionPerson[] }
     );
-    /* eslint-enable @typescript-eslint/no-explicit-any */
+     
 
     return {
       techSupport: getTechSupport.techSupport,
