@@ -35,11 +35,19 @@ export class GetByIdDetailAppendixHandler {
         subTitle: true,
         description: true,
         Section: {
+          // 1. Order Sections by 'orderBy' property
+          orderBy: {
+            orderBy: "asc" // Or 'desc' based on your requirement
+          },
           select: {
             title: true,
             summary: true,
             orderBy: true,
             Question: {
+              // 2. Order Questions by 'orderBy' property
+              orderBy: {
+                orderBy: "asc" // Or 'desc' based on your requirement
+              },
               select: {
                 fieldName: true,
                 text: true,
@@ -47,24 +55,12 @@ export class GetByIdDetailAppendixHandler {
                 orderBy: true,
                 subSection: true,
                 isRequired: true,
-                Option: {
-                  select: {
-                    text: true,
-                    value: true,
-                    DetailOption: {
-                      select: {
-                        textToDisplay: true
-                      }
-                    }
-                  }
-                }
               }
             }
           }
         }
       }
     });
-
     return appendixs;
   }
 }
