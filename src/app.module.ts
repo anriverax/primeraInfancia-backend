@@ -38,14 +38,7 @@ import { InscriptionModule } from "./core/inscription/inscription.module";
 import { AppendixModule } from "./core/appendix/appendix.module";
 import { SectionModule } from "./core/section/section.module";
 import { QuestionModule } from "./core/question/question.module";
-import { OptionModule } from "./core/option/option.module";
-import { MultipleAnswerModule } from "./core/multipleAnswer/multipleAnswer.module";
 import { AnswerModule } from "./core/answer/answer.module";
-import { ResponseSessionModule } from "./core/responseSession/responseSession.module";
-import { TrackingTypeModule } from "./core/trackingType/trackingType.module";
-import { TrackingModule } from "./core/tracking/tracking.module";
-import { EvidenceModule } from "./core/evidence/evidence.module";
-import { AppendixTestModule } from "./core/appendixTest/appendixTest.module";
 
 //Dashboard
 import { DashboardModule } from "./core/dashboard/dashboard.module";
@@ -88,13 +81,7 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
     AppendixModule,
     SectionModule,
     QuestionModule,
-    OptionModule,
-    MultipleAnswerModule,
     AnswerModule,
-    ResponseSessionModule,
-    TrackingTypeModule,
-    EvidenceModule,
-    AppendixTestModule,
     DashboardModule,
     RouterModule.register([
       {
@@ -163,36 +150,8 @@ import { DashboardModule } from "./core/dashboard/dashboard.module";
             module: QuestionModule
           },
           {
-            path: "option",
-            module: OptionModule
-          },
-          {
-            path: "multi-answer",
-            module: MultipleAnswerModule
-          },
-          {
             path: "answer",
             module: AnswerModule
-          },
-          {
-            path: "response-session",
-            module: ResponseSessionModule
-          },
-          {
-            path: "tracking-type",
-            module: TrackingTypeModule
-          },
-          {
-            path: "tracking",
-            module: TrackingModule
-          },
-          {
-            path: "evidence",
-            module: EvidenceModule
-          },
-          {
-            path: "appendix-test",
-            module: AppendixTestModule
           },
           {
             path: "dashboard",

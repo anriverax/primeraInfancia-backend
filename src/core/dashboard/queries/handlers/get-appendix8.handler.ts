@@ -9,13 +9,13 @@ export class GetAppendix8Handler implements IQueryHandler<GetAppendix8Query> {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(): Promise<any> {
     // Filtrar por 'Anexo 8'
-    const records = await this.prisma.appendixTest.findMany({
+    const records = await this.prisma.answer.findMany({
       where: {
-        name: "Anexo 8"
+        valueText: "Anexo 8"
       },
       select: {
-        textQuestion: true,
-        textAnswer: true
+        questionId: true,
+        valueText: true
       }
     });
 
@@ -23,12 +23,12 @@ export class GetAppendix8Handler implements IQueryHandler<GetAppendix8Query> {
 
     // Procesar 'textQuestion'
     for (const record of records) {
-      const parts = record.textQuestion.split("||");
+      const parts = record.questionId.toString().split("||");
 
       if (parts.length >= 2) {
         const time = parts[0];
         const dimension = parts[1];
-        const answer = record.textAnswer;
+        const answer = record.valueText;
 
         if (!dimensionMap.has(dimension)) {
           dimensionMap.set(dimension, new Map());

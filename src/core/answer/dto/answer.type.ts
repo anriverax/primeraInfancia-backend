@@ -1,11 +1,11 @@
 import { IPagination } from "@/common/helpers/types";
 import { Answer } from "@prisma/client";
 
-export type ICreateAnswer = Pick<Answer, "valueText" | "questionId" | "responseSessionId" | "createdBy">;
+export type ICreateAnswer = Pick<Answer, "valueText" | "questionId" | "inscriptionId" | "createdBy">;
 
 export type IUpdateAnswer = Pick<
   Answer,
-  "id" | "valueText" | "questionId" | "responseSessionId" | "updatedBy"
+  "id" | "valueText" | "questionId" | "inscriptionId" | "updatedBy"
 >;
 
 export type IDeleteAnswer = Pick<Answer, "id" | "deletedBy">;
@@ -14,7 +14,7 @@ export interface IGetAllAnswer {
   id: number;
   valueText: string;
   questionId: number;
-  responseSessionId: number;
+  inscriptionId: number;
 }
 
 export interface IAnswersWithPagination {

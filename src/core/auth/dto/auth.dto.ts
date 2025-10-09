@@ -98,7 +98,7 @@ export class AuthDto {
   email: string;
 
   // The user's password.
-  @IsNotEmpty({ message: "La contraseña es un campo obligatorio." })
+  //@IsNotEmpty({ message: "La contraseña es un campo obligatorio." })
   @Transform(({ value }) => decryptTextTransformer(value as string))
   @IsString({ message: "La contraseña debe ser una cadena de texto válida." })
   passwd: string;

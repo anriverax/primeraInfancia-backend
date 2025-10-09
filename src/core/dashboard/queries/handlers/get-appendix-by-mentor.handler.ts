@@ -9,8 +9,8 @@ export class GetAppendixByMentorHandler implements IQueryHandler<GetAppendixByMe
   /* eslint-disable @typescript-eslint/no-explicit-any */
   async execute(): Promise<any> {
     // Filtrar por 'Anexo 8'
-    const results = await this.prisma.appendixTest.groupBy({
-      by: ["name"],
+    const results = await this.prisma.answer.groupBy({
+      by: ["valueText"],
       _count: {
         _all: true // This alias calculates the number of rows per 'name' group
       }

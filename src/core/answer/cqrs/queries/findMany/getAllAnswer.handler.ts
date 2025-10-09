@@ -19,7 +19,7 @@ export class GetAllAnswerHandler {
           id: true,
           valueText: true,
           questionId: true,
-          responseSessionId: true
+          inscriptionId: true
         },
         orderBy: {
           id: "asc"

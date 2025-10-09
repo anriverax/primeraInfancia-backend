@@ -12,10 +12,10 @@ export class AnswerDto {
   @Min(1, { message: "La pregunta debe ser una cadena de texto." })
   questionId: number;
 
-  @IsNotEmpty({ message: "La aplicación es obligatorio." })
+  @IsNotEmpty({ message: "La inscripcion es obligatorio." })
   @IsNumber()
-  @Min(1, { message: "La aplicación debe ser un número." })
-  responseSessionId: number;
+  @Min(1, { message: "La inscripcion debe ser un número." })
+  inscriptionId: number;
 }
 
 export class AnswerPaginationDto {

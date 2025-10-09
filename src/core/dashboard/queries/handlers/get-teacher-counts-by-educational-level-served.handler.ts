@@ -9,17 +9,17 @@ export class GetTeacherCountsByEducationalLevelServedHandler
   constructor(private prisma: PrismaService) {}
 
   async execute(): Promise<{ textQuestion: string | null; count: number }[]> {
-    const records = await this.prisma.appendixTest.groupBy({
-      by: ["textAnswer"],
+    const records = await this.prisma.answer.groupBy({
+      by: ["valueText"],
       _count: { id: true },
       where: {
-        name: "Anexo 2",
-        textQuestion: "Nivel educativo que atiende"
+        valueText: "Anexo 2",
+        questionId: 2
       }
     });
 
     return records.map((item) => ({
-      textQuestion: item.textAnswer,
+      textQuestion: item.valueText,
       count: item._count.id
     }));
   }

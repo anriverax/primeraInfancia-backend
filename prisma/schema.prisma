@@ -365,7 +365,7 @@ model Inscription {
   createdBy            Int?
   updatedBy            Int?
   deletedBy            Int?
-  ResponseSession      ResponseSession[]
+  Answer               Answer[]
   MentorAssignment     MentorAssignment[]
   ModuleReport         ModuleReport[]
   ModuleEvaluation     ModuleEvaluation[]
@@ -599,194 +599,72 @@ model ModuleEvaluation {
 
 // ====== START - ATTACHMENT ======
 
-model DetailOption {
-  id              Int               @id @default(autoincrement())
-  textToDisplay   String           
-  optionId        Int
-  Option          Option            @relation(fields: [optionId], references: [id])
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  deletedAt       DateTime?
-  createdBy       Int?
-  updatedBy       Int?
-  deletedBy       Int?
-}
-
-model MultipleAnswer {
-  id                Int             @id @default(autoincrement())
-  answerId          Int
-  Answer            Answer          @relation(fields: [answerId], references: [id])
-  optionId          Int
-  Option            Option          @relation(fields: [optionId], references: [id])
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  deletedAt         DateTime?
-  createdBy         Int?
-  updatedBy         Int?
-  deletedBy         Int?
-}
-
-model Option {
-  id                Int                 @id @default(autoincrement())
-  text              String              @db.VarChar(500)
-  value             String              @db.VarChar(500)
-  questionId        Int
-  Question          Question            @relation(fields: [questionId], references: [id])
-  DetailOption      DetailOption[]
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  deletedAt         DateTime?
-  createdBy         Int?
-  updatedBy         Int?
-  deletedBy         Int?
-  MultipleAnswer    MultipleAnswer[]
-}
-
-model Answer {
-  id                 Int                       @id @default(autoincrement())
-  valueText          String                                 
-  questionId         Int
-  Question           Question                  @relation(fields: [questionId], references: [id])
-  responseSessionId  Int
-  ResponseSession    ResponseSession           @relation(fields: [responseSessionId], references: [id])
-  createdAt          DateTime                  @default(now())
-  updatedAt          DateTime                  @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
-  MultipleAnswer     MultipleAnswer[]
-}
-
-model Question {
-  id                 Int            @id @default(autoincrement())
-  fieldName          String
-  text               String        
-  questionType       String        
-  orderBy            Int
-  subSection         String        
-  isRequired         Boolean
-  sectionId          Int
-  Section            Section        @relation(fields: [sectionId], references: [id])
-  Option             Option[]
-  Answer             Answer[]
-  createdAt          DateTime       @default(now())
-  updatedAt          DateTime       @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
+model Appendix {
+  id          Int       @id @default(autoincrement())
+  title       String
+  subTitle    String
+  description String
+  periodicity String
+  iconName    String
+  color       String
+  Section     Section[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int
+  updatedBy   Int?
+  deletedBy   Int?
 }
 
 model Section {
-  id                Int             @id @default(autoincrement())
-  title             String         
-  summary           String         
-  orderBy           Int            
-  appendixId        Int
-  Appendix          Appendix        @relation(fields: [appendixId], references: [id])
-  Question          Question[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  deletedAt         DateTime?
-  createdBy         Int?
-  updatedBy         Int?
-  deletedBy         Int?
+  id         Int        @id @default(autoincrement())
+  title      String
+  summary    String
+  orderBy    Int
+  appendixId Int
+  Appendix   Appendix   @relation(fields: [appendixId], references: [id])
+  Question   Question[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime?
+  deletedAt  DateTime?
+  createdBy  Int?
+  updatedBy  Int?
+  deletedBy  Int?
 }
 
-model ResponseSession {
-  id                 Int             @id @default(autoincrement())
-  status             String         
-  inscriptionId      Int
-  Inscription        Inscription     @relation(fields: [inscriptionId], references: [id])
-  trackingId         Int // Check if this is truly nullable based on the diagram. It looks like it's a foreign key.
-  Tracking           Tracking        @relation(fields: [trackingId], references: [id]) // Assuming trackingId can be null if it's optional
-  appendixId         Int
-  Appendix           Appendix        @relation(fields:[appendixId], references:[id])
-  Answer             Answer[]
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
+model Question {
+  id           Int       @id @default(autoincrement())
+  text         String
+  questionType String
+  orderBy      Int
+  subSection   String
+  isRequired   Boolean
+  fieldName    String
+  options      Json?
+  sectionId    Int
+  Section      Section   @relation(fields: [sectionId], references: [id])
+  Answer       Answer[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime?
+  deletedAt    DateTime?
+  createdBy    Int
+  updatedBy    Int?
+  deletedBy    Int?
 }
 
-model Tracking {
-  id                 Int                 @id @default(autoincrement())
-  name               String            
-  description        String             
-  start              DateTime   
-  finish             DateTime                 
-  trackingTypeId     Int
-  TrackingType       TrackingType        @relation(fields: [trackingTypeId], references: [id])
-  ResponseSession    ResponseSession[]
-  Evidence           Evidence[]
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
-}
-
-model Evidence {
-  id                 Int             @id @default(autoincrement())
-  Evidence           String
-  trackingId         Int
-  Tracking           Tracking        @relation(fields: [trackingId], references: [id])
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
-}
-
-model TrackingType {
-  id                 Int             @id @default(autoincrement())
-  name               String         
-  deliveryMethod     String         
-  Tracking           Tracking[]
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int?
-  updatedBy          Int?
-  deletedBy          Int?
-}
-
-model Appendix {
-  id                Int             @id @default(autoincrement())
-  title             String         
-  subTitle          String         
-  description       String       
-  periodicity       String  
-  iconName          String
-  color             String
-  Section           Section[]
-  ResponseSession   ResponseSession[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  deletedAt         DateTime?
-  createdBy         Int?
-  updatedBy         Int?
-  deletedBy         Int?
-}
-
-model AppendixTest {
-  id                Int             @id @default(autoincrement())
-  name              String
-  textQuestion      String         
-  textAnswer        String         
-  teacherRoleId     Int         
-  mentorRoleId      Int
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  deletedAt         DateTime?
-  createdBy         Int?
-  updatedBy         Int?
-  deletedBy         Int?
+model Answer {
+  id            Int         @id @default(autoincrement())
+  valueText     String
+  questionId    Int
+  Question      Question    @relation(fields: [questionId], references: [id])
+  inscriptionId Int
+  Inscription   Inscription @relation(fields: [inscriptionId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime?
+  deletedAt     DateTime?
+  createdBy     Int
+  updatedBy     Int?
+  deletedBy     Int?
 }
 
 // ====== END - ATTACHMENT ======

@@ -14,7 +14,7 @@ export class GetByIdAnswerHandler {
         id: true,
         valueText: true,
         questionId: true,
-        responseSessionId: true
+        inscriptionId: true
       }
     });
 
