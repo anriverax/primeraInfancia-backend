@@ -52,7 +52,6 @@ export class GroupService {
       { mentors: [] as IAssignedRole[] }
     );
 
-     
     const getTeachers = groupTechSupport.reduce(
       (acc, ins) => {
         ins.MentorAssignment.forEach((item) => {
@@ -80,7 +79,6 @@ export class GroupService {
       },
       { teachers: [] as IInscriptionPerson[] }
     );
-     
 
     return {
       techSupport: getTechSupport.techSupport,
