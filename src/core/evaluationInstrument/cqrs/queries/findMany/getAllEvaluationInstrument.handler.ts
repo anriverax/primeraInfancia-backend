@@ -17,7 +17,8 @@ export class GetAllEvaluationInstrumentHandler {
         take: limit,
         select: {
           id: true,
-          instrumentName: true,
+          code: true,
+          name: true,
           periodicity: true,
           percentage: true
         },

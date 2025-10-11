@@ -7,7 +7,7 @@ export class GetTeacherCountByCareerHandler implements IQueryHandler<GetTeacherC
   constructor(private prisma: PrismaService) {}
 
   async execute(): Promise<{ career: string | null; count: number }[]> {
-    const teachersByCareer = await this.prisma.academic.groupBy({
+    const teachersByCareer = await this.prisma.personRole.groupBy({
       by: ["career"],
       _count: {
         id: true

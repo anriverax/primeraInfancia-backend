@@ -32,13 +32,28 @@ export async function authorizationSeed() {
     data: [
       {
         name: PermissionEnum.VIEW_DASHBOARD,
-        description: "Ver dashboard"
+        // description: "Ver dashboard"
       },
-      { name: PermissionEnum.VIEW_GROUPS, description: "Ver grupos" },
-      { name: PermissionEnum.VIEW_ATTENDANCE, description: "Ver asistencias" },
-      { name: PermissionEnum.VIEW_CATALOGUES, description: "Ver catálogos" },
-      { name: PermissionEnum.VIEW_CATALOGUE_SCHOOL, description: "Ver centros escolares" },
-      { name: PermissionEnum.VIEW_CATALOGUE_ZONE, description: "Ver zonas" }
+      {
+        name: PermissionEnum.VIEW_GROUPS,
+        // description: "Ver grupos" 
+      },
+      {
+        name: PermissionEnum.VIEW_ATTENDANCE,
+        // description: "Ver asistencias" 
+      },
+      {
+        name: PermissionEnum.VIEW_CATALOGUES,
+        // description: "Ver catálogos" 
+      },
+      {
+        name: PermissionEnum.VIEW_CATALOGUE_SCHOOL,
+        // description: "Ver centros escolares" 
+      },
+      {
+        name: PermissionEnum.VIEW_CATALOGUE_ZONE,
+        // description: "Ver zonas"
+      }
     ],
     skipDuplicates: true
   });

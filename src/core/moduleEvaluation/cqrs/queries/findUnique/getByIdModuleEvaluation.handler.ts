@@ -13,10 +13,9 @@ export class GetByIdModuleEvaluationHandler {
       select: {
         id: true,
         grade: true,
-        comment: true,
-        moduleProgressStatus: true,
         evaluationInstrumentId: true,
-        inscriptionId: true
+        inscriptionId: true,
+        trainingModuleId: true
       }
     });
 

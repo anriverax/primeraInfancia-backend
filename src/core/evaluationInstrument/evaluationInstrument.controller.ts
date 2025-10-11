@@ -1,6 +1,6 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import {
   EvaluationInstrumentDto,
@@ -28,13 +28,8 @@ export class EvaluationInstrumentController {
 
   @AuthRequired()
   @Post("create")
-  async create(
-    @Body() data: EvaluationInstrumentDto,
-    @Req() req: Request
-  ): Promise<NestResponse<EvaluationInstrument>> {
-    return this.commandBus.execute(
-      new CreateEvaluationInstrumentCommand({ ...data, createdBy: parseInt(req["user"].sub) })
-    );
+  async create(@Body() data: EvaluationInstrumentDto): Promise<NestResponse<EvaluationInstrument>> {
+    return this.commandBus.execute(new CreateEvaluationInstrumentCommand({ ...data }));
   }
 
   @Get()
@@ -55,24 +50,20 @@ export class EvaluationInstrumentController {
   @Put("update/:id")
   async update(
     @Param("id") id: string,
-    @Req() req: Request,
     @Body() data: EvaluationInstrumentDto
   ): Promise<NestResponse<void>> {
     return this.commandBus.execute(
       new UpdateEvaluationInstrumentCommand({
         id: parseInt(id),
-        ...data,
-        updatedBy: parseInt(req["user"].sub)
+        ...data
       })
     );
   }
 
   @AuthRequired()
   @Delete("delete/:id")
-  async delete(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<void>> {
-    return this.commandBus.execute(
-      new DeleteEvaluationInstrumentCommand({ id: parseInt(id), deletedBy: parseInt(req["user"].sub) })
-    );
+  async delete(@Param("id") id: string): Promise<NestResponse<void>> {
+    return this.commandBus.execute(new DeleteEvaluationInstrumentCommand({ id: parseInt(id) }));
   }
 
   @Get(":id")

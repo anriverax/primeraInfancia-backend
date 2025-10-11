@@ -12,8 +12,8 @@ import {
 } from "class-validator";
 
 enum TypeGender {
-  M = "M",
-  F = "F"
+  H = "H",
+  M = "M"
 }
 
 export class AuthDto {

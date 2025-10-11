@@ -20,40 +20,18 @@ export class UserProjection {
       privateKey,
       typePersonId,
       schoolId,
-      assignedMunicipalityId,
       ...personData
     } = data;
-
-    let assignedMunicipalityIds: number[] = [];
-
-    if (assignedMunicipalityId) {
-      if (typeof assignedMunicipalityId === "string") {
-        assignedMunicipalityIds = assignedMunicipalityId
-          .split(",")
-          .map((id) => Number(id.trim()))
-          .filter((id) => id > 0);
-      } else if (typeof assignedMunicipalityId === "number" && assignedMunicipalityId > 0) {
-        assignedMunicipalityIds = [assignedMunicipalityId];
-      }
-    }
 
     try {
       await this.prisma.person.create({
         data: {
           ...personData,
-          Academic: {
-            create: { career, nip }
-          },
           User: {
             create: { email, passwd, roleId, isVerified, UserKey: { create: { publicKey, privateKey } } }
           },
           ...(schoolId && { PrincipalSchool: { create: { schoolId } } }),
-          PersonRole: { create: { typePersonId } },
-          ...(assignedMunicipalityId && {
-            WorkAssignment: {
-              create: assignedMunicipalityIds.map((id) => ({ assignedMunicipalityId: id }))
-            }
-          })
+          PersonRole: { create: { typePersonId, career, nip } }
         }
       });
     } catch (error) {

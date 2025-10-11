@@ -8,12 +8,12 @@ export class GetSchoolCountsBySectorHandler implements IQueryHandler<GetSchoolCo
 
   async execute(): Promise<{ sector: string | null; count: number }[]> {
     const schoolsBySector = await this.prisma.school.groupBy({
-      by: ["sector"],
+      by: ["zone"],
       _count: { id: true }
     });
 
     return schoolsBySector.map((item) => ({
-      sector: item.sector,
+      sector: item.zone,
       count: item._count.id
     }));
   }

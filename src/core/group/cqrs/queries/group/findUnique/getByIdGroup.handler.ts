@@ -129,17 +129,16 @@ export class GetByIdGroupGradeDetailHandler {
               select: {
                 id: true,
                 grade: true,
-                comment: true,
                 EvaluationInstrument: {
                   select: {
                     id: true,
-                    instrumentName: true
+                    name: true
                   }
                 },
                 TrainingModule: {
                   select: {
                     id: true,
-                    moduleName: true
+                    name: true
                   }
                 }
               }
@@ -148,11 +147,10 @@ export class GetByIdGroupGradeDetailHandler {
               select: {
                 id: true,
                 grade: true,
-                comment: true,
                 EvaluationInstrument: {
                   select: {
                     id: true,
-                    instrumentName: true
+                    name: true
                   }
                 }
               }

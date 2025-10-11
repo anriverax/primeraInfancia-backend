@@ -12,7 +12,8 @@ export class GetByIdEvaluationInstrumentHandler {
       where: { id: query.id },
       select: {
         id: true,
-        instrumentName: true,
+        code: true,
+        name: true,
         periodicity: true,
         percentage: true
       }

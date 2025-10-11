@@ -8,7 +8,8 @@ export async function menuSeed() {
     data: {
       title: "Dashboard",
       path: menuJson.dashboard,
-      icon: "Home"
+      icon: "Home",
+      order: 1,
     }
   });
 
@@ -17,7 +18,8 @@ export async function menuSeed() {
     data: {
       title: "Grupos",
       path: menuJson.grupos,
-      icon: "Package"
+      icon: "Package",
+      order: 2,
     }
   });
 
@@ -26,7 +28,8 @@ export async function menuSeed() {
     data: {
       title: "Asistencia",
       path: menuJson.asistencia,
-      icon: "CalendarClock"
+      icon: "CalendarClock",
+      order: 3,
     }
   });
 
@@ -35,7 +38,8 @@ export async function menuSeed() {
     data: {
       title: "Evaluaciones",
       path: menuJson.evaluaciones,
-      icon: "CalendarCheck"
+      icon: "CalendarCheck",
+      order: 4,
     }
   });
 
@@ -45,17 +49,20 @@ export async function menuSeed() {
       {
         title: "Auto-evaluación",
         path: menuJson.autoEvaluacion,
-        parentId: evaluaciones.id
+        parentId: evaluaciones.id,
+        order: 1,
       },
       {
         title: "Portafolio",
         path: menuJson.portafolio,
-        parentId: evaluaciones.id
+        parentId: evaluaciones.id,
+        order: 1,
       },
       {
         title: "Diagnostico",
         path: menuJson.diagnostico,
-        parentId: evaluaciones.id
+        parentId: evaluaciones.id,
+        order: 1,
       }
     ]
   });
@@ -65,26 +72,27 @@ export async function menuSeed() {
     data: {
       title: "Asistencia",
       path: menuJson.asistencia,
-      icon: "Calendar"
+      icon: "Calendar",
+      order: 1,
     }
   });
 
   // Submenús de Asistencia
   await prisma.menuItem.createMany({
     data: [
-      { title: "Talleres", path: menuJson.talleres, parentId: asistencia.id },
-      { title: "Seminarios", path: menuJson.seminarios, parentId: asistencia.id },
+      { title: "Talleres", path: menuJson.talleres, parentId: asistencia.id, order: 1, },
+      { title: "Seminarios", path: menuJson.seminarios, parentId: asistencia.id, order: 2 },
       {
         title: "Comunidades de practica",
         path: menuJson.comunidadesPractica,
-        parentId: asistencia.id
+        parentId: asistencia.id, order: 1,
       },
       {
         title: "Sesiones sincronicas",
         path: menuJson.sesionesSincronicas,
-        parentId: asistencia.id
+        parentId: asistencia.id, order: 2,
       },
-      { title: "Mentorias", path: menuJson.mentorias, parentId: asistencia.id }
+      { title: "Mentorias", path: menuJson.mentorias, parentId: asistencia.id, order: 3 }
     ]
   });
 
@@ -93,7 +101,8 @@ export async function menuSeed() {
     data: {
       title: "Triple perfil",
       path: menuJson.triplePerfil,
-      icon: "Users"
+      icon: "Users",
+      order: 1,
     }
   });
 
@@ -104,19 +113,22 @@ export async function menuSeed() {
         title: "Formadores",
         path: menuJson.formadores,
         icon: "ContactRound",
-        parentId: triplePerfil.id
+        parentId: triplePerfil.id,
+        order: 1,
       },
       {
         title: "Mentores",
         path: menuJson.mentores,
         icon: "SquareUserRound",
-        parentId: triplePerfil.id
+        parentId: triplePerfil.id,
+        order: 2,
       },
       {
         title: "Ténicos de apoyo",
         path: menuJson.tecnicosApoyo,
         icon: "CircleUserRound",
-        parentId: triplePerfil.id
+        parentId: triplePerfil.id,
+        order: 3,
       }
     ]
   });
@@ -126,7 +138,8 @@ export async function menuSeed() {
     data: {
       title: "Docentes",
       path: menuJson.docentes,
-      icon: "User"
+      icon: "User",
+      order: 1,
     }
   });
 
@@ -134,7 +147,8 @@ export async function menuSeed() {
     data: {
       title: "Catálogos",
       path: menuJson.catalogos,
-      icon: "BookMarked"
+      icon: "BookMarked",
+      order: 1
     }
   });
 
@@ -144,14 +158,16 @@ export async function menuSeed() {
         title: "Centros Escolares",
         path: menuJson.centrosEscolares,
         icon: "School",
-        parentId: catalogo.id
+        parentId: catalogo.id,
+        order: 1,
       },
 
       {
         title: "Zonas",
         path: menuJson.zonas,
         icon: "School",
-        parentId: catalogo.id
+        parentId: catalogo.id,
+        order: 1,
       }
     ]
   });

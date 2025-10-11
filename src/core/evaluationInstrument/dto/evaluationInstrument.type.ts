@@ -3,19 +3,20 @@ import { EvaluationInstrument } from "@prisma/client";
 
 export type ICreateEvaluationInstrument = Pick<
   EvaluationInstrument,
-  "instrumentName" | "periodicity" | "percentage" | "createdBy"
+  "code" | "name" | "periodicity" | "percentage"
 >;
 
 export type IUpdateEvaluationInstrument = Pick<
   EvaluationInstrument,
-  "id" | "instrumentName" | "periodicity" | "percentage" | "updatedBy"
+  "id" | "code" | "name" | "periodicity" | "percentage"
 >;
 
-export type IDeleteEvaluationInstrument = Pick<EvaluationInstrument, "id" | "deletedBy">;
+export type IDeleteEvaluationInstrument = Pick<EvaluationInstrument, "id">;
 
 export interface IGetAllEvaluationInstrument {
   id: number;
-  instrumentName: string;
+  code: string;
+  name: string;
   periodicity: string;
   percentage: number;
 }

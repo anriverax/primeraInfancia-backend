@@ -18,16 +18,14 @@ export class GetAllModuleEvaluationHandler {
         select: {
           id: true,
           grade: true,
-          comment: true,
-          moduleProgressStatus: true,
           evaluationInstrumentId: true,
           inscriptionId: true,
           TrainingModule: {
-            select: { moduleName: true }
+            select: { name: true }
           },
           EvaluationInstrument: {
             select: {
-              instrumentName: true
+              name: true
             }
           },
           Inscription: {
