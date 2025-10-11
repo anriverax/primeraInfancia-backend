@@ -13,7 +13,6 @@ export class GetByIdTrainingEvaluationHandler {
       select: {
         id: true,
         grade: true,
-        comment: true,
         evaluationInstrumentId: true,
         inscriptionId: true
       }

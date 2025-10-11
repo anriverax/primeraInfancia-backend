@@ -34,6 +34,10 @@ export class QuestionDto {
   @IsNumber()
   @Min(1, { message: "La sección debe ser un número." })
   sectionId: number;
+
+  @IsOptional()
+  @IsString({ message: "Las opciones deben ser una cadena de texto." })
+  options?: string;
 }
 
 export class QuestionPaginationDto {

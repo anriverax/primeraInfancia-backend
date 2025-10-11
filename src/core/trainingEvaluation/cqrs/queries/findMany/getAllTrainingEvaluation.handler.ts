@@ -18,7 +18,6 @@ export class GetAllTrainingEvaluationHandler {
         select: {
           id: true,
           grade: true,
-          comment: true,
           evaluationInstrumentId: true,
           inscriptionId: true,
           Inscription: {
@@ -38,7 +37,7 @@ export class GetAllTrainingEvaluationHandler {
           },
           EvaluationInstrument: {
             select: {
-              instrumentName: true
+              name: true
             }
           }
         },

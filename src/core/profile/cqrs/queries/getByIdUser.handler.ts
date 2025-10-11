@@ -11,7 +11,7 @@ export class GetByIdUserHandler implements IQueryHandler<GetByIdUserQuery> {
   async execute(query: GetByIdUserQuery): Promise<IUploadProfile | null> {
     const user = await this.prisma.user.findUnique({
       where: { id: query.id },
-      select: { Person: { select: { id: true, dui: true, Academic: { select: { id: true } } } } }
+      select: { Person: { select: { id: true, dui: true } } }
     });
 
     return user || null;

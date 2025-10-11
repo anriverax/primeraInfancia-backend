@@ -12,7 +12,14 @@ export class GetByIdTrainingModuleHandler {
       where: { id: query.id },
       select: {
         id: true,
-        moduleName: true
+        name: true,
+        title: true,
+        startDate: true,
+        endDate: true,
+        hours: true,
+        Cohort: {
+          select: { name: true, id: true }
+        }
       }
     });
 

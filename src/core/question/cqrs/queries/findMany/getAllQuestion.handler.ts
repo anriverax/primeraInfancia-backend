@@ -23,7 +23,8 @@ export class GetAllQuestionHandler {
           orderBy: true,
           subSection: true,
           isRequired: true,
-          sectionId: true
+          sectionId: true,
+          options: true
         },
         orderBy: {
           id: "asc"

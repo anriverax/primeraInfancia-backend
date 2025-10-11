@@ -29,4 +29,8 @@ export class SchoolDto {
   @Transform(({ value }) => value.trim())
   @IsString({ message: "Las coordenadas debe ser una cadena de texto válida." })
   coordenates: string;
+
+  @IsNotEmpty({ message: "El id de la cohorte es un campo obligatorio." })
+  @IsNumber()
+  cohortId: number;
 }

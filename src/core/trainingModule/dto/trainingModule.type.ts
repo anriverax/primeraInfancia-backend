@@ -1,15 +1,25 @@
 import { IPagination } from "@/common/helpers/types";
 import { TrainingModule } from "@prisma/client";
 
-export type ICreateTrainingModule = Pick<TrainingModule, "moduleName" | "createdBy">;
+export type ICreateTrainingModule = Pick<
+  TrainingModule,
+  "name" | "title" | "startDate" | "endDate" | "hours" | "cohortId"
+>;
 
-export type IUpdateTrainingModule = Pick<TrainingModule, "id" | "moduleName" | "updatedBy">;
+export type IUpdateTrainingModule = Pick<
+  TrainingModule,
+  "id" | "name" | "title" | "startDate" | "endDate" | "hours" | "cohortId"
+>;
 
-export type IDeleteTrainingModule = Pick<TrainingModule, "id" | "deletedBy">;
+export type IDeleteTrainingModule = Pick<TrainingModule, "id">;
 
 export interface IGetAllTrainingModule {
   id: number;
-  moduleName: string;
+  name: string;
+  title: string;
+  startDate: Date;
+  endDate: Date;
+  hours: number;
 }
 
 export interface ITrainingModulesWithPagination {

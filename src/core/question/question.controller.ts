@@ -20,10 +20,9 @@ export class QuestionController {
     private readonly commandBus: CommandBus
   ) {}
 
-  //@AuthRequired()
+  @AuthRequired()
   @Post("create")
   async create(@Body() data: QuestionDto, @Req() req: Request): Promise<NestResponse<Question>> {
-    req["user"] = "1";
     return this.commandBus.execute(
       new CreateQuestionCommand({ ...data, createdBy: parseInt(req["user"].sub) })
     );

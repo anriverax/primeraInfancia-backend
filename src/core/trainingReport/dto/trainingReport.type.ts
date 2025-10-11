@@ -3,12 +3,12 @@ import { TrainingReport } from "@prisma/client";
 
 export type ICreateTrainingReport = Pick<
   TrainingReport,
-  "finalScore" | "status" | "remark" | "inscriptionId" | "createdBy"
+  "finalScore" | "attendancePercentage" | "status" | "inscriptionId" | "createdBy"
 >;
 
 export type IUpdateTrainingReport = Pick<
   TrainingReport,
-  "id" | "finalScore" | "status" | "remark" | "updatedBy"
+  "id" | "finalScore" | "attendancePercentage" | "status" | "updatedBy"
 >;
 
 export type IDeleteTrainingReport = Pick<TrainingReport, "id" | "deletedBy">;
@@ -16,8 +16,8 @@ export type IDeleteTrainingReport = Pick<TrainingReport, "id" | "deletedBy">;
 export interface IGetAllTrainingReport {
   id: number;
   finalScore: number;
+  attendancePercentage: number;
   status: string;
-  remark: string;
 }
 
 export interface ITrainingReportsWithPagination {

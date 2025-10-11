@@ -5,15 +5,11 @@ export interface IUploadProfile {
   Person: {
     id: number;
     dui: string;
-    Academic: {
-      id: number;
-    } | null;
   };
 }
 
 export interface IUploadCv {
   cv: Express.Multer.File;
-  academicId: number;
   dui: string;
 }
 
@@ -27,9 +23,9 @@ export interface IUploadDui extends Pick<IUploadCv, "dui"> {
   duiImg: Express.Multer.File[];
 }
 
-export interface IUpdateAcademicCv extends Pick<IUploadCv, "academicId"> {
-  cvName: string;
-}
+// export interface IUpdateAcademicCv extends Pick<IUploadCv, "academicId"> {
+//   cvName: string;
+// }
 
 export interface IUpdateUserAvatar extends Pick<IUploadAvatar, "userId"> {
   avatar: string;

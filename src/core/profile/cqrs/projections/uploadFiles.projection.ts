@@ -1,26 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { IUpdateAcademicCv, IUpdatePersonDui, IUpdateUserAvatar } from "../../dto/profile.type";
+import { IUpdatePersonDui, IUpdateUserAvatar } from "../../dto/profile.type";
 import { handlePrismaError } from "@/common/helpers/functions";
 
 @Injectable()
 export class UploadFileProjection {
   constructor(private prisma: PrismaService) {}
-
-  async uploadCv(data: IUpdateAcademicCv): Promise<void> {
-    const { cvName, academicId } = data;
-
-    try {
-      await this.prisma.academic.update({
-        where: { id: academicId },
-        data: {
-          cvImage: cvName
-        }
-      });
-    } catch (error) {
-      handlePrismaError("UploadFileProjection", error);
-    }
-  }
 
   async uploadAvatar(data: IUpdateUserAvatar): Promise<void> {
     const { avatar, userId } = data;

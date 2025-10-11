@@ -17,7 +17,11 @@ export class GetAllTrainingModuleHandler {
         take: limit,
         select: {
           id: true,
-          moduleName: true
+          name: true,
+          title: true,
+          startDate: true,
+          endDate: true,
+          hours: true
         },
         orderBy: {
           id: "asc"

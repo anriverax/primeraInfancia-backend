@@ -14,7 +14,7 @@ export class GetByIdTrainingReportHandler {
         id: true,
         finalScore: true,
         status: true,
-        remark: true
+        attendancePercentage: true
       }
     });
 

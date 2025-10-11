@@ -12,7 +12,7 @@ export class UploadCvHandler implements ICommandHandler<UploadCvCommand> {
 
   async execute(command: UploadCvCommand): Promise<void> {
     const { data } = command;
-    const { cv, academicId, dui } = data;
+    const { cv, dui } = data;
 
     const result = await this.s3.uploadFile(
       cv,
@@ -21,8 +21,7 @@ export class UploadCvHandler implements ICommandHandler<UploadCvCommand> {
     );
 
     await this.uploadFileProjection.uploadCv({
-      cvName: result,
-      academicId
+      cvName: result
     });
   }
 }

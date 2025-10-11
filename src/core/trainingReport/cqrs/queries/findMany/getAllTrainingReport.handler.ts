@@ -19,7 +19,7 @@ export class GetAllTrainingReportHandler {
           id: true,
           finalScore: true,
           status: true,
-          remark: true
+          attendancePercentage: true
         },
         orderBy: {
           id: "asc"

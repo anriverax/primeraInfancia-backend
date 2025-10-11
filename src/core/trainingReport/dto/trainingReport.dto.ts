@@ -6,17 +6,14 @@ export class TrainingReportDto {
   @Min(1, { message: "El puntaje final debe ser un número." })
   finalScore: number;
 
+  @IsNumber()
+  @Min(1, { message: "El porcentaje de asistencia debe ser un número." })
+  attendancePercentage: number;
+
   @IsNotEmpty({ message: "El estado es obligatorio." })
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El estado debe ser una cadena de texto." })
   status: string;
-
-  @IsNotEmpty({ message: "Las fortalezas, áreas de mejora y recomendaciones son obligatorias." })
-  @Transform(({ value }) => value.trim())
-  @IsString({
-    message: "Las fortalezas, áreas de mejora y recomendaciones debe ser una cadena de texto."
-  })
-  remark: string;
 
   @IsNumber()
   @Min(1, { message: "La inscripción debe ser un número." })

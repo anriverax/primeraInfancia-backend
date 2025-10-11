@@ -9,6 +9,7 @@ export type ICreateQuestion = Pick<
   | "orderBy"
   | "subSection"
   | "isRequired"
+  | "options"
   | "sectionId"
   | "createdBy"
 >;
@@ -22,6 +23,7 @@ export type IUpdateQuestion = Pick<
   | "orderBy"
   | "subSection"
   | "isRequired"
+  | "options"
   | "sectionId"
   | "updatedBy"
 >;
@@ -36,6 +38,7 @@ export interface IGetAllQuestion {
   orderBy: number;
   subSection: string;
   isRequired: boolean;
+  options?: string;
   sectionId: number;
 }
 

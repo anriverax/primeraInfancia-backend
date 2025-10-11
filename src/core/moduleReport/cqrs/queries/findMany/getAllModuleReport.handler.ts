@@ -23,7 +23,7 @@ export class GetAllModuleReportHandler {
           inscriptionId: true,
           TrainingModule: {
             select: {
-              moduleName: true
+              name: true
             }
           },
           Inscription: {

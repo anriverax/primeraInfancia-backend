@@ -63,7 +63,6 @@ export class ProfileController {
     this.commandBus.execute(
       new UploadCvCommand({
         cv: cv[0],
-        academicId: user.Person.Academic!.id,
         dui
       })
     );

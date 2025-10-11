@@ -32,10 +32,10 @@ export class TrainingModuleProjection {
   }
 
   async delete(data: IDeleteTrainingModule): Promise<TrainingModule> {
-    const { id, deletedBy } = data;
+    const { id } = data;
 
     try {
-      return await this.prisma.softDelete("trainingModule", { id }, { deletedBy });
+      return await this.prisma.softDelete("trainingModule", { id });
     } catch (error) {
       handlePrismaError("TrainingModuleProjection", error);
     }

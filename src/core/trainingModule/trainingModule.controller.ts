@@ -1,6 +1,6 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { TrainingModuleDto, TrainingModulePaginationDto } from "./dto/trainingModule.dto";
 import { CreateTrainingModuleCommand } from "./cqrs/commands/create/createTrainingModule.command";
@@ -22,13 +22,8 @@ export class TrainingModuleController {
 
   @AuthRequired()
   @Post("create")
-  async create(
-    @Body() data: TrainingModuleDto,
-    @Req() req: Request
-  ): Promise<NestResponse<TrainingModule>> {
-    return this.commandBus.execute(
-      new CreateTrainingModuleCommand({ ...data, createdBy: parseInt(req["user"].sub) })
-    );
+  async create(@Body() data: TrainingModuleDto): Promise<NestResponse<TrainingModule>> {
+    return this.commandBus.execute(new CreateTrainingModuleCommand({ ...data }));
   }
 
   @Get()
@@ -47,26 +42,19 @@ export class TrainingModuleController {
 
   @AuthRequired()
   @Put("update/:id")
-  async update(
-    @Param("id") id: string,
-    @Req() req: Request,
-    @Body() data: TrainingModuleDto
-  ): Promise<NestResponse<void>> {
+  async update(@Param("id") id: string, @Body() data: TrainingModuleDto): Promise<NestResponse<void>> {
     return this.commandBus.execute(
       new UpdateTrainingModuleCommand({
         id: parseInt(id),
-        ...data,
-        updatedBy: parseInt(req["user"].sub)
+        ...data
       })
     );
   }
 
   @AuthRequired()
   @Delete("delete/:id")
-  async delete(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<void>> {
-    return this.commandBus.execute(
-      new DeleteTrainingModuleCommand({ id: parseInt(id), deletedBy: parseInt(req["user"].sub) })
-    );
+  async delete(@Param("id") id: string): Promise<NestResponse<void>> {
+    return this.commandBus.execute(new DeleteTrainingModuleCommand({ id: parseInt(id) }));
   }
 
   @Get(":id")

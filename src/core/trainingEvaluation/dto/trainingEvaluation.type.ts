@@ -3,12 +3,12 @@ import { TrainingEvaluation } from "@prisma/client";
 
 export type ICreateTrainingEvaluation = Pick<
   TrainingEvaluation,
-  "grade" | "comment" | "evaluationInstrumentId" | "inscriptionId" | "createdBy"
+  "grade" | "evaluationInstrumentId" | "inscriptionId" | "createdBy"
 >;
 
 export type IUpdateTrainingEvaluation = Pick<
   TrainingEvaluation,
-  "id" | "grade" | "comment" | "evaluationInstrumentId" | "inscriptionId" | "updatedBy"
+  "id" | "grade" | "evaluationInstrumentId" | "inscriptionId" | "updatedBy"
 >;
 
 export type IDeleteTrainingEvaluation = Pick<TrainingEvaluation, "id" | "deletedBy">;
@@ -16,7 +16,6 @@ export type IDeleteTrainingEvaluation = Pick<TrainingEvaluation, "id" | "deleted
 export interface IGetAllTrainingEvaluation {
   id: number;
   grade: number;
-  comment: string;
   evaluationInstrumentId: number;
   inscriptionId: number;
 }
