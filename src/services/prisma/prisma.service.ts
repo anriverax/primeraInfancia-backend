@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Prisma, PrismaClient } from "@prisma/client";
 
-const modelsWithSoftDelete = ["Group", "GroupLeader", "PersonRole", "WorkAssignment"];
+const modelsWithSoftDelete = ["Group", "GroupLeader", "PersonRole", "MentorAssignment"];
 
 const prismaWithExtension = new PrismaClient().$extends({
   result: {

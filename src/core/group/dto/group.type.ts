@@ -91,3 +91,32 @@ export interface IOrderAssignedRole {
   teachers: IInscriptionPerson[];
   mentors: IAssignedRole[];
 }
+
+export interface IGroupByUser {
+  Inscription: Pick<Inscription, "id"> & {
+    PersonRole: {
+      Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> & {
+        PrincipalSchool: {
+          School: {
+            name: string;
+            District: {
+              name: string;
+              Municipality: {
+                name: string;
+              };
+            };
+          };
+        }[];
+      };
+    };
+  };
+}
+
+export interface IGroupByUserCustom extends Pick<Inscription, "id"> {
+  Person: Pick<Person, "id" | "phoneNumber"> & {
+    fullName: string;
+    school: string;
+    district: string;
+    municipality: string;
+  };
+}
