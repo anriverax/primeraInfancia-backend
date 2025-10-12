@@ -54,7 +54,8 @@ export class GetByIdDetailAppendixHandler {
                 questionType: true,
                 orderBy: true,
                 subSection: true,
-                isRequired: true
+                isRequired: true,
+                options: true
               }
             }
           }
