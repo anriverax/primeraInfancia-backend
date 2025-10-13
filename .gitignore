@@ -38,7 +38,7 @@ wait-for-it.sh
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
+docker-entrypoint.sh
 # dotenv environment variable files
 .env
 .env.dev
