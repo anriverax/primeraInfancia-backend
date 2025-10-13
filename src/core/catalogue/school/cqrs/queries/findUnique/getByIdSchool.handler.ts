@@ -35,12 +35,41 @@ export class GetByIdSchoolHandler {
               }
             }
           }
+        },
+        PrincipalSchool: {
+          select: {
+            Person: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName1: true,
+                lastName2: true,
+                phoneNumber: true,
+                User: {
+                  select: {
+                    email: true
+                  }
+                }
+              }
+            }
+          }
         }
       }
     });
 
     if (!school) return null;
 
-    return school;
+    const { PrincipalSchool, ...rest } = school;
+
+    const teachers = PrincipalSchool.map((item) => {
+      const { id, phoneNumber, User, ...i } = item.Person;
+      return {
+        id,
+        phoneNumber,
+        fullName: `${i.firstName} ${i.lastName1} ${i.lastName2}`,
+        email: User?.email!
+      };
+    });
+    return { ...rest, teachers };
   }
 }
