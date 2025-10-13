@@ -24,7 +24,7 @@ export class GetAllEventByTypeHandler {
         }
       }
     });
-    console.log(events);
+
     /*
     const result = events
       .map((e) => ({

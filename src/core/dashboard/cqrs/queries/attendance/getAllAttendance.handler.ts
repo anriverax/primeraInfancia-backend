@@ -44,7 +44,7 @@ export class GetAllAttendanceHandler {
     );
 
     const data = result.filter((r) => r.label !== null) as { label: string; count: number }[];
-    console.log(data);
+
     const grouped = Object.values(
       data.reduce(
         (acc, item) => {
@@ -57,7 +57,7 @@ export class GetAllAttendanceHandler {
         {} as Record<string, { label: string; count: number }>
       )
     );
-    console.log(grouped);
+
     return grouped;
   }
 }

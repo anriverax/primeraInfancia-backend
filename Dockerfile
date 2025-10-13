@@ -41,7 +41,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN chown -R node:node /fpi-backend
 # Usamos usuario no-root
-USER node
+USER node 
 
 EXPOSE 3001
 
