@@ -67,7 +67,7 @@ export class GetByIdSchoolHandler {
         id,
         phoneNumber,
         fullName: `${i.firstName} ${i.lastName1} ${i.lastName2}`,
-        email: User?.email!
+        email: User ? User.email : "email@email.com"
       };
     });
     return { ...rest, teachers };
