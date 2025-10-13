@@ -28,4 +28,19 @@ export interface ISchoolWithPagination {
   meta: IPagination;
 }
 
-export type IGetByIdSchool = Omit<ISchool, "_count"> & Pick<School, "zone">;
+// Omit<ISchool, "_count"> &
+export interface IGetByIdSchool extends Pick<School, "id" | "name" | "code" | "coordenates" | "zone"> {
+  District: {
+    id: number;
+    name: string;
+    Municipality: {
+      id: number;
+      name: string;
+      Department: {
+        id: number;
+        name: string;
+      };
+    };
+  };
+  teachers: { id: number; phoneNumber: string; fullName: string; email: string }[];
+}

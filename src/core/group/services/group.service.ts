@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import {
   IAssignedRole,
+  IGroupByUser,
+  IGroupByUserCustom,
   IGroupTechSupport,
   IInscriptionPerson,
   IOrderAssignedRole
@@ -86,5 +88,27 @@ export class GroupService {
       mentors: getMentors.mentors,
       teachers: getTeachers.teachers
     };
+  }
+
+  removeProperties(data: IGroupByUser[]): IGroupByUserCustom[] {
+    const gdResult = data.map((item: IGroupByUser) => {
+      const { Inscription } = item;
+      const { PersonRole, ...i } = Inscription;
+
+      const data = {
+        id: i.id,
+        Person: {
+          id: PersonRole.Person.id,
+          fullName: `${PersonRole.Person.firstName} ${PersonRole.Person.lastName1} ${PersonRole.Person.lastName2}`,
+          phoneNumber: PersonRole.Person.phoneNumber,
+          school: PersonRole.Person.PrincipalSchool[0]?.School?.name ?? "",
+          district: PersonRole.Person.PrincipalSchool[0]?.School?.District?.name,
+          municipality: PersonRole.Person.PrincipalSchool[0]?.School?.District?.Municipality?.name
+        }
+      };
+
+      return data;
+    });
+    return gdResult;
   }
 }

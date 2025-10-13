@@ -1,13 +1,14 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Controller, Get, Param, Query, UseFilters } from "@nestjs/common";
+import { Controller, Get, Param, Query, Req, UseFilters } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
-import { IGroup, IGetByIdGroupOrderAssignedRole } from "./dto/group.type";
+import { IGroup, IGetByIdGroupOrderAssignedRole, IGroupByUserCustom } from "./dto/group.type";
 import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
 import { GetAllGroupPaginationQuery } from "./cqrs/queries/pagination/getAllGroupPagination.query";
 import { GroupService } from "./services/group.service";
+import { GetGroupByUserQuery } from "./cqrs/queries/getGroupByUser/getGroupByUser.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -31,7 +32,7 @@ export class GroupController {
   }
 
   @AuthRequired()
-  @Get(":id")
+  @Get("detail/:id")
   async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdGroupOrderAssignedRole>> {
     const result = await this.queryBus.execute(new GetByIdGroupQuery(parseInt(id)));
 
@@ -45,6 +46,20 @@ export class GroupController {
       statusCode: 200,
       message: "Listado de grupos por ID",
       data: { ...rest, trainer, techSupport, mentors, teachers }
+    };
+  }
+
+  @AuthRequired()
+  @Get("byTypePerson")
+  async getByTypePerson(@Req() req: Request): Promise<NestResponse<IGroupByUserCustom[]>> {
+    const userId = req["user"].sub;
+    const result = await this.queryBus.execute(new GetGroupByUserQuery(parseInt(userId)));
+    const groupDetailData = this.groupService.removeProperties(result);
+
+    return {
+      statusCode: 200,
+      message: "Listado de grupos por ID",
+      data: groupDetailData
     };
   }
 }

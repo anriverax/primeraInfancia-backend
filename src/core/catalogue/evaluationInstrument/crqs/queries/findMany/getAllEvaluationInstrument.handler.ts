@@ -11,6 +11,7 @@ export class GetAllEvaluationInstrumentHandler {
     const EvaluationInstruments = await this.prisma.evaluationInstrument.findMany({
       select: {
         id: true,
+        code: true,
         name: true,
         periodicity: true,
         percentage: true
