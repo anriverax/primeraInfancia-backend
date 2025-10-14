@@ -34,12 +34,10 @@ export interface IAttendanceWithFormatteDate extends Omit<IFindLastAttendace, "c
 
 export type IAttendanceResult = Pick<Attendance, "id" | "coordenates">;
 
-export interface IAttendanceInput extends Pick<Attendance, "eventId" | "status" | "modality"> {
-  coordenates?: string;
-  comment?: string;
-  justificationUrl?: string;
-  personRoleId: number;
-}
+export type IAttendanceInput = Pick<
+  Attendance,
+  "eventId" | "status" | "modality" | "comment" | "justificationUrl" | "coordenates" | "personRoleId"
+>;
 
 export type IGetAllEvent = Pick<Event, "id" | "name">;
 

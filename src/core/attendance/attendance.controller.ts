@@ -50,12 +50,23 @@ export class AttendanceController {
     @Req() req: Request
   ): Promise<NestResponse<IAttendanceResult>> {
     const userId = req["user"].sub;
-
+    console.log(data);
     const personRole = await this.queryBus.execute(new GetPersonRoleByUserQuery(parseInt(userId)));
+    const { teacherId, ...rest } = data;
 
     const attendanceData = await this.commandBus.execute(
-      new CreateAttendanceCommand({ ...data, personRoleId: personRole!.id }, userId)
+      new CreateAttendanceCommand({ ...rest, personRoleId: personRole!.id }, userId)
     );
+
+    for (const teacher of teacherId) {
+      await this.commandBus.execute(
+        new CreateAttendanceCommand({ ...rest, personRoleId: teacher }, userId)
+      );
+    }
+    /**
+     *
+    );
+     */
 
     return {
       statusCode: 201,
