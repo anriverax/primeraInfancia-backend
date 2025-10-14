@@ -27,8 +27,11 @@ import { TrainingModule } from "./core/catalogue/trainingModule/trainingModule.m
 import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrument/evaluationInstrument.module";
 import { SchoolModule } from "./core/catalogue/school/school.module";
 import { DashboardModule } from "./core/dashboard/dashboard.module";
-import { AppendixModule } from "./core/appendix/appendix.module";
 import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
+
+// Appendix
+import { AppendixModule } from "./core/appendix/appendix.module";
+import { AnswerModule } from "./core/answer/answer.module";
 
 @Module({
   imports: [
@@ -62,8 +65,9 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
     TrainingModule,
     EvaluationInstrumentModule,
     DashboardModule,
-    AppendixModule,
     TechsupportModule,
+    AppendixModule,
+    AnswerModule,
     RouterModule.register([
       {
         path: "api",
@@ -134,6 +138,10 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
           {
             path: "appendix",
             module: AppendixModule
+          },
+          {
+            path: "answer",
+            module: AnswerModule
           }
         ]
       }
@@ -153,4 +161,4 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
