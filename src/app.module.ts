@@ -161,4 +161,4 @@ import { AnswerModule } from "./core/answer/answer.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}
