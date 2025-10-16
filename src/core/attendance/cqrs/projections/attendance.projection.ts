@@ -25,19 +25,15 @@ export class AttendanceProjection {
     }
   }
 
-  async update(id: number, userId: number): Promise<IAttendanceResult> {
+  async update(id: number, userId: number): Promise<{ count: number }> {
     try {
-      return await this.prisma.attendance.update({
+      return await this.prisma.attendance.updateMany({
         where: {
-          id
+          eventId: id
         },
         data: {
           checkOut: new Date(),
           updatedBy: userId
-        },
-        select: {
-          id: true,
-          coordenates: true
         }
       });
     } catch (error) {

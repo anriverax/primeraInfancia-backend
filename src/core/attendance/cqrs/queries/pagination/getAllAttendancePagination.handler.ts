@@ -2,28 +2,24 @@ import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAllAttendancePaginationQuery } from "./getAllAttendancePagination.query";
 import { IAttendanceWithPagination } from "@/core/attendance/dto/attendance.type";
+import { RoleType } from "@prisma/client";
 
 @QueryHandler(GetAllAttendancePaginationQuery)
 export class GetAllAttendancePaginationHandler {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetAllAttendancePaginationQuery): Promise<IAttendanceWithPagination> {
+    const { responsableId, role } = query;
     const { page = 1, limit = 10 } = query.data;
 
     const skip = (page - 1) * limit;
 
+    const whereClause =
+      role !== RoleType.ADMIN && role !== RoleType.USER ? { createdBy: responsableId } : {};
+
     const [data, total] = await Promise.all([
       this.prisma.attendance.findMany({
-        where: {
-          checkOut: null,
-          PersonRole: {
-            Person: {
-              User: {
-                id: query.responsableId
-              }
-            }
-          }
-        },
+        where: whereClause,
         skip,
         take: limit,
         select: {
@@ -31,6 +27,9 @@ export class GetAllAttendancePaginationHandler {
           checkIn: true,
           checkOut: true,
           status: true,
+          comment: true,
+          justificationUrl: true,
+          modality: true,
           Event: {
             select: {
               name: true

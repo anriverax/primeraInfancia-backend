@@ -9,7 +9,11 @@ import {
   Event
 } from "@prisma/client";
 
-export interface IAttendance extends Pick<Attendance, "id" | "checkIn" | "checkOut" | "status"> {
+export interface IAttendance
+  extends Pick<
+    Attendance,
+    "id" | "checkIn" | "checkOut" | "status" | "comment" | "justificationUrl" | "modality"
+  > {
   Event: {
     name: string;
   };
@@ -20,16 +24,22 @@ export interface IAttendanceWithPagination {
   meta: IPagination;
 }
 
-export interface IFindLastAttendace
-  extends Pick<Attendance, "id" | "checkIn" | "coordenates" | "checkOut"> {
-  Event: {
-    name: string;
+export interface IFindLastAttendace extends Pick<Attendance, "checkIn" | "coordenates" | "modality"> {
+  Event: Pick<Event, "id" | "name">;
+  PersonRole: Pick<PersonRole, "typePersonId"> & {
+    Person: Pick<Person, "firstName" | "lastName1" | "lastName2">;
   };
 }
 
-export interface IAttendanceWithFormatteDate extends Omit<IFindLastAttendace, "checkIn" | "checkOut"> {
+export interface ILastAttendanceDetails extends Pick<IFindLastAttendace, "coordenates"> {
+  fullName: string;
+}
+
+export interface ILastAttendance extends Pick<IFindLastAttendace, "modality"> {
+  id: number;
+  event: string;
   checkIn: string;
-  checkOut: string;
+  details: ILastAttendanceDetails[];
 }
 
 export type IAttendanceResult = Pick<Attendance, "id" | "coordenates">;

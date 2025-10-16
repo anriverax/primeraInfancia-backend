@@ -42,5 +42,5 @@ export interface IGetByIdSchool extends Pick<School, "id" | "name" | "code" | "c
       };
     };
   };
-  teachers: { id: number; phoneNumber: string; fullName: string; email: string }[];
+  teachers: { id: number; phoneNumber: string; fullName: string; email: string; state: string }[];
 }
