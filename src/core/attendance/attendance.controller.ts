@@ -7,10 +7,10 @@ import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.
 import { GetPersonRoleByUserQuery } from "./cqrs/queries/PersonRole/getPersonRoleByUser.query";
 import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/findLastAttendance.query";
 import {
-  IAttendance,
   IAttendanceResult,
   ILastAttendance,
-  ITeachersAssignmentWithEvents
+  ITeachersAssignmentWithEvents,
+  IAttendanceGrouped
 } from "./dto/attendance.type";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
@@ -19,6 +19,7 @@ import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAl
 import { GetAllEventQuery } from "./cqrs/queries/event/getAllEvent.query";
 import { FindByUserIdQuery } from "./cqrs/queries/mentorAssignment/findByUserId.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
+import { AttendanceEnum } from "@prisma/client";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -35,7 +36,7 @@ export class AttendanceController {
     @Req() req: Request
   ): Promise<NestResponse<ITeachersAssignmentWithEvents>> {
     const userId = req["user"].sub;
-    console.log(req["user"]);
+
     const events = await this.queryBus.execute(new GetAllEventQuery(userId));
 
     const result = await this.queryBus.execute(new FindByUserIdQuery(parseInt(userId)));
@@ -58,14 +59,22 @@ export class AttendanceController {
 
     const personRole = await this.queryBus.execute(new GetPersonRoleByUserQuery(parseInt(userId)));
     const { teacherId, ...rest } = data;
+    const checkOutState = rest.status === AttendanceEnum.AUSENTE ? new Date() : null;
 
     const attendanceData = await this.commandBus.execute(
-      new CreateAttendanceCommand({ ...rest, personRoleId: personRole!.id }, userId)
+      new CreateAttendanceCommand(
+        {
+          ...rest,
+          checkOut: checkOutState,
+          personRoleId: personRole!.id
+        },
+        userId
+      )
     );
 
     for (const teacher of teacherId) {
       await this.commandBus.execute(
-        new CreateAttendanceCommand({ ...rest, personRoleId: teacher }, userId)
+        new CreateAttendanceCommand({ ...rest, checkOut: checkOutState, personRoleId: teacher }, userId)
       );
     }
 
@@ -97,7 +106,7 @@ export class AttendanceController {
   async getAll(
     @Req() req: Request,
     @Query() filterPagination: PaginationDto
-  ): Promise<NestResponseWithPagination<IAttendance[]>> {
+  ): Promise<NestResponseWithPagination<IAttendanceGrouped[]>> {
     const userId = req["user"].sub;
 
     const result = await this.queryBus.execute(
@@ -106,7 +115,7 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Listado de asistencias registrados",
+      message: "Listado de asistencias agrupadas por persona",
       data: result.data,
       meta: result.meta
     };

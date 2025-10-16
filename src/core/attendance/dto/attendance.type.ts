@@ -10,17 +10,38 @@ import {
 } from "@prisma/client";
 
 export interface IAttendance
-  extends Pick<
-    Attendance,
-    "id" | "checkIn" | "checkOut" | "status" | "comment" | "justificationUrl" | "modality"
-  > {
+  extends Pick<Attendance, "id" | "status" | "comment" | "justificationUrl" | "modality"> {
+  checkIn: string;
+  checkOut: string | null;
+  Person: {
+    fullName: string;
+  };
   Event: {
     name: string;
   };
 }
 
+export interface IAttendanceGrouped {
+  personRoleId: number;
+  fullName: string;
+  totalEvents: number;
+  events: Array<{
+    id: number;
+    eventName: string;
+    checkIn: string;
+    checkOut: string | null;
+    status: string;
+    modality: string;
+  }>;
+}
+
 export interface IAttendanceWithPagination {
   data: IAttendance[];
+  meta: IPagination;
+}
+
+export interface IAttendanceGroupedWithPagination {
+  data: IAttendanceGrouped[];
   meta: IPagination;
 }
 
@@ -46,7 +67,14 @@ export type IAttendanceResult = Pick<Attendance, "id" | "coordenates">;
 
 export type IAttendanceInput = Pick<
   Attendance,
-  "eventId" | "status" | "modality" | "comment" | "justificationUrl" | "coordenates" | "personRoleId"
+  | "eventId"
+  | "status"
+  | "modality"
+  | "comment"
+  | "justificationUrl"
+  | "coordenates"
+  | "personRoleId"
+  | "checkOut"
 >;
 
 export type IGetAllEvent = Pick<Event, "id" | "name">;
