@@ -1,9 +1,12 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAllAttendancePaginationQuery } from "./getAllAttendancePagination.query";
-import { IAttendanceGroupedWithPagination } from "@/core/attendance/dto/attendance.type";
+import {
+  IAttendanceGrouped,
+  IAttendanceGroupedWithPagination,
+  IAttendanceList
+} from "@/core/attendance/dto/attendance.type";
 import { RoleType } from "@prisma/client";
-import { formatDate } from "@/common/helpers/functions";
 
 @QueryHandler(GetAllAttendancePaginationQuery)
 export class GetAllAttendancePaginationHandler {
@@ -16,8 +19,7 @@ export class GetAllAttendancePaginationHandler {
     const whereClause =
       role !== RoleType.ADMIN && role !== RoleType.USER ? { createdBy: responsableId } : {};
 
-    // Obtener todas las asistencias sin paginación primero para agrupar
-    const allAttendances = await this.prisma.attendance.findMany({
+    const allAttendances: IAttendanceList[] = await this.prisma.attendance.findMany({
       where: whereClause,
       select: {
         id: true,
@@ -25,7 +27,6 @@ export class GetAllAttendancePaginationHandler {
         checkOut: true,
         status: true,
         modality: true,
-        personRoleId: true,
         Event: {
           select: {
             name: true
@@ -49,40 +50,31 @@ export class GetAllAttendancePaginationHandler {
       }
     });
 
-    // Agrupar por persona
+    // Group by person
     const groupedByPerson = allAttendances.reduce(
-      (acc, attendance) => {
-        const personRoleId = attendance.personRoleId;
+      (acc, attendance: IAttendanceList) => {
+        const personRoleId = attendance.PersonRole.id;
         const fullName = `${attendance.PersonRole.Person.firstName} ${attendance.PersonRole.Person.lastName1} ${attendance.PersonRole.Person.lastName2}`;
 
         if (!acc[personRoleId]) {
           acc[personRoleId] = {
             personRoleId,
             fullName,
-            totalEvents: 0,
-            events: []
+            totalEvents: 0
           };
         }
 
         acc[personRoleId].totalEvents += 1;
-        acc[personRoleId].events.push({
-          id: attendance.id,
-          eventName: attendance.Event.name,
-          checkIn: formatDate(attendance.checkIn),
-          checkOut: attendance.checkOut ? formatDate(attendance.checkOut) : null,
-          status: attendance.status,
-          modality: attendance.modality
-        });
 
         return acc;
       },
-      {} as Record<number, any>
+      {} as Record<number, IAttendanceGrouped>
     );
 
-    // Convertir a array
-    const groupedArray = Object.values(groupedByPerson);
+    // Convert to array
+    const groupedArray = Object.values(groupedByPerson) as IAttendanceGrouped[];
 
-    // Aplicar paginación
+    // Apply pagination
     const total = groupedArray.length;
     const skip = (page - 1) * limit;
     const paginatedData = groupedArray.slice(skip, skip + limit);

@@ -9,15 +9,14 @@ import {
   Event
 } from "@prisma/client";
 
-export interface IAttendance
-  extends Pick<Attendance, "id" | "status" | "comment" | "justificationUrl" | "modality"> {
-  checkIn: string;
-  checkOut: string | null;
-  Person: {
-    fullName: string;
-  };
+export interface IAttendanceList
+  extends Pick<Attendance, "id" | "status" | "checkIn" | "checkOut" | "modality"> {
   Event: {
     name: string;
+  };
+  PersonRole: {
+    id: number;
+    Person: Pick<Person, "firstName" | "lastName1" | "lastName2">;
   };
 }
 
@@ -25,19 +24,6 @@ export interface IAttendanceGrouped {
   personRoleId: number;
   fullName: string;
   totalEvents: number;
-  events: Array<{
-    id: number;
-    eventName: string;
-    checkIn: string;
-    checkOut: string | null;
-    status: string;
-    modality: string;
-  }>;
-}
-
-export interface IAttendanceWithPagination {
-  data: IAttendance[];
-  meta: IPagination;
 }
 
 export interface IAttendanceGroupedWithPagination {
