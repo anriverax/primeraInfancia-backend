@@ -35,11 +35,19 @@ export class GetByIdDetailAppendixHandler {
         subTitle: true,
         description: true,
         Section: {
+          // 1. Order Sections by 'orderBy' field
+          orderBy: {
+            orderBy: "asc" // Or 'desc', depending on your requirement
+          },
           select: {
             title: true,
             summary: true,
             orderBy: true,
             Question: {
+              // 2. Order Questions within each Section by 'orderBy' field
+              orderBy: {
+                orderBy: "asc" // Or 'desc'
+              },
               select: {
                 id: true,
                 text: true,
