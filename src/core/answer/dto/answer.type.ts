@@ -3,13 +3,6 @@ import { Answer } from "@prisma/client";
 
 export type ICreateAnswer = Pick<Answer, "valueText" | "questionId" | "inscriptionId" | "createdBy">;
 
-export type IUpdateAnswer = Pick<
-  Answer,
-  "id" | "valueText" | "questionId" | "inscriptionId" | "updatedBy"
->;
-
-export type IDeleteAnswer = Pick<Answer, "id" | "deletedBy">;
-
 export interface IGetAllAnswer {
   id: number;
   valueText: string;
@@ -23,5 +16,5 @@ export interface IAnswersWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdAnswer {}
+export interface IGetByIdAnswer { }
 /* eslint-enable @typescript-eslint/no-empty-object-type*/
