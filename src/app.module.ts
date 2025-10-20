@@ -31,8 +31,6 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
 
 // Appendix
 import { AppendixModule } from "./core/appendix/appendix.module";
-import { SectionModule } from "./core/appendix/section/section.module";
-import { QuestionModule } from "./core/appendix/question/question.module";
 import { AnswerModule } from "./core/answer/answer.module";
 
 @Module({
@@ -69,8 +67,6 @@ import { AnswerModule } from "./core/answer/answer.module";
     DashboardModule,
     TechsupportModule,
     AppendixModule,
-    SectionModule,
-    QuestionModule,
     AnswerModule,
     RouterModule.register([
       {
@@ -144,14 +140,6 @@ import { AnswerModule } from "./core/answer/answer.module";
             module: AppendixModule
           },
           {
-            path: "section",
-            module: SectionModule
-          },
-          {
-            path: "question",
-            module: QuestionModule
-          },
-          {
             path: "answer",
             module: AnswerModule
           }
@@ -173,4 +161,4 @@ import { AnswerModule } from "./core/answer/answer.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}
