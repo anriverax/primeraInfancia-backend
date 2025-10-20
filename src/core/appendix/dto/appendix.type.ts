@@ -1,5 +1,5 @@
 import { IPagination } from "@/common/helpers/types";
-import { Appendix } from "@prisma/client";
+import { Appendix, Question } from "@prisma/client";
 
 export type ICreateAppendix = Pick<
   Appendix,
@@ -30,5 +30,15 @@ export interface IAppendixsWithPagination {
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface IGetByIdAppendix {}
-export interface IGetByIdAppendixDetail {}
+export interface IGetByIdAppendixDetail extends Pick<Appendix, "id" | "title"> {
+  Section: {
+    title: string;
+    summary: string;
+    orderBy: number;
+    Question: Pick<
+      Question,
+      "id" | "text" | "questionType" | "orderBy" | "subSection" | "isRequired" | "fieldName" | "options"
+    >[];
+  }[];
+}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/
