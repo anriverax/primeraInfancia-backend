@@ -69,6 +69,7 @@ export class TechSupportController {
         mentoresInsertados
       });
     }
+    return { mensaje: "Proceso completado", resultado };
   }
 
   /*
