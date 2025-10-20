@@ -28,7 +28,6 @@ export class GradeController {
         const upload = await this.prisma.upload.findUnique({ where: { id: uploadId } });
         if (!upload) throw new NotFoundException("Upload no encontrado");
 
-        console.log('before');
         const s3 = new AWS.S3({
             region: process.env.AWS_REGION,
             accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -37,40 +36,56 @@ export class GradeController {
 
         const { Bucket, Key } = this.parseS3Uri(upload.s3uri);
 
-        console.log('after',Bucket);
-        console.log('key',Key);
-        console.log('uri',upload.s3uri);
         const fileStream = s3.getObject({ Bucket, Key }).createReadStream();
-        console.log('after2');
         try{
             const rows: any[] = [];
             const mapping = upload.mapping as Record<string, string>;
-            console.log('after3');
+            const cleanMapping = Object.fromEntries(
+                Object.entries(mapping).map(([k, v]) => [k.trim(), v.trim()])
+            );
             await new Promise<void>((resolve, reject) => {
                 fileStream
                     .pipe(csvParser())
-                    .on("data", (row) => rows.push(row))
+                    .on("data", (row) =>{
+                        const cleanRow = Object.fromEntries(
+                            Object.entries(row).map(([key, value]) => [
+                                key.replace(/^\uFEFF/, "").trim(), // elimina BOM
+                                typeof value === "string" ? value.trim() : value,
+                            ])
+                        );
+                        rows.push(cleanRow);
+                        }
+                    )
                     .on("end", () => resolve())
                     .on("error", (err) => reject(err));
             });
             let processed = 0;
-            console.log('after4 ---> ',rows);
             for (const row of rows) {
-                console.log('row is ', row);
-                console.log('mapping', mapping);
                 const email = row[mapping.email];
                 const score = parseFloat(row[mapping.score]);
-                const evaluationInstrumentId = parseInt(row[mapping.evaluationInstrumentId]);
+                const evaluationInstrumentField = row[cleanMapping.evaluationInstrumentId];
+                let evaluationInstrumentId: number | null = null;
+                if (evaluationInstrumentField) {
+
+                    if (/^\d+$/.test(evaluationInstrumentField)) {
+                        evaluationInstrumentId = parseInt(evaluationInstrumentField);
+                    } else {
+                        const foundInstrument = await this.prisma.evaluationInstrument.findFirst({
+                            where: { code: evaluationInstrumentField },
+                            select: { id: true },
+                        });
+                        evaluationInstrumentId = foundInstrument?.id ?? null;
+                    }
+                }
+
+                if(evaluationInstrumentId === null){
+                    continue;
+                }
+                evaluationInstrumentId = parseInt(evaluationInstrumentId.toString());
                 const evaluationInstrumentDetailId = row[mapping.evaluationInstrumentDetailId]
                     ? parseInt(row[mapping.evaluationInstrumentDetailId])
                     : null;
 
-                console.log('to create --------', {
-                    email,
-                    evaluationInstrumentId,
-                    evaluationInstrumentDetailId,
-                    score,
-                });
                 if (!email || isNaN(score)) continue;
 
                 await this.prisma.grade.upsert({
@@ -92,7 +107,6 @@ export class GradeController {
 
                 processed++;
             }
-            console.log('after5');
             await this.prisma.upload.update({
                 where: { id: uploadId },
                 data: { status: "PROCESSED" },
@@ -100,7 +114,6 @@ export class GradeController {
         }catch (e){
             console.log('error --> ', e)
         }
-
 
         return { message: "Archivo procesado correctamente" };
     }
