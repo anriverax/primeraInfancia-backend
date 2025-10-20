@@ -1,5 +1,11 @@
 import { Injectable } from "@nestjs/common";
-import { ITeachersAssignmentMentor, ITeachersAssignmentMentorResult } from "../dto/attendance.type";
+import {
+  IFindLastAttendace,
+  ILastAttendance,
+  ITeachersAssignmentMentor,
+  ITeachersAssignmentMentorResult
+} from "../dto/attendance.type";
+import { formatDate } from "@/common/helpers/functions";
 
 @Injectable()
 export class MentorAssignmentService {
@@ -8,14 +14,15 @@ export class MentorAssignmentService {
 
     data.forEach((d) => {
       const { deletedBy, PersonRole } = d.Inscription;
+      const person = PersonRole.Person;
 
-      if (!deletedBy && !PersonRole.deletedBy && !PersonRole.Person.deletedBy) {
+      const principalSchool = PersonRole.Person.PrincipalSchool.find((p) => p.deletedBy === null);
+
+      if (deletedBy === null && principalSchool) {
         const id = PersonRole.id;
-        const fullName = `${PersonRole.Person.firstName} ${PersonRole.Person.lastName1} ${PersonRole.Person.lastName2}`;
+        const fullName = `${person.firstName} ${person.lastName1} ${person.lastName2}`;
 
-        const principalSchool = PersonRole.Person.PrincipalSchool.filter((p) => p.deletedBy === null);
-
-        const { code, name, coordenates, District } = principalSchool[0].School;
+        const { code, name, coordenates, District } = principalSchool.School;
         const location = `${District.Municipality.name} / ${District.name}`;
 
         const School = {
@@ -30,5 +37,37 @@ export class MentorAssignmentService {
     });
 
     return newData;
+  }
+
+  getTeachersByTypePerson(data: IFindLastAttendace[]): ILastAttendance[] {
+    const teachers = data.filter((d: IFindLastAttendace) => d.PersonRole.typePersonId === 2);
+
+    const result = teachers.reduce(
+      (acc, t) => {
+        const key = t.Event.name;
+        const teacher = t.PersonRole.Person;
+        const fullName = `${teacher.firstName} ${teacher.lastName1} ${teacher.lastName2}`;
+        if (!acc[key]) {
+          acc[key] = {
+            id: t.Event.id,
+            event: t.Event.name,
+            checkIn: formatDate(t.checkIn),
+            modality: t.modality,
+            details: []
+          };
+        }
+        acc[key].details.push({
+          coordenates: t.coordenates,
+          fullName
+        });
+
+        return acc;
+      },
+      {} as Record<string, ILastAttendance>
+    );
+
+    const arrayResult = Object.values(result);
+
+    return arrayResult;
   }
 }

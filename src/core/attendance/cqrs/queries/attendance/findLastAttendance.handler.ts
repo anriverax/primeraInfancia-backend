@@ -7,28 +7,34 @@ import { IFindLastAttendace } from "@/core/attendance/dto/attendance.type";
 export class FindLastAttendanceHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(query: FindLastAttendanceQuery): Promise<IFindLastAttendace | null> {
+  async execute(query: FindLastAttendanceQuery): Promise<IFindLastAttendace[]> {
     const { responsableId } = query;
 
-    const attendance = await this.prisma.attendance.findFirst({
+    const attendance = await this.prisma.attendance.findMany({
       where: {
-        checkOut: null,
-        PersonRole: {
-          Person: {
-            User: {
-              id: responsableId
-            }
-          }
-        }
+        createdBy: responsableId,
+        checkOut: null
       },
       select: {
-        id: true,
         checkIn: true,
-        checkOut: true,
         coordenates: true,
+        modality: true,
         Event: {
           select: {
+            id: true,
             name: true
+          }
+        },
+        PersonRole: {
+          select: {
+            typePersonId: true,
+            Person: {
+              select: {
+                firstName: true,
+                lastName1: true,
+                lastName2: true
+              }
+            }
           }
         }
       },

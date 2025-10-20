@@ -1,6 +1,6 @@
 import { AttendanceEnum } from "@prisma/client";
 import { Transform } from "class-transformer";
-import { IsEnum, IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsEnum, IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class AttendanceDto {
   @IsNotEmpty({ message: "El evento es obligatorio." })
@@ -15,20 +15,26 @@ export class AttendanceDto {
   })
   status: AttendanceEnum;
 
+  @IsNotEmpty({ message: "El docente o docentes son obligatorio." })
+  @IsArray()
+  teacherId: number[];
+
   @IsNotEmpty({ message: "La modalidad es obligatorio." })
   @IsString({ message: "La modalidad debe ser una cadena de texto." })
-  @IsEnum(AttendanceEnum, { message: "La modalidad debe ser Presencial o Virtual." })
+  @Transform(({ value }) =>
+    typeof value === "string" ? value.charAt(0).toUpperCase() + value.slice(1).toLowerCase() : value
+  )
   @IsIn(["Presencial", "Virtual"], {
     message: "La modalidad debe ser Presencial o Virtual."
   })
   modality: "Presencial" | "Virtual";
 
   @IsOptional()
-  coordenates?: string;
+  coordenates: string | null;
 
   @IsOptional()
-  comment?: string;
+  comment: string | null;
 
   @IsOptional()
-  justificationUrl?: string;
+  justificationUrl: string;
 }
