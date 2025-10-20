@@ -29,6 +29,8 @@ import { SchoolModule } from "./core/catalogue/school/school.module";
 import { DashboardModule } from "./core/dashboard/dashboard.module";
 import { AppendixModule } from "./core/appendix/appendix.module";
 import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
+import {GradeModule} from "@/core/grade/grade.module";
+import {UploadModule} from "@/core/upload/upload.module";
 
 @Module({
   imports: [
@@ -54,6 +56,8 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
     ProfileModule,
     ZoneModule,
     GroupModule,
+    GradeModule,
+    UploadModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -105,6 +109,14 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
           {
             path: "group",
             module: GroupModule
+          },
+          {
+            path: "grade",
+            module: GradeModule
+          },
+          {
+            path: "upload",
+            module: UploadModule
           },
           {
             path: "attendance",
