@@ -60,6 +60,8 @@ export class GradeController {
                     .on("error", (err) => reject(err));
             });
             let processed = 0;
+            let periodicity;
+            console.log('mapping', mapping);
             for (const row of rows) {
                 const email = row[mapping.email];
                 const score = parseFloat(row[mapping.score]);
@@ -70,11 +72,25 @@ export class GradeController {
                     if (/^\d+$/.test(evaluationInstrumentField)) {
                         evaluationInstrumentId = parseInt(evaluationInstrumentField);
                     } else {
+                        // const foundInstrument = await this.prisma.evaluationInstrument.findFirst({
+                        //     where: { code: evaluationInstrumentField },
+                        //     select: { id: true },
+                        // });
+                        // console.log('found instrument --->', foundInstrument.pe);
+                        // evaluationInstrumentId = foundInstrument?.id ?? null;
                         const foundInstrument = await this.prisma.evaluationInstrument.findFirst({
                             where: { code: evaluationInstrumentField },
-                            select: { id: true },
+                            select: { id: true, periodicity: true },
                         });
-                        evaluationInstrumentId = foundInstrument?.id ?? null;
+
+                        if (!foundInstrument) {
+                            console.log(`No se encontró instrumento con código ${evaluationInstrumentField}`);
+                            continue;
+                        }
+
+                        const { id, periodicity:p } = foundInstrument;
+                        periodicity = p;
+                        evaluationInstrumentId = id;
                     }
                 }
 
@@ -83,17 +99,50 @@ export class GradeController {
                 }
                 evaluationInstrumentId = parseInt(evaluationInstrumentId.toString());
                 const evaluationInstrumentDetailId = row[mapping.evaluationInstrumentDetailId]
-                    ? parseInt(row[mapping.evaluationInstrumentDetailId])
+                console.log('evaluationInstrumentDetailId --> ', evaluationInstrumentDetailId)
+                const evaluationNumber = row[mapping.evaluation_number]
+                    ? parseInt(row[mapping.evaluation_number])
                     : null;
+                if (periodicity?.toLowerCase() === "durante el módulo") {
+                    const detail = await this.prisma.evaluationInstrumentDetail.findFirst({
+                        where: {
+                            evaluationInstrumentId: evaluationInstrumentId,
+                            moduleNumber: evaluationInstrumentDetailId ?? 0,
+                        },
+                        select: { end_date: true },
+                    });
 
+                    if (detail?.end_date) {
+                        const endDate = new Date(detail.end_date);
+                        const limitDate = new Date(endDate);
+                        limitDate.setDate(limitDate.getDate() + 14);
+                        console.log(`instrumento ${evaluationInstrumentField}`)
+                        if (new Date() > limitDate) {
+                            console.warn(
+                                `Registro bloqueado: ${email} - módulo ${evaluationInstrumentField} venció el ${limitDate.toISOString().split("T")[0]}`
+                            );
+
+                        }
+                    } else {
+                        console.warn(`No se encontró fecha fin de módulo para ${evaluationInstrumentField}`);
+                        continue;
+                    }
+                }
+                console.log('to insert ', {
+                    email,
+                    evaluationInstrumentId,
+                    evaluationInstrumentDetailId,
+                    score,
+                });
                 if (!email || isNaN(score)) continue;
 
                 await this.prisma.grade.upsert({
                     where: {
-                        email_evaluationInstrumentId_evaluationInstrumentDetailId: {
+                        email_evaluationInstrumentId_evaluationInstrumentDetailId_numero_evaluacion: {
                             email,
                             evaluationInstrumentId,
                             evaluationInstrumentDetailId: evaluationInstrumentDetailId ?? 0,
+                            numero_evaluacion: evaluationNumber ?? 0
                         },
                     },
                     update: { score },
@@ -101,7 +150,7 @@ export class GradeController {
                         email,
                         evaluationInstrumentId,
                         evaluationInstrumentDetailId,
-                        score,
+                        score
                     },
                 });
 

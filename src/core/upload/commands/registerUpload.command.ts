@@ -16,7 +16,14 @@ export class RegisterUploadHandler implements ICommandHandler<RegisterUploadComm
 
     async execute(command: RegisterUploadCommand): Promise<{ id: number }> {
         const { fileName, s3Uri, mapping, createdBy } = command;
-
+        console.log('to upload ', {
+            data: {
+                filename: fileName,
+                s3uri: s3Uri,
+                mapping,
+                createdBy: createdBy ?? 'byron',
+            },
+        });
         const upload = await this.prisma.upload.create({
             data: {
                 filename: fileName,

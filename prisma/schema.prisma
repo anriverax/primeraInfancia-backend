@@ -492,11 +492,14 @@ model EvaluationInstrument {
 model EvaluationInstrumentDetail {
   id                     Int                  @id @default(autoincrement())
   description            String
+  code                   String
   evaluationInstrumentId Int
   percentage             Float
   moduleNumber           Int? // Apply if it is per module, null if it is at the end
   EvaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
   Grade                  Grade[]
+  start_date             DateTime?
+  end_date               DateTime?
 }
 
 model ModuleEvaluation {
@@ -526,8 +529,8 @@ model Grade {
 
   evaluationInstrument       EvaluationInstrument        @relation(fields: [evaluationInstrumentId], references: [id], onDelete: Cascade)
   evaluationInstrumentDetail EvaluationInstrumentDetail? @relation(fields: [evaluationInstrumentDetailId], references: [id], onDelete: Cascade)
-
-  @@unique([email, evaluationInstrumentId, evaluationInstrumentDetailId])
+  numero_evaluacion            Int?    @default(1)
+  @@unique([email, evaluationInstrumentId, evaluationInstrumentDetailId,numero_evaluacion])
   @@map("Grade")
 }
 

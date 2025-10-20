@@ -23,10 +23,11 @@ export class UploadGradesHandler implements ICommandHandler<UploadGradesCommand>
             for (const g of grades) {
                 await tx.grade.upsert({
                     where: {
-                        email_evaluationInstrumentId_evaluationInstrumentDetailId: {
+                        email_evaluationInstrumentId_evaluationInstrumentDetailId_numero_evaluacion: {
                             email: g.email,
                             evaluationInstrumentId: g.evaluationInstrumentId,
                             evaluationInstrumentDetailId: g.evaluationInstrumentDetailId ?? 0,
+                            numero_evaluacion: 1
                         },
                     },
                     update: { score: g.score },
@@ -35,6 +36,7 @@ export class UploadGradesHandler implements ICommandHandler<UploadGradesCommand>
                         evaluationInstrumentId: g.evaluationInstrumentId,
                         evaluationInstrumentDetailId: g.evaluationInstrumentDetailId ?? 0,
                         score: g.score,
+                        numero_evaluacion: 1
                     },
                 });
             }

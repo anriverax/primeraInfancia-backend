@@ -27,10 +27,13 @@ import { TrainingModule } from "./core/catalogue/trainingModule/trainingModule.m
 import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrument/evaluationInstrument.module";
 import { SchoolModule } from "./core/catalogue/school/school.module";
 import { DashboardModule } from "./core/dashboard/dashboard.module";
-import { AppendixModule } from "./core/appendix/appendix.module";
 import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
 import {GradeModule} from "@/core/grade/grade.module";
 import {UploadModule} from "@/core/upload/upload.module";
+
+// Appendix
+import { AppendixModule } from "./core/appendix/appendix.module";
+import { AnswerModule } from "./core/answer/answer.module";
 
 @Module({
   imports: [
@@ -66,8 +69,9 @@ import {UploadModule} from "@/core/upload/upload.module";
     TrainingModule,
     EvaluationInstrumentModule,
     DashboardModule,
-    AppendixModule,
     TechsupportModule,
+    AppendixModule,
+    AnswerModule,
     RouterModule.register([
       {
         path: "api",
@@ -146,6 +150,10 @@ import {UploadModule} from "@/core/upload/upload.module";
           {
             path: "appendix",
             module: AppendixModule
+          },
+          {
+            path: "answer",
+            module: AnswerModule
           }
         ]
       }
