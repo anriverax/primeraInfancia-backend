@@ -14,4 +14,4 @@ const QueryHandlers = [GetAllAnswerHandler, GetByIdAnswerHandler];
   controllers: [AnswerController],
   providers: [AnswerProjection, CreateAnswerHandler, ...QueryHandlers]
 })
-export class AnswerModule { }
+export class AnswerModule {}

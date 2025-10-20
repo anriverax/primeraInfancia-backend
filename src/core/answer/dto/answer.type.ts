@@ -16,5 +16,5 @@ export interface IAnswersWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdAnswer { }
+export interface IGetByIdAnswer {}
 /* eslint-enable @typescript-eslint/no-empty-object-type*/

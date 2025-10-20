@@ -7,7 +7,7 @@ import { handlePrismaError } from "@/common/helpers/functions";
 
 @Injectable()
 export class AnswerProjection {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(data: ICreateAnswer): Promise<Answer> {
     try {

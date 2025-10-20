@@ -16,7 +16,7 @@ export class AnswerController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus
-  ) { }
+  ) {}
 
   @AuthRequired()
   @Post("create")
