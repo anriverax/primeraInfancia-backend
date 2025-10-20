@@ -19,6 +19,7 @@ import { GetByUserIdUserKeyHandler } from "./cqrs/queries/userKey/findFirst/getB
 import { PasswdChangedHandler } from "./cqrs/events/passwdChanged/passwdChanged.handler";
 import { VerifyEmailHandler } from "./cqrs/commands/verifyEmail/verifyEmail.handler";
 import { GetByRolIdHandler } from "./cqrs/queries/role/getByRolId.handler";
+import { GetAllPermissionHandler } from "./cqrs/queries/menuPermission/getAllPermission.handler";
 
 const CommandHandlers = [RegisterUserHandler, VerifyEmailHandler, ChangePasswdHandler];
 
@@ -26,7 +27,8 @@ const QueryHandlers = [
   FindUniqueUserQueryHandler,
   GetAllUserKeyByUserIdHandler,
   GetByUserIdUserKeyHandler,
-  GetByRolIdHandler
+  GetByRolIdHandler,
+  GetAllPermissionHandler
 ];
 const EventHandlers = [UserRegisteredHandler, PasswdChangedHandler];
 

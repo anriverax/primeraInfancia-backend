@@ -1,5 +1,4 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
-
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { Controller, Get, UseFilters } from "@nestjs/common";
 import { dataJSON } from "./data";

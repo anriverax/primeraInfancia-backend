@@ -6,7 +6,8 @@ import {
   Req,
   UnauthorizedException,
   UseFilters,
-  UseGuards
+  UseGuards,
+  Get
 } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { Request } from "express";
@@ -23,6 +24,7 @@ import { FindUniqueUserQuery } from "./cqrs/queries/user/findUniqueUser.query";
 import { ChangePasswdCommand } from "./cqrs/commands/changePasswd/changePasswd.command";
 import { VerifyEmailCommand } from "./cqrs/commands/verifyEmail/verifyEmail.command";
 import { GetByRolIdQuery } from "./cqrs/queries/role/getByRolId.query";
+import { GetAllPermissionQuery } from "./cqrs/queries/menuPermission/getAllPermission.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -37,6 +39,18 @@ export class AuthController {
   @Post("register")
   async register(@Body() data: AuthDto): Promise<NestResponse<void>> {
     return this.commandBus.execute(new RegisterUserCommand(data));
+  }
+
+  @AuthRequired()
+  @Get("route-permissions")
+  async getRoutePermissions(): Promise<NestResponse<Record<string, string[]>>> {
+    const map = await this.queryBus.execute(new GetAllPermissionQuery());
+
+    return {
+      statusCode: 200,
+      message: "Mapa de permisos por ruta",
+      data: map
+    };
   }
 
   @Post("login")

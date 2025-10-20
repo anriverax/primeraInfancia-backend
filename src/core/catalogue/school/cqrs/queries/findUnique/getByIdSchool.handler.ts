@@ -38,6 +38,7 @@ export class GetByIdSchoolHandler {
         },
         PrincipalSchool: {
           select: {
+            deletedAt: true,
             Person: {
               select: {
                 id: true,
@@ -45,6 +46,7 @@ export class GetByIdSchoolHandler {
                 lastName1: true,
                 lastName2: true,
                 phoneNumber: true,
+                deletedAt: true,
                 User: {
                   select: {
                     email: true
@@ -63,11 +65,19 @@ export class GetByIdSchoolHandler {
 
     const teachers = PrincipalSchool.map((item) => {
       const { id, phoneNumber, User, ...i } = item.Person;
+
+      const state: string =
+        (item.deletedAt !== null && i.deletedAt !== null) ||
+        (item.deletedAt === null && i.deletedAt !== null)
+          ? "InActivo"
+          : "Activo";
+
       return {
         id,
         phoneNumber,
         fullName: `${i.firstName} ${i.lastName1} ${i.lastName2}`,
-        email: User?.email!
+        email: User ? User.email : "email@email.com",
+        state
       };
     });
     return { ...rest, teachers };

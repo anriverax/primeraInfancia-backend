@@ -7,19 +7,19 @@ import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.
 import { GetPersonRoleByUserQuery } from "./cqrs/queries/PersonRole/getPersonRoleByUser.query";
 import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/findLastAttendance.query";
 import {
-  IAttendance,
   IAttendanceResult,
-  IAttendanceWithFormatteDate,
-  ITeachersAssignmentWithEvents
+  ILastAttendance,
+  ITeachersAssignmentWithEvents,
+  IAttendanceGrouped
 } from "./dto/attendance.type";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
-import { formatDate } from "@/common/helpers/functions";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
 import { PaginationDto } from "@/common/helpers/dto";
 import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
 import { GetAllEventQuery } from "./cqrs/queries/event/getAllEvent.query";
 import { FindByUserIdQuery } from "./cqrs/queries/mentorAssignment/findByUserId.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
+import { AttendanceEnum } from "@prisma/client";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -32,7 +32,9 @@ export class AttendanceController {
 
   @AuthRequired()
   @Get("teachersWithEvents")
-  async getTeachersWithEvents(@Req() req: Request): Promise<ITeachersAssignmentWithEvents> {
+  async getTeachersWithEvents(
+    @Req() req: Request
+  ): Promise<NestResponse<ITeachersAssignmentWithEvents>> {
     const userId = req["user"].sub;
 
     const events = await this.queryBus.execute(new GetAllEventQuery(userId));
@@ -40,7 +42,11 @@ export class AttendanceController {
     const result = await this.queryBus.execute(new FindByUserIdQuery(parseInt(userId)));
     const data = this.mentorAssignmentService.order(result);
 
-    return { events, teachers: data };
+    return {
+      statusCode: 200,
+      message: "Listado de grupos por ID",
+      data: { events, teachers: data }
+    };
   }
 
   @AuthRequired()
@@ -52,10 +58,25 @@ export class AttendanceController {
     const userId = req["user"].sub;
 
     const personRole = await this.queryBus.execute(new GetPersonRoleByUserQuery(parseInt(userId)));
+    const { teacherId, ...rest } = data;
+    const checkOutState = rest.status === AttendanceEnum.AUSENTE ? new Date() : null;
 
     const attendanceData = await this.commandBus.execute(
-      new CreateAttendanceCommand({ ...data, personRoleId: personRole!.id }, userId)
+      new CreateAttendanceCommand(
+        {
+          ...rest,
+          checkOut: checkOutState,
+          personRoleId: personRole!.id
+        },
+        userId
+      )
     );
+
+    for (const teacher of teacherId) {
+      await this.commandBus.execute(
+        new CreateAttendanceCommand({ ...rest, checkOut: checkOutState, personRoleId: teacher }, userId)
+      );
+    }
 
     return {
       statusCode: 201,
@@ -66,7 +87,7 @@ export class AttendanceController {
 
   @AuthRequired()
   @Put("update/:id")
-  async update(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<IAttendanceResult>> {
+  async update(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<{ count: number }>> {
     const userId = req["user"].sub;
 
     const attendanceUpdated = await this.commandBus.execute(
@@ -75,7 +96,7 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Finalización de jornada.",
+      message: "Jornada finalizada.",
       data: attendanceUpdated
     };
   }
@@ -85,26 +106,24 @@ export class AttendanceController {
   async getAll(
     @Req() req: Request,
     @Query() filterPagination: PaginationDto
-  ): Promise<NestResponseWithPagination<IAttendance[]>> {
+  ): Promise<NestResponseWithPagination<IAttendanceGrouped[]>> {
     const userId = req["user"].sub;
 
     const result = await this.queryBus.execute(
-      new GetAllAttendancePaginationQuery(parseInt(userId), filterPagination)
+      new GetAllAttendancePaginationQuery(parseInt(userId), req["user"].role, filterPagination)
     );
 
     return {
       statusCode: 200,
-      message: "Listado de asistencias registrados",
+      message: "Listado de asistencias agrupadas por persona",
       data: result.data,
       meta: result.meta
     };
   }
 
   @AuthRequired()
-  @Get("byUser")
-  async getAttendanceByUser(
-    @Req() req: Request
-  ): Promise<NestResponse<IAttendanceWithFormatteDate | null>> {
+  @Get("lastAttendance")
+  async getAttendanceByUser(@Req() req: Request): Promise<NestResponse<ILastAttendance[]>> {
     const userId = req["user"].sub;
 
     const attendanceResult = await this.queryBus.execute(new FindLastAttendanceQuery(parseInt(userId)));
@@ -112,24 +131,16 @@ export class AttendanceController {
     if (!attendanceResult) {
       return {
         statusCode: 200,
-        message: "Listado de grupos por ID",
-        data: null
+        message: "Listado de asistencia vacía",
+        data: []
       };
     }
-
-    const { checkIn, checkOut, ...rest } = attendanceResult;
-
-    const newCheckIn = formatDate(checkIn);
-    const newCheckOut = checkOut ? formatDate(checkOut) : "";
+    const res = this.mentorAssignmentService.getTeachersByTypePerson(attendanceResult);
 
     return {
       statusCode: 200,
       message: "Listado de grupos por ID",
-      data: {
-        ...rest,
-        checkIn: newCheckIn,
-        checkOut: newCheckOut
-      }
+      data: res
     };
   }
 }
