@@ -47,3 +47,17 @@ export interface IAppendix8 {
 export interface DashboardMentoring {
   appendix8: IAppendix8[];
 }
+
+export interface CategoryAppendix {
+  label: string;
+  count: number;
+}
+
+export interface IDashboardResume {
+  teacherFemale: number;
+  teacherMale: number;
+  teacherShiftAm: number;
+  teacherShiftPm: number;
+  earlyEducation: CategoryAppendix[];
+  extraEducation: CategoryAppendix[];
+}

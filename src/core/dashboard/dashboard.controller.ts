@@ -1,7 +1,12 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/queries/getAllSchoolByZone.query";
-import { DashboardAttendance, DashboardMentoring, DashboardPerson } from "./dto/dashboard.type";
+import {
+  DashboardAttendance,
+  DashboardMentoring,
+  DashboardPerson,
+  IDashboardResume
+} from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
 import { DashboardService } from "./services/dashboard.service";
@@ -15,6 +20,7 @@ import { GetAllEventByTypeQuery } from "./cqrs/queries/eventType/getAllEventByTy
 import { GetTeacherCountByYearExperienceQuery } from "./cqrs/queries/person/queries/getTeacherCountByYearExperiencie.query";
 import { GetTeacherCountByEducationalLevelQuery } from "./cqrs/queries/person/queries/getTeacherCountByEducationalLevel ";
 import { GetAppendix8Query } from "./cqrs/queries/appendix/queries/getAppendix8.query";
+import { GetAppendixResumeQuery } from "./cqrs/queries/appendix/queries/getAppendixResume.query";
 import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/queries/findMany/getAllTrainingModule.query";
 import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
 
@@ -75,5 +81,12 @@ export class DashboardController {
     const appendix8 = await this.queryBus.execute(new GetAppendix8Query());
 
     return { appendix8 };
+  }
+
+  @Get("resume")
+  async getDashboardResume(): Promise<IDashboardResume> {
+    const query = await this.queryBus.execute(new GetAppendixResumeQuery());
+
+    return query;
   }
 }
