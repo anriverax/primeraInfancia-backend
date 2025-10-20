@@ -4,9 +4,9 @@ import { IDashboardResume, CategoryAppendix } from "@/core/dashboard/dto/dashboa
 import { PrismaService } from "@/services/prisma/prisma.service";
 
 const TEACHER_TYPE_ID = 2;
-const SHIFT_QUESTION_ID = 113;
-const EARLY_EDUCATION_QUESTION_ID = 114;
-const EXTRA_EDUCATION_QUESTION_ID = 115;
+const SHIFT_QUESTION_ID = 228;
+const EARLY_EDUCATION_QUESTION_ID = 110;
+const EXTRA_EDUCATION_QUESTION_ID = 113;
 
 @QueryHandler(GetAppendixResumeQuery)
 export class GetAppendixResumeHandler {
@@ -36,7 +36,7 @@ export class GetAppendixResumeHandler {
           _count: { inscriptionId: true },
           where: {
             questionId: SHIFT_QUESTION_ID,
-            valueText: "A.M."
+            valueText: "a.m."
           }
         }),
 
@@ -46,7 +46,7 @@ export class GetAppendixResumeHandler {
           _count: { inscriptionId: true },
           where: {
             questionId: SHIFT_QUESTION_ID,
-            valueText: "P.M."
+            valueText: "p.m."
           }
         }),
 
