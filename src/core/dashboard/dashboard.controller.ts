@@ -5,7 +5,9 @@ import {
   DashboardAttendance,
   DashboardMentoring,
   DashboardPerson,
-  IDashboardResume
+  IDashboardResume,
+  IAppendixAnswerCount,
+  DashboardDetailMentoring
 } from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
@@ -23,13 +25,15 @@ import { GetAppendix8Query } from "./cqrs/queries/appendix/queries/getAppendix8.
 import { GetAppendixResumeQuery } from "./cqrs/queries/appendix/queries/getAppendixResume.query";
 import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/queries/findMany/getAllTrainingModule.query";
 import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
+import { GetAppendixCountQuery } from "./cqrs/queries/appendix/queries/getAppendixCount.query";
+import { GetAspectPracticeCountQuery } from "./cqrs/queries/appendix/queries/getAspectPracticeCount.query";
 
 @Controller()
 export class DashboardController {
   constructor(
     private queryBus: QueryBus,
     private dashboardService: DashboardService
-  ) {}
+  ) { }
 
   @Get("/participant")
   async getDashboardData(): Promise<DashboardPerson> {
@@ -88,5 +92,25 @@ export class DashboardController {
     const query = await this.queryBus.execute(new GetAppendixResumeQuery());
 
     return query;
+  }
+
+  @Get("answer-counts")
+  async getAppendixAnswerCounts(): Promise<IAppendixAnswerCount> {
+    const query = this.queryBus.execute(new GetAppendixCountQuery());
+
+    return query;
+  }
+
+  @Get("est")
+  async getDashboardResume2(): Promise<DashboardDetailMentoring> {
+    const resume = await this.queryBus.execute(new GetAppendixResumeQuery());
+    const answerCounts = await this.queryBus.execute(new GetAppendixCountQuery());
+    const aspectPracticeCounts = await this.queryBus.execute(new GetAspectPracticeCountQuery());
+
+    return {
+      dashboardResume: resume,
+      appendixAnswerCount: answerCounts,
+      aspectPracticeCount: aspectPracticeCounts
+    };
   }
 }

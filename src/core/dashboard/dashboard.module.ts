@@ -17,6 +17,8 @@ import { GetTeacherCountsByYearsExperienceHandler } from "./cqrs/queries/person/
 import { GetTeacherCountByEducationalLevelHandler } from "./cqrs/queries/person/handler/getTeacherCountByEducationalLevel.handler";
 import { GetAppendix8Handler } from "./cqrs/queries/appendix/handler/getAppendix8.handler";
 import { GetAppendixResumeHandler } from "./cqrs/queries/appendix/handler/getAppendixResume.handler";
+import { GetAppendixCountHandler } from "./cqrs/queries/appendix/handler/getAppendixCount.handler";
+import { GetAspectPracticeCountHandler } from "./cqrs/queries/appendix/handler/getAspectPractice.handler";
 import { TrainingModule } from "../catalogue/trainingModule/trainingModule.module";
 
 export const QueryHandlers = [
@@ -33,7 +35,9 @@ export const QueryHandlers = [
   GetTeacherCountsByYearsExperienceHandler,
   GetTeacherCountByEducationalLevelHandler,
   GetAppendix8Handler,
-  GetAppendixResumeHandler
+  GetAppendixResumeHandler,
+  GetAppendixCountHandler,
+  GetAspectPracticeCountHandler
 ];
 
 @Module({
@@ -41,4 +45,4 @@ export const QueryHandlers = [
   controllers: [DashboardController],
   providers: [PrismaService, ...QueryHandlers, DashboardService]
 })
-export class DashboardModule {}
+export class DashboardModule { }

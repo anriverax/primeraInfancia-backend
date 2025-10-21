@@ -48,6 +48,7 @@ export interface DashboardMentoring {
   appendix8: IAppendix8[];
 }
 
+// Docentes por sexo, turno, educación primaria y educación extra
 export interface CategoryAppendix {
   label: string;
   count: number;
@@ -60,4 +61,26 @@ export interface IDashboardResume {
   teacherShiftPm: number;
   earlyEducation: CategoryAppendix[];
   extraEducation: CategoryAppendix[];
+}
+
+// Cuántos docentes han contestado los anexos
+export interface AppendixCountItem {
+  appendixId: number;
+  appendixTitle: string;
+  peopleAnswered: number;
+}
+export type IAppendixAnswerCount = AppendixCountItem[];
+
+// Respuestas a 'Aspectos de la práctica'
+export interface AspectPracticeItem {
+  appendixId: number;
+  practiceAspect: string;
+  peopleAnswered: number;
+}
+export type IAspectPracticeCount = AspectPracticeItem[];
+
+export interface DashboardDetailMentoring {
+  dashboardResume: IDashboardResume;
+  appendixAnswerCount: IAppendixAnswerCount;
+  aspectPracticeCount: IAspectPracticeCount;
 }
