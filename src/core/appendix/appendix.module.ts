@@ -11,8 +11,14 @@ import {
 } from "./cqrs/queries/findUnique/getByIdAppendix.handler";
 import { DeleteAppendixHandler } from "./cqrs/commands/delete/deleteAppendix.handler";
 import { UpdateAppendixHandler } from "./cqrs/commands/update/updateAppendix.handler";
+import { GetPersonAppendicesHandler } from "./cqrs/queries/findMany/getAllAppendixAnswer.handler";
 
-const CommandHandlers = [CreateAppendixHandler, UpdateAppendixHandler, DeleteAppendixHandler];
+const CommandHandlers = [
+  CreateAppendixHandler,
+  UpdateAppendixHandler,
+  DeleteAppendixHandler,
+  GetPersonAppendicesHandler
+];
 const QueryHandlers = [GetAllAppendixHandler, GetByIdAppendixHandler, GetByIdDetailAppendixHandler];
 
 @Module({

@@ -14,6 +14,7 @@ import {
   GetByIdAppendixQuery,
   GetByDetailAppendixQuery
 } from "./cqrs/queries/findUnique/getByIdAppendix.query";
+import { GetPersonAppendicesQuery } from "@/core/appendix/cqrs/queries/findMany/getAllAppendixAnswer.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -21,7 +22,7 @@ export class AppendixController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus
-  ) {}
+  ) { }
 
   @AuthRequired()
   @Post("create")
@@ -86,5 +87,18 @@ export class AppendixController {
       message: "Detalle del instrumento por ID.",
       data: result
     };
+  }
+
+  @Post("by-inscription")
+  //@Get("by-inscription/:inscriptionId")
+  async getInscriptionAppendices(
+    @Body() inscriptionId: number[]
+    //@Param("inscriptionId") inscriptionId: number[]
+  ) {
+    if (inscriptionId.length === 0) {
+      return [];
+    }
+
+    return this.queryBus.execute(new GetPersonAppendicesQuery(inscriptionId));
   }
 }
