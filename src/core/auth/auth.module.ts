@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { CqrsModule, EventBus } from "@nestjs/cqrs";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./services/auth.service";
-import { RegisterUserHandler } from "./cqrs/commands/register/registerUser.handler";
+import { RegisterUserHandler } from "./cqrs/commands/register/registerUser.command";
 import { UserRegisteredHandler } from "./cqrs/events/registered/userRegistered.handler";
 import { UserProjection } from "./cqrs/projections/user.projection";
 import { UserKeyProjection } from "./cqrs/projections/userkey.projection";
