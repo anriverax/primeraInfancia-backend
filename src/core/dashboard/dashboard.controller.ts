@@ -1,6 +1,5 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
-import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/queries/getAllSchoolByZone.query";
 import { DashboardAttendance, DashboardMentoring, DashboardPerson } from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
@@ -17,6 +16,7 @@ import { GetTeacherCountByEducationalLevelQuery } from "./cqrs/queries/person/qu
 import { GetAppendix8Query } from "./cqrs/queries/appendix/queries/getAppendix8.query";
 import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/queries/findMany/getAllTrainingModule.query";
 import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
+import { GetAllSchoolByZoneQuery } from './cqrs/queries/school/getAllSchoolByZone.handler';
 
 @Controller()
 export class DashboardController {
