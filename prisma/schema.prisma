@@ -486,15 +486,20 @@ model EvaluationInstrument {
   ModuleEvaluation           ModuleEvaluation[]
   TrainingEvaluation         TrainingEvaluation[]
   EvaluationInstrumentDetail EvaluationInstrumentDetail[]
+  Grade                      Grade[]
 }
 
 model EvaluationInstrumentDetail {
   id                     Int                  @id @default(autoincrement())
   description            String
+  code                   String
   evaluationInstrumentId Int
   percentage             Float
   moduleNumber           Int? // Apply if it is per module, null if it is at the end
   EvaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
+  Grade                  Grade[]
+  start_date             DateTime?
+  end_date               DateTime?
 }
 
 model ModuleEvaluation {
@@ -513,6 +518,35 @@ model ModuleEvaluation {
   updatedBy              Int?
   deletedBy              Int?
 }
+
+model Grade {
+  id                           Int      @id @default(autoincrement())
+  email                        String   @db.VarChar(250)
+  evaluationInstrumentId       Int
+  evaluationInstrumentDetailId Int?
+  score                        Float
+  createdAt                    DateTime @default(now()) @map("created_at")
+
+  evaluationInstrument       EvaluationInstrument        @relation(fields: [evaluationInstrumentId], references: [id], onDelete: Cascade)
+  evaluationInstrumentDetail EvaluationInstrumentDetail? @relation(fields: [evaluationInstrumentDetailId], references: [id], onDelete: Cascade)
+  numero_evaluacion            Int?    @default(1)
+  @@unique([email, evaluationInstrumentId, evaluationInstrumentDetailId,numero_evaluacion])
+  @@map("Grade")
+}
+
+model Upload {
+  id          Int      @id @default(autoincrement())
+  filename    String
+  s3uri       String
+  mapping     Json
+  createdAt   DateTime @default(now())
+  createdBy   String   @db.VarChar(250)
+  status      String   @default("PENDING") // PENDING | PROCESSED | FAILED
+  error       String?  @db.Text
+
+  @@map("uploads")
+}
+
 
 model ModuleReport {
   id                   Int            @id @default(autoincrement())

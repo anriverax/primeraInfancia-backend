@@ -28,6 +28,8 @@ import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrumen
 import { SchoolModule } from "./core/catalogue/school/school.module";
 import { DashboardModule } from "./core/dashboard/dashboard.module";
 import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
+import {GradeModule} from "@/core/grade/grade.module";
+import {UploadModule} from "@/core/upload/upload.module";
 
 // Appendix
 import { AppendixModule } from "./core/appendix/appendix.module";
@@ -57,6 +59,8 @@ import { AnswerModule } from "./core/answer/answer.module";
     ProfileModule,
     ZoneModule,
     GroupModule,
+    GradeModule,
+    UploadModule,
     DepartmentModule,
     MunicipalityModule,
     PermissionModule,
@@ -109,6 +113,14 @@ import { AnswerModule } from "./core/answer/answer.module";
           {
             path: "group",
             module: GroupModule
+          },
+          {
+            path: "grade",
+            module: GradeModule
+          },
+          {
+            path: "upload",
+            module: UploadModule
           },
           {
             path: "attendance",
