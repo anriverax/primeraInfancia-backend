@@ -90,15 +90,13 @@ export class AppendixController {
   }
 
   @Post("by-inscription")
-  //@Get("by-inscription/:inscriptionId")
   async getInscriptionAppendices(
     @Body() inscriptionId: number[]
-    //@Param("inscriptionId") inscriptionId: number[]
   ) {
+
     if (inscriptionId.length === 0) {
       return [];
     }
-
     return this.queryBus.execute(new GetPersonAppendicesQuery(inscriptionId));
   }
 }

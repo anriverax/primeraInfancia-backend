@@ -2,26 +2,7 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetPersonAppendicesQuery } from "./getAllAppendixAnswer.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { Answer } from "@prisma/client";
-
-// Define the shape of the desired output
-interface QuestionAnswerDto {
-  questionText: string;
-  answer: string;
-}
-
-interface AppendixDto {
-  title: string;
-  questions: QuestionAnswerDto[];
-}
-
-interface PersonAppendixDto {
-  Person: {
-    firstName: string;
-    lastName1: string;
-    lastName2: string | null;
-  };
-  Appendix: AppendixDto[];
-}
+import { PersonAppendixDto, AppendixDto, QuestionAnswerDto } from "@/core/appendix/dto/appendix.type";
 
 // Define the extended Answer type returned by Prisma for deep nested joins
 type DetailedAnswer = Answer & {
@@ -47,7 +28,7 @@ type DetailedAnswer = Answer & {
 
 @QueryHandler(GetPersonAppendicesQuery)
 export class GetPersonAppendicesHandler implements IQueryHandler<GetPersonAppendicesQuery> {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async execute(query: GetPersonAppendicesQuery): Promise<PersonAppendixDto[]> {
     const { inscriptionIds } = query;

@@ -42,3 +42,22 @@ export interface IGetByIdAppendixDetail extends Pick<Appendix, "id" | "title"> {
   }[];
 }
 /* eslint-enable @typescript-eslint/no-empty-object-type*/
+
+export interface PersonAppendixDto {
+  Person: {
+    firstName: string;
+    lastName1: string;
+    lastName2: string | null;
+  };
+  Appendix: AppendixDto[];
+}
+
+export interface AppendixDto {
+  title: string;
+  questions: QuestionAnswerDto[];
+}
+
+export interface QuestionAnswerDto {
+  questionText: string;
+  answer: string;
+}
