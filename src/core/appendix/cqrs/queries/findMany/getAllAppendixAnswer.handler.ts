@@ -28,7 +28,7 @@ type DetailedAnswer = Answer & {
 
 @QueryHandler(GetPersonAppendicesQuery)
 export class GetPersonAppendicesHandler implements IQueryHandler<GetPersonAppendicesQuery> {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetPersonAppendicesQuery): Promise<PersonAppendixDto[]> {
     const { inscriptionIds } = query;

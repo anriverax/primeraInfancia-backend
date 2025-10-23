@@ -9,7 +9,7 @@ import { Appendix } from "@prisma/client";
 import { UpdateAppendixCommand } from "./cqrs/commands/update/updateAppendix.command";
 import { DeleteAppendixCommand } from "./cqrs/commands/delete/deleteAppendix.command";
 import { GetAllAppendixQuery } from "./cqrs/queries/findMany/getAllAppendix.query";
-import { IGetAllAppendix, IGetByIdAppendix } from "./dto/appendix.type";
+import { IGetAllAppendix, IGetByIdAppendix, PersonAppendixDto } from "./dto/appendix.type";
 import {
   GetByIdAppendixQuery,
   GetByDetailAppendixQuery
@@ -22,7 +22,7 @@ export class AppendixController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus
-  ) { }
+  ) {}
 
   @AuthRequired()
   @Post("create")
@@ -92,8 +92,7 @@ export class AppendixController {
   @Post("by-inscription")
   async getInscriptionAppendices(
     @Body() inscriptionId: number[]
-  ) {
-
+  ): Promise<NestResponse<PersonAppendixDto> | []> {
     if (inscriptionId.length === 0) {
       return [];
     }
