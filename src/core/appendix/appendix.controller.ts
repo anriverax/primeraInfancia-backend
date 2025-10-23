@@ -9,11 +9,12 @@ import { Appendix } from "@prisma/client";
 import { UpdateAppendixCommand } from "./cqrs/commands/update/updateAppendix.command";
 import { DeleteAppendixCommand } from "./cqrs/commands/delete/deleteAppendix.command";
 import { GetAllAppendixQuery } from "./cqrs/queries/findMany/getAllAppendix.query";
-import { IGetAllAppendix, IGetByIdAppendix } from "./dto/appendix.type";
+import { IGetAllAppendix, IGetByIdAppendix, PersonAppendixDto } from "./dto/appendix.type";
 import {
   GetByIdAppendixQuery,
   GetByDetailAppendixQuery
 } from "./cqrs/queries/findUnique/getByIdAppendix.query";
+import { GetPersonAppendicesQuery } from "@/core/appendix/cqrs/queries/findMany/getAllAppendixAnswer.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -86,5 +87,15 @@ export class AppendixController {
       message: "Detalle del instrumento por ID.",
       data: result
     };
+  }
+
+  @Post("by-inscription")
+  async getInscriptionAppendices(
+    @Body() inscriptionId: number[]
+  ): Promise<NestResponse<PersonAppendixDto> | []> {
+    if (inscriptionId.length === 0) {
+      return [];
+    }
+    return this.queryBus.execute(new GetPersonAppendicesQuery(inscriptionId));
   }
 }
