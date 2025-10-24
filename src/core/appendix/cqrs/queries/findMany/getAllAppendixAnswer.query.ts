@@ -1,3 +1,3 @@
 export class GetPersonAppendicesQuery {
-  constructor(public readonly inscriptionIds: number[]) {}
+  constructor(public readonly inscriptionIds: number) {}
 }

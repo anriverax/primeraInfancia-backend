@@ -581,6 +581,7 @@ model Appendix {
   iconName    String
   color       String
   Section     Section[]
+  Answer     Answer[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
   deletedAt   DateTime?
@@ -628,6 +629,8 @@ model Question {
 model Answer {
   id            Int         @id @default(autoincrement())
   valueText     String
+  appendixId    Int?
+  Appendix      Appendix?   @relation(fields: [appendixId], references: [id])
   questionId    Int
   Question      Question    @relation(fields: [questionId], references: [id])
   inscriptionId Int

@@ -15,6 +15,7 @@ import {
   GetByDetailAppendixQuery
 } from "./cqrs/queries/findUnique/getByIdAppendix.query";
 import { GetPersonAppendicesQuery } from "@/core/appendix/cqrs/queries/findMany/getAllAppendixAnswer.query";
+import { GetByInscriptionQuery } from "./cqrs/queries/findByInscription/getByInscription.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -67,7 +68,7 @@ export class AppendixController {
     );
   }
 
-  @Get(":id")
+  @Get("by-id/:id")
   async getById(@Param("id") id: string): Promise<NestResponse<IGetByIdAppendix>> {
     const result = await this.queryBus.execute(new GetByIdAppendixQuery(parseInt(id)));
 
@@ -89,13 +90,18 @@ export class AppendixController {
     };
   }
 
-  @Post("by-inscription")
+  @Get("by-inscription/:inscriptionId")
   async getInscriptionAppendices(
-    @Body() inscriptionId: number[]
-  ): Promise<NestResponse<PersonAppendixDto> | []> {
-    if (inscriptionId.length === 0) {
-      return [];
-    }
-    return this.queryBus.execute(new GetPersonAppendicesQuery(inscriptionId));
+    @Param("inscriptionId") inscriptionId: string
+  ): Promise<NestResponse<PersonAppendixDto[]>> {
+    return this.queryBus.execute(new GetPersonAppendicesQuery(parseInt(inscriptionId)));
+  }
+
+  @Get("count-inscription/:inscriptionId")
+  async getByInscription(@Param("inscriptionId") inscriptionId: string) {
+    const id = parseInt(inscriptionId);
+
+    const result = await this.queryBus.execute(new GetByInscriptionQuery(id));
+    return result;
   }
 }
