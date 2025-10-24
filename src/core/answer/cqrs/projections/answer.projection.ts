@@ -11,7 +11,7 @@ export class AnswerProjection {
 
   async create(data: ICreateAnswer): Promise<Answer> {
     try {
-      return await this.prisma.answer.create({ data: { ...data } });
+      return await this.prisma.answer.create({ data: { ...data, appendixId: 1 } });
     } catch (error) {
       handlePrismaError("AnswerProjection", error);
     }

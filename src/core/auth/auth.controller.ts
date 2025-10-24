@@ -20,11 +20,11 @@ import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { TokenService } from "./services/token.service";
 import { RefreshTokenGuard } from "@/common/guards/refreshToken.guard";
 import { RegisterUserCommand } from "./cqrs/commands/register/registerUser.command";
-import { FindUniqueUserQuery } from "./cqrs/queries/user/findUniqueUser.query";
-import { ChangePasswdCommand } from "./cqrs/commands/changePasswd/changePasswd.command";
 import { VerifyEmailCommand } from "./cqrs/commands/verifyEmail/verifyEmail.command";
 import { GetByRolIdQuery } from "./cqrs/queries/role/getByRolId.query";
 import { GetAllPermissionQuery } from "./cqrs/queries/menuPermission/getAllPermission.query";
+import { FindUniqueUserQuery } from "./cqrs/queries/user/findUniqueUser.query";
+import { ChangePasswdCommand } from "./cqrs/commands/changePasswd/changePasswd.handler";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -108,16 +108,31 @@ export class AuthController {
 
   @AuthRequired()
   @Post("change-password")
-  async changePassword(
-    @Req() req: Request,
-    @Body() data: ChangePasswdDto
-  ): Promise<NestResponse<{ isVerified: boolean; avatar: string | null }>> {
+  async changePassword(@Req() req: Request, @Body() data: ChangePasswdDto): Promise<NestResponse<void>> {
     if (!req["user"]) throw new UnauthorizedException("Usuario no autenticado.");
 
     const { id, email } = req["user"] as { id: number; email: string; sub: number; role: string };
 
+    const isExist = await this.queryBus.execute(new FindUniqueUserQuery({ id, email }));
+
+    if (!isExist) {
+      return {
+        statusCode: 404,
+        message: "El usuario no existe en el sistema."
+      };
+    }
+
+    await this.authService.verifyPasswd(isExist.passwd, data.value2);
+
+    const hashedPassword = await this.authService.hashPassword(data.value3);
+
     return this.commandBus.execute(
-      new ChangePasswdCommand({ id, email, oldPasswd: data.value1, newPasswd: data.value2 })
+      new ChangePasswdCommand({
+        id: isExist.id,
+        oldEmail: email,
+        newEmail: data.value1,
+        hashedPassword
+      })
     );
   }
 

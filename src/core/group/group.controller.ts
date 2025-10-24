@@ -39,7 +39,7 @@ export class GroupController {
     const { GroupTechSupport, ...rest } = result;
 
     const newOrder = this.groupService.order(GroupTechSupport);
-
+    console.log(newOrder);
     const { techSupport, trainer, teachers, mentors } = newOrder;
 
     return {

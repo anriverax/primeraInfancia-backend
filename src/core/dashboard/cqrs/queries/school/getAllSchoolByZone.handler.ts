@@ -1,8 +1,15 @@
-import { QueryHandler } from "@nestjs/cqrs";
+import { Query, QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { GetAllSchoolByZoneQuery } from "../queries/getAllSchoolByZone.query";
 import { IGroupCount } from "@/core/dashboard/dto/dashboard.type";
 
+// QUERY
+export class GetAllSchoolByZoneQuery extends Query<Promise<IGroupCount[]>> {
+  constructor() {
+    super();
+  }
+}
+
+// HANDLER
 @QueryHandler(GetAllSchoolByZoneQuery)
 export class GetAllSchoolByZoneHandler {
   constructor(private readonly prisma: PrismaService) {}

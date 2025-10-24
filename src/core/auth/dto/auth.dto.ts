@@ -122,13 +122,22 @@ export class LoginDto {
 }
 
 export class ChangePasswdDto {
+  @IsNotEmpty({ message: "El correo electrónico es un campo obligatorio." })
+  @Transform(({ value }) => decryptTextTransformer(value as string))
+  @IsString({ message: "La correo electrónico debe ser una cadena de texto." })
+  @IsEmail()
+  @Matches(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  )
+  value1: string;
+
   @IsNotEmpty({ message: "La contraseña antigua es un campo obligatorio." })
   @Transform(({ value }) => decryptTextTransformer(value as string))
   @IsString()
-  value1: string;
+  value2: string;
 
   @IsNotEmpty({ message: "La nueva contraseña es un campo obligatorio." })
   @Transform(({ value }) => decryptTextTransformer(value as string))
   @IsString()
-  value2: string;
+  value3: string;
 }

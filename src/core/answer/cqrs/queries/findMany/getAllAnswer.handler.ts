@@ -1,7 +1,7 @@
 import { QueryHandler } from "@nestjs/cqrs";
-import { GetAllAnswerQuery } from "./getAllAnswer.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { IAnswersWithPagination } from "@/core/answer/dto/answer.type";
+import { GetAllAnswerQuery } from "./getAllAnswer.query";
 
 @QueryHandler(GetAllAnswerQuery)
 export class GetAllAnswerHandler {

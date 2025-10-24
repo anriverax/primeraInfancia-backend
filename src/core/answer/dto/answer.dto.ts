@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, Min } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, Min } from "class-validator";
 
 export class AnswerDto {
   @IsNotEmpty({ message: "El texto es obligatorio." })
@@ -21,16 +21,4 @@ export class AnswerDto {
   @IsNumber()
   @Min(1, { message: "El anexo debe ser un número." })
   appendixId: number;
-}
-
-export class AnswerPaginationDto {
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  page?: number;
-
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  limit?: number;
 }

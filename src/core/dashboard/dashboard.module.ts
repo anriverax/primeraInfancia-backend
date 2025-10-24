@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { DashboardController } from "./dashboard.controller";
-import { GetAllSchoolByZoneHandler } from "./cqrs/queries/school/handler/getAllSchoolByZone.handler";
+import { GetAllSchoolByZoneHandler } from "./cqrs/queries/school/getAllSchoolByZone.handler";
 import { GetAllSchoolByDepartmentHandler } from "./cqrs/queries/school/handler/getAllSchoolByDepartment.handler";
 import { GetAllRegisteredTeachersHandler } from "./cqrs/queries/person/handler/getAllRegisteredTeachers.handler";
 import { GetAllBirthdateHandler } from "./cqrs/queries/person/handler/getAllBirthdate.handler";

@@ -5,9 +5,8 @@ import { AnswerProjection } from "./cqrs/projections/answer.projection";
 import { AnswerController } from "./answer.controller";
 import { CreateAnswerHandler } from "./cqrs/commands/create/createAnswer.handler";
 import { JwtModule } from "@nestjs/jwt";
-import { GetByIdAnswerHandler } from "./cqrs/queries/findUnique/getByIdAnswer.handler";
 
-const QueryHandlers = [GetAllAnswerHandler, GetByIdAnswerHandler];
+const QueryHandlers = [GetAllAnswerHandler];
 
 @Module({
   imports: [CqrsModule, JwtModule],

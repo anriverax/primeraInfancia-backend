@@ -4,7 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 import * as argon from "argon2";
 import { Resend } from "resend";
 import { RedisService } from "@/services/redis/redis.service";
-import { generateCode, getPublicKey } from "@/common/helpers/functions";
+import { generateCode } from "@/common/helpers/functions";
 import { ILoginResponse, IUser } from "../dto/auth.type";
 import { renderedVerifyEmail } from "../templates/verifyEmail";
 import { renderedChangePasswd } from "../templates/changePasswd";
@@ -74,19 +74,13 @@ export class AuthService {
     try {
       // Remove the Redis refreshToken
       const refreshTokenKey = `auth:refresh:${id}`;
+
       await this.redisService.del(refreshTokenKey);
 
       if (accessToken) {
-        const publicKey = getPublicKey(this.config);
-
-        const accessTokenPayload = await this.jwtService.verifyAsync(accessToken, {
-          publicKey: publicKey,
-          algorithms: ["RS256"]
-        });
-
-        const accessTokenKey = `auth:access:${accessTokenPayload.tokenId}`;
-
-        await this.redisService.del(accessTokenKey);
+        const decoded = this.jwtService.decode(accessToken);
+        const accessTokenKey = decoded.tokenId;
+        await this.redisService.del(`auth:access:${accessTokenKey}`);
       }
 
       return true;

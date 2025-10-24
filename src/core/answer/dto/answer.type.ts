@@ -15,7 +15,3 @@ export interface IAnswersWithPagination {
   data: IGetAllAnswer[];
   meta: IPagination;
 }
-
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdAnswer { }
-/* eslint-enable @typescript-eslint/no-empty-object-type*/
