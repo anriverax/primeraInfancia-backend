@@ -96,7 +96,8 @@ export class AppendixController {
   ): Promise<NestResponse<PersonAppendixDto[]>> {
     return this.queryBus.execute(new GetPersonAppendicesQuery(parseInt(inscriptionId)));
   }
-
+  /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   @Get("count-inscription/:inscriptionId")
   async getByInscription(@Param("inscriptionId") inscriptionId: string) {
     const id = parseInt(inscriptionId);
@@ -104,4 +105,6 @@ export class AppendixController {
     const result = await this.queryBus.execute(new GetByInscriptionQuery(id));
     return result;
   }
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
+  /* eslint-enable @typescript-eslint/explicit-module-boundary-types */
 }
