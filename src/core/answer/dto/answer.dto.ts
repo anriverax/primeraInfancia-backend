@@ -16,6 +16,11 @@ export class AnswerDto {
   @IsNumber()
   @Min(1, { message: "La inscripcion debe ser un número." })
   inscriptionId: number;
+
+  @IsNotEmpty({ message: "La inscripcion es obligatorio." })
+  @IsNumber()
+  @Min(1, { message: "El anexo debe ser un número." })
+  appendixId: number;
 }
 
 export class AnswerPaginationDto {
