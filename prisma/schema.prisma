@@ -529,8 +529,6 @@ model Question {
 model Answer {
   id            Int         @id @default(autoincrement())
   valueText     String
-  appendixId    Int?
-  Appendix      Appendix?   @relation(fields: [appendixId], references: [id])
   questionId    Int
   appendixId    Int
   Appendix      Appendix    @relation(fields: [appendixId], references: [id])
