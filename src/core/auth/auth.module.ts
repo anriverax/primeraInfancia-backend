@@ -6,7 +6,7 @@ import { RegisterUserHandler } from "./cqrs/commands/register/registerUser.comma
 import { UserRegisteredHandler } from "./cqrs/events/registered/userRegistered.handler";
 import { UserProjection } from "./cqrs/projections/user.projection";
 import { UserKeyProjection } from "./cqrs/projections/userkey.projection";
-import { FindUniqueUserQueryHandler } from "./cqrs/queries/user/findUniqueUser.handler";
+import { FindUniqueUserQueryHandler } from "./cqrs/queries/user/findUniqueUser.query";
 import { EventBusWithStore } from "@/services/events/eventBusWithStore";
 import { EventStoreService } from "@/services/events/eventStore.service";
 import { RedisService } from "@/services/redis/redis.service";

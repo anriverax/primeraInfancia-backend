@@ -46,15 +46,16 @@ export interface IPayload extends Pick<ILogin, "email" | "role"> {
 
 export type IUserKeyCreate = Pick<UserKey, "userId" | "publicKey" | "privateKey">;
 
-export interface IChangePasswd extends Pick<IUser, "id" | "email"> {
-  oldPasswd: string;
-  newPasswd: string;
+export interface IChangePasswd extends Pick<IUser, "id"> {
+  oldEmail: string;
+  newEmail: string;
+  hashedPassword: string;
 }
 
 export type IFindUserByParams = Partial<Pick<IUser, "id" | "email">>;
 
 export interface IUpdatePasswdIsVerifiedParams extends Pick<IUser, "id" | "email"> {
-  data: Partial<Pick<IUser, "passwd" | "isVerified">>;
+  data: Pick<IUser, "passwd" | "isVerified" | "email">;
 }
 
 export interface IVerifyEmail extends Pick<IUser, "id" | "email"> {

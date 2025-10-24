@@ -16,7 +16,7 @@ import { GetTeacherCountByEducationalLevelQuery } from "./cqrs/queries/person/qu
 import { GetAppendix8Query } from "./cqrs/queries/appendix/queries/getAppendix8.query";
 import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/queries/findMany/getAllTrainingModule.query";
 import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
-import { GetAllSchoolByZoneQuery } from './cqrs/queries/school/getAllSchoolByZone.handler';
+import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/getAllSchoolByZone.handler";
 
 @Controller()
 export class DashboardController {

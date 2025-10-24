@@ -1,5 +1,22 @@
 export const dataJSON = [
   {
+    techSupportId: 0,
+    assignedRoleId: 0,
+    groupId: 0,
+    mentors: [
+      {
+        mentorId: 190,
+        teachers: [
+          2342, 4889, 4931, 379, 385, 837, 905, 4140, 2350, 1332, 3036, 1558, 2387, 5130, 2736, 4623,
+          2924, 3567
+        ]
+      }
+    ]
+  }
+];
+/*
+[
+  {
     techSupportId: 152,
     assignedRoleId: 40,
     groupId: 7,
@@ -134,3 +151,4 @@ export const dataJSON = [
     ]
   }
 ];
+*/

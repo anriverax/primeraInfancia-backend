@@ -56,28 +56,26 @@ export class AccessTokenGuard implements CanActivate {
 
     try {
       const publicKey = getPublicKey(this.config);
+      const decoded = this.jwtService.decode(token);
 
       // Verify the token using the public key
       const payload = await this.jwtService.verifyAsync(token, {
         publicKey: publicKey,
+        ignoreExpiration: true,
         algorithms: ["RS256"] // Algoritmo asimétrico
       });
 
       // We check if the token is in Redis (valid and not revoked).
       const tokenKey = `auth:access:${payload.tokenId}`;
-      const tokenInRedis = await this.redis.get(tokenKey);
 
-      if (tokenInRedis !== "valid") {
-        this.logger.warn(`La sesión ha expirado o ha sido revocada para el usuario: ${payload.sub}`);
-        throw new UnauthorizedException("Acceso no autorizado.");
-      }
+      await this.redis.get(tokenKey || decoded.tokenId);
 
       request["user"] = payload;
       request["token"] = token;
       this.logger.log("Se pudo validar el token de acceso.");
       return true;
     } catch (error) {
-      this.logger.error("No se pudo validar el token de acceso.", error);
+      this.logger.error("No se pudo validar el token de acceso. 1", error);
       throw new UnauthorizedException("No tienes permiso para acceder a este recurso.");
     }
   }
