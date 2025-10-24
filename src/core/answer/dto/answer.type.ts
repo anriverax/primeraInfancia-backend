@@ -1,13 +1,14 @@
 import { IPagination } from "@/common/helpers/types";
 import { Answer } from "@prisma/client";
 
-export type ICreateAnswer = Pick<Answer, "valueText" | "questionId" | "inscriptionId" | "createdBy">;
+export type ICreateAnswer = Pick<Answer, "valueText" | "appendixId" | "questionId" | "inscriptionId" | "createdBy">;
 
 export interface IGetAllAnswer {
   id: number;
   valueText: string;
   questionId: number;
   inscriptionId: number;
+  appendixId: number;
 }
 
 export interface IAnswersWithPagination {

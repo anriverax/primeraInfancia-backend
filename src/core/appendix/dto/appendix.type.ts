@@ -61,3 +61,9 @@ export interface QuestionAnswerDto {
   questionText: string;
   answer: string;
 }
+
+export interface AppendixByInscription {
+  name: string;
+  count: number;
+  color: string;
+}

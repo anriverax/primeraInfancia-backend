@@ -35,7 +35,7 @@ export class GetPersonAppendicesHandler implements IQueryHandler<GetPersonAppend
 
     const rawAnswers = (await this.prisma.answer.findMany({
       where: {
-        inscriptionId: { in: inscriptionIds }
+        inscriptionId: inscriptionIds
       },
       include: {
         Question: {

@@ -8,7 +8,6 @@ const modelsWithSoftDelete = [
   "GroupLeader",
   "PersonRole",
   "MentorAssignment",
-  "Appendix",
   "Section",
   "Question",
   "Answer"
