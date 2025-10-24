@@ -19,6 +19,7 @@ export class GetAllAnswerHandler {
           id: true,
           valueText: true,
           questionId: true,
+          appendixId: true,
           inscriptionId: true
         },
         orderBy: {

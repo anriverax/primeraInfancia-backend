@@ -1,7 +1,10 @@
 import { IPagination } from "@/common/helpers/types";
 import { Answer } from "@prisma/client";
 
-export type ICreateAnswer = Pick<Answer, "valueText" | "appendixId" | "questionId" | "inscriptionId" | "createdBy">;
+export type ICreateAnswer = Pick<
+  Answer,
+  "valueText" | "appendixId" | "questionId" | "inscriptionId" | "createdBy"
+>;
 
 export interface IGetAllAnswer {
   id: number;
