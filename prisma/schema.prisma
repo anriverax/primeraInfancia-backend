@@ -258,7 +258,7 @@ model Inscription {
   createdBy          Int
   updatedBy          Int?
   deletedBy          Int?
-  SurveyData         SurveyData[]
+  Answer             Answer[]
   Group              Group                @relation(fields: [groupId], references: [id])
   PersonRole         PersonRole           @relation(fields: [teacherId], references: [id])
   MentorAssignment   MentorAssignment[]
@@ -487,8 +487,7 @@ model Appendix {
   updatedBy   Int?
   deletedBy   Int?
   Section     Section[]
-  SurveyData  SurveyData[]
-  total       Int?
+  Answer      Answer[]
 }
 
 model Section {
@@ -523,6 +522,7 @@ model Question {
   deletedBy    Int?
   fieldName    String
   options      Json?
+  Answer       Answer[]
   Section      Section   @relation(fields: [sectionId], references: [id])
 }
 
@@ -530,12 +530,16 @@ model Answer {
   id            Int         @id @default(autoincrement())
   valueText     String
   questionId    Int
+  appendixId    Int
+  Appendix      Appendix    @relation(fields: [appendixId], references: [id])
   createdAt     DateTime    @default(now())
   updatedAt     DateTime?
   deletedAt     DateTime?
   createdBy     Int
   updatedBy     Int?
   deletedBy     Int?
+  inscriptionId Int
+  Inscription   Inscription @relation(fields: [inscriptionId], references: [id])
   Question      Question    @relation(fields: [questionId], references: [id])
 }
 
@@ -599,26 +603,3 @@ enum EvaluationEnum {
   APROBADO
   REPROBADO
 }
-
-/**
- * ================================
- * | SURVEY DATA |
- * ================================
- */
-model SurveyData {
-  id              Int         @id @default(autoincrement())
-  bash            Int
-  appendixId      Int
-  Appendix        Appendix    @relation(fields: [appendixId], references: [id])
-  survey          Json
-  inscriptionId   Int
-  Inscription     Inscription @relation(fields: [inscriptionId], references: [id])
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime?
-  deletedAt       DateTime?
-  createdBy       Int
-  updatedBy       Int?
-  deletedBy       Int?
-
-}
- // ====== END - SURVEY DATA ======
