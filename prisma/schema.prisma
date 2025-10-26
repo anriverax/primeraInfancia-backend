@@ -480,6 +480,7 @@ model Appendix {
   periodicity String
   iconName    String
   color       String
+  total       Int?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
   deletedAt   DateTime?

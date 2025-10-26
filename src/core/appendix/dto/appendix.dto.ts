@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString , Min} from "class-validator";
 
 export class AppendixDto {
   @IsNotEmpty({ message: "El título es obligatorio." })
@@ -31,6 +31,13 @@ export class AppendixDto {
   @Transform(({ value }) => value.trim())
   @IsString({ message: "El color debe ser una cadena de texto." })
   color: string;
+
+  @IsNotEmpty({ message: "El total de intentos es obligatorio." })
+  @IsNumber()
+  @Min(1, { message: "El total de intentos debe ser un número." })
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  survey: Record<string, any>;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export class AppendixPaginationDto {
