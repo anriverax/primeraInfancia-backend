@@ -10,7 +10,8 @@ const modelsWithSoftDelete = [
   "MentorAssignment",
   "Section",
   "Question",
-  "Answer"
+  "Answer",
+  "SurveyData"
 ];
 
 const prismaWithExtension = new PrismaClient().$extends({

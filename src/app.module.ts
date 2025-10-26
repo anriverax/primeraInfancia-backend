@@ -32,6 +32,7 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
 // Appendix
 import { AppendixModule } from "./core/appendix/appendix.module";
 import { AnswerModule } from "./core/answer/answer.module";
+import { SurveyDataModule } from "./core/surveyData/surveyData.module";
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { AnswerModule } from "./core/answer/answer.module";
     TechsupportModule,
     AppendixModule,
     AnswerModule,
+    SurveyDataModule,
     RouterModule.register([
       {
         path: "api",
@@ -142,6 +144,10 @@ import { AnswerModule } from "./core/answer/answer.module";
           {
             path: "answer",
             module: AnswerModule
+          },
+          {
+            path: "survey-data",
+            module: SurveyDataModule
           }
         ]
       }
@@ -161,4 +167,4 @@ import { AnswerModule } from "./core/answer/answer.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule {}
+export class AppModule { }
