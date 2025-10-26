@@ -35,9 +35,7 @@ export class AppendixDto {
   @IsNotEmpty({ message: "El total de intentos es obligatorio." })
   @IsNumber()
   @Min(1, { message: "El total de intentos debe ser un número." })
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  survey: Record<string, any>;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+  total: number;
 }
 
 export class AppendixPaginationDto {
