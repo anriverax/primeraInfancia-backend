@@ -14,7 +14,9 @@ export class SurveyDataDto {
   @IsNotEmpty({ message: "La pregunta es obligatoria." })
   @IsNumber()
   @Min(1, { message: "La pregunta debe ser un número." })
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   survey: Record<string, any>;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   @IsNotEmpty({ message: "La inscripcion es obligatorio." })
   @IsNumber()

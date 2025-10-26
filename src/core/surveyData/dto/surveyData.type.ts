@@ -17,7 +17,9 @@ export interface IGetAllSurveyData {
   id: number;
   bash: number;
   appendixId: number;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   survey: Record<string, any>;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   inscriptionId: number;
 }
 
