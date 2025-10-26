@@ -620,6 +620,8 @@ model SurveyData {
   questionId      Int
   Question        Question    @relation(fields: [questionId], references: [id])
   responseDetail  String
+  inscriptionId   Int
+  Inscription     Inscription @relation(fields: [inscriptionId], references: [id])
   createdAt       DateTime  @default(now())
   updatedAt       DateTime?
   deletedAt       DateTime?
