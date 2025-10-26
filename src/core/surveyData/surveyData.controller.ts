@@ -24,7 +24,11 @@ export class SurveyDataController {
   @Post("create")
   async create(@Body() data: SurveyDataDto, @Req() req: Request): Promise<NestResponse<SurveyData>> {
     return this.commandBus.execute(
-      new CreateSurveyDataCommand({ ...data, createdBy: parseInt(req["user"].sub) })
+      new CreateSurveyDataCommand({
+        ...data,
+        survey: JSON.parse(JSON.stringify(data.survey)),
+        createdBy: parseInt(req["user"].sub)
+      })
     );
   }
 
@@ -53,6 +57,7 @@ export class SurveyDataController {
       new UpdateSurveyDataCommand({
         id: parseInt(id),
         ...data,
+        survey: JSON.parse(JSON.stringify(data.survey)),
         updatedBy: parseInt(req["user"].sub)
       })
     );

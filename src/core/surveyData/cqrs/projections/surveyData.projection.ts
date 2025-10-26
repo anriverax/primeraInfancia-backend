@@ -33,8 +33,8 @@ export class SurveyDataProjection {
                 rawSurvey === null ? Prisma.JsonNull : (rawSurvey as Prisma.InputJsonValue);
               return { survey: surveyValue };
             })()
-            /* eslint-enable @typescript-eslint/explicit-function-return-type */
-          : {})
+          : /* eslint-enable @typescript-eslint/explicit-function-return-type */
+            {})
       } as Prisma.SurveyDataUpdateInput;
       return await this.prisma.surveyData.update({ where: { id }, data: updateData });
     } catch (error) {
