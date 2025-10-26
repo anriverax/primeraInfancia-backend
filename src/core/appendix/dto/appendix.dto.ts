@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString , Min} from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, Min } from "class-validator";
 
 export class AppendixDto {
   @IsNotEmpty({ message: "El título es obligatorio." })

@@ -19,8 +19,8 @@ export class GetAllSurveyDataHandler {
           id: true,
           bash: true,
           appendixId: true,
-          questionId: true,
-          responseDetail: true
+          survey: true,
+          inscriptionId: true
         },
         orderBy: {
           id: "asc"

@@ -1,9 +1,9 @@
 import { IPagination } from "@/common/helpers/types";
-import { SurveyData } from "@prisma/client";
+import { Prisma, SurveyData } from "@prisma/client";
 
 export type ICreateSurveyData = Pick<
   SurveyData,
-  "bash" | "appendixId" | "survey" | "inscriptionId"  | "createdBy"
+  "bash" | "appendixId" | "survey" | "inscriptionId" | "createdBy"
 >;
 
 export type IUpdateSurveyData = Pick<
@@ -17,9 +17,9 @@ export interface IGetAllSurveyData {
   id: number;
   bash: number;
   appendixId: number;
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  survey: Record<string, any>;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+
+  survey: Prisma.JsonValue;
+
   inscriptionId: number;
 }
 
@@ -27,3 +27,7 @@ export interface ISurveyDatasWithPagination {
   data: IGetAllSurveyData[];
   meta: IPagination;
 }
+
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+export interface IGetByIdSurveyData {}
+/* eslint-enable @typescript-eslint/no-empty-object-type*/

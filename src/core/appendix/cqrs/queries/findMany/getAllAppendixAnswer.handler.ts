@@ -33,6 +33,7 @@ export class GetPersonAppendicesHandler implements IQueryHandler<GetPersonAppend
   async execute(query: GetPersonAppendicesQuery): Promise<PersonAppendixDto[]> {
     const { inscriptionIds } = query;
 
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     const rawAnswers = (await this.prisma.answer.findMany({
       where: {
         inscriptionId: inscriptionIds
@@ -69,7 +70,8 @@ export class GetPersonAppendicesHandler implements IQueryHandler<GetPersonAppend
           }
         }
       }
-    })) as unknown as DetailedAnswer[];
+    } as any)) as unknown as DetailedAnswer[];
+    /* eslint-enable @typescript-eslint/no-explicit-any */
 
     if (rawAnswers.length === 0) {
       return [];

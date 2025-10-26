@@ -14,8 +14,8 @@ export class GetByIdSurveyDataHandler {
         id: true,
         bash: true,
         appendixId: true,
-        questionId: true,
-        responseDetail: true
+        survey: true,
+        inscriptionId: true
       }
     });
 

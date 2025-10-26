@@ -3,12 +3,12 @@ import { Appendix, Question } from "@prisma/client";
 
 export type ICreateAppendix = Pick<
   Appendix,
-  "title" | "subTitle" | "description" | "periodicity" | "iconName" | "color" | "total" | "createdBy"
+  "title" | "subTitle" | "description" | "periodicity" | "iconName" | "color" | "createdBy"
 >;
 
 export type IUpdateAppendix = Pick<
   Appendix,
-  "id" | "title" | "subTitle" | "description" | "periodicity" | "iconName" | "color" | "total" | "updatedBy"
+  "id" | "title" | "subTitle" | "description" | "periodicity" | "iconName" | "color" | "updatedBy"
 >;
 
 export type IDeleteAppendix = Pick<Appendix, "id" | "deletedBy">;
@@ -21,7 +21,7 @@ export interface IGetAllAppendix {
   periodicity: string;
   iconName: string;
   color: string;
-  total: number | null;
+  //total: number | null;
 }
 
 export interface IAppendixsWithPagination {
@@ -30,7 +30,7 @@ export interface IAppendixsWithPagination {
 }
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-export interface IGetByIdAppendix { }
+export interface IGetByIdAppendix {}
 export interface IGetByIdAppendixDetail extends Pick<Appendix, "id" | "title"> {
   Section: {
     title: string;
@@ -38,7 +38,7 @@ export interface IGetByIdAppendixDetail extends Pick<Appendix, "id" | "title"> {
     orderBy: number;
     Question: Pick<
       Question,
-      "id" | "text" | "questionType" | "orderBy" | "subSection" | "isRequired" | "fieldName" | "options" | "total"
+      "id" | "text" | "questionType" | "orderBy" | "subSection" | "isRequired" | "fieldName" | "options"
     >[];
   }[];
 }
