@@ -167,4 +167,4 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
   ],
   exports: [JwtModule] // <-- ¡Agrega esto!
 })
-export class AppModule { }
+export class AppModule {}

@@ -258,7 +258,7 @@ model Inscription {
   createdBy          Int
   updatedBy          Int?
   deletedBy          Int?
-  Answer             Answer[]
+  SurveyData         SurveyData[]
   Group              Group                @relation(fields: [groupId], references: [id])
   PersonRole         PersonRole           @relation(fields: [teacherId], references: [id])
   MentorAssignment   MentorAssignment[]
@@ -488,6 +488,7 @@ model Appendix {
   deletedBy   Int?
   Section     Section[]
   SurveyData  SurveyData[]
+  total       Int?
 }
 
 model Section {
@@ -522,7 +523,6 @@ model Question {
   deletedBy    Int?
   fieldName    String
   options      Json?
-  SurveyData   SurveyData[]
   Section      Section   @relation(fields: [sectionId], references: [id])
 }
 
@@ -530,16 +530,12 @@ model Answer {
   id            Int         @id @default(autoincrement())
   valueText     String
   questionId    Int
-  appendixId    Int
-  Appendix      Appendix    @relation(fields: [appendixId], references: [id])
   createdAt     DateTime    @default(now())
   updatedAt     DateTime?
   deletedAt     DateTime?
   createdBy     Int
   updatedBy     Int?
   deletedBy     Int?
-  inscriptionId Int
-  Inscription   Inscription @relation(fields: [inscriptionId], references: [id])
   Question      Question    @relation(fields: [questionId], references: [id])
 }
 
@@ -604,9 +600,6 @@ enum EvaluationEnum {
   REPROBADO
 }
 
-
-
-
 /**
  * ================================
  * | SURVEY DATA |
@@ -617,9 +610,7 @@ model SurveyData {
   bash            Int
   appendixId      Int
   Appendix        Appendix    @relation(fields: [appendixId], references: [id])
-  questionId      Int
-  Question        Question    @relation(fields: [questionId], references: [id])
-  responseDetail  String
+  survey          Json
   inscriptionId   Int
   Inscription     Inscription @relation(fields: [inscriptionId], references: [id])
   createdAt       DateTime  @default(now())

@@ -16,8 +16,11 @@ export class GetAllSurveyDataHandler {
         skip,
         take: limit,
         select: {
-          id : true,
-          bash : true, appendixId : true, questionId : true, responseDetail : true,
+          id: true,
+          bash: true,
+          appendixId: true,
+          questionId: true,
+          responseDetail: true
         },
         orderBy: {
           id: "asc"

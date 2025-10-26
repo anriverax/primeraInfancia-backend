@@ -22,6 +22,10 @@ export class SurveyDataDto {
   @IsString({ message: "La respuesta debe ser una cadena de texto." })
   responseDetail: string;
 
+  @IsNotEmpty({ message: "La inscripcion es obligatorio." })
+  @IsNumber()
+  @Min(1, { message: "La inscripcion debe ser un número." })
+  inscriptionId: number;
 }
 
 export class SurveyDataPaginationDto {

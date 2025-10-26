@@ -28,10 +28,10 @@ export class SurveyDataProjection {
   }
 
   async delete(data: IDeleteSurveyData): Promise<SurveyData> {
-    const { id, deletedBy  } = data;
+    const { id, deletedBy } = data;
 
     try {
-      return await this.prisma.softDelete("surveyData", { id }, { deletedBy  });
+      return await this.prisma.softDelete("surveyData", { id }, { deletedBy });
     } catch (error) {
       handlePrismaError("SurveyDataProjection", error);
     }
