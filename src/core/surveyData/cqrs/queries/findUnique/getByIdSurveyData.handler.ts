@@ -12,7 +12,6 @@ export class GetByIdSurveyDataHandler {
       where: { id: query.id },
       select: {
         id: true,
-        bash: true,
         appendixId: true,
         survey: true,
         inscriptionId: true

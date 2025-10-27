@@ -15,7 +15,6 @@ export type IDeleteSurveyData = Pick<SurveyData, "id" | "deletedBy">;
 
 export interface IGetAllSurveyData {
   id: number;
-  bash: number;
   appendixId: number;
 
   survey: Prisma.JsonValue;

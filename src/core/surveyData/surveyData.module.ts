@@ -3,7 +3,7 @@ import { CqrsModule } from "@nestjs/cqrs";
 import { GetAllSurveyDataHandler } from "./cqrs/queries/findMany/getAllSurveyData.handler";
 import { SurveyDataProjection } from "./cqrs/projections/surveyData.projection";
 import { SurveyDataController } from "./surveyData.controller";
-import { CreateSurveyDataHandler } from "./cqrs/commands/create/createSurveyData.handler";
+import { CreateSurveyDataHandler } from "./cqrs/commands/create/createSurveyData.command";
 import { JwtModule } from "@nestjs/jwt";
 import { GetByIdSurveyDataHandler } from "./cqrs/queries/findUnique/getByIdSurveyData.handler";
 import { DeleteSurveyDataHandler } from "./cqrs/commands/delete/deleteSurveyData.handler";

@@ -17,7 +17,6 @@ export class GetAllSurveyDataHandler {
         take: limit,
         select: {
           id: true,
-          bash: true,
           appendixId: true,
           survey: true,
           inscriptionId: true
