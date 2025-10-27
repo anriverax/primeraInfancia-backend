@@ -1,7 +1,14 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
+import { IPaginatedQueryParams } from "@/common/helpers/types";
 import { IGroupsWithPagination } from "@/core/group/dto/group.type";
-import { GetAllGroupPaginationQuery } from "./getAllGroupPagination.query";
+import { Query } from "@nestjs/cqrs";
+
+export class GetAllGroupPaginationQuery extends Query<IGroupsWithPagination> {
+  constructor(public readonly data: IPaginatedQueryParams) {
+    super();
+  }
+}
 
 @QueryHandler(GetAllGroupPaginationQuery)
 export class GetAllGroupPaginationHandler {

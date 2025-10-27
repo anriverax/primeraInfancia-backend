@@ -78,6 +78,13 @@ export class AttendanceController {
       );
     }
 
+    if (rest.status === AttendanceEnum.AUSENTE) {
+      return {
+        statusCode: 201,
+        message: "Jornada concluida por ausencia.",
+        data: attendanceData
+      };
+    }
     return {
       statusCode: 201,
       message: "Inicio de jornada activado.",

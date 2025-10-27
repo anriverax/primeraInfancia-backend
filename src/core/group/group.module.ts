@@ -3,7 +3,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { GroupController } from "./group.controller";
 import { Module } from "@nestjs/common";
 import { GetByIdGroupHandler } from "./cqrs/queries/findUnique/getByIdGroup.handler";
-import { GetAllGroupPaginationHandler } from "./cqrs/queries/pagination/getAllGroupPagination.handler";
+import { GetAllGroupPaginationHandler } from "./cqrs/queries/getAllGroupPagination.query";
 import { GroupService } from "./services/group.service";
 import { GetGroupByUserHandler } from "./cqrs/queries/getGroupByUser/getGroupByUser.handler";
 

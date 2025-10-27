@@ -8,8 +8,9 @@ import { ConfigService } from "@nestjs/config";
 export function handlePrismaError(module: string, error: any): never {
   const logger = new Logger(module);
   if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
-    console.log(error);
-    throw new ForbiddenException("Este correo electrónico ya está asociado a una cuenta.");
+    if ((error.meta?.target as any).find((field: string) => field === "dui"))
+      throw new ForbiddenException("DUI ya está asociado a una cuenta.");
+    else throw new ForbiddenException("Este correo electrónico ya está asociado a una cuenta.");
   }
 
   // Log or handle other Prisma errors appropriately

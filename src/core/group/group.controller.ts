@@ -6,9 +6,9 @@ import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types
 import { IGroup, IGetByIdGroupOrderAssignedRole, IGroupByUserCustom } from "./dto/group.type";
 import { GetByIdGroupQuery } from "./cqrs/queries/findUnique/getByIdGroup.query";
 import { PaginationDto } from "../../common/helpers/dto";
-import { GetAllGroupPaginationQuery } from "./cqrs/queries/pagination/getAllGroupPagination.query";
 import { GroupService } from "./services/group.service";
 import { GetGroupByUserQuery } from "./cqrs/queries/getGroupByUser/getGroupByUser.query";
+import { GetAllGroupPaginationQuery } from "./cqrs/queries/getAllGroupPagination.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)

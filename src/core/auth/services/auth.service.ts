@@ -31,6 +31,10 @@ export class AuthService {
       );
   }
 
+  async comparePasswords(password: string, hashedPassword: string): Promise<boolean> {
+    return argon.verify(hashedPassword, password);
+  }
+
   async sendVerificationEmail(email: string, passwd: string): Promise<void> {
     try {
       const resend = new Resend(this.config.get<string>("resend"));

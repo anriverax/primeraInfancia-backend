@@ -121,6 +121,10 @@ export class AuthController {
         message: "El usuario no existe en el sistema."
       };
     }
+    const isTheSamePassword = await this.authService.comparePasswords(data.value3, isExist.passwd);
+
+    if (isTheSamePassword)
+      throw new UnauthorizedException("La nueva contraseña no puede ser igual a la anterior.");
 
     await this.authService.verifyPasswd(isExist.passwd, data.value2);
 
@@ -130,7 +134,7 @@ export class AuthController {
       new ChangePasswdCommand({
         id: isExist.id,
         oldEmail: email,
-        newEmail: data.value1,
+        newEmail: data.value1.trim().toLowerCase(),
         hashedPassword
       })
     );
