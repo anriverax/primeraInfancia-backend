@@ -21,7 +21,7 @@ export interface IGetAllAppendix {
   periodicity: string;
   iconName: string;
   color: string;
-  //total: number | null;
+  total: number | null;
 }
 
 export interface IAppendixsWithPagination {

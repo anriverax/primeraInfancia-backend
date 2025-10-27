@@ -79,8 +79,8 @@ export class AppendixController {
     };
   }
 
-  @Get("detail/:id")
-  async getDetailById(@Param("id") id: string): Promise<NestResponse<IGetByIdAppendix>> {
+  @Get(":id")
+  async getAppendixById(@Param("id") id: string): Promise<NestResponse<IGetByIdAppendix>> {
     const result = await this.queryBus.execute(new GetByDetailAppendixQuery(parseInt(id)));
 
     return {

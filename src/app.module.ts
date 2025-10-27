@@ -146,7 +146,7 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
             module: AnswerModule
           },
           {
-            path: "survey-data",
+            path: "surveyData",
             module: SurveyDataModule
           }
         ]
