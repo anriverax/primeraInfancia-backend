@@ -473,7 +473,7 @@ model TrainingReport {
 }
 
 model Appendix {
-  id          Int       @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String
   subTitle    String
   description String
@@ -481,8 +481,8 @@ model Appendix {
   iconName    String
   color       String
   total       Int?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?    @updatedAt
   deletedAt   DateTime?
   createdBy   Int
   updatedBy   Int?
@@ -527,11 +527,11 @@ model Question {
 }
 
 model Answer {
-  id            Int         @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   valueText     String
   questionId    Int
   appendixId    Int
-  createdAt     DateTime    @default(now())
+  createdAt     DateTime  @default(now())
   updatedAt     DateTime?
   deletedAt     DateTime?
   createdBy     Int
@@ -607,19 +607,18 @@ enum EvaluationEnum {
  * ================================
  */
 model SurveyData {
-  id              Int         @id @default(autoincrement())
-  bash            Int
-  appendixId      Int
-  Appendix        Appendix    @relation(fields: [appendixId], references: [id])
-  survey          Json
-  inscriptionId   Int
-  Inscription     Inscription @relation(fields: [inscriptionId], references: [id])
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime?
-  deletedAt       DateTime?
-  createdBy       Int
-  updatedBy       Int?
-  deletedBy       Int?
-
+  id            Int         @id @default(autoincrement())
+  appendixId    Int
+  Appendix      Appendix    @relation(fields: [appendixId], references: [id])
+  survey        Json
+  inscriptionId Int
+  Inscription   Inscription @relation(fields: [inscriptionId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime?   @updatedAt
+  deletedAt     DateTime?
+  createdBy     Int
+  updatedBy     Int?
+  deletedBy     Int?
 }
- // ====== END - SURVEY DATA ======
+
+// ====== END - SURVEY DATA ======
