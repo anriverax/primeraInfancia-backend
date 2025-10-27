@@ -34,6 +34,7 @@ export class GetByIdDetailAppendixHandler {
         title: true,
         subTitle: true,
         description: true,
+        total: true,
         Section: {
           // 1. Order Sections by 'orderBy' field
           orderBy: {
