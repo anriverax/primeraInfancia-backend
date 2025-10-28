@@ -96,6 +96,7 @@ export interface IGroupByUser {
   Inscription: Pick<Inscription, "id"> & {
     PersonRole: {
       Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> & {
+        User: { email: string } | null;
         PrincipalSchool: {
           School: {
             name: string;
@@ -114,6 +115,7 @@ export interface IGroupByUser {
 
 export interface IGroupByUserCustom extends Pick<Inscription, "id"> {
   Person: Pick<Person, "id" | "phoneNumber"> & {
+    email: string;
     fullName: string;
     school: string;
     district: string;

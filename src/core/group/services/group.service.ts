@@ -101,6 +101,7 @@ export class GroupService {
           id: PersonRole.Person.id,
           fullName: `${PersonRole.Person.firstName} ${PersonRole.Person.lastName1} ${PersonRole.Person.lastName2}`,
           phoneNumber: PersonRole.Person.phoneNumber,
+          email: PersonRole.Person.User?.email ?? "",
           school: PersonRole.Person.PrincipalSchool[0]?.School?.name ?? "",
           district: PersonRole.Person.PrincipalSchool[0]?.School?.District?.name,
           municipality: PersonRole.Person.PrincipalSchool[0]?.School?.District?.Municipality?.name
