@@ -12,18 +12,24 @@ import {
 } from "class-validator";
 
 class SurveyItemDto {
-  @IsString()
-  question: string;
+  @IsNotEmpty({ message: "El texto de la pregunta es obligatorio." })
+  @IsString({ message: "questionText debe ser una cadena de texto." })
+  questionText: string;
 
-  @IsString()
-  answer: string;
+  @IsNotEmpty({ message: "La respuesta es obligatoria." })
+  @IsString({ message: "valueAnswer debe ser una cadena de texto." })
+  valueAnswer: string;
+
+  @IsOptional()
   @IsNumber()
-  index: number;
+  @Type(() => Number)
+  index?: number;
 }
 
 export class SurveyDataDto {
   @IsNotEmpty({ message: "La encuesta es obligatoria." })
   @IsNumber()
+  @Type(() => Number)
   @Min(1, { message: "La encuesta debe ser un número." })
   appendixId: number;
 
@@ -46,6 +52,7 @@ export class SurveyDataDto {
 
   @IsNotEmpty({ message: "La inscripcion es obligatorio." })
   @IsNumber()
+  @Type(() => Number)
   @Min(1, { message: "La inscripcion debe ser un número." })
   inscriptionId: number;
 }

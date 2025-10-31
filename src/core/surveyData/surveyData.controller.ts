@@ -1,6 +1,6 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters, BadRequestException } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { SurveyDataDto, SurveyDataPaginationDto } from "./dto/surveyData.dto";
 import { CreateSurveyDataCommand } from "./cqrs/commands/create/createSurveyData.command";
@@ -9,6 +9,7 @@ import { SurveyData } from "@prisma/client";
 import { UpdateSurveyDataCommand } from "./cqrs/commands/update/updateSurveyData.command";
 import { DeleteSurveyDataCommand } from "./cqrs/commands/delete/deleteSurveyData.command";
 import { GetAllSurveyDataQuery } from "./cqrs/queries/findMany/getAllSurveyData.query";
+import { GetByInscriptionSurveyDataQuery } from "./cqrs/queries/findMany/getByInscriptionSurveyData.query";
 import { IGetAllSurveyData, IGetByIdSurveyData } from "./dto/surveyData.type";
 import { GetByIdSurveyDataQuery } from "./cqrs/queries/findUnique/getByIdSurveyData.query";
 
@@ -44,6 +45,22 @@ export class SurveyDataController {
       data: result.data,
       meta: result.meta
     };
+  }
+
+  @Get("by-inscription")
+  async getByInscription(@Query("inscriptionId") inscriptionIdRaw: string): Promise<NestResponse<IGetAllSurveyData[]>> {
+    const inscriptionId = Number(inscriptionIdRaw);
+    if (Number.isNaN(inscriptionId) || inscriptionId <= 0) {
+      throw new BadRequestException("inscriptionId es requerido y debe ser un número mayor que 0.");
+    }
+
+    const data = await this.queryBus.execute(new GetByInscriptionSurveyDataQuery(inscriptionId));
+
+    return {
+      statusCode: 200,
+      message: "SurveyData filtrado por inscriptionId",
+      data
+    } as NestResponse<IGetAllSurveyData[]>;
   }
 
   @AuthRequired()
