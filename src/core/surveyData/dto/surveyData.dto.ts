@@ -8,15 +8,35 @@ import {
   IsString,
   Min,
   ValidateNested,
-  ArrayNotEmpty
+  ArrayNotEmpty,
+  ValidateIf
 } from "class-validator";
 
 class SurveyItemDto {
   @IsString()
   question: string;
 
+  // Puede ser string o un arreglo (de cualquier tipo)
+  @Transform(({ value }) => {
+    if (typeof value === "string") {
+      // Si viene como string con JSON (p.ej. "[1,2]"), intentar parsearlo
+      try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) return parsed;
+        return value;
+      } catch {
+        return value;
+      }
+    }
+    return value;
+  })
+  @ValidateIf((_, v) => typeof v === "string")
   @IsString()
-  answer: string;
+  @ValidateIf((_, v) => Array.isArray(v))
+  @IsArray()
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  answer: string | any[];
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   @IsNumber()
   index: number;
 }
