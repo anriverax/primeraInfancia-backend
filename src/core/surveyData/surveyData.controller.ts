@@ -1,6 +1,18 @@
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseFilters, BadRequestException } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Req,
+  UseFilters,
+  BadRequestException
+} from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { SurveyDataDto, SurveyDataPaginationDto } from "./dto/surveyData.dto";
 import { CreateSurveyDataCommand } from "./cqrs/commands/create/createSurveyData.command";
@@ -48,13 +60,26 @@ export class SurveyDataController {
   }
 
   @Get("by-inscription")
-  async getByInscription(@Query("inscriptionId") inscriptionIdRaw: string): Promise<NestResponse<IGetAllSurveyData[]>> {
+  async getByInscription(
+    @Query("inscriptionId") inscriptionIdRaw: string,
+    @Query("appendixId") appendixIdRaw?: string
+  ): Promise<NestResponse<IGetAllSurveyData[]>> {
     const inscriptionId = Number(inscriptionIdRaw);
     if (Number.isNaN(inscriptionId) || inscriptionId <= 0) {
       throw new BadRequestException("inscriptionId es requerido y debe ser un número mayor que 0.");
     }
 
-    const data = await this.queryBus.execute(new GetByInscriptionSurveyDataQuery(inscriptionId));
+    let appendixId: number | undefined = undefined;
+    if (appendixIdRaw !== undefined) {
+      appendixId = Number(appendixIdRaw);
+      if (Number.isNaN(appendixId) || appendixId <= 0) {
+        throw new BadRequestException("appendixId debe ser un número mayor que 0 si se proporciona.");
+      }
+    }
+
+    const data = await this.queryBus.execute(
+      new GetByInscriptionSurveyDataQuery(inscriptionId, appendixId)
+    );
 
     return {
       statusCode: 200,

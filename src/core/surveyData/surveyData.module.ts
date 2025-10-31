@@ -11,7 +11,11 @@ import { DeleteSurveyDataHandler } from "./cqrs/commands/delete/deleteSurveyData
 import { UpdateSurveyDataHandler } from "./cqrs/commands/update/updateSurveyData.handler";
 
 const CommandHandlers = [CreateSurveyDataHandler, UpdateSurveyDataHandler, DeleteSurveyDataHandler];
-const QueryHandlers = [GetAllSurveyDataHandler, GetByIdSurveyDataHandler, GetByInscriptionSurveyDataHandler];
+const QueryHandlers = [
+  GetAllSurveyDataHandler,
+  GetByIdSurveyDataHandler,
+  GetByInscriptionSurveyDataHandler
+];
 
 @Module({
   imports: [CqrsModule, JwtModule],
