@@ -1,6 +1,13 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
-import { DashboardAttendance, DashboardMentoring, DashboardPerson } from "./dto/dashboard.type";
+import {
+  DashboardAttendance,
+  DashboardMentoring,
+  DashboardPerson,
+  IDashboardResume,
+  IAppendixAnswerCount,
+  DashboardDetailMentoring
+} from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
 import { DashboardService } from "./services/dashboard.service";
@@ -16,7 +23,10 @@ import { GetTeacherCountByEducationalLevelQuery } from "./cqrs/queries/person/qu
 import { GetAppendix8Query } from "./cqrs/queries/appendix/queries/getAppendix8.query";
 import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/queries/findMany/getAllTrainingModule.query";
 import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
+import { GetAppendixResumeQuery } from "./cqrs/queries/appendix/queries/getAppendixResume.query";
+import { GetAppendixCountQuery } from "./cqrs/queries/appendix/queries/getAppendixCount.query";
 import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/getAllSchoolByZone.handler";
+import { GetAspectPracticeCountQuery } from "./cqrs/queries/appendix/queries/getAspectPracticeCount.query";
 
 @Controller()
 export class DashboardController {
@@ -75,5 +85,31 @@ export class DashboardController {
     const appendix8 = await this.queryBus.execute(new GetAppendix8Query());
 
     return { appendix8 };
+  }
+
+  @Get("resume")
+  async getDashboardResume(): Promise<IDashboardResume> {
+    const query = await this.queryBus.execute(new GetAppendixResumeQuery());
+    return query;
+  }
+
+  @Get("answer-counts")
+  async getAppendixAnswerCounts(): Promise<IAppendixAnswerCount> {
+    const query = this.queryBus.execute(new GetAppendixCountQuery());
+
+    return query;
+  }
+
+  @Get("est")
+  async getDashboardResume2(): Promise<DashboardDetailMentoring> {
+    const resume = await this.queryBus.execute(new GetAppendixResumeQuery());
+    const answerCounts = await this.queryBus.execute(new GetAppendixCountQuery());
+    const aspectPracticeCounts = await this.queryBus.execute(new GetAspectPracticeCountQuery());
+
+    return {
+      dashboardResume: resume,
+      appendixAnswerCount: answerCounts,
+      aspectPracticeCount: aspectPracticeCounts
+    };
   }
 }
