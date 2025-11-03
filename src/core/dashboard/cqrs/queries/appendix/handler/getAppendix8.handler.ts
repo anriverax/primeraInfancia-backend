@@ -1,72 +1,100 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { GetAppendix8Query } from "../queries/getAppendix8.query";
 import { IAppendix8 } from "@/core/dashboard/dto/dashboard.type";
+import { PrismaService } from "@/services/prisma/prisma.service";
+import { Prisma } from "@prisma/client";
 
 @QueryHandler(GetAppendix8Query)
 export class GetAppendix8Handler {
-  constructor() {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(): Promise<IAppendix8[]> {
-    /*
-    const records = await this.prisma.appendixTest.findMany({
-      where: {
-        name: "Anexo 8"
-      },
-      select: {
-        textQuestion: true,
-        textAnswer: true
-      }
+    // Fetch survey data for appendix 8
+    const rows = await this.prisma.surveyData.findMany({
+      where: { appendixId: 7 },
+      select: { survey: true }
     });
 
-    const dimensionMap = new Map<string, Map<string, Map<string, number>>>();
+    const dimensionMap = new Map<string, Map<number, Map<string, number>>>();
 
-    // Procesar 'textQuestion'
-    for (const record of records) {
-      const parts = record.textQuestion.split("||");
+    for (const row of rows) {
+      const survey = row.survey as Prisma.JsonArray | Prisma.JsonObject | null;
+      if (!survey || !Array.isArray(survey)) continue;
 
-      if (parts.length >= 2) {
-        const time = parts[0];
-        const dimension = parts[1];
-        const answer = record.textAnswer;
+      for (const obj of survey) {
+        if (!obj || typeof obj !== "object") continue;
 
+  // support multiple possible field names
+  const item = obj as Record<string, unknown>;
+  const rawQuestion = item["questionText"] ?? item["question"] ?? item["textQuestion"];
+  const rawAnswer = item["valueAnswer"] ?? item["answer"] ?? item["textAnswer"];
+  const rawIndex = item["index"] ?? item["time"] ?? undefined;
+
+        if (!rawQuestion || !rawAnswer) continue;
+
+        const q = String(rawQuestion).trim();
+        const a = String(rawAnswer).trim();
+
+        // If question has '||' format use it: time||dimension||... else try to extract dimension
+        let timeNum: number | undefined = undefined;
+        let dimension = "";
+
+        if (q.includes("||")) {
+          const parts = q.split("||").map(p => p.trim());
+          if (parts.length >= 2) {
+            const t = Number(parts[0]);
+            timeNum = Number.isNaN(t) ? undefined : t;
+            dimension = parts[1];
+          }
+        }
+
+        if (!dimension) {
+          // fallback: use text before ':' as dimension
+          if (q.includes(":")) {
+            dimension = q.split(":")[0].trim();
+          } else {
+            // fallback to whole question truncated
+            dimension = q.length > 80 ? q.slice(0, 80) + "..." : q;
+          }
+        }
+
+        if (timeNum === undefined) {
+          if (rawIndex !== undefined) {
+            const idx = Number(rawIndex);
+            timeNum = Number.isNaN(idx) ? 0 : idx;
+          } else {
+            timeNum = 0;
+          }
+        }
+
+        // accumulate counts
         if (!dimensionMap.has(dimension)) {
-          dimensionMap.set(dimension, new Map());
+          dimensionMap.set(dimension, new Map<number, Map<string, number>>());
         }
-        const timeMap = dimensionMap.get(dimension);
+        const timeMap = dimensionMap.get(dimension)!;
 
-        if (!timeMap?.has(time)) {
-          timeMap?.set(time, new Map());
+        if (!timeMap.has(timeNum)) {
+          timeMap.set(timeNum, new Map<string, number>());
         }
-        const answerMap = timeMap?.get(time);
+        const answerMap = timeMap.get(timeNum)!;
 
-        answerMap?.set(answer, (answerMap.get(answer) || 0) + 1);
+        answerMap.set(a, (answerMap.get(a) ?? 0) + 1);
       }
     }
 
-    // Estructura
-    const dimensionList = Array.from(dimensionMap.entries()).map(([dimension, timeMap]) => {
-      const answersByTime: { time: number; labels: { label: string; count: number }[] }[] = [];
+    const dimensionList: IAppendix8[] = [];
 
-      Array.from(timeMap.entries()).forEach(([time, answerMap]) => {
-        const labels: { label: string; count: number }[] = [];
+    for (const [dimension, timeMap] of dimensionMap.entries()) {
+      const answersByTime = Array.from(timeMap.entries()).map(([time, answerMap]) => ({
+        time,
+        labels: Array.from(answerMap.entries()).map(([label, count]) => ({ label, count }))
+      }));
 
-        Array.from(answerMap.entries()).forEach(([answerLabel, count]) => {
-          labels.push({ label: answerLabel, count });
-        });
+      answersByTime.sort((a, b) => a.time - b.time);
 
-        answersByTime.push({
-          time: Number(time),
-          labels
-        });
-      });
+      dimensionList.push({ dimension, answers: answersByTime });
+    }
 
-      return {
-        dimension,
-        answers: answersByTime
-      };
-    });
-
-    return dimensionList;*/
-    return [];
+    return dimensionList;
   }
 }

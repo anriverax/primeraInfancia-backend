@@ -28,6 +28,7 @@ import { GetAppendixCountQuery } from "./cqrs/queries/appendix/queries/getAppend
 import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/getAllSchoolByZone.handler";
 import { GetAspectPracticeCountQuery } from "./cqrs/queries/appendix/queries/getAspectPracticeCount.query";
 
+
 @Controller()
 export class DashboardController {
   constructor(
@@ -105,11 +106,13 @@ export class DashboardController {
     const resume = await this.queryBus.execute(new GetAppendixResumeQuery());
     const answerCounts = await this.queryBus.execute(new GetAppendixCountQuery());
     const aspectPracticeCounts = await this.queryBus.execute(new GetAspectPracticeCountQuery());
+    const appendix8 = await this.queryBus.execute(new GetAppendix8Query());
 
     return {
       dashboardResume: resume,
       appendixAnswerCount: answerCounts,
-      aspectPracticeCount: aspectPracticeCounts
+      aspectPracticeCount: aspectPracticeCounts,
+      dataAppendix8: appendix8,
     };
   }
 }

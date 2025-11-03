@@ -83,4 +83,5 @@ export interface DashboardDetailMentoring {
   dashboardResume: IDashboardResume;
   appendixAnswerCount: IAppendixAnswerCount;
   aspectPracticeCount: IAspectPracticeCount;
+  dataAppendix8: IAppendix8[];
 }
