@@ -85,7 +85,6 @@ export class GetByIdGroupHandler {
 
     const { Department, ...rest } = group;
     const newGroup = { ...rest, department: Department.name };
-    console.log(newGroup);
     return newGroup as IGetByIdGroup;
   }
 }
