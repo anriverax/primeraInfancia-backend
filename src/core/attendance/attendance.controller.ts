@@ -19,7 +19,7 @@ import { PaginationDto } from "@/common/helpers/dto";
 import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
 import { GetTeacherAssignmentsByUserIdQuery } from "./cqrs/queries/mentorAssignment/getTeacherAssignmentsByUserId.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
-import { AttendanceEnum } from "@prisma/client";
+import { AttendanceEnum, RoleType } from "@prisma/client";
 import { GetMentorsAssignedToUserQuery } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
 import { GetEventsByResponsibleUserIdQuery } from "./cqrs/queries/event/getEventsByResponsibleUserId.query";
 
@@ -55,18 +55,21 @@ export class AttendanceController {
   @AuthRequired()
   @Get("me/teachers-and-events")
   async listMyTeachersAndEvents(
-    @Req() req: Request
+    @Req() req: Request,
+    @Query("mentorId") mentorId: string
   ): Promise<NestResponse<ITeachersAssignmentWithEvents>> {
     const userId = req["user"].sub;
+    const role = req["user"].role;
 
-    const events = await this.queryBus.execute(new GetEventsByResponsibleUserIdQuery(userId));
+    const id = role === RoleType.USER_TECNICO_APOYO ? parseInt(mentorId) : parseInt(userId);
+    const events = await this.queryBus.execute(new GetEventsByResponsibleUserIdQuery(id));
 
-    const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(parseInt(userId)));
+    const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(id));
     const data = this.mentorAssignmentService.order(result);
 
     return {
       statusCode: 200,
-      message: "Teachers and events assigned to the mentor.",
+      message: "Docentes y eventos asignados al mentor.",
       data: { events, teachers: data }
     };
   }
@@ -118,13 +121,13 @@ export class AttendanceController {
     if (rest.status === AttendanceEnum.AUSENTE) {
       return {
         statusCode: 201,
-        message: "Workday ended due to absence.",
+        message: "Jornada finalizada por ausencia.",
         data: attendanceData
       };
     }
     return {
       statusCode: 201,
-      message: "Workday started.",
+      message: "Jornada iniciada.",
       data: attendanceData
     };
   }
@@ -154,7 +157,7 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Workday ended.",
+      message: "Jornada finalizada.",
       data: attendanceUpdated
     };
   }
@@ -184,7 +187,7 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Attendance grouped by person.",
+      message: "Asistencias agrupadas por persona.",
       data: result.data,
       meta: result.meta
     };
@@ -210,7 +213,7 @@ export class AttendanceController {
     if (!attendanceResult) {
       return {
         statusCode: 200,
-        message: "No attendance records.",
+        message: "No hay registros de asistencia.",
         data: []
       };
     }
@@ -218,7 +221,7 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Last attendance.",
+      message: "Última asistencia.",
       data: res
     };
   }
@@ -243,7 +246,7 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Mentors assigned to the user.",
+      message: "Mentores asignados al usuario.",
       data
     };
   }

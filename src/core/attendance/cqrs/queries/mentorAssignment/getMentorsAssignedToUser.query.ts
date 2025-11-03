@@ -40,7 +40,17 @@ export class GetMentorsAssignedToUserHandler {
     const { userId } = query;
 
     const mentors = await this.prisma.mentorAssignment.findMany({
-      where: { techSupportAssignmentId: userId },
+      where: {
+        TechSupportAssignment: {
+          TechSupport: {
+            Person: {
+              User: {
+                id: userId
+              }
+            }
+          }
+        }
+      },
       select: {
         Mentor: {
           select: {
