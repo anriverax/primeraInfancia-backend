@@ -1,19 +1,46 @@
-import { QueryHandler } from "@nestjs/cqrs";
-import { PrismaService } from "@/services/prisma/prisma.service";
-import { FindByUserIdQuery } from "./findByUserId.query";
 import { ITeachersAssignmentMentor } from "@/core/attendance/dto/attendance.type";
+import { Query, QueryHandler } from "@nestjs/cqrs";
+import { PrismaService } from "@/services/prisma/prisma.service";
 
-@QueryHandler(FindByUserIdQuery)
-export class FindByUserIdHandler {
+/**
+ * Query: GetTeacherAssignmentsByUserIdQuery
+ *
+ * Returns the list of teacher assignments for the mentor identified by the given user ID.
+ *
+ * Input
+ * - userId: number (the authenticated user's ID)
+ *
+ * Output
+ * - ITeachersAssignmentMentor[] (empty array if none)
+ */
+export class GetTeacherAssignmentsByUserIdQuery extends Query<ITeachersAssignmentMentor[]> {
+  constructor(public readonly userId: number) {
+    super();
+  }
+}
+
+/**
+ * Handler for GetTeacherAssignmentsByUserIdQuery.
+ *
+ * Looks up mentor assignments by joining Mentor -> Person -> User using the provided userId.
+ */
+@QueryHandler(GetTeacherAssignmentsByUserIdQuery)
+export class GetTeacherAssignmentsByUserIdHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(query: FindByUserIdQuery): Promise<ITeachersAssignmentMentor[]> {
+  /**
+   * Executes the query and returns the teacher assignments for the mentor.
+   *
+   * @param query Query object containing the userId of the authenticated user
+   * @returns Array of teacher assignments; empty array if no matches
+   */
+  async execute(query: GetTeacherAssignmentsByUserIdQuery): Promise<ITeachersAssignmentMentor[]> {
     const mentorAssignment = await this.prisma.mentorAssignment.findMany({
       where: {
         Mentor: {
           Person: {
             User: {
-              id: query.id
+              id: query.userId
             }
           }
         }
@@ -29,10 +56,10 @@ export class FindByUserIdHandler {
                 Person: {
                   select: {
                     id: true,
+                    deletedBy: true,
                     firstName: true,
                     lastName1: true,
                     lastName2: true,
-                    deletedBy: true,
                     PrincipalSchool: {
                       select: {
                         deletedBy: true,

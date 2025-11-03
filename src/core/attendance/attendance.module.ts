@@ -9,16 +9,18 @@ import { FindLastAttendanceHandler } from "./cqrs/queries/attendance/findLastAtt
 import { UpdateAttendanceHandler } from "./cqrs/command/update/updateAttendance.handler";
 import { GetAllAttendancePaginationHandler } from "./cqrs/queries/pagination/getAllAttendancePagination.handler";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
-import { GetAllEventHandler } from "./cqrs/queries/event/getAllEvent.handler";
-import { FindByUserIdHandler } from "./cqrs/queries/mentorAssignment/findByUser.handler";
+import { GetTeacherAssignmentsByUserIdHandler } from "./cqrs/queries/mentorAssignment/getTeacherAssignmentsByUserId.query";
+import { GetMentorsAssignedToUserHandler } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
+import { GetEventsByResponsibleUserIdHandler } from "./cqrs/queries/event/getEventsByResponsibleUserId.query";
 
 const AttendanceCommandHandlers = [CreateAttendanceHandler, UpdateAttendanceHandler];
 const AttendanceQueryHandlers = [
   GetPersonRoleByUserHandler,
   FindLastAttendanceHandler,
   GetAllAttendancePaginationHandler,
-  GetAllEventHandler,
-  FindByUserIdHandler
+  GetTeacherAssignmentsByUserIdHandler,
+  GetMentorsAssignedToUserHandler,
+  GetEventsByResponsibleUserIdHandler
 ];
 
 @Module({

@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import {
   IFindLastAttendace,
   ILastAttendance,
+  IMentorResult,
+  IMentors,
   ITeachersAssignmentMentor,
   ITeachersAssignmentMentorResult
 } from "../dto/attendance.type";
@@ -9,6 +11,16 @@ import { formatDate } from "@/common/helpers/functions";
 
 @Injectable()
 export class MentorAssignmentService {
+  /**
+   * Normalize teacher assignments for mentors into a lightweight list.
+   *
+   * Input
+   * - data: Raw teacher assignments from MentorAssignment query
+   *
+   * Output
+   * - Array of { id, fullName, School { code, name, coordenates, location } }
+   *   filtered to non-deleted inscriptions and active principal school
+   */
   order(data: ITeachersAssignmentMentor[]): ITeachersAssignmentMentorResult[] {
     const newData: ITeachersAssignmentMentorResult[] = [];
 
@@ -39,6 +51,15 @@ export class MentorAssignmentService {
     return newData;
   }
 
+  /**
+   * Group last attendance records by event for teachers (typePersonId === 2).
+   *
+   * Input
+   * - data: Array of last attendance records
+   *
+   * Output
+   * - Array of grouped objects: { id, event, checkIn, modality, details[] }
+   */
   getTeachersByTypePerson(data: IFindLastAttendace[]): ILastAttendance[] {
     const teachers = data.filter((d: IFindLastAttendace) => d.PersonRole.typePersonId === 2);
 
@@ -69,5 +90,32 @@ export class MentorAssignmentService {
     const arrayResult = Object.values(result);
 
     return arrayResult;
+  }
+
+  /**
+   * Map mentors assigned to a tech support user to a simple list.
+   *
+   * Input
+   * - data: Array of mentor assignments (IMentors[])
+   *
+   * Output
+   * - Array of { id, fullName } for mentors with deletedBy === null
+   */
+  getMentorsByTechSupport(data: IMentors[]) {
+    const newData: IMentorResult[] = [];
+
+    data.forEach((d) => {
+      const { deletedBy } = d.Mentor;
+
+      if (deletedBy === null) {
+        const id = d.Mentor.id;
+        const { firstName, lastName1, lastName2 } = d.Mentor.Person;
+        const fullName = `${firstName} ${lastName1} ${lastName2}`;
+
+        newData.push({ id, fullName });
+      }
+    });
+
+    return newData;
   }
 }

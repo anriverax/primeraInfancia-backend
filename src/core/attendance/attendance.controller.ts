@@ -10,17 +10,29 @@ import {
   IAttendanceResult,
   ILastAttendance,
   ITeachersAssignmentWithEvents,
-  IAttendanceGrouped
+  IAttendanceGrouped,
+  IMentorResult
 } from "./dto/attendance.type";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
 import { PaginationDto } from "@/common/helpers/dto";
 import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
-import { GetAllEventQuery } from "./cqrs/queries/event/getAllEvent.query";
-import { FindByUserIdQuery } from "./cqrs/queries/mentorAssignment/findByUserId.query";
+import { GetTeacherAssignmentsByUserIdQuery } from "./cqrs/queries/mentorAssignment/getTeacherAssignmentsByUserId.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
 import { AttendanceEnum } from "@prisma/client";
+import { GetMentorsAssignedToUserQuery } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
+import { GetEventsByResponsibleUserIdQuery } from "./cqrs/queries/event/getEventsByResponsibleUserId.query";
 
+/**
+ * Attendance controller
+ *
+ * Prefix: /attendances
+ *
+ * Responsibilities:
+ * - Start/end attendance workday records.
+ * - List attendances (paginated) and fetch the latest attendance for the current user.
+ * - Fetch teachers assigned to the authenticated mentor and events where the mentor is responsible.
+ */
 @Controller()
 @UseFilters(HttpExceptionFilter)
 export class AttendanceController {
@@ -30,28 +42,53 @@ export class AttendanceController {
     private readonly mentorAssignmentService: MentorAssignmentService
   ) {}
 
+  /**
+   * Get teachers assigned to the authenticated mentor and the events where the mentor is responsible.
+   *
+   * Method: GET
+   * Route: /attendances/me/teachers-and-events
+   * Auth: Required
+   *
+   * @param req Request with `user.sub` (user ID) and `user.role`.
+   * @returns Teachers assigned to the mentor and mentor's events.
+   */
   @AuthRequired()
-  @Get("teachersWithEvents")
-  async getTeachersWithEvents(
+  @Get("me/teachers-and-events")
+  async listMyTeachersAndEvents(
     @Req() req: Request
   ): Promise<NestResponse<ITeachersAssignmentWithEvents>> {
     const userId = req["user"].sub;
 
-    const events = await this.queryBus.execute(new GetAllEventQuery(userId));
+    const events = await this.queryBus.execute(new GetEventsByResponsibleUserIdQuery(userId));
 
-    const result = await this.queryBus.execute(new FindByUserIdQuery(parseInt(userId)));
+    const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(parseInt(userId)));
     const data = this.mentorAssignmentService.order(result);
 
     return {
       statusCode: 200,
-      message: "Listado de grupos por ID",
+      message: "Teachers and events assigned to the mentor.",
       data: { events, teachers: data }
     };
   }
 
+  /**
+   * Create a new attendance record (start workday or mark absence).
+   *
+   * Rules:
+   * - If status is AUSENTE (absent), the record is created with checkOut set (workday ended).
+   * - If an array `teacherId` is provided, an attendance record is also created for each teacher.
+   *
+   * Method: POST
+   * Route: /attendances
+   * Auth: Required
+   *
+   * @param data Attendance payload (AttendanceDto)
+   * @param req Request with `user.sub` (user ID)
+   * @returns Created attendance record result
+   */
   @AuthRequired()
-  @Post("create")
-  async register(
+  @Post()
+  async createAttendance(
     @Body() data: AttendanceDto,
     @Req() req: Request
   ): Promise<NestResponse<IAttendanceResult>> {
@@ -81,20 +118,34 @@ export class AttendanceController {
     if (rest.status === AttendanceEnum.AUSENTE) {
       return {
         statusCode: 201,
-        message: "Jornada concluida por ausencia.",
+        message: "Workday ended due to absence.",
         data: attendanceData
       };
     }
     return {
       statusCode: 201,
-      message: "Inicio de jornada activado.",
+      message: "Workday started.",
       data: attendanceData
     };
   }
 
+  /**
+   * End the workday for an attendance record (set checkOut).
+   *
+   * Method: PUT
+   * Route: /attendances/:id
+   * Auth: Required
+   *
+   * @param id Attendance record ID to end.
+   * @param req Request with `user.sub` (user ID)
+   * @returns Number of records updated
+   */
   @AuthRequired()
-  @Put("update/:id")
-  async update(@Param("id") id: string, @Req() req: Request): Promise<NestResponse<{ count: number }>> {
+  @Put(":id")
+  async endAttendance(
+    @Param("id") id: string,
+    @Req() req: Request
+  ): Promise<NestResponse<{ count: number }>> {
     const userId = req["user"].sub;
 
     const attendanceUpdated = await this.commandBus.execute(
@@ -103,14 +154,25 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Jornada finalizada.",
+      message: "Workday ended.",
       data: attendanceUpdated
     };
   }
 
+  /**
+   * Get attendances grouped by person with pagination support.
+   *
+   * Method: GET
+   * Route: /attendances
+   * Auth: Required
+   *
+   * @param req Request with `user.sub` and `user.role`
+   * @param filterPagination Pagination and filter parameters (PaginationDto)
+   * @returns Paginated list of attendances grouped by person
+   */
   @AuthRequired()
   @Get()
-  async getAll(
+  async listAttendances(
     @Req() req: Request,
     @Query() filterPagination: PaginationDto
   ): Promise<NestResponseWithPagination<IAttendanceGrouped[]>> {
@@ -122,15 +184,25 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Listado de asistencias agrupadas por persona",
+      message: "Attendance grouped by person.",
       data: result.data,
       meta: result.meta
     };
   }
 
+  /**
+   * Get the latest attendance for the authenticated user (if exists).
+   *
+   * Method: GET
+   * Route: /attendances/last
+   * Auth: Required
+   *
+   * @param req Request with `user.sub` (user ID)
+   * @returns Latest attendance record or empty array
+   */
   @AuthRequired()
-  @Get("lastAttendance")
-  async getAttendanceByUser(@Req() req: Request): Promise<NestResponse<ILastAttendance[]>> {
+  @Get("last")
+  async getMyLastAttendance(@Req() req: Request): Promise<NestResponse<ILastAttendance[]>> {
     const userId = req["user"].sub;
 
     const attendanceResult = await this.queryBus.execute(new FindLastAttendanceQuery(parseInt(userId)));
@@ -138,7 +210,7 @@ export class AttendanceController {
     if (!attendanceResult) {
       return {
         statusCode: 200,
-        message: "Listado de asistencia vacía",
+        message: "No attendance records.",
         data: []
       };
     }
@@ -146,8 +218,33 @@ export class AttendanceController {
 
     return {
       statusCode: 200,
-      message: "Listado de grupos por ID",
+      message: "Last attendance.",
       data: res
+    };
+  }
+
+  /**
+   * Get mentors assigned to the authenticated (tech support) user.
+   *
+   * Method: GET
+   * Route: /attendances/me/mentors
+   * Auth: Required
+   *
+   * @param req Request with `user.sub` (user ID)
+   * @returns Simplified list of mentors assigned to the user
+   */
+  @AuthRequired()
+  @Get("me/mentors")
+  async listMyMentors(@Req() req: Request): Promise<NestResponse<IMentorResult[]>> {
+    const userId = req["user"].sub;
+    const result = await this.queryBus.execute(new GetMentorsAssignedToUserQuery(parseInt(userId)));
+
+    const data = this.mentorAssignmentService.getMentorsByTechSupport(result);
+
+    return {
+      statusCode: 200,
+      message: "Mentors assigned to the user.",
+      data
     };
   }
 }

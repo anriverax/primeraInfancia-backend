@@ -97,3 +97,19 @@ export interface ITeachersAssignmentWithEvents {
   events: IGetAllEvent[];
   teachers: ITeachersAssignmentMentorResult[];
 }
+
+export interface IMentors {
+  Mentor: Pick<PersonRole, "id" | "deletedBy"> & {
+    Person: {
+      deletedBy: number | null;
+      firstName: string;
+      lastName1: string;
+      lastName2: string | null;
+    };
+  };
+}
+
+export interface IMentorResult {
+  id: number;
+  fullName: string;
+}
