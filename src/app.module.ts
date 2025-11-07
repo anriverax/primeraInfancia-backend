@@ -31,7 +31,6 @@ import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
 
 // Appendix
 import { AppendixModule } from "./core/appendix/appendix.module";
-import { AnswerModule } from "./core/answer/answer.module";
 import { SurveyDataModule } from "./core/surveyData/surveyData.module";
 
 @Module({
@@ -68,7 +67,6 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
     DashboardModule,
     TechsupportModule,
     AppendixModule,
-    AnswerModule,
     SurveyDataModule,
     RouterModule.register([
       {
@@ -140,10 +138,6 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
           {
             path: "appendix",
             module: AppendixModule
-          },
-          {
-            path: "answer",
-            module: AnswerModule
           },
           {
             path: "surveyData",

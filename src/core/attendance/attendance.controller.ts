@@ -56,15 +56,36 @@ export class AttendanceController {
   @Get("me/teachers-and-events")
   async listMyTeachersAndEvents(
     @Req() req: Request,
-    @Query("mentorId") mentorId: string
+    @Query("mentorId") mentorId: string,
+    @Query("leaderId") leaderId: string
   ): Promise<NestResponse<ITeachersAssignmentWithEvents>> {
+    let id: number = 0;
+    let userRole: RoleType;
     const userId = req["user"].sub;
     const role = req["user"].role;
 
-    const id = role === RoleType.USER_TECNICO_APOYO ? parseInt(mentorId) : parseInt(userId);
+    const isLeader = role === RoleType.USER_TECNICO_APOYO && leaderId;
+    const isMentor = role === RoleType.USER_TECNICO_APOYO && mentorId;
+
+    if (RoleType.USER_TECNICO_APOYO === role) {
+      if (isLeader) {
+        userRole = RoleType.USER_FORMADOR;
+        id = parseInt(leaderId);
+      } else if (isMentor) {
+        userRole = RoleType.USER_MENTOR;
+        id = parseInt(mentorId);
+      } else {
+        userRole = RoleType.USER_MENTOR;
+        id = parseInt(userId);
+      }
+    } else {
+      userRole = role;
+      id = parseInt(userId);
+    }
+
     const events = await this.queryBus.execute(new GetEventsByResponsibleUserIdQuery(id));
 
-    const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(id));
+    const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(id, userRole));
     const data = this.mentorAssignmentService.order(result);
 
     return {

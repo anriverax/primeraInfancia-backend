@@ -11,14 +11,12 @@ import {
 } from "./cqrs/queries/findUnique/getByIdAppendix.handler";
 import { DeleteAppendixHandler } from "./cqrs/commands/delete/deleteAppendix.handler";
 import { UpdateAppendixHandler } from "./cqrs/commands/update/updateAppendix.handler";
-import { GetPersonAppendicesHandler } from "./cqrs/queries/findMany/getAllAppendixAnswer.handler";
 import { GetByInscriptionHandler } from "@/core/appendix/cqrs/queries/findByInscription/getByInscription.query";
 
 const CommandHandlers = [
   CreateAppendixHandler,
   UpdateAppendixHandler,
   DeleteAppendixHandler,
-  GetPersonAppendicesHandler,
   GetByInscriptionHandler
 ];
 const QueryHandlers = [GetAllAppendixHandler, GetByIdAppendixHandler, GetByIdDetailAppendixHandler];

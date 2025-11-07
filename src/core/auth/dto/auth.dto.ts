@@ -58,7 +58,7 @@ export class AuthDto {
   @IsOptional()
   @Transform(({ value }) => value.trim())
   @IsString({ message: "La fecha de nacimiento debe ser una cadena de texto." })
-  birthdate: string;
+  birthdate: Date;
 
   @IsNotEmpty({ message: "El distrito es obligatorio." })
   @IsNumber()

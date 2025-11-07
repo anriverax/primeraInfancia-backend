@@ -1,6 +1,7 @@
 import { ITeachersAssignmentMentor } from "@/core/attendance/dto/attendance.type";
 import { Query, QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
+import { Prisma, RoleType } from "@prisma/client";
 
 /**
  * Query: GetTeacherAssignmentsByUserIdQuery
@@ -14,7 +15,10 @@ import { PrismaService } from "@/services/prisma/prisma.service";
  * - ITeachersAssignmentMentor[] (empty array if none)
  */
 export class GetTeacherAssignmentsByUserIdQuery extends Query<ITeachersAssignmentMentor[]> {
-  constructor(public readonly userId: number) {
+  constructor(
+    public readonly userId: number,
+    public readonly userRole: RoleType
+  ) {
     super();
   }
 }
@@ -35,16 +39,30 @@ export class GetTeacherAssignmentsByUserIdHandler {
    * @returns Array of teacher assignments; empty array if no matches
    */
   async execute(query: GetTeacherAssignmentsByUserIdQuery): Promise<ITeachersAssignmentMentor[]> {
-    const mentorAssignment = await this.prisma.mentorAssignment.findMany({
-      where: {
-        Mentor: {
-          Person: {
-            User: {
-              id: query.userId
+    let where: Prisma.MentorAssignmentWhereInput;
+
+    if (query.userRole === RoleType.USER_FORMADOR) {
+      where = {
+        TechSupportAssignment: {
+          AssignedRole: {
+            Person: {
+              User: { id: query.userId }
             }
           }
         }
-      },
+      };
+    } else {
+      where = {
+        Mentor: {
+          Person: {
+            User: { id: query.userId }
+          }
+        }
+      };
+    }
+
+    const mentorAssignment = await this.prisma.mentorAssignment.findMany({
+      where,
       select: {
         Inscription: {
           select: {

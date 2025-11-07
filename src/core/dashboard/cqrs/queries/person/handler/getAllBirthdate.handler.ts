@@ -6,7 +6,7 @@ import { GetAllBirthdateQuery } from "../queries/getAllBirthdate.query";
 export class GetAllBirthdateHandler {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(): Promise<{ birthdate: string | null }[]> {
+  async execute(): Promise<{ birthdate: Date | null }[]> {
     const persons = await this.prisma.personRole.findMany({
       where: {
         typePersonId: 2
