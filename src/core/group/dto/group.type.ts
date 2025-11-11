@@ -1,6 +1,7 @@
 import { IPagination } from "@/common/helpers/types";
 import { Group, Inscription, Person } from "@prisma/client";
 
+export type GroupList = Pick<Group, "id" | "name" | "memberCount">;
 export interface IGroup extends Pick<Group, "id" | "memberCount"> {
   department: string;
   _count?: {

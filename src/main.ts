@@ -3,10 +3,11 @@ import { NestFactory } from "@nestjs/core";
 import * as cookieParser from "cookie-parser";
 import { AppModule } from "./app.module";
 import * as process from "node:process";
+import { HttpExceptionFilter } from "./common/filters/http-exception.filter";
 /* eslint-disable */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.enableCors({
     origin: process.env.SERVER_URL, // Cambia esto si tu frontend está en otro dominio/puerto
     credentials: true

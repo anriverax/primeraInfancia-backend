@@ -9,6 +9,7 @@ import { PaginationDto } from "../../common/helpers/dto";
 import { GroupService } from "./services/group.service";
 import { GetGroupByUserQuery } from "./cqrs/queries/getGroupByUser/getGroupByUser.query";
 import { GetAllGroupPaginationQuery } from "./cqrs/queries/getAllGroupPagination.query";
+import { GetGroupByDepartmentQuery } from "./cqrs/queries/get-group-department.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -17,6 +18,12 @@ export class GroupController {
     private readonly queryBus: QueryBus,
     private readonly groupService: GroupService
   ) {}
+
+  @AuthRequired()
+  @Get("me/groups-by-department/:departmentId")
+  async findGroupsByDepartment(@Param("departmentId") departmentId: number) {
+    return this.queryBus.execute(new GetGroupByDepartmentQuery(departmentId));
+  }
 
   @AuthRequired()
   @Get()

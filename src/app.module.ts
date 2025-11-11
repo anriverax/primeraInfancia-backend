@@ -18,7 +18,7 @@ import { ZoneModule } from "./core/catalogue/zone/zone.module";
 import { GroupModule } from "./core/group/group.module";
 
 // test
-import { DepartmentModule } from "./core/test/coutry/department/department.module";
+import { DepartmentModule } from "./core/catalogue/department/department.module";
 import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
 import { PermissionModule } from "./core/test/permission/permission.module";
 import { AttendanceModule } from "./core/attendance/attendance.module";
@@ -85,6 +85,10 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
                 module: TechsupportModule
               },
               {
+                path: "department",
+                module: DepartmentModule
+              },
+              {
                 path: "zone",
                 module: ZoneModule
               },
@@ -121,10 +125,6 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
           {
             path: "test",
             children: [
-              {
-                path: "department",
-                module: DepartmentModule
-              },
               {
                 path: "municipality",
                 module: MunicipalityModule

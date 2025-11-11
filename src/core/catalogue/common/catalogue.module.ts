@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
-import { DepartmentModule } from "../../test/coutry/department/department.module";
+import { DepartmentModule } from "../department/department.module";
 import { JwtModule } from "@nestjs/jwt";
 import { CatalogueController } from "./catalogue.controller";
 import { GetAllRolePermissionHandler } from "./query/permission-findMany/getAllRolePermission.handler";
