@@ -1,7 +1,19 @@
 import { IPagination } from "@/common/helpers/types";
+import { DepartmentList } from "@/core/catalogue/department/dto/department.type";
 import { Group, Inscription, Person } from "@prisma/client";
 
 export type GroupList = Pick<Group, "id" | "name" | "memberCount">;
+export interface DepartmentGroupCount extends DepartmentList {
+  _count: {
+    Group: number;
+  };
+}
+
+export interface DepartmentGroupCountResponse {
+  departments: DepartmentGroupCount[];
+  totalGroups: number;
+  totalInscriptions: number;
+}
 export interface IGroup extends Pick<Group, "id" | "memberCount"> {
   department: string;
   _count?: {
