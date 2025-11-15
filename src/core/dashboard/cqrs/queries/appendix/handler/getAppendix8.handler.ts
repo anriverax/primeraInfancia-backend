@@ -24,11 +24,11 @@ export class GetAppendix8Handler {
       for (const obj of survey) {
         if (!obj || typeof obj !== "object") continue;
 
-  // support multiple possible field names
-  const item = obj as Record<string, unknown>;
-  const rawQuestion = item["questionText"] ?? item["question"] ?? item["textQuestion"];
-  const rawAnswer = item["valueAnswer"] ?? item["answer"] ?? item["textAnswer"];
-  const rawIndex = item["index"] ?? item["time"] ?? undefined;
+        // support multiple possible field names
+        const item = obj as Record<string, unknown>;
+        const rawQuestion = item["questionText"] ?? item["question"] ?? item["textQuestion"];
+        const rawAnswer = item["valueAnswer"] ?? item["answer"] ?? item["textAnswer"];
+        const rawIndex = item["index"] ?? item["time"] ?? undefined;
 
         if (!rawQuestion || !rawAnswer) continue;
 
@@ -40,7 +40,7 @@ export class GetAppendix8Handler {
         let dimension = "";
 
         if (q.includes("||")) {
-          const parts = q.split("||").map(p => p.trim());
+          const parts = q.split("||").map((p) => p.trim());
           if (parts.length >= 2) {
             const t = Number(parts[0]);
             timeNum = Number.isNaN(t) ? undefined : t;

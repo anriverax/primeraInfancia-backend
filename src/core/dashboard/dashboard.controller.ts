@@ -28,7 +28,6 @@ import { GetAppendixCountQuery } from "./cqrs/queries/appendix/queries/getAppend
 import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/getAllSchoolByZone.handler";
 import { GetAspectPracticeCountQuery } from "./cqrs/queries/appendix/queries/getAspectPracticeCount.query";
 
-
 @Controller()
 export class DashboardController {
   constructor(
@@ -112,7 +111,7 @@ export class DashboardController {
       dashboardResume: resume,
       appendixAnswerCount: answerCounts,
       aspectPracticeCount: aspectPracticeCounts,
-      dataAppendix8: appendix8,
+      dataAppendix8: appendix8
     };
   }
 }
