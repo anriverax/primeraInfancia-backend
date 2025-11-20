@@ -63,6 +63,7 @@ export class DepartmentController {
    * // Response
    * // [ { "id": 1, "name": "Marketing" }, { "id": 2, "name": "Finance" } ]
    */
+  @AuthRequired()
   @Get()
   @ApiOkResponse({ description: "Listado de departamentos" })
   async findAll(): Promise<DepartmentList[]> {

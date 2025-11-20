@@ -2,7 +2,6 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { DepartmentProjection } from "../projections/department.projection";
 import { DepartmentCreateInput } from "../../dto/department.type";
 
-
 /**
  * Command representing the intention to create a new Department entity.
  * Encapsulates validated input data required for creation.

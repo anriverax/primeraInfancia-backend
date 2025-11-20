@@ -7,13 +7,15 @@ import { GetAllGroupPaginationHandler } from "./cqrs/queries/getAllGroupPaginati
 import { GroupService } from "./services/group.service";
 import { GetGroupByUserHandler } from "./cqrs/queries/getGroupByUser/getGroupByUser.query";
 import { GetGroupByDepartmentHandler } from "./cqrs/queries/get-group-department.query";
+import { GetAllCountDepartmentHandler } from "./cqrs/queries/get-all-count-departments";
 
 const CommandHandlers = [];
 const QueryHandlers = [
   GetByIdGroupHandler,
   GetAllGroupPaginationHandler,
   GetGroupByUserHandler,
-  GetGroupByDepartmentHandler
+  GetGroupByDepartmentHandler,
+  GetAllCountDepartmentHandler
 ];
 
 @Module({

@@ -10,6 +10,8 @@ import { GroupService } from "./services/group.service";
 import { GetGroupByUserQuery } from "./cqrs/queries/getGroupByUser/getGroupByUser.query";
 import { GetAllGroupPaginationQuery } from "./cqrs/queries/getAllGroupPagination.query";
 import { GetGroupByDepartmentQuery } from "./cqrs/queries/get-group-department.query";
+import { GetAllCountDepartmentsQuery } from "./cqrs/queries/get-all-count-departments";
+import { DepartmentGroupCountResponse } from "./dto/group.type";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -18,6 +20,16 @@ export class GroupController {
     private readonly queryBus: QueryBus,
     private readonly groupService: GroupService
   ) {}
+
+  @AuthRequired()
+  @Get("me/departments-with-groups")
+  async findDepartmentsWithGroups() {
+    const result: DepartmentGroupCountResponse = await this.queryBus.execute(
+      new GetAllCountDepartmentsQuery()
+    );
+
+    return result;
+  }
 
   @AuthRequired()
   @Get("me/groups-by-department/:departmentId")
