@@ -1,6 +1,5 @@
-import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Body, Controller, Get, Param, Post, Put, Query, Req, UseFilters } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AttendanceDto } from "./dto/attendance.dto";
 import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.command";
@@ -34,7 +33,6 @@ import { GetEventsByResponsibleUserIdQuery } from "./cqrs/queries/event/getEvent
  * - Fetch teachers assigned to the authenticated mentor and events where the mentor is responsible.
  */
 @Controller()
-@UseFilters(HttpExceptionFilter)
 export class AttendanceController {
   constructor(
     private readonly commandBus: CommandBus,
@@ -58,7 +56,7 @@ export class AttendanceController {
     @Req() req: Request,
     @Query("mentorId") mentorId: string,
     @Query("leaderId") leaderId: string
-  ): Promise<NestResponse<ITeachersAssignmentWithEvents>> {
+  ): Promise<ITeachersAssignmentWithEvents> {
     let id: number = 0;
     let userRole: RoleType;
     const userId = req["user"].sub;
@@ -88,11 +86,7 @@ export class AttendanceController {
     const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(id, userRole));
     const data = this.mentorAssignmentService.order(result);
 
-    return {
-      statusCode: 200,
-      message: "Docentes y eventos asignados al mentor.",
-      data: { events, teachers: data }
-    };
+    return { events, teachers: data };
   }
 
   /**
@@ -226,25 +220,16 @@ export class AttendanceController {
    */
   @AuthRequired()
   @Get("last")
-  async getMyLastAttendance(@Req() req: Request): Promise<NestResponse<ILastAttendance[]>> {
+  async getMyLastAttendance(@Req() req: Request): Promise<ILastAttendance[]> {
     const userId = req["user"].sub;
 
     const attendanceResult = await this.queryBus.execute(new FindLastAttendanceQuery(parseInt(userId)));
 
-    if (!attendanceResult) {
-      return {
-        statusCode: 200,
-        message: "No hay registros de asistencia.",
-        data: []
-      };
-    }
+    if (!attendanceResult) return [];
+
     const res = this.mentorAssignmentService.getTeachersByTypePerson(attendanceResult);
 
-    return {
-      statusCode: 200,
-      message: "Última asistencia.",
-      data: res
-    };
+    return res;
   }
 
   /**
