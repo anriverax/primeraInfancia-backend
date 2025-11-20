@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { IGroupCount } from "../dto/dashboard.type";
+import { GetAllAppendixResponse, IGroupCount } from "../dto/dashboard.type";
 
 @Injectable()
 export class DashboardService {
@@ -42,5 +42,13 @@ export class DashboardService {
     const result = this.groupByRanges(ages, 10);
 
     return result;
+  }
+
+  getSchoolCountByDepartment(data: GetAllAppendixResponse[]) {
+    const schoolCount = data.flatMap(
+      (item) => item.Inscription?.PersonRole?.Person?.PrincipalSchool?.map((ps) => ps.School) ?? []
+    );
+
+    return schoolCount;
   }
 }

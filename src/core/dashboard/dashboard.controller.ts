@@ -1,6 +1,6 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Controller, Get, Param, Query } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
-import { DashboardAttendance, DashboardMentoring, DashboardPerson } from "./dto/dashboard.type";
+import { DashboardAttendance, DashboardPerson } from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
 import { DashboardService } from "./services/dashboard.service";
@@ -13,10 +13,10 @@ import { GetAllMentoringQuery } from "./cqrs/queries/mentoring/getAllMentoring.q
 import { GetAllEventByTypeQuery } from "./cqrs/queries/eventType/getAllEventByType.query";
 import { GetTeacherCountByYearExperienceQuery } from "./cqrs/queries/person/queries/getTeacherCountByYearExperiencie.query";
 import { GetTeacherCountByEducationalLevelQuery } from "./cqrs/queries/person/queries/getTeacherCountByEducationalLevel ";
-import { GetAppendix8Query } from "./cqrs/queries/appendix/queries/getAppendix8.query";
 import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/queries/findMany/getAllTrainingModule.query";
 import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
 import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/getAllSchoolByZone.handler";
+import { GetAllAppendix1Query } from "./cqrs/queries/appendix/get-all-appendix1.query";
 
 @Controller()
 export class DashboardController {
@@ -71,9 +71,10 @@ export class DashboardController {
   }
 
   @Get("/mentoring")
-  async getDashboardMentoring(): Promise<DashboardMentoring> {
-    const appendix8 = await this.queryBus.execute(new GetAppendix8Query());
+  async getDashboardMentoring(@Query("appendix") appendix: string): Promise<any> {
+    const mentoring = await this.queryBus.execute(new GetAllAppendix1Query(parseInt(appendix)));
+    const result = this.dashboardService.getSchoolCountByDepartment(mentoring);
 
-    return { appendix8 };
+    return result;
   }
 }

@@ -1,3 +1,4 @@
+import { DepartmentList } from "@/core/catalogue/department/dto/department.type";
 import { IGetAllTrainingModule } from "@/core/catalogue/trainingModule/dto/trainingModule.type";
 
 export interface IGroupCount {
@@ -46,4 +47,20 @@ export interface IAppendix8 {
 
 export interface DashboardMentoring {
   appendix8: IAppendix8[];
+}
+
+export interface GetAllAppendixResponse {
+  Inscription: {
+    PersonRole: {
+      Person: {
+        PrincipalSchool: {
+          School: {
+            id: number;
+            name: string;
+            District: { Municipality: { Department: DepartmentList } };
+          };
+        }[];
+      };
+    };
+  };
 }
