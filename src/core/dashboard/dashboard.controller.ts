@@ -21,6 +21,8 @@ import { GetAllTrainingModuleQuery } from "../catalogue/trainingModule/crqs/quer
 import { IGetAllTrainingModule } from "../catalogue/trainingModule/dto/trainingModule.type";
 import { GetAllSchoolByZoneQuery } from "./cqrs/queries/school/getAllSchoolByZone.handler";
 import { GetAllAppendix1Query } from "./cqrs/queries/appendix/get-all-appendix1.query";
+import { GetAllAppendixQuery } from "../appendix/cqrs/queries/get-all-appendix.query";
+import { GetSurveyByAppendixQuery } from "./cqrs/queries/appendix/get-survey-by-appendix.query";
 
 @Controller()
 export class DashboardController {
@@ -78,6 +80,14 @@ export class DashboardController {
   async getDashboardMentoring(
     @Query("appendix") appendix: string
   ): Promise<GetSchoolCountByDepartmentResponse[]> {
+    const completed: any[] = [];
+    const appendixs = await this.queryBus.execute(new GetAllAppendixQuery(["id", "title"]));
+
+    for (const app of appendixs) {
+      const count = await this.queryBus.execute(new GetSurveyByAppendixQuery(app.id));
+      completed.push({ appendixId: app.id, title: app.title, count });
+    }
+    console.log("completed", completed);
     const mentoring = await this.queryBus.execute(new GetAllAppendix1Query(parseInt(appendix)));
     const result = this.dashboardService.getSchoolCountByDepartment(mentoring);
 

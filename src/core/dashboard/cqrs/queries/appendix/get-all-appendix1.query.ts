@@ -11,6 +11,8 @@ export class GetAllAppendix1Handler implements IQueryHandler<GetAllAppendix1Quer
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(): Promise<GetAllAppendixResponse[]> {
+    const pairs = await this.prisma.surveyData.count({});
+    console.log(pairs);
     return await this.prisma.surveyData.findMany({
       where: { appendixId: 1 },
       select: {

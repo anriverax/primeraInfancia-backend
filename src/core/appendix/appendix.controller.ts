@@ -8,7 +8,7 @@ import { NestResponse } from "@/common/helpers/types";
 import { Appendix } from "@prisma/client";
 import { UpdateAppendixCommand } from "./cqrs/commands/update/updateAppendix.command";
 import { DeleteAppendixCommand } from "./cqrs/commands/delete/deleteAppendix.command";
-import { GetAllAppendixQuery } from "./cqrs/queries/findMany/getAllAppendix.query";
+import { GetAllAppendixQuery } from "./cqrs/queries/get-all-appendix.query";
 import { IGetAllAppendix, IGetByIdAppendix, PersonAppendixDto } from "./dto/appendix.type";
 import {
   GetByIdAppendixQuery,

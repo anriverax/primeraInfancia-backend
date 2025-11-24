@@ -84,3 +84,13 @@ export function getPublicKey(configService: ConfigService): string {
 
   return publicKey;
 }
+
+export function stringsToJson(arr: string[]): Record<string, any> {
+  return arr.reduce(
+    (obj: Record<string, any>, key) => {
+      obj[key] = true;
+      return obj;
+    },
+    {} as Record<string, any>
+  );
+}

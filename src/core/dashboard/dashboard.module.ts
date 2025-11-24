@@ -16,7 +16,8 @@ import { GetAllEventByTypeHandler } from "./cqrs/queries/eventType/getAllEventBy
 import { GetTeacherCountsByYearsExperienceHandler } from "./cqrs/queries/person/handler/getTeacherCountByYearsExperience.handler";
 import { GetTeacherCountByEducationalLevelHandler } from "./cqrs/queries/person/handler/getTeacherCountByEducationalLevel.handler";
 import { TrainingModule } from "../catalogue/trainingModule/trainingModule.module";
-import { GetAllAppendix1Handler } from './cqrs/queries/appendix/get-all-appendix1.query';
+import { GetAllAppendix1Handler } from "./cqrs/queries/appendix/get-all-appendix1.query";
+import { GetSurveyByAppendixHandler } from './cqrs/queries/appendix/get-survey-by-appendix.query';
 
 export const QueryHandlers = [
   GetAllSchoolByZoneHandler,
@@ -31,7 +32,8 @@ export const QueryHandlers = [
   GetAllEventByTypeHandler,
   GetTeacherCountsByYearsExperienceHandler,
   GetTeacherCountByEducationalLevelHandler,
-  GetAllAppendix1Handler
+  GetAllAppendix1Handler,
+  GetSurveyByAppendixHandler
 ];
 
 @Module({

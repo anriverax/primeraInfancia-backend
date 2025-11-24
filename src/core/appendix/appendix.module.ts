@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
-import { GetAllAppendixHandler } from "./cqrs/queries/findMany/getAllAppendix.query";
+import { GetAllAppendixHandler } from "./cqrs/queries/get-all-appendix.query";
 import { AppendixProjection } from "./cqrs/projections/appendix.projection";
 import { AppendixController } from "./appendix.controller";
 import { CreateAppendixHandler } from "./cqrs/commands/create/createAppendix.handler";
