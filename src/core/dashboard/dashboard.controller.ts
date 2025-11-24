@@ -1,6 +1,10 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
-import { DashboardAttendance, DashboardPerson } from "./dto/dashboard.type";
+import {
+  DashboardAttendance,
+  DashboardPerson,
+  GetSchoolCountByDepartmentResponse
+} from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
 import { DashboardService } from "./services/dashboard.service";
@@ -71,7 +75,9 @@ export class DashboardController {
   }
 
   @Get("/mentoring")
-  async getDashboardMentoring(@Query("appendix") appendix: string): Promise<any> {
+  async getDashboardMentoring(
+    @Query("appendix") appendix: string
+  ): Promise<GetSchoolCountByDepartmentResponse[]> {
     const mentoring = await this.queryBus.execute(new GetAllAppendix1Query(parseInt(appendix)));
     const result = this.dashboardService.getSchoolCountByDepartment(mentoring);
 

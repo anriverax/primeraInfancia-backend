@@ -64,3 +64,13 @@ export interface GetAllAppendixResponse {
     };
   };
 }
+
+export interface GetSchoolCountByDepartmentResponse {
+  id: number;
+  name: string;
+  District: {
+    Municipality: {
+      Department: DepartmentList;
+    };
+  };
+}
