@@ -65,6 +65,12 @@ export interface GetAllAppendixResponse {
   };
 }
 
+export interface GetSurveyByAppendixResponse {
+  appendixId: number;
+  title: string;
+  count: number;
+}
+
 export interface GetSchoolCountByDepartmentResponse {
   id: number;
   name: string;

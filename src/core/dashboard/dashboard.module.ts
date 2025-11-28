@@ -17,7 +17,7 @@ import { GetTeacherCountsByYearsExperienceHandler } from "./cqrs/queries/person/
 import { GetTeacherCountByEducationalLevelHandler } from "./cqrs/queries/person/handler/getTeacherCountByEducationalLevel.handler";
 import { TrainingModule } from "../catalogue/trainingModule/trainingModule.module";
 import { GetAllAppendix1Handler } from "./cqrs/queries/appendix/get-all-appendix1.query";
-import { GetSurveyByAppendixHandler } from './cqrs/queries/appendix/get-survey-by-appendix.query';
+import { GetSurveyByAppendixHandler } from "./cqrs/queries/appendix/get-survey-by-appendix.query";
 
 export const QueryHandlers = [
   GetAllSchoolByZoneHandler,

@@ -3,7 +3,8 @@ import { QueryBus } from "@nestjs/cqrs";
 import {
   DashboardAttendance,
   DashboardPerson,
-  GetSchoolCountByDepartmentResponse
+  GetSchoolCountByDepartmentResponse,
+  GetSurveyByAppendixResponse
 } from "./dto/dashboard.type";
 import { GetAllSchoolByDepartmentQuery } from "./cqrs/queries/school/queries/getAllSchoolByDepartment.query";
 import { GetAllRegisteredTeachersQuery } from "./cqrs/queries/person/queries/getAllRegisteredTeachers.query";
@@ -80,7 +81,7 @@ export class DashboardController {
   async getDashboardMentoring(
     @Query("appendix") appendix: string
   ): Promise<GetSchoolCountByDepartmentResponse[]> {
-    const completed: any[] = [];
+    const completed: GetSurveyByAppendixResponse[] = [];
     const appendixs = await this.queryBus.execute(new GetAllAppendixQuery(["id", "title"]));
 
     for (const app of appendixs) {
