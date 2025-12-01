@@ -11,6 +11,7 @@ import { PrismaModule } from "./services/prisma/prisma.module";
 import { RedisModule } from "./services/redis/redis.module";
 
 // module - Controller
+import { EventModule } from "./core/event/event.module";
 import { AuthModule } from "./core/auth/auth.module";
 import { CatalogueModule } from "./core/catalogue/common/catalogue.module";
 import { ProfileModule } from "./core/profile/profile.module";
@@ -52,6 +53,7 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
     }),
     PrismaModule,
     HealthModule,
+    EventModule,
     AuthModule,
     CatalogueModule,
     ProfileModule,
@@ -72,6 +74,10 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
       {
         path: "api",
         children: [
+          {
+            path: "events",
+            module: EventModule
+          },
           {
             path: "auth",
             module: AuthModule

@@ -13,9 +13,9 @@ export class GetAllEventByTypeHandler {
         checkOut: { not: null }
       },
       select: {
-        Event: {
+        EventInstance: {
           select: {
-            EventType: {
+            Event: {
               select: {
                 name: true
               }

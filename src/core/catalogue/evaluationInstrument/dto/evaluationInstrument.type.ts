@@ -1,4 +1,4 @@
-import { EvaluationInstrument } from "@prisma/client";
+import { EvaluationInstrument } from "prisma/generated/client";
 
 export type IGetAllEvaluationInstrument = Pick<
   EvaluationInstrument,

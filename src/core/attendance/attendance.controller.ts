@@ -18,7 +18,7 @@ import { PaginationDto } from "@/common/helpers/dto";
 import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
 import { GetTeacherAssignmentsByUserIdQuery } from "./cqrs/queries/mentorAssignment/getTeacherAssignmentsByUserId.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
-import { AttendanceEnum, RoleType } from "@prisma/client";
+import { AttendanceEnum, RoleType } from "prisma/generated/client";
 import { GetMentorsAssignedToUserQuery } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
 import { GetEventsByResponsibleUserIdQuery } from "./cqrs/queries/event/getEventsByResponsibleUserId.query";
 
@@ -120,6 +120,7 @@ export class AttendanceController {
       new CreateAttendanceCommand(
         {
           ...rest,
+          eventInstanceId: 1,
           checkOut: checkOutState,
           personRoleId: personRole!.id
         },
@@ -129,7 +130,10 @@ export class AttendanceController {
 
     for (const teacher of teacherId) {
       await this.commandBus.execute(
-        new CreateAttendanceCommand({ ...rest, checkOut: checkOutState, personRoleId: teacher }, userId)
+        new CreateAttendanceCommand(
+          { ...rest, eventInstanceId: 1, checkOut: checkOutState, personRoleId: teacher },
+          userId
+        )
       );
     }
 

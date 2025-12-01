@@ -2,7 +2,7 @@ import { IQueryHandler } from "@nestjs/cqrs";
 import { QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { IGetAllAppendix } from "@/core/appendix/dto/appendix.type";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "prisma/generated/client";
 import { stringsToJson } from "@/common/helpers/functions";
 
 export class GetAllAppendixQuery {

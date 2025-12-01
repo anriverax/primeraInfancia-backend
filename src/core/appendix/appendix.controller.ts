@@ -5,7 +5,7 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AppendixDto } from "./dto/appendix.dto";
 import { CreateAppendixCommand } from "./cqrs/commands/create/createAppendix.command";
 import { NestResponse } from "@/common/helpers/types";
-import { Appendix } from "@prisma/client";
+import { Appendix } from "prisma/generated/client";
 import { UpdateAppendixCommand } from "./cqrs/commands/update/updateAppendix.command";
 import { DeleteAppendixCommand } from "./cqrs/commands/delete/deleteAppendix.command";
 import { GetAllAppendixQuery } from "./cqrs/queries/get-all-appendix.query";

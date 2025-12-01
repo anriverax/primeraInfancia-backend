@@ -1,7 +1,7 @@
 import { Controller, Get, Req } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
 import { IMenuItemResponse, IMenuItems, IRolePermission } from "./dto/catalogue.type";
-import { MenuItem } from "@prisma/client";
+import { MenuItem } from "prisma/generated/client";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { GetAllRolePermissionQuery } from "./query/permission-findMany/getAllRolePermission.query";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";

@@ -1,6 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import { menuJson } from "./base/urls";
-const prisma = new PrismaClient();
+
+import { PrismaClient } from "prisma/generated/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+
+const connectionString = process.env.DATABASE_URL!;
+const adapter = new PrismaPg({ connectionString });
+
+const prisma = new PrismaClient({ adapter });
 
 export async function menuSeed() {
   // Menú principal: Dashboard

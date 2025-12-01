@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { EventBus, IEvent } from "@nestjs/cqrs";
 import { EventStoreService } from "./eventStore.service";
-import { StoredEvent } from "@prisma/client";
+import { StoredEvent } from "prisma/generated/client";
 
 @Injectable({})
 export class EventBusWithStore {

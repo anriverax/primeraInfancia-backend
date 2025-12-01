@@ -5,7 +5,7 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { SurveyDataDto, SurveyDataPaginationDto } from "./dto/surveyData.dto";
 import { CreateSurveyDataCommand } from "./cqrs/commands/create/createSurveyData.command";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
-import { SurveyData } from "@prisma/client";
+import { SurveyData } from "prisma/generated/client";
 import { UpdateSurveyDataCommand } from "./cqrs/commands/update/updateSurveyData.command";
 import { DeleteSurveyDataCommand } from "./cqrs/commands/delete/deleteSurveyData.command";
 import { GetAllSurveyDataQuery } from "./cqrs/queries/findMany/getAllSurveyData.query";

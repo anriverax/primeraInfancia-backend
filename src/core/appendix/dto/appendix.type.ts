@@ -1,5 +1,5 @@
 import { IPagination } from "@/common/helpers/types";
-import { Appendix, Question } from "@prisma/client";
+import { Appendix, Question } from "prisma/generated/client";
 
 export type ICreateAppendix = Pick<
   Appendix,

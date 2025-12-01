@@ -1,7 +1,8 @@
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
-import { Municipality } from "@prisma/client"; // Import User type from Prisma Client
+
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { IMunicipality } from "../../dto/municipality.type";
+import { Municipality } from "prisma/generated/client";
 
 @Injectable({})
 export class MunicipalityProjection {

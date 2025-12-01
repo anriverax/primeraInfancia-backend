@@ -1,10 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "./generated"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Cohort {
@@ -174,13 +174,13 @@ model PersonRole {
   updatedBy                        Int?
   deletedBy                        Int?
   Attendances                      Attendance[]
-  Event                            Event[]
   Inscription                      Inscription[]
   MentorAssignment                 MentorAssignment[]
   Person                           Person                   @relation(fields: [personId], references: [id])
   TypePerson                       TypePerson               @relation(fields: [typePersonId], references: [id])
   TechSupportAssignmentsAsAssigned TechSupportAssignments[] @relation("AssignedRoleToAssignments")
   TechSupportAssignmentsAsTech     TechSupportAssignments[] @relation("TechSupportToAssignments")
+  eventInstances                   EventInstance[]
 
   @@unique([personId, typePersonId])
   @@index([typePersonId])
@@ -319,7 +319,7 @@ model TrainingSlot {
 
 model Attendance {
   id               Int            @id @default(autoincrement())
-  eventId          Int
+  eventInstanceId  Int
   personRoleId     Int
   checkIn          DateTime
   checkOut         DateTime?
@@ -332,46 +332,10 @@ model Attendance {
   updatedAt        DateTime       @updatedAt
   createdBy        Int
   updatedBy        Int?
-  Event            Event          @relation(fields: [eventId], references: [id])
   PersonRole       PersonRole     @relation(fields: [personRoleId], references: [id])
-}
+  EventInstance    EventInstance  @relation(fields: [eventInstanceId], references: [id])
 
-model EventType {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  order     Int
-  cohortId  Int
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  updatedBy Int?
-  deletedBy Int?
-  Event     Event[]
-  Cohort    Cohort    @relation(fields: [cohortId], references: [id])
-}
-
-model EventModule {
-  id               Int            @id @default(autoincrement())
-  eventId          Int
-  trainingModuleId Int
-  Event            Event          @relation(fields: [eventId], references: [id])
-  TrainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
-}
-
-model Event {
-  id            Int           @id @default(autoincrement())
-  name          String
-  eventTypeId   Int
-  responsableId Int
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  deletedAt     DateTime?
-  createdBy     Int
-  updatedBy     Int?
-  deletedBy     Int?
-  Attendances   Attendance[]
-  EventType     EventType     @relation(fields: [eventTypeId], references: [id])
-  PersonRole    PersonRole    @relation(fields: [responsableId], references: [id])
-  EventModule   EventModule[]
+  @@unique([personRoleId, eventInstanceId])
 }
 
 model TrainingModule {
@@ -382,10 +346,10 @@ model TrainingModule {
   endDate          DateTime           @db.Date
   hours            Int
   cohortId         Int
-  EventModule      EventModule[]
   ModuleEvaluation ModuleEvaluation[]
   moduleReport     ModuleReport[]
   Cohort           Cohort             @relation(fields: [cohortId], references: [id])
+  eventInstances   EventInstance[]
 }
 
 model EvaluationInstrument {

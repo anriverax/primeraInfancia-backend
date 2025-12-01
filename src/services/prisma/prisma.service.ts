@@ -1,7 +1,8 @@
 import { firstCapitalLetter } from "@/common/helpers/functions";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { Prisma, PrismaClient } from "prisma/generated/client";
 
 const modelsWithSoftDelete = [
   "Group",
@@ -14,75 +15,76 @@ const modelsWithSoftDelete = [
   "SurveyData"
 ];
 
-const prismaWithExtension = new PrismaClient().$extends({
-  result: {
-    person: {
-      fullName: {
-        needs: { firstName: true, lastName1: true, lastName2: true },
-        compute(person) {
-          return `${person.firstName} ${person.lastName1} ${person.lastName2}`;
-        }
-      }
-    }
-  },
-  query: {
-    $allModels: {
-      $allOperations({ model, operation, args, query }) {
-        const operationsToFilter = [
-          "findUnique",
-          "findFirst",
-          "findMany",
-          "count",
-          "aggregate",
-          "groupBy"
-        ];
-
-        if (modelsWithSoftDelete.includes(model) && operationsToFilter.includes(operation)) {
-          if (typeof args === "object" && args !== null) {
-            args["where"] ??= {};
-
-            if (!("deletedAt" in args["where"])) {
-              args["where"].deletedAt = null;
-            }
-          }
-        }
-
-        return query(args);
-      },
-      async update({ model, args, query }) {
-        if (modelsWithSoftDelete.includes(model)) {
-          if (
-            typeof args === "object" &&
-            args !== null &&
-            "where" in args &&
-            typeof args.where === "object"
-          ) {
-            args.where = args.where ?? {};
-
-            if (!("deletedAt" in args.where)) {
-              args.where["deletedAt"] = null;
-            }
-          }
-        }
-
-        return query(args);
-      }
-    }
-  }
-});
+// We'll apply $extends to the instance created in the constructor so the adapter is used.
 
 @Injectable()
 export class PrismaService extends PrismaClient {
   constructor(_env: ConfigService) {
+    const connectionString = _env.get<string>("database.url");
+    const adapter = new PrismaPg({ connectionString });
+
     super({
-      datasources: {
-        db: {
-          url: _env.get<string>("database.url")
+      adapter
+    });
+
+    const extended = this.$extends({
+      result: {
+        person: {
+          fullName: {
+            needs: { firstName: true, lastName1: true, lastName2: true },
+            compute(person) {
+              return `${person.firstName} ${person.lastName1} ${person.lastName2}`;
+            }
+          }
+        }
+      },
+      query: {
+        $allModels: {
+          $allOperations({ model, operation, args, query }) {
+            const operationsToFilter = [
+              "findUnique",
+              "findFirst",
+              "findMany",
+              "count",
+              "aggregate",
+              "groupBy"
+            ];
+
+            if (modelsWithSoftDelete.includes(model) && operationsToFilter.includes(operation)) {
+              if (typeof args === "object" && args !== null) {
+                args["where"] ??= {};
+
+                if (!("deletedAt" in args["where"])) {
+                  args["where"].deletedAt = null;
+                }
+              }
+            }
+
+            return query(args);
+          },
+          async update({ model, args, query }) {
+            if (modelsWithSoftDelete.includes(model)) {
+              if (
+                typeof args === "object" &&
+                args !== null &&
+                "where" in args &&
+                typeof args.where === "object"
+              ) {
+                args.where = args.where ?? {};
+
+                if (!("deletedAt" in args.where)) {
+                  args.where["deletedAt"] = null;
+                }
+              }
+            }
+
+            return query(args);
+          }
         }
       }
     });
 
-    Object.assign(this, prismaWithExtension);
+    Object.assign(this, extended);
   }
 
   /* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-function-return-type */

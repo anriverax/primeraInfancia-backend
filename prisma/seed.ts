@@ -1,9 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "prisma/generated/client";
 import { authorizationSeed } from "./seeds/authorization.seed";
 import { menuSeed } from "./seeds/menu.seed";
 import { evaluationInstrument } from "./seeds/evaluationInstrument";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL!;
+const adapter = new PrismaPg({ connectionString });
+
+const prisma = new PrismaClient({ adapter });
 async function cohorts() {
   await prisma.cohort.createMany({
     data: [
@@ -69,31 +73,31 @@ async function eventType() {
     data: [
       {
         name: "Seminarios",
-        totalHours: 24,
+        // totalHours: 24,
         order: 1,
         cohortId: 1
       },
       {
         name: "Mentorías",
-        totalHours: 24,
+        // totalHours: 24,
         order: 2,
         cohortId: 1
       },
       {
         name: "Talleres",
         order: 3,
-        totalHours: 60,
+        // totalHours: 60,
         cohortId: 1
       },
       {
         name: "Comunidades de práctica formativa",
-        totalHours: 0,
+        // totalHours: 0,
         order: 4,
         cohortId: 1
       },
       {
         name: "Sesiones sincrónicas",
-        totalHours: 0,
+        // totalHours: 0,
         order: 5,
         cohortId: 1
       }

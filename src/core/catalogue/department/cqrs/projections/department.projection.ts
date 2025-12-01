@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
-import { Prisma } from "@prisma/client"; // Import User type from Prisma Client
+import { Prisma } from "prisma/generated/client"; // Import User type from Prisma Client
 
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { DepartmentCreateInput } from "../../dto/department.type";

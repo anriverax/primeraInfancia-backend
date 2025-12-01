@@ -1,6 +1,6 @@
 import { IPagination } from "@/common/helpers/types";
 import { DepartmentList } from "@/core/catalogue/department/dto/department.type";
-import { Group, Inscription, Person } from "@prisma/client";
+import { Group, Inscription, Person } from "prisma/generated/client";
 
 export type GroupList = Pick<Group, "id" | "name" | "memberCount">;
 export interface DepartmentGroupCount extends DepartmentList {

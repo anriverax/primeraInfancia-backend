@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { Municipality } from "@prisma/client";
+import { Municipality } from "prisma/generated/client";
 import { MunicipalityDto } from "./dto/municipality.dto";
 import { GetAllMunicipalityQuery } from "./cqrs/queries/getAllMunicipality.query";
 import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";

@@ -1,4 +1,4 @@
-import { AttendanceEnum } from "@prisma/client";
+import { AttendanceEnum } from "prisma/generated/client";
 import { Transform } from "class-transformer";
 import { IsArray, IsEnum, IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator";
 

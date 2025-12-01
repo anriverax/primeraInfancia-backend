@@ -65,13 +65,13 @@ export class MentorAssignmentService {
 
     const result = teachers.reduce(
       (acc, t) => {
-        const key = t.Event.name;
+        const key = t.EventInstance.id;
         const teacher = t.PersonRole.Person;
         const fullName = `${teacher.firstName} ${teacher.lastName1} ${teacher.lastName2}`;
         if (!acc[key]) {
           acc[key] = {
-            id: t.Event.id,
-            event: t.Event.name,
+            id: t.EventInstance.id,
+            event: t.EventInstance.id.toString(),
             checkIn: formatDate(t.checkIn),
             modality: t.modality,
             details: []

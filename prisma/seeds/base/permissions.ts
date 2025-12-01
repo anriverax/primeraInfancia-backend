@@ -1,6 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "prisma/generated/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL!;
+const adapter = new PrismaPg({ connectionString });
+
+const prisma = new PrismaClient({ adapter });
 
 export enum PermissionEnum {
   VIEW_DASHBOARD = "VIEW_DASHBOARD",

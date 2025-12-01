@@ -19,10 +19,9 @@ export class FindLastAttendanceHandler {
         checkIn: true,
         coordenates: true,
         modality: true,
-        Event: {
+        EventInstance: {
           select: {
-            id: true,
-            name: true
+            id: true
           }
         },
         PersonRole: {

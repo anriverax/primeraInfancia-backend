@@ -1,4 +1,4 @@
-import { Department } from "@prisma/client";
+import { Department } from "prisma/generated/client";
 
 /**
  * Input shape used to create a Department.

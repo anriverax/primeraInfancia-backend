@@ -1,5 +1,5 @@
 import { IPagination } from "@/common/helpers/types";
-import { Prisma, SurveyData } from "@prisma/client";
+import { Prisma, SurveyData } from "prisma/generated/client";
 
 export type ICreateSurveyData = Pick<
   SurveyData,

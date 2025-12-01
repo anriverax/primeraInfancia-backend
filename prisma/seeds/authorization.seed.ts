@@ -1,8 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import { getMenuItems } from "./menuItems";
 import { permissionData, setPermissions } from "./base/permissions";
+import { PrismaClient } from "prisma/generated/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL!;
+const adapter = new PrismaPg({ connectionString });
+
+const prisma = new PrismaClient({ adapter });
 
 export async function authorizationSeed() {
   await prisma.role.createMany({

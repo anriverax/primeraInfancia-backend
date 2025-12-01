@@ -1,7 +1,7 @@
 import { ITeachersAssignmentMentor } from "@/core/attendance/dto/attendance.type";
 import { Query, QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { Prisma, RoleType } from "@prisma/client";
+import { Prisma, RoleType } from "prisma/generated/client";
 
 /**
  * Query: GetTeacherAssignmentsByUserIdQuery

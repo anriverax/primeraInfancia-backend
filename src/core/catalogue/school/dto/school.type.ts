@@ -1,6 +1,7 @@
 import { IPagination } from "@/common/helpers/types";
-import { School } from "@prisma/client";
+import { School } from "prisma/generated/client";
 
+// "@prisma/client"
 export type ICreateSchool = Omit<School, "id">;
 
 export interface ISchool extends Pick<School, "id" | "name" | "code" | "coordenates"> {

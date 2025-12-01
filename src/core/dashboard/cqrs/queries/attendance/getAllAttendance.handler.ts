@@ -10,11 +10,11 @@ export class GetAllAttendanceHandler {
   async execute(query: GetAllAttendanceQuery): Promise<IGroupCount[]> {
     console.log(query);
     const attendances = await this.prisma.attendance.groupBy({
-      by: ["eventId"],
+      by: ["eventInstanceId"],
       where: {
         status: "PRESENTE",
-        Event: {
-          eventTypeId: { in: [2, 3, 4] }
+        EventInstance: {
+          eventId: { in: [2, 3, 4] }
         },
         PersonRole: {
           deletedAt: null,
@@ -28,7 +28,7 @@ export class GetAllAttendanceHandler {
     const result = await Promise.all(
       attendances.map(async (a) => {
         const event = await this.prisma.event.findUnique({
-          where: { id: a.eventId },
+          where: { id: a.eventInstanceId },
           select: {
             EventType: {
               select: { id: true, name: true }

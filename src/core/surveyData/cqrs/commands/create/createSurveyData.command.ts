@@ -3,7 +3,7 @@ import { ICreateSurveyData } from "../../../dto/surveyData.type";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { SurveyDataProjection } from "../../projections/surveyData.projection";
 import { NestResponse } from "@/common/helpers/types";
-import { SurveyData } from "@prisma/client";
+import { SurveyData } from "prisma/generated/client";
 
 export class CreateSurveyDataCommand extends Command<NestResponse<SurveyData>> {
   constructor(public readonly data: ICreateSurveyData) {

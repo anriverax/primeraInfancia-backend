@@ -6,7 +6,7 @@ import {
   IAttendanceGroupedWithPagination,
   IAttendanceList
 } from "@/core/attendance/dto/attendance.type";
-import { RoleType } from "@prisma/client";
+import { RoleType } from "prisma/generated/client";
 
 @QueryHandler(GetAllAttendancePaginationQuery)
 export class GetAllAttendancePaginationHandler {
@@ -27,9 +27,9 @@ export class GetAllAttendancePaginationHandler {
         checkOut: true,
         status: true,
         modality: true,
-        Event: {
+        EventInstance: {
           select: {
-            name: true
+            id: true
           }
         },
         PersonRole: {

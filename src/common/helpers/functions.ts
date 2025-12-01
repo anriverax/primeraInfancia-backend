@@ -1,8 +1,9 @@
 import { AES, enc } from "crypto-js";
 import { BadRequestException, ForbiddenException, Logger } from "@nestjs/common";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+
 import * as fs from "fs";
 import { ConfigService } from "@nestjs/config";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
 /* eslint-disable */
 export function handlePrismaError(module: string, error: any): never {

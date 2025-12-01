@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Appendix } from "@prisma/client";
+import { Appendix } from "prisma/generated/client";
 
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { ICreateAppendix, IDeleteAppendix, IUpdateAppendix } from "../../dto/appendix.type";

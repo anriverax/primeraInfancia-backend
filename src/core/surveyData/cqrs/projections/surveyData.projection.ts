@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { SurveyData, Prisma } from "@prisma/client";
+import { SurveyData, Prisma } from "prisma/generated/client";
 
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { ICreateSurveyData, IDeleteSurveyData, IUpdateSurveyData } from "../../dto/surveyData.type";

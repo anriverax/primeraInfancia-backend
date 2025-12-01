@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IEvent } from "@nestjs/cqrs";
 import { PrismaService } from "../prisma/prisma.service";
-import { StoredEvent } from "@prisma/client";
+import { StoredEvent } from "prisma/generated/client";
 
 @Injectable({})
 export class EventStoreService {

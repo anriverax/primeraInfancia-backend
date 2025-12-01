@@ -1,7 +1,7 @@
 import { QueryHandler } from "@nestjs/cqrs";
 import { GetAllMunicipalityQuery } from "./getAllMunicipality.query";
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { Municipality } from "@prisma/client";
+import { Municipality } from "prisma/generated/client";
 
 @QueryHandler(GetAllMunicipalityQuery)
 export class GetAllMunicipalityHandler {

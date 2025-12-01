@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { CreateAppendixCommand } from "./createAppendix.command";
 import { AppendixProjection } from "../../projections/appendix.projection";
 import { NestResponse } from "@/common/helpers/types";
-import { Appendix } from "@prisma/client";
+import { Appendix } from "prisma/generated/client";
 
 @CommandHandler(CreateAppendixCommand)
 export class CreateAppendixHandler implements ICommandHandler<CreateAppendixCommand> {

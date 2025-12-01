@@ -1,4 +1,4 @@
-import { MenuItem, Permission } from "@prisma/client";
+import { MenuItem, Permission } from "prisma/generated/client";
 import { menuPermissionMap } from "./base/urls";
 
 export async function getMenuItems(

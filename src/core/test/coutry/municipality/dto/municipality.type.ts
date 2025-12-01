@@ -1,4 +1,4 @@
-import { Municipality } from "@prisma/client";
+import { Municipality } from "prisma/generated/client";
 
 export interface CreateDistrict {
   name: string;

@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { GetAllUserKeyByUserIdQuery } from "./getAllUserKeyByUserId.query";
-import { UserKey } from "@prisma/client";
+import { UserKey } from "prisma/generated/client";
 
 @QueryHandler(GetAllUserKeyByUserIdQuery)
 export class GetAllUserKeyByUserIdHandler implements IQueryHandler<GetAllUserKeyByUserIdQuery> {

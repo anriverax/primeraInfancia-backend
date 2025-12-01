@@ -7,12 +7,12 @@ import {
   School,
   Attendance,
   Event
-} from "@prisma/client";
+} from "prisma/generated/client";
 
 export interface IAttendanceList
   extends Pick<Attendance, "id" | "status" | "checkIn" | "checkOut" | "modality"> {
-  Event: {
-    name: string;
+  EventInstance: {
+    id: number;
   };
   PersonRole: {
     id: number;
@@ -32,7 +32,7 @@ export interface IAttendanceGroupedWithPagination {
 }
 
 export interface IFindLastAttendace extends Pick<Attendance, "checkIn" | "coordenates" | "modality"> {
-  Event: Pick<Event, "id" | "name">;
+  EventInstance: Pick<Event, "id">;
   PersonRole: Pick<PersonRole, "typePersonId"> & {
     Person: Pick<Person, "firstName" | "lastName1" | "lastName2">;
   };
@@ -53,7 +53,7 @@ export type IAttendanceResult = Pick<Attendance, "id" | "coordenates">;
 
 export type IAttendanceInput = Pick<
   Attendance,
-  | "eventId"
+  | "eventInstanceId"
   | "status"
   | "modality"
   | "comment"

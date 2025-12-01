@@ -1,0 +1,37 @@
+model EventType {
+  id                   Int     @id @default(autoincrement())
+  name                 String  @unique
+  order                Int
+  cohortId             Int
+  isRecurringPerModule Boolean @default(false)
+  Event                Event[]
+  Cohort               Cohort  @relation(fields: [cohortId], references: [id])
+}
+
+model EventInstance {
+  id               Int             @id @default(autoincrement())
+  eventId          Int
+  trainingModuleId Int // nullable para eventos globales
+  responsableId    Int // nullable si no hay responsable asignado
+  scheduledDate    DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  createdBy        Int
+  updatedBy        Int?
+  Event            Event           @relation(fields: [eventId], references: [id])
+  TrainingModule   TrainingModule? @relation(fields: [trainingModuleId], references: [id])
+  PersonRole       PersonRole      @relation(fields: [responsableId], references: [id])
+  Attendances      Attendance[]
+
+  @@unique([eventId, trainingModuleId])
+  @@index([eventId])
+  @@index([trainingModuleId])
+}
+
+model Event {
+  id             Int             @id @default(autoincrement())
+  name           String
+  eventTypeId    Int
+  EventType      EventType       @relation(fields: [eventTypeId], references: [id])
+  eventInstances EventInstance[]
+}

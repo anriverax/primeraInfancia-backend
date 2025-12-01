@@ -29,7 +29,7 @@ export class AttendanceProjection {
     try {
       return await this.prisma.attendance.updateMany({
         where: {
-          eventId: id
+          eventInstanceId: id
         },
         data: {
           checkOut: new Date(),

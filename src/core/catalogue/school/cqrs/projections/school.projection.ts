@@ -1,6 +1,6 @@
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
-import { School } from "@prisma/client";
+import { School } from "prisma/generated/client";
 import { ICreateSchool } from "../../dto/school.type";
 
 @Injectable()

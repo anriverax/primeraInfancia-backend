@@ -1,4 +1,4 @@
-import { District, Municipality, MenuItem, Permission } from "@prisma/client";
+import { District, Municipality, MenuItem, Permission } from "prisma/generated/client";
 
 export type IMunicipalityResponse = Pick<Municipality, "id" | "name" | "departmentId">;
 

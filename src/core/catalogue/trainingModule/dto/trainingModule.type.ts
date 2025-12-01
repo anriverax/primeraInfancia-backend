@@ -1,4 +1,4 @@
-import { TrainingModule } from "@prisma/client";
+import { TrainingModule } from "prisma/generated/client";
 
 // Representa un único módulo de formación. El array se maneja en los consumidores
 export type IGetAllTrainingModule = Pick<

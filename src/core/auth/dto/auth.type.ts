@@ -1,4 +1,6 @@
-import { Permission, Person, PersonRole, Role, User, UserKey } from "@prisma/client";
+import { Permission, Person, PersonRole, Role, UserKey } from "prisma/generated/client";
+import { User } from "prisma/generated/client";
+
 export type IAuth = Pick<
   Person,
   | "firstName"
