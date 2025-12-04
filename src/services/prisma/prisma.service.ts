@@ -12,7 +12,8 @@ const modelsWithSoftDelete = [
   "Section",
   "Question",
   "Answer",
-  "SurveyData"
+  "SurveyData",
+  "EventInstance"
 ];
 
 // We'll apply $extends to the instance created in the constructor so the adapter is used.

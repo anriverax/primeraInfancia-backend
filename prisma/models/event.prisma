@@ -22,6 +22,8 @@ model EventInstance {
   TrainingModule   TrainingModule? @relation(fields: [trainingModuleId], references: [id])
   PersonRole       PersonRole      @relation(fields: [responsibleId], references: [id])
   Attendances      Attendance[]
+  deletedAt        DateTime?
+  deletedBy        Int?
 
   @@unique([eventId, trainingModuleId, responsibleId])
   @@index([eventId])

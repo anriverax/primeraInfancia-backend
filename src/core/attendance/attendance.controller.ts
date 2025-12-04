@@ -6,11 +6,10 @@ import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.
 import { GetPersonRoleByUserQuery } from "./cqrs/queries/PersonRole/getPersonRoleByUser.query";
 import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/findLastAttendance.query";
 import {
-  IAttendanceResult,
   ILastAttendance,
-  ITeachersAssignmentWithEvents,
   IAttendanceGrouped,
-  IMentorResult
+  IMentorResult,
+  ITeachersAssignmentMentorResult
 } from "./dto/attendance.type";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
@@ -20,7 +19,6 @@ import { GetTeacherAssignmentsByUserIdQuery } from "./cqrs/queries/mentorAssignm
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
 import { AttendanceEnum, RoleType } from "prisma/generated/client";
 import { GetMentorsAssignedToUserQuery } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
-import { GetEventsByResponsibleUserIdQuery } from "./cqrs/queries/event/getEventsByResponsibleUserId.query";
 
 /**
  * Attendance controller
@@ -51,12 +49,12 @@ export class AttendanceController {
    * @returns Teachers assigned to the mentor and mentor's events.
    */
   @AuthRequired()
-  @Get("me/teachers-and-events")
-  async listMyTeachersAndEvents(
+  @Get("me/teachers")
+  async listTeachers(
     @Req() req: Request,
     @Query("mentorId") mentorId: string,
     @Query("leaderId") leaderId: string
-  ): Promise<ITeachersAssignmentWithEvents> {
+  ): Promise<ITeachersAssignmentMentorResult[]> {
     let id: number = 0;
     let userRole: RoleType;
     const userId = req["user"].sub;
@@ -81,12 +79,10 @@ export class AttendanceController {
       id = parseInt(userId);
     }
 
-    const events = await this.queryBus.execute(new GetEventsByResponsibleUserIdQuery(id));
-
     const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(id, userRole));
     const data = this.mentorAssignmentService.order(result);
 
-    return { events, teachers: data };
+    return data;
   }
 
   /**
@@ -106,10 +102,7 @@ export class AttendanceController {
    */
   @AuthRequired()
   @Post()
-  async createAttendance(
-    @Body() data: AttendanceDto,
-    @Req() req: Request
-  ): Promise<NestResponse<IAttendanceResult>> {
+  async createAttendance(@Body() data: AttendanceDto, @Req() req: Request): Promise<any> {
     const userId = req["user"].sub;
 
     const personRole = await this.queryBus.execute(new GetPersonRoleByUserQuery(parseInt(userId)));
@@ -144,11 +137,6 @@ export class AttendanceController {
         data: attendanceData
       };
     }
-    return {
-      statusCode: 201,
-      message: "Jornada iniciada.",
-      data: attendanceData
-    };
   }
 
   /**

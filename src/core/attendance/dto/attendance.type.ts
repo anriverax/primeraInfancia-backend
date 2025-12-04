@@ -93,11 +93,6 @@ export interface ITeachersAssignmentMentorResult {
   School: Pick<School, "code" | "name" | "coordenates"> & { location: string };
 }
 
-export interface ITeachersAssignmentWithEvents {
-  events: IGetAllEvent[];
-  teachers: ITeachersAssignmentMentorResult[];
-}
-
 export interface IMentors {
   Mentor: Pick<PersonRole, "id" | "deletedBy"> & {
     Person: {
