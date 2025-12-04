@@ -11,8 +11,8 @@ model EventType {
 model EventInstance {
   id               Int             @id @default(autoincrement())
   eventId          Int
-  trainingModuleId Int // nullable para eventos globales
-  responsableId    Int // nullable si no hay responsable asignado
+  trainingModuleId Int? // nullable para eventos globales
+  responsibleId    Int // nullable si no hay responsable asignado
   scheduledDate    DateTime?
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
@@ -20,10 +20,10 @@ model EventInstance {
   updatedBy        Int?
   Event            Event           @relation(fields: [eventId], references: [id])
   TrainingModule   TrainingModule? @relation(fields: [trainingModuleId], references: [id])
-  PersonRole       PersonRole      @relation(fields: [responsableId], references: [id])
+  PersonRole       PersonRole      @relation(fields: [responsibleId], references: [id])
   Attendances      Attendance[]
 
-  @@unique([eventId, trainingModuleId])
+  @@unique([eventId, trainingModuleId, responsibleId])
   @@index([eventId])
   @@index([trainingModuleId])
 }
