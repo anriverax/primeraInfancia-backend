@@ -102,6 +102,7 @@ export class AttendanceController {
    */
   @AuthRequired()
   @Post()
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   async createAttendance(@Body() data: AttendanceDto, @Req() req: Request): Promise<any> {
     const userId = req["user"].sub;
 
