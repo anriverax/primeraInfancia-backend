@@ -18,6 +18,36 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model AttendanceSession
+ * 
+ */
+export type AttendanceSession = Prisma.AttendanceSessionModel
+/**
+ * Model EventAttendance
+ * 
+ */
+export type EventAttendance = Prisma.EventAttendanceModel
+/**
+ * Model WorkAttendance
+ * 
+ */
+export type WorkAttendance = Prisma.WorkAttendanceModel
+/**
+ * Model EventType
+ * 
+ */
+export type EventType = Prisma.EventTypeModel
+/**
+ * Model EventInstance
+ * 
+ */
+export type EventInstance = Prisma.EventInstanceModel
+/**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
+/**
  * Model Cohort
  * 
  */
@@ -137,26 +167,6 @@ export type TrainingBatch = Prisma.TrainingBatchModel
  * 
  */
 export type TrainingSlot = Prisma.TrainingSlotModel
-/**
- * Model Attendance
- * 
- */
-export type Attendance = Prisma.AttendanceModel
-/**
- * Model EventType
- * 
- */
-export type EventType = Prisma.EventTypeModel
-/**
- * Model EventInstance
- * 
- */
-export type EventInstance = Prisma.EventInstanceModel
-/**
- * Model Event
- * 
- */
-export type Event = Prisma.EventModel
 /**
  * Model TrainingModule
  * 

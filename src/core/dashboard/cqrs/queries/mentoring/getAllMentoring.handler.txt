@@ -10,21 +10,21 @@ export class GetAllMentoringHandler {
 
   async execute(query: GetAllMentoringQuery): Promise<IGroupCount[]> {
     const { status } = query;
-    const mentoring = await this.prisma.attendance.groupBy({
-      by: ["eventInstanceId"],
+    const mentoring = await this.prisma.eventAttendance.groupBy({
+      //  by: ["eventInstanceId"],
       _count: { _all: true },
       where: {
         status: status as AttendanceEnum,
-        PersonRole: {
+        Person: {
           deletedAt: null,
-          deletedBy: null,
-          typePersonId: 2
-        },
+          deletedBy: null
+          //  typePersonId: 2
+        } /*,
         EventInstance: {
           Event: {
             id: 2
           }
-        }
+        }*/
       }
     });
 

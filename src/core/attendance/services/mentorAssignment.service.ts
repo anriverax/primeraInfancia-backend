@@ -1,7 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import {
-  IFindLastAttendace,
-  ILastAttendance,
   IMentorResult,
   IMentors,
   ITeachersAssignmentMentor,
@@ -60,8 +58,8 @@ export class MentorAssignmentService {
    * Output
    * - Array of grouped objects: { id, event, checkIn, modality, details[] }
    */
-  getTeachersByTypePerson(data: IFindLastAttendace[]): ILastAttendance[] {
-    const teachers = data.filter((d: IFindLastAttendace) => d.PersonRole.typePersonId === 2);
+  getTeachersByTypePerson(data) {
+    const teachers = data.filter((d) => d.PersonRole.typePersonId === 2);
 
     const result = teachers.reduce(
       (acc, t) => {
@@ -84,7 +82,7 @@ export class MentorAssignmentService {
 
         return acc;
       },
-      {} as Record<string, ILastAttendance>
+      {} as Record<string, any>
     );
 
     const arrayResult = Object.values(result);

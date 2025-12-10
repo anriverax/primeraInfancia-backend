@@ -10,9 +10,6 @@ import { DashboardService } from "./services/dashboard.service";
 import { GetAllTeacherByCareerHandler } from "./cqrs/queries/person/handler/getAllTeacherByCareer.handler";
 import { GetAllTeacherBySexHandler } from "./cqrs/queries/person/handler/getAllTeacherBySex.handler";
 import { GetAllTeacherByNipHandler } from "./cqrs/queries/person/handler/getAllTeacherByNip.handler";
-import { GetAllAttendanceHandler } from "./cqrs/queries/attendance/getAllAttendance.handler";
-import { GetAllMentoringHandler } from "./cqrs/queries/mentoring/getAllMentoring.handler";
-import { GetAllEventByTypeHandler } from "./cqrs/queries/eventType/getAllEventByType.handler";
 import { GetTeacherCountsByYearsExperienceHandler } from "./cqrs/queries/person/handler/getTeacherCountByYearsExperience.handler";
 import { GetTeacherCountByEducationalLevelHandler } from "./cqrs/queries/person/handler/getTeacherCountByEducationalLevel.handler";
 import { TrainingModule } from "../catalogue/trainingModule/trainingModule.module";
@@ -27,9 +24,6 @@ export const QueryHandlers = [
   GetAllTeacherByCareerHandler,
   GetAllTeacherBySexHandler,
   GetAllTeacherByNipHandler,
-  GetAllAttendanceHandler,
-  GetAllMentoringHandler,
-  GetAllEventByTypeHandler,
   GetTeacherCountsByYearsExperienceHandler,
   GetTeacherCountByEducationalLevelHandler,
   GetAllAppendix1Handler,

@@ -27,8 +27,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Cohorts
- * const cohorts = await prisma.cohort.findMany()
+ * // Fetch zero or more AttendanceSessions
+ * const attendanceSessions = await prisma.attendanceSession.findMany()
  * ```
  * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -37,6 +37,36 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model AttendanceSession
+ * 
+ */
+export type AttendanceSession = Prisma.AttendanceSessionModel
+/**
+ * Model EventAttendance
+ * 
+ */
+export type EventAttendance = Prisma.EventAttendanceModel
+/**
+ * Model WorkAttendance
+ * 
+ */
+export type WorkAttendance = Prisma.WorkAttendanceModel
+/**
+ * Model EventType
+ * 
+ */
+export type EventType = Prisma.EventTypeModel
+/**
+ * Model EventInstance
+ * 
+ */
+export type EventInstance = Prisma.EventInstanceModel
+/**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
 /**
  * Model Cohort
  * 
@@ -157,26 +187,6 @@ export type TrainingBatch = Prisma.TrainingBatchModel
  * 
  */
 export type TrainingSlot = Prisma.TrainingSlotModel
-/**
- * Model Attendance
- * 
- */
-export type Attendance = Prisma.AttendanceModel
-/**
- * Model EventType
- * 
- */
-export type EventType = Prisma.EventTypeModel
-/**
- * Model EventInstance
- * 
- */
-export type EventInstance = Prisma.EventInstanceModel
-/**
- * Model Event
- * 
- */
-export type Event = Prisma.EventModel
 /**
  * Model TrainingModule
  * 

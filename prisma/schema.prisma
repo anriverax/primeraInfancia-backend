@@ -144,7 +144,10 @@ model Person {
   District        District          @relation(fields: [districtId], references: [id])
   PersonRole      PersonRole[]
   PrincipalSchool PrincipalSchool[]
-  User            User?
+  EventInstances  EventInstance[]
+  EventAttendance EventAttendance[]
+  WorkAttendance  WorkAttendance[]
+  User User?
 
   @@index([districtId, deletedAt])
 }
@@ -173,14 +176,12 @@ model PersonRole {
   deletedAt                        DateTime?
   updatedBy                        Int?
   deletedBy                        Int?
-  Attendances                      Attendance[]
   Inscription                      Inscription[]
   MentorAssignment                 MentorAssignment[]
   Person                           Person                   @relation(fields: [personId], references: [id])
   TypePerson                       TypePerson               @relation(fields: [typePersonId], references: [id])
   TechSupportAssignmentsAsAssigned TechSupportAssignments[] @relation("AssignedRoleToAssignments")
   TechSupportAssignmentsAsTech     TechSupportAssignments[] @relation("TechSupportToAssignments")
-  eventInstances                   EventInstance[]
 
   @@unique([personId, typePersonId])
   @@index([typePersonId])
@@ -315,27 +316,6 @@ model TrainingSlot {
   deletedBy       Int?
   Inscription     Inscription   @relation(fields: [inscriptionId], references: [id])
   TrainingBatch   TrainingBatch @relation(fields: [trainingBatchId], references: [id])
-}
-
-model Attendance {
-  id               Int            @id @default(autoincrement())
-  eventInstanceId  Int
-  personRoleId     Int
-  checkIn          DateTime
-  checkOut         DateTime?
-  status           AttendanceEnum
-  comment          String?
-  justificationUrl String?
-  coordenates      String?
-  modality         String
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  createdBy        Int
-  updatedBy        Int?
-  PersonRole       PersonRole     @relation(fields: [personRoleId], references: [id])
-  EventInstance    EventInstance  @relation(fields: [eventInstanceId], references: [id])
-
-  @@unique([personRoleId, eventInstanceId])
 }
 
 model TrainingModule {
@@ -538,11 +518,6 @@ enum TypePersonEnum {
   DOCENTE
   DIRECTOR
   EMPLEADO
-}
-
-enum AttendanceEnum {
-  PRESENTE
-  AUSENTE
 }
 
 enum TypeGender {

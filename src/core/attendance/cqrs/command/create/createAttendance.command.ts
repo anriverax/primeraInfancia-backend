@@ -1,11 +1,10 @@
 import { Command } from "@nestjs/cqrs";
-import { IAttendanceInput, IAttendanceResult } from "@/core/attendance/dto/attendance.type";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
-import { AttendanceProjection } from "../../projections/attendance.projection";
+import { AttendanceSessionProjection } from "../../projections/attendanceSession.projection";
 
-export class CreateAttendanceCommand extends Command<IAttendanceResult> {
+export class CreateAttendanceCommand extends Command<any> {
   constructor(
-    public readonly data: IAttendanceInput,
+    public readonly data: any,
     public readonly userId: number
   ) {
     super();
@@ -14,9 +13,9 @@ export class CreateAttendanceCommand extends Command<IAttendanceResult> {
 
 @CommandHandler(CreateAttendanceCommand)
 export class CreateAttendanceHandler implements ICommandHandler<CreateAttendanceCommand> {
-  constructor(private readonly projection: AttendanceProjection) {}
+  constructor(private readonly projection: AttendanceSessionProjection) {}
 
-  async execute(command: CreateAttendanceCommand): Promise<IAttendanceResult> {
+  async execute(command: CreateAttendanceCommand): Promise<any> {
     const { data, userId } = command;
 
     return await this.projection.register(data, userId);

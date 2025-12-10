@@ -9,11 +9,11 @@ export class GetAllAttendanceHandler {
 
   async execute(query: GetAllAttendanceQuery): Promise<IGroupCount[]> {
     console.log(query);
-    const attendances = await this.prisma.attendance.groupBy({
+    const attendances = await this.prisma.eventAttendance.groupBy({
       by: ["eventInstanceId"],
       where: {
         status: "PRESENTE",
-        EventInstance: {
+        EventSession: {
           eventId: { in: [2, 3, 4] }
         },
         PersonRole: {

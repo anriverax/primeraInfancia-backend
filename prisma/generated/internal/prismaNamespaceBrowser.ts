@@ -51,6 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  AttendanceSession: 'AttendanceSession',
+  EventAttendance: 'EventAttendance',
+  WorkAttendance: 'WorkAttendance',
+  EventType: 'EventType',
+  EventInstance: 'EventInstance',
+  Event: 'Event',
   Cohort: 'Cohort',
   TypePerson: 'TypePerson',
   Zone: 'Zone',
@@ -75,10 +81,6 @@ export const ModelName = {
   MentorAssignment: 'MentorAssignment',
   TrainingBatch: 'TrainingBatch',
   TrainingSlot: 'TrainingSlot',
-  Attendance: 'Attendance',
-  EventType: 'EventType',
-  EventInstance: 'EventInstance',
-  Event: 'Event',
   TrainingModule: 'TrainingModule',
   EvaluationInstrument: 'EvaluationInstrument',
   EvaluationInstrumentDetail: 'EvaluationInstrumentDetail',
@@ -108,6 +110,93 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const AttendanceSessionScalarFieldEnum = {
+  id: 'id',
+  eventInstanceId: 'eventInstanceId',
+  modality: 'modality',
+  checkIn: 'checkIn',
+  checkOut: 'checkOut',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy'
+} as const
+
+export type AttendanceSessionScalarFieldEnum = (typeof AttendanceSessionScalarFieldEnum)[keyof typeof AttendanceSessionScalarFieldEnum]
+
+
+export const EventAttendanceScalarFieldEnum = {
+  id: 'id',
+  attendanceSessionId: 'attendanceSessionId',
+  personId: 'personId',
+  checkIn: 'checkIn',
+  checkOut: 'checkOut',
+  status: 'status',
+  comment: 'comment',
+  justificationFileUrl: 'justificationFileUrl',
+  coordinates: 'coordinates',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy'
+} as const
+
+export type EventAttendanceScalarFieldEnum = (typeof EventAttendanceScalarFieldEnum)[keyof typeof EventAttendanceScalarFieldEnum]
+
+
+export const WorkAttendanceScalarFieldEnum = {
+  id: 'id',
+  personId: 'personId',
+  date: 'date',
+  checkIn: 'checkIn',
+  checkOut: 'checkOut',
+  status: 'status',
+  comment: 'comment',
+  justificationFile: 'justificationFile',
+  coordinates: 'coordinates',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+} as const
+
+export type WorkAttendanceScalarFieldEnum = (typeof WorkAttendanceScalarFieldEnum)[keyof typeof WorkAttendanceScalarFieldEnum]
+
+
+export const EventTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  order: 'order',
+  cohortId: 'cohortId',
+  isRecurringPerModule: 'isRecurringPerModule'
+} as const
+
+export type EventTypeScalarFieldEnum = (typeof EventTypeScalarFieldEnum)[keyof typeof EventTypeScalarFieldEnum]
+
+
+export const EventInstanceScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  trainingModuleId: 'trainingModuleId',
+  responsibleId: 'responsibleId',
+  scheduledDate: 'scheduledDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type EventInstanceScalarFieldEnum = (typeof EventInstanceScalarFieldEnum)[keyof typeof EventInstanceScalarFieldEnum]
+
+
+export const EventScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  eventTypeId: 'eventTypeId'
+} as const
+
+export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
 
 
 export const CohortScalarFieldEnum = {
@@ -410,69 +499,6 @@ export const TrainingSlotScalarFieldEnum = {
 export type TrainingSlotScalarFieldEnum = (typeof TrainingSlotScalarFieldEnum)[keyof typeof TrainingSlotScalarFieldEnum]
 
 
-export const AttendanceScalarFieldEnum = {
-  id: 'id',
-  eventInstanceId: 'eventInstanceId',
-  personRoleId: 'personRoleId',
-  checkIn: 'checkIn',
-  checkOut: 'checkOut',
-  status: 'status',
-  comment: 'comment',
-  justificationUrl: 'justificationUrl',
-  coordenates: 'coordenates',
-  modality: 'modality',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
-} as const
-
-export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
-
-
-export const EventTypeScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  order: 'order',
-  cohortId: 'cohortId',
-  isRecurringPerModule: 'isRecurringPerModule'
-} as const
-
-export type EventTypeScalarFieldEnum = (typeof EventTypeScalarFieldEnum)[keyof typeof EventTypeScalarFieldEnum]
-
-
-export const EventInstanceScalarFieldEnum = {
-  id: 'id',
-  eventId: 'eventId',
-  trainingModuleId: 'trainingModuleId',
-  responsableId: 'responsableId',
-  scheduledDate: 'scheduledDate',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
-} as const
-
-export type EventInstanceScalarFieldEnum = (typeof EventInstanceScalarFieldEnum)[keyof typeof EventInstanceScalarFieldEnum]
-
-
-export const EventScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  eventTypeId: 'eventTypeId',
-  responsableId: 'responsableId',
-  scheduledDate: 'scheduledDate',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy',
-  deletedBy: 'deletedBy'
-} as const
-
-export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
-
-
 export const TrainingModuleScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -708,6 +734,14 @@ export const QueryMode = {
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
 export const JsonNullValueFilter = {
   DbNull: 'DbNull',
   JsonNull: 'JsonNull',
@@ -715,12 +749,4 @@ export const JsonNullValueFilter = {
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

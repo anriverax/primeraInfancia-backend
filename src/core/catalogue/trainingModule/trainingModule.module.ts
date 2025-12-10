@@ -3,11 +3,12 @@ import { CqrsModule } from "@nestjs/cqrs";
 import { TrainingModuleController } from "./trainingModule.controller";
 import { JwtModule } from "@nestjs/jwt";
 import { GetAllTrainingModuleHandler } from "./crqs/queries/findMany/getAllTrainingModule.handler";
+import { FindFirstTrainingModulesHandler } from "./crqs/queries/findFirst-trainingModule-startDate.query";
 
-const QueryHandlers = [GetAllTrainingModuleHandler];
+const QueryHandlers = [GetAllTrainingModuleHandler, FindFirstTrainingModulesHandler];
 
 @Module({
-  exports: [GetAllTrainingModuleHandler],
+  exports: [FindFirstTrainingModulesHandler],
   imports: [CqrsModule, JwtModule],
   controllers: [TrainingModuleController],
   providers: [...QueryHandlers]

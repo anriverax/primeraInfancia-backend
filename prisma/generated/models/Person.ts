@@ -323,6 +323,9 @@ export type PersonWhereInput = {
   District?: Prisma.XOR<Prisma.DistrictScalarRelationFilter, Prisma.DistrictWhereInput>
   PersonRole?: Prisma.PersonRoleListRelationFilter
   PrincipalSchool?: Prisma.PrincipalSchoolListRelationFilter
+  EventInstances?: Prisma.EventInstanceListRelationFilter
+  EventAttendance?: Prisma.EventAttendanceListRelationFilter
+  WorkAttendance?: Prisma.WorkAttendanceListRelationFilter
   User?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
@@ -346,6 +349,9 @@ export type PersonOrderByWithRelationInput = {
   District?: Prisma.DistrictOrderByWithRelationInput
   PersonRole?: Prisma.PersonRoleOrderByRelationAggregateInput
   PrincipalSchool?: Prisma.PrincipalSchoolOrderByRelationAggregateInput
+  EventInstances?: Prisma.EventInstanceOrderByRelationAggregateInput
+  EventAttendance?: Prisma.EventAttendanceOrderByRelationAggregateInput
+  WorkAttendance?: Prisma.WorkAttendanceOrderByRelationAggregateInput
   User?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -372,6 +378,9 @@ export type PersonWhereUniqueInput = Prisma.AtLeast<{
   District?: Prisma.XOR<Prisma.DistrictScalarRelationFilter, Prisma.DistrictWhereInput>
   PersonRole?: Prisma.PersonRoleListRelationFilter
   PrincipalSchool?: Prisma.PrincipalSchoolListRelationFilter
+  EventInstances?: Prisma.EventInstanceListRelationFilter
+  EventAttendance?: Prisma.EventAttendanceListRelationFilter
+  WorkAttendance?: Prisma.WorkAttendanceListRelationFilter
   User?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "dui">
 
@@ -439,6 +448,9 @@ export type PersonCreateInput = {
   District: Prisma.DistrictCreateNestedOneWithoutPersonInput
   PersonRole?: Prisma.PersonRoleCreateNestedManyWithoutPersonInput
   PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceCreateNestedManyWithoutPersonInput
   User?: Prisma.UserCreateNestedOneWithoutPersonInput
 }
 
@@ -461,6 +473,9 @@ export type PersonUncheckedCreateInput = {
   deletedBy?: number | null
   PersonRole?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutPersonInput
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedCreateNestedManyWithoutPersonInput
   User?: Prisma.UserUncheckedCreateNestedOneWithoutPersonInput
 }
 
@@ -482,6 +497,9 @@ export type PersonUpdateInput = {
   District?: Prisma.DistrictUpdateOneRequiredWithoutPersonNestedInput
   PersonRole?: Prisma.PersonRoleUpdateManyWithoutPersonNestedInput
   PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUpdateOneWithoutPersonNestedInput
 }
 
@@ -504,6 +522,9 @@ export type PersonUncheckedUpdateInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   PersonRole?: Prisma.PersonRoleUncheckedUpdateManyWithoutPersonNestedInput
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUncheckedUpdateOneWithoutPersonNestedInput
 }
 
@@ -560,6 +581,11 @@ export type PersonUncheckedUpdateManyInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type PersonScalarRelationFilter = {
+  is?: Prisma.PersonWhereInput
+  isNot?: Prisma.PersonWhereInput
 }
 
 export type PersonListRelationFilter = {
@@ -645,9 +671,46 @@ export type PersonSumOrderByAggregateInput = {
   deletedBy?: Prisma.SortOrder
 }
 
-export type PersonScalarRelationFilter = {
-  is?: Prisma.PersonWhereInput
-  isNot?: Prisma.PersonWhereInput
+export type PersonCreateNestedOneWithoutEventAttendanceInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutEventAttendanceInput, Prisma.PersonUncheckedCreateWithoutEventAttendanceInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutEventAttendanceInput
+  connect?: Prisma.PersonWhereUniqueInput
+}
+
+export type PersonUpdateOneRequiredWithoutEventAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutEventAttendanceInput, Prisma.PersonUncheckedCreateWithoutEventAttendanceInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutEventAttendanceInput
+  upsert?: Prisma.PersonUpsertWithoutEventAttendanceInput
+  connect?: Prisma.PersonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonUpdateToOneWithWhereWithoutEventAttendanceInput, Prisma.PersonUpdateWithoutEventAttendanceInput>, Prisma.PersonUncheckedUpdateWithoutEventAttendanceInput>
+}
+
+export type PersonCreateNestedOneWithoutWorkAttendanceInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutWorkAttendanceInput, Prisma.PersonUncheckedCreateWithoutWorkAttendanceInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutWorkAttendanceInput
+  connect?: Prisma.PersonWhereUniqueInput
+}
+
+export type PersonUpdateOneRequiredWithoutWorkAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutWorkAttendanceInput, Prisma.PersonUncheckedCreateWithoutWorkAttendanceInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutWorkAttendanceInput
+  upsert?: Prisma.PersonUpsertWithoutWorkAttendanceInput
+  connect?: Prisma.PersonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonUpdateToOneWithWhereWithoutWorkAttendanceInput, Prisma.PersonUpdateWithoutWorkAttendanceInput>, Prisma.PersonUncheckedUpdateWithoutWorkAttendanceInput>
+}
+
+export type PersonCreateNestedOneWithoutEventInstancesInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutEventInstancesInput, Prisma.PersonUncheckedCreateWithoutEventInstancesInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutEventInstancesInput
+  connect?: Prisma.PersonWhereUniqueInput
+}
+
+export type PersonUpdateOneRequiredWithoutEventInstancesNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutEventInstancesInput, Prisma.PersonUncheckedCreateWithoutEventInstancesInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutEventInstancesInput
+  upsert?: Prisma.PersonUpsertWithoutEventInstancesInput
+  connect?: Prisma.PersonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonUpdateToOneWithWhereWithoutEventInstancesInput, Prisma.PersonUpdateWithoutEventInstancesInput>, Prisma.PersonUncheckedUpdateWithoutEventInstancesInput>
 }
 
 export type PersonCreateNestedManyWithoutDistrictInput = {
@@ -696,10 +759,6 @@ export type EnumTypeGenderFieldUpdateOperationsInput = {
   set?: $Enums.TypeGender
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type PersonCreateNestedOneWithoutPrincipalSchoolInput = {
   create?: Prisma.XOR<Prisma.PersonCreateWithoutPrincipalSchoolInput, Prisma.PersonUncheckedCreateWithoutPrincipalSchoolInput>
   connectOrCreate?: Prisma.PersonCreateOrConnectWithoutPrincipalSchoolInput
@@ -742,6 +801,336 @@ export type PersonUpdateOneRequiredWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PersonUpdateToOneWithWhereWithoutUserInput, Prisma.PersonUpdateWithoutUserInput>, Prisma.PersonUncheckedUpdateWithoutUserInput>
 }
 
+export type PersonCreateWithoutEventAttendanceInput = {
+  firstName: string
+  lastName1: string
+  lastName2?: string | null
+  dui: string
+  address: string
+  gender: $Enums.TypeGender
+  phoneNumber: string
+  birthdate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  District: Prisma.DistrictCreateNestedOneWithoutPersonInput
+  PersonRole?: Prisma.PersonRoleCreateNestedManyWithoutPersonInput
+  PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceCreateNestedManyWithoutPersonInput
+  User?: Prisma.UserCreateNestedOneWithoutPersonInput
+}
+
+export type PersonUncheckedCreateWithoutEventAttendanceInput = {
+  id?: number
+  firstName: string
+  lastName1: string
+  lastName2?: string | null
+  dui: string
+  address: string
+  gender: $Enums.TypeGender
+  phoneNumber: string
+  birthdate?: Date | string | null
+  districtId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  PersonRole?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutPersonInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  User?: Prisma.UserUncheckedCreateNestedOneWithoutPersonInput
+}
+
+export type PersonCreateOrConnectWithoutEventAttendanceInput = {
+  where: Prisma.PersonWhereUniqueInput
+  create: Prisma.XOR<Prisma.PersonCreateWithoutEventAttendanceInput, Prisma.PersonUncheckedCreateWithoutEventAttendanceInput>
+}
+
+export type PersonUpsertWithoutEventAttendanceInput = {
+  update: Prisma.XOR<Prisma.PersonUpdateWithoutEventAttendanceInput, Prisma.PersonUncheckedUpdateWithoutEventAttendanceInput>
+  create: Prisma.XOR<Prisma.PersonCreateWithoutEventAttendanceInput, Prisma.PersonUncheckedCreateWithoutEventAttendanceInput>
+  where?: Prisma.PersonWhereInput
+}
+
+export type PersonUpdateToOneWithWhereWithoutEventAttendanceInput = {
+  where?: Prisma.PersonWhereInput
+  data: Prisma.XOR<Prisma.PersonUpdateWithoutEventAttendanceInput, Prisma.PersonUncheckedUpdateWithoutEventAttendanceInput>
+}
+
+export type PersonUpdateWithoutEventAttendanceInput = {
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName1?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dui?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumTypeGenderFieldUpdateOperationsInput | $Enums.TypeGender
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  District?: Prisma.DistrictUpdateOneRequiredWithoutPersonNestedInput
+  PersonRole?: Prisma.PersonRoleUpdateManyWithoutPersonNestedInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUpdateManyWithoutPersonNestedInput
+  User?: Prisma.UserUpdateOneWithoutPersonNestedInput
+}
+
+export type PersonUncheckedUpdateWithoutEventAttendanceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName1?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dui?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumTypeGenderFieldUpdateOperationsInput | $Enums.TypeGender
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  districtId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  PersonRole?: Prisma.PersonRoleUncheckedUpdateManyWithoutPersonNestedInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  User?: Prisma.UserUncheckedUpdateOneWithoutPersonNestedInput
+}
+
+export type PersonCreateWithoutWorkAttendanceInput = {
+  firstName: string
+  lastName1: string
+  lastName2?: string | null
+  dui: string
+  address: string
+  gender: $Enums.TypeGender
+  phoneNumber: string
+  birthdate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  District: Prisma.DistrictCreateNestedOneWithoutPersonInput
+  PersonRole?: Prisma.PersonRoleCreateNestedManyWithoutPersonInput
+  PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceCreateNestedManyWithoutPersonInput
+  User?: Prisma.UserCreateNestedOneWithoutPersonInput
+}
+
+export type PersonUncheckedCreateWithoutWorkAttendanceInput = {
+  id?: number
+  firstName: string
+  lastName1: string
+  lastName2?: string | null
+  dui: string
+  address: string
+  gender: $Enums.TypeGender
+  phoneNumber: string
+  birthdate?: Date | string | null
+  districtId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  PersonRole?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutPersonInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  User?: Prisma.UserUncheckedCreateNestedOneWithoutPersonInput
+}
+
+export type PersonCreateOrConnectWithoutWorkAttendanceInput = {
+  where: Prisma.PersonWhereUniqueInput
+  create: Prisma.XOR<Prisma.PersonCreateWithoutWorkAttendanceInput, Prisma.PersonUncheckedCreateWithoutWorkAttendanceInput>
+}
+
+export type PersonUpsertWithoutWorkAttendanceInput = {
+  update: Prisma.XOR<Prisma.PersonUpdateWithoutWorkAttendanceInput, Prisma.PersonUncheckedUpdateWithoutWorkAttendanceInput>
+  create: Prisma.XOR<Prisma.PersonCreateWithoutWorkAttendanceInput, Prisma.PersonUncheckedCreateWithoutWorkAttendanceInput>
+  where?: Prisma.PersonWhereInput
+}
+
+export type PersonUpdateToOneWithWhereWithoutWorkAttendanceInput = {
+  where?: Prisma.PersonWhereInput
+  data: Prisma.XOR<Prisma.PersonUpdateWithoutWorkAttendanceInput, Prisma.PersonUncheckedUpdateWithoutWorkAttendanceInput>
+}
+
+export type PersonUpdateWithoutWorkAttendanceInput = {
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName1?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dui?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumTypeGenderFieldUpdateOperationsInput | $Enums.TypeGender
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  District?: Prisma.DistrictUpdateOneRequiredWithoutPersonNestedInput
+  PersonRole?: Prisma.PersonRoleUpdateManyWithoutPersonNestedInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUpdateManyWithoutPersonNestedInput
+  User?: Prisma.UserUpdateOneWithoutPersonNestedInput
+}
+
+export type PersonUncheckedUpdateWithoutWorkAttendanceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName1?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dui?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumTypeGenderFieldUpdateOperationsInput | $Enums.TypeGender
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  districtId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  PersonRole?: Prisma.PersonRoleUncheckedUpdateManyWithoutPersonNestedInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  User?: Prisma.UserUncheckedUpdateOneWithoutPersonNestedInput
+}
+
+export type PersonCreateWithoutEventInstancesInput = {
+  firstName: string
+  lastName1: string
+  lastName2?: string | null
+  dui: string
+  address: string
+  gender: $Enums.TypeGender
+  phoneNumber: string
+  birthdate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  District: Prisma.DistrictCreateNestedOneWithoutPersonInput
+  PersonRole?: Prisma.PersonRoleCreateNestedManyWithoutPersonInput
+  PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceCreateNestedManyWithoutPersonInput
+  User?: Prisma.UserCreateNestedOneWithoutPersonInput
+}
+
+export type PersonUncheckedCreateWithoutEventInstancesInput = {
+  id?: number
+  firstName: string
+  lastName1: string
+  lastName2?: string | null
+  dui: string
+  address: string
+  gender: $Enums.TypeGender
+  phoneNumber: string
+  birthdate?: Date | string | null
+  districtId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  PersonRole?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutPersonInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  User?: Prisma.UserUncheckedCreateNestedOneWithoutPersonInput
+}
+
+export type PersonCreateOrConnectWithoutEventInstancesInput = {
+  where: Prisma.PersonWhereUniqueInput
+  create: Prisma.XOR<Prisma.PersonCreateWithoutEventInstancesInput, Prisma.PersonUncheckedCreateWithoutEventInstancesInput>
+}
+
+export type PersonUpsertWithoutEventInstancesInput = {
+  update: Prisma.XOR<Prisma.PersonUpdateWithoutEventInstancesInput, Prisma.PersonUncheckedUpdateWithoutEventInstancesInput>
+  create: Prisma.XOR<Prisma.PersonCreateWithoutEventInstancesInput, Prisma.PersonUncheckedCreateWithoutEventInstancesInput>
+  where?: Prisma.PersonWhereInput
+}
+
+export type PersonUpdateToOneWithWhereWithoutEventInstancesInput = {
+  where?: Prisma.PersonWhereInput
+  data: Prisma.XOR<Prisma.PersonUpdateWithoutEventInstancesInput, Prisma.PersonUncheckedUpdateWithoutEventInstancesInput>
+}
+
+export type PersonUpdateWithoutEventInstancesInput = {
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName1?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dui?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumTypeGenderFieldUpdateOperationsInput | $Enums.TypeGender
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  District?: Prisma.DistrictUpdateOneRequiredWithoutPersonNestedInput
+  PersonRole?: Prisma.PersonRoleUpdateManyWithoutPersonNestedInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUpdateManyWithoutPersonNestedInput
+  User?: Prisma.UserUpdateOneWithoutPersonNestedInput
+}
+
+export type PersonUncheckedUpdateWithoutEventInstancesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName1?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dui?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.EnumTypeGenderFieldUpdateOperationsInput | $Enums.TypeGender
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  districtId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  PersonRole?: Prisma.PersonRoleUncheckedUpdateManyWithoutPersonNestedInput
+  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  User?: Prisma.UserUncheckedUpdateOneWithoutPersonNestedInput
+}
+
 export type PersonCreateWithoutDistrictInput = {
   firstName: string
   lastName1: string
@@ -759,6 +1148,9 @@ export type PersonCreateWithoutDistrictInput = {
   deletedBy?: number | null
   PersonRole?: Prisma.PersonRoleCreateNestedManyWithoutPersonInput
   PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceCreateNestedManyWithoutPersonInput
   User?: Prisma.UserCreateNestedOneWithoutPersonInput
 }
 
@@ -780,6 +1172,9 @@ export type PersonUncheckedCreateWithoutDistrictInput = {
   deletedBy?: number | null
   PersonRole?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutPersonInput
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedCreateNestedManyWithoutPersonInput
   User?: Prisma.UserUncheckedCreateNestedOneWithoutPersonInput
 }
 
@@ -848,6 +1243,9 @@ export type PersonCreateWithoutPrincipalSchoolInput = {
   deletedBy?: number | null
   District: Prisma.DistrictCreateNestedOneWithoutPersonInput
   PersonRole?: Prisma.PersonRoleCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceCreateNestedManyWithoutPersonInput
   User?: Prisma.UserCreateNestedOneWithoutPersonInput
 }
 
@@ -869,6 +1267,9 @@ export type PersonUncheckedCreateWithoutPrincipalSchoolInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   PersonRole?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedCreateNestedManyWithoutPersonInput
   User?: Prisma.UserUncheckedCreateNestedOneWithoutPersonInput
 }
 
@@ -905,6 +1306,9 @@ export type PersonUpdateWithoutPrincipalSchoolInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   District?: Prisma.DistrictUpdateOneRequiredWithoutPersonNestedInput
   PersonRole?: Prisma.PersonRoleUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUpdateOneWithoutPersonNestedInput
 }
 
@@ -926,6 +1330,9 @@ export type PersonUncheckedUpdateWithoutPrincipalSchoolInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   PersonRole?: Prisma.PersonRoleUncheckedUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUncheckedUpdateOneWithoutPersonNestedInput
 }
 
@@ -946,6 +1353,9 @@ export type PersonCreateWithoutPersonRoleInput = {
   deletedBy?: number | null
   District: Prisma.DistrictCreateNestedOneWithoutPersonInput
   PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceCreateNestedManyWithoutPersonInput
   User?: Prisma.UserCreateNestedOneWithoutPersonInput
 }
 
@@ -967,6 +1377,9 @@ export type PersonUncheckedCreateWithoutPersonRoleInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedCreateNestedManyWithoutPersonInput
   User?: Prisma.UserUncheckedCreateNestedOneWithoutPersonInput
 }
 
@@ -1003,6 +1416,9 @@ export type PersonUpdateWithoutPersonRoleInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   District?: Prisma.DistrictUpdateOneRequiredWithoutPersonNestedInput
   PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUpdateOneWithoutPersonNestedInput
 }
 
@@ -1024,6 +1440,9 @@ export type PersonUncheckedUpdateWithoutPersonRoleInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUncheckedUpdateOneWithoutPersonNestedInput
 }
 
@@ -1045,6 +1464,9 @@ export type PersonCreateWithoutUserInput = {
   District: Prisma.DistrictCreateNestedOneWithoutPersonInput
   PersonRole?: Prisma.PersonRoleCreateNestedManyWithoutPersonInput
   PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutUserInput = {
@@ -1066,6 +1488,9 @@ export type PersonUncheckedCreateWithoutUserInput = {
   deletedBy?: number | null
   PersonRole?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutPersonInput
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutPersonInput
+  EventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedCreateNestedManyWithoutPersonInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutUserInput = {
@@ -1102,6 +1527,9 @@ export type PersonUpdateWithoutUserInput = {
   District?: Prisma.DistrictUpdateOneRequiredWithoutPersonNestedInput
   PersonRole?: Prisma.PersonRoleUpdateManyWithoutPersonNestedInput
   PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutUserInput = {
@@ -1123,6 +1551,9 @@ export type PersonUncheckedUpdateWithoutUserInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   PersonRole?: Prisma.PersonRoleUncheckedUpdateManyWithoutPersonNestedInput
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateManyDistrictInput = {
@@ -1160,6 +1591,9 @@ export type PersonUpdateWithoutDistrictInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   PersonRole?: Prisma.PersonRoleUpdateManyWithoutPersonNestedInput
   PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUpdateOneWithoutPersonNestedInput
 }
 
@@ -1181,6 +1615,9 @@ export type PersonUncheckedUpdateWithoutDistrictInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   PersonRole?: Prisma.PersonRoleUncheckedUpdateManyWithoutPersonNestedInput
   PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutPersonNestedInput
+  EventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonNestedInput
+  EventAttendance?: Prisma.EventAttendanceUncheckedUpdateManyWithoutPersonNestedInput
+  WorkAttendance?: Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput
   User?: Prisma.UserUncheckedUpdateOneWithoutPersonNestedInput
 }
 
@@ -1210,11 +1647,17 @@ export type PersonUncheckedUpdateManyWithoutDistrictInput = {
 export type PersonCountOutputType = {
   PersonRole: number
   PrincipalSchool: number
+  EventInstances: number
+  EventAttendance: number
+  WorkAttendance: number
 }
 
 export type PersonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   PersonRole?: boolean | PersonCountOutputTypeCountPersonRoleArgs
   PrincipalSchool?: boolean | PersonCountOutputTypeCountPrincipalSchoolArgs
+  EventInstances?: boolean | PersonCountOutputTypeCountEventInstancesArgs
+  EventAttendance?: boolean | PersonCountOutputTypeCountEventAttendanceArgs
+  WorkAttendance?: boolean | PersonCountOutputTypeCountWorkAttendanceArgs
 }
 
 /**
@@ -1241,6 +1684,27 @@ export type PersonCountOutputTypeCountPrincipalSchoolArgs<ExtArgs extends runtim
   where?: Prisma.PrincipalSchoolWhereInput
 }
 
+/**
+ * PersonCountOutputType without action
+ */
+export type PersonCountOutputTypeCountEventInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EventInstanceWhereInput
+}
+
+/**
+ * PersonCountOutputType without action
+ */
+export type PersonCountOutputTypeCountEventAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EventAttendanceWhereInput
+}
+
+/**
+ * PersonCountOutputType without action
+ */
+export type PersonCountOutputTypeCountWorkAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkAttendanceWhereInput
+}
+
 
 export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1262,6 +1726,9 @@ export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   District?: boolean | Prisma.DistrictDefaultArgs<ExtArgs>
   PersonRole?: boolean | Prisma.Person$PersonRoleArgs<ExtArgs>
   PrincipalSchool?: boolean | Prisma.Person$PrincipalSchoolArgs<ExtArgs>
+  EventInstances?: boolean | Prisma.Person$EventInstancesArgs<ExtArgs>
+  EventAttendance?: boolean | Prisma.Person$EventAttendanceArgs<ExtArgs>
+  WorkAttendance?: boolean | Prisma.Person$WorkAttendanceArgs<ExtArgs>
   User?: boolean | Prisma.Person$UserArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["person"]>
@@ -1330,6 +1797,9 @@ export type PersonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   District?: boolean | Prisma.DistrictDefaultArgs<ExtArgs>
   PersonRole?: boolean | Prisma.Person$PersonRoleArgs<ExtArgs>
   PrincipalSchool?: boolean | Prisma.Person$PrincipalSchoolArgs<ExtArgs>
+  EventInstances?: boolean | Prisma.Person$EventInstancesArgs<ExtArgs>
+  EventAttendance?: boolean | Prisma.Person$EventAttendanceArgs<ExtArgs>
+  WorkAttendance?: boolean | Prisma.Person$WorkAttendanceArgs<ExtArgs>
   User?: boolean | Prisma.Person$UserArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1346,6 +1816,9 @@ export type $PersonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     District: Prisma.$DistrictPayload<ExtArgs>
     PersonRole: Prisma.$PersonRolePayload<ExtArgs>[]
     PrincipalSchool: Prisma.$PrincipalSchoolPayload<ExtArgs>[]
+    EventInstances: Prisma.$EventInstancePayload<ExtArgs>[]
+    EventAttendance: Prisma.$EventAttendancePayload<ExtArgs>[]
+    WorkAttendance: Prisma.$WorkAttendancePayload<ExtArgs>[]
     User: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1762,6 +2235,9 @@ export interface Prisma__PersonClient<T, Null = never, ExtArgs extends runtime.T
   District<T extends Prisma.DistrictDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DistrictDefaultArgs<ExtArgs>>): Prisma.Prisma__DistrictClient<runtime.Types.Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   PersonRole<T extends Prisma.Person$PersonRoleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$PersonRoleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   PrincipalSchool<T extends Prisma.Person$PrincipalSchoolArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$PrincipalSchoolArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrincipalSchoolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  EventInstances<T extends Prisma.Person$EventInstancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$EventInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  EventAttendance<T extends Prisma.Person$EventAttendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$EventAttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  WorkAttendance<T extends Prisma.Person$WorkAttendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$WorkAttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   User<T extends Prisma.Person$UserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$UserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2249,6 +2725,78 @@ export type Person$PrincipalSchoolArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PrincipalSchoolScalarFieldEnum | Prisma.PrincipalSchoolScalarFieldEnum[]
+}
+
+/**
+ * Person.EventInstances
+ */
+export type Person$EventInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EventInstance
+   */
+  select?: Prisma.EventInstanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EventInstance
+   */
+  omit?: Prisma.EventInstanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EventInstanceInclude<ExtArgs> | null
+  where?: Prisma.EventInstanceWhereInput
+  orderBy?: Prisma.EventInstanceOrderByWithRelationInput | Prisma.EventInstanceOrderByWithRelationInput[]
+  cursor?: Prisma.EventInstanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EventInstanceScalarFieldEnum | Prisma.EventInstanceScalarFieldEnum[]
+}
+
+/**
+ * Person.EventAttendance
+ */
+export type Person$EventAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EventAttendance
+   */
+  select?: Prisma.EventAttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EventAttendance
+   */
+  omit?: Prisma.EventAttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EventAttendanceInclude<ExtArgs> | null
+  where?: Prisma.EventAttendanceWhereInput
+  orderBy?: Prisma.EventAttendanceOrderByWithRelationInput | Prisma.EventAttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.EventAttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EventAttendanceScalarFieldEnum | Prisma.EventAttendanceScalarFieldEnum[]
+}
+
+/**
+ * Person.WorkAttendance
+ */
+export type Person$WorkAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkAttendance
+   */
+  select?: Prisma.WorkAttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkAttendance
+   */
+  omit?: Prisma.WorkAttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkAttendanceInclude<ExtArgs> | null
+  where?: Prisma.WorkAttendanceWhereInput
+  orderBy?: Prisma.WorkAttendanceOrderByWithRelationInput | Prisma.WorkAttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.WorkAttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkAttendanceScalarFieldEnum | Prisma.WorkAttendanceScalarFieldEnum[]
 }
 
 /**

@@ -1,3 +1,6 @@
-import { Event } from "prisma/generated/client";
-
-export type EventsHandlerResponse = Pick<Event, "id" | "name">;
+export interface EventInstancesHandlerResponse {
+  id: number;
+  Event: {
+    name: string;
+  };
+}

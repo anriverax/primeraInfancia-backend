@@ -8,6 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/AttendanceSession'
+export type * from './models/EventAttendance'
+export type * from './models/WorkAttendance'
+export type * from './models/EventType'
+export type * from './models/EventInstance'
+export type * from './models/Event'
 export type * from './models/Cohort'
 export type * from './models/TypePerson'
 export type * from './models/Zone'
@@ -32,10 +38,6 @@ export type * from './models/Inscription'
 export type * from './models/MentorAssignment'
 export type * from './models/TrainingBatch'
 export type * from './models/TrainingSlot'
-export type * from './models/Attendance'
-export type * from './models/EventType'
-export type * from './models/EventInstance'
-export type * from './models/Event'
 export type * from './models/TrainingModule'
 export type * from './models/EvaluationInstrument'
 export type * from './models/EvaluationInstrumentDetail'

@@ -1,8 +1,9 @@
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Req } from "@nestjs/common";
 import { QueryBus } from "@nestjs/cqrs";
-import { EventsHandlerResponse } from "./dto/event.type";
+import { EventInstancesHandlerResponse } from "./dto/event.type";
 import { GetAllEventsQuery } from "./cqrs/queries/get-all-events.query";
+import { FindFirstTrainingModulesQuery } from "../catalogue/trainingModule/crqs/queries/findFirst-trainingModule-startDate.query";
 
 @Controller()
 export class EventController {
@@ -10,7 +11,10 @@ export class EventController {
 
   @AuthRequired()
   @Get()
-  async getAll(): Promise<EventsHandlerResponse[]> {
-    return await this.queryBus.execute(new GetAllEventsQuery());
+  async getAll(@Req() req: Request): Promise<EventInstancesHandlerResponse[]> {
+    const userId = req["user"].sub;
+    const trainingModule = await this.queryBus.execute(new FindFirstTrainingModulesQuery());
+    console.log({ trainingModule });
+    return await this.queryBus.execute(new GetAllEventsQuery(userId));
   }
 }

@@ -276,15 +276,12 @@ export type PersonRoleWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"PersonRole"> | Date | string | null
   updatedBy?: Prisma.IntNullableFilter<"PersonRole"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"PersonRole"> | number | null
-  Attendances?: Prisma.AttendanceListRelationFilter
-  Event?: Prisma.EventListRelationFilter
   Inscription?: Prisma.InscriptionListRelationFilter
   MentorAssignment?: Prisma.MentorAssignmentListRelationFilter
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   TypePerson?: Prisma.XOR<Prisma.TypePersonScalarRelationFilter, Prisma.TypePersonWhereInput>
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsListRelationFilter
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsListRelationFilter
-  eventInstances?: Prisma.EventInstanceListRelationFilter
 }
 
 export type PersonRoleOrderByWithRelationInput = {
@@ -298,15 +295,12 @@ export type PersonRoleOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  Attendances?: Prisma.AttendanceOrderByRelationAggregateInput
-  Event?: Prisma.EventOrderByRelationAggregateInput
   Inscription?: Prisma.InscriptionOrderByRelationAggregateInput
   MentorAssignment?: Prisma.MentorAssignmentOrderByRelationAggregateInput
   Person?: Prisma.PersonOrderByWithRelationInput
   TypePerson?: Prisma.TypePersonOrderByWithRelationInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsOrderByRelationAggregateInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsOrderByRelationAggregateInput
-  eventInstances?: Prisma.EventInstanceOrderByRelationAggregateInput
 }
 
 export type PersonRoleWhereUniqueInput = Prisma.AtLeast<{
@@ -324,15 +318,12 @@ export type PersonRoleWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"PersonRole"> | Date | string | null
   updatedBy?: Prisma.IntNullableFilter<"PersonRole"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"PersonRole"> | number | null
-  Attendances?: Prisma.AttendanceListRelationFilter
-  Event?: Prisma.EventListRelationFilter
   Inscription?: Prisma.InscriptionListRelationFilter
   MentorAssignment?: Prisma.MentorAssignmentListRelationFilter
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   TypePerson?: Prisma.XOR<Prisma.TypePersonScalarRelationFilter, Prisma.TypePersonWhereInput>
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsListRelationFilter
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsListRelationFilter
-  eventInstances?: Prisma.EventInstanceListRelationFilter
 }, "id" | "personId_typePersonId">
 
 export type PersonRoleOrderByWithAggregationInput = {
@@ -377,15 +368,12 @@ export type PersonRoleCreateInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
   Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
   TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUncheckedCreateInput = {
@@ -399,13 +387,10 @@ export type PersonRoleUncheckedCreateInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUpdateInput = {
@@ -416,15 +401,12 @@ export type PersonRoleUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
   TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateInput = {
@@ -438,13 +420,10 @@ export type PersonRoleUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleCreateManyInput = {
@@ -558,11 +537,6 @@ export type PersonRoleSumOrderByAggregateInput = {
 export type PersonRoleScalarRelationFilter = {
   is?: Prisma.PersonRoleWhereInput
   isNot?: Prisma.PersonRoleWhereInput
-}
-
-export type PersonRoleNullableScalarRelationFilter = {
-  is?: Prisma.PersonRoleWhereInput | null
-  isNot?: Prisma.PersonRoleWhereInput | null
 }
 
 export type PersonRoleCreateNestedManyWithoutTypePersonInput = {
@@ -705,50 +679,6 @@ export type PersonRoleUpdateOneRequiredWithoutMentorAssignmentNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PersonRoleUpdateToOneWithWhereWithoutMentorAssignmentInput, Prisma.PersonRoleUpdateWithoutMentorAssignmentInput>, Prisma.PersonRoleUncheckedUpdateWithoutMentorAssignmentInput>
 }
 
-export type PersonRoleCreateNestedOneWithoutAttendancesInput = {
-  create?: Prisma.XOR<Prisma.PersonRoleCreateWithoutAttendancesInput, Prisma.PersonRoleUncheckedCreateWithoutAttendancesInput>
-  connectOrCreate?: Prisma.PersonRoleCreateOrConnectWithoutAttendancesInput
-  connect?: Prisma.PersonRoleWhereUniqueInput
-}
-
-export type PersonRoleUpdateOneRequiredWithoutAttendancesNestedInput = {
-  create?: Prisma.XOR<Prisma.PersonRoleCreateWithoutAttendancesInput, Prisma.PersonRoleUncheckedCreateWithoutAttendancesInput>
-  connectOrCreate?: Prisma.PersonRoleCreateOrConnectWithoutAttendancesInput
-  upsert?: Prisma.PersonRoleUpsertWithoutAttendancesInput
-  connect?: Prisma.PersonRoleWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonRoleUpdateToOneWithWhereWithoutAttendancesInput, Prisma.PersonRoleUpdateWithoutAttendancesInput>, Prisma.PersonRoleUncheckedUpdateWithoutAttendancesInput>
-}
-
-export type PersonRoleCreateNestedOneWithoutEventInstancesInput = {
-  create?: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInstancesInput, Prisma.PersonRoleUncheckedCreateWithoutEventInstancesInput>
-  connectOrCreate?: Prisma.PersonRoleCreateOrConnectWithoutEventInstancesInput
-  connect?: Prisma.PersonRoleWhereUniqueInput
-}
-
-export type PersonRoleUpdateOneWithoutEventInstancesNestedInput = {
-  create?: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInstancesInput, Prisma.PersonRoleUncheckedCreateWithoutEventInstancesInput>
-  connectOrCreate?: Prisma.PersonRoleCreateOrConnectWithoutEventInstancesInput
-  upsert?: Prisma.PersonRoleUpsertWithoutEventInstancesInput
-  disconnect?: Prisma.PersonRoleWhereInput | boolean
-  delete?: Prisma.PersonRoleWhereInput | boolean
-  connect?: Prisma.PersonRoleWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonRoleUpdateToOneWithWhereWithoutEventInstancesInput, Prisma.PersonRoleUpdateWithoutEventInstancesInput>, Prisma.PersonRoleUncheckedUpdateWithoutEventInstancesInput>
-}
-
-export type PersonRoleCreateNestedOneWithoutEventInput = {
-  create?: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInput, Prisma.PersonRoleUncheckedCreateWithoutEventInput>
-  connectOrCreate?: Prisma.PersonRoleCreateOrConnectWithoutEventInput
-  connect?: Prisma.PersonRoleWhereUniqueInput
-}
-
-export type PersonRoleUpdateOneRequiredWithoutEventNestedInput = {
-  create?: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInput, Prisma.PersonRoleUncheckedCreateWithoutEventInput>
-  connectOrCreate?: Prisma.PersonRoleCreateOrConnectWithoutEventInput
-  upsert?: Prisma.PersonRoleUpsertWithoutEventInput
-  connect?: Prisma.PersonRoleWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonRoleUpdateToOneWithWhereWithoutEventInput, Prisma.PersonRoleUpdateWithoutEventInput>, Prisma.PersonRoleUncheckedUpdateWithoutEventInput>
-}
-
 export type PersonRoleCreateWithoutTypePersonInput = {
   career: string
   nip?: number | null
@@ -757,14 +687,11 @@ export type PersonRoleCreateWithoutTypePersonInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
   Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUncheckedCreateWithoutTypePersonInput = {
@@ -777,13 +704,10 @@ export type PersonRoleUncheckedCreateWithoutTypePersonInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleCreateOrConnectWithoutTypePersonInput = {
@@ -836,14 +760,11 @@ export type PersonRoleCreateWithoutPersonInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
   TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUncheckedCreateWithoutPersonInput = {
@@ -856,13 +777,10 @@ export type PersonRoleUncheckedCreateWithoutPersonInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleCreateOrConnectWithoutPersonInput = {
@@ -899,14 +817,11 @@ export type PersonRoleCreateWithoutTechSupportAssignmentsAsAssignedInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
   Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
   TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUncheckedCreateWithoutTechSupportAssignmentsAsAssignedInput = {
@@ -920,12 +835,9 @@ export type PersonRoleUncheckedCreateWithoutTechSupportAssignmentsAsAssignedInpu
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleCreateOrConnectWithoutTechSupportAssignmentsAsAssignedInput = {
@@ -941,14 +853,11 @@ export type PersonRoleCreateWithoutTechSupportAssignmentsAsTechInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
   Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
   TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUncheckedCreateWithoutTechSupportAssignmentsAsTechInput = {
@@ -962,12 +871,9 @@ export type PersonRoleUncheckedCreateWithoutTechSupportAssignmentsAsTechInput = 
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleCreateOrConnectWithoutTechSupportAssignmentsAsTechInput = {
@@ -994,14 +900,11 @@ export type PersonRoleUpdateWithoutTechSupportAssignmentsAsAssignedInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
   TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateWithoutTechSupportAssignmentsAsAssignedInput = {
@@ -1015,12 +918,9 @@ export type PersonRoleUncheckedUpdateWithoutTechSupportAssignmentsAsAssignedInpu
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUpsertWithoutTechSupportAssignmentsAsTechInput = {
@@ -1042,14 +942,11 @@ export type PersonRoleUpdateWithoutTechSupportAssignmentsAsTechInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
   TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateWithoutTechSupportAssignmentsAsTechInput = {
@@ -1063,12 +960,9 @@ export type PersonRoleUncheckedUpdateWithoutTechSupportAssignmentsAsTechInput = 
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleCreateWithoutInscriptionInput = {
@@ -1079,14 +973,11 @@ export type PersonRoleCreateWithoutInscriptionInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
   Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
   TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUncheckedCreateWithoutInscriptionInput = {
@@ -1100,12 +991,9 @@ export type PersonRoleUncheckedCreateWithoutInscriptionInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleCreateOrConnectWithoutInscriptionInput = {
@@ -1132,14 +1020,11 @@ export type PersonRoleUpdateWithoutInscriptionInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
   TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateWithoutInscriptionInput = {
@@ -1153,12 +1038,9 @@ export type PersonRoleUncheckedUpdateWithoutInscriptionInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleCreateWithoutMentorAssignmentInput = {
@@ -1169,14 +1051,11 @@ export type PersonRoleCreateWithoutMentorAssignmentInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
   Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
   TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleUncheckedCreateWithoutMentorAssignmentInput = {
@@ -1190,12 +1069,9 @@ export type PersonRoleUncheckedCreateWithoutMentorAssignmentInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
 }
 
 export type PersonRoleCreateOrConnectWithoutMentorAssignmentInput = {
@@ -1222,14 +1098,11 @@ export type PersonRoleUpdateWithoutMentorAssignmentInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
   TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateWithoutMentorAssignmentInput = {
@@ -1243,282 +1116,9 @@ export type PersonRoleUncheckedUpdateWithoutMentorAssignmentInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-}
-
-export type PersonRoleCreateWithoutAttendancesInput = {
-  career: string
-  nip?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
-  Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
-  MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
-  Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
-  TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
-}
-
-export type PersonRoleUncheckedCreateWithoutAttendancesInput = {
-  id?: number
-  typePersonId: number
-  personId: number
-  career: string
-  nip?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
-  Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
-}
-
-export type PersonRoleCreateOrConnectWithoutAttendancesInput = {
-  where: Prisma.PersonRoleWhereUniqueInput
-  create: Prisma.XOR<Prisma.PersonRoleCreateWithoutAttendancesInput, Prisma.PersonRoleUncheckedCreateWithoutAttendancesInput>
-}
-
-export type PersonRoleUpsertWithoutAttendancesInput = {
-  update: Prisma.XOR<Prisma.PersonRoleUpdateWithoutAttendancesInput, Prisma.PersonRoleUncheckedUpdateWithoutAttendancesInput>
-  create: Prisma.XOR<Prisma.PersonRoleCreateWithoutAttendancesInput, Prisma.PersonRoleUncheckedCreateWithoutAttendancesInput>
-  where?: Prisma.PersonRoleWhereInput
-}
-
-export type PersonRoleUpdateToOneWithWhereWithoutAttendancesInput = {
-  where?: Prisma.PersonRoleWhereInput
-  data: Prisma.XOR<Prisma.PersonRoleUpdateWithoutAttendancesInput, Prisma.PersonRoleUncheckedUpdateWithoutAttendancesInput>
-}
-
-export type PersonRoleUpdateWithoutAttendancesInput = {
-  career?: Prisma.StringFieldUpdateOperationsInput | string
-  nip?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
-  Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
-  Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
-  TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
-}
-
-export type PersonRoleUncheckedUpdateWithoutAttendancesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  typePersonId?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
-  career?: Prisma.StringFieldUpdateOperationsInput | string
-  nip?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-}
-
-export type PersonRoleCreateWithoutEventInstancesInput = {
-  career: string
-  nip?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventCreateNestedManyWithoutPersonRoleInput
-  Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
-  MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
-  Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
-  TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-}
-
-export type PersonRoleUncheckedCreateWithoutEventInstancesInput = {
-  id?: number
-  typePersonId: number
-  personId: number
-  career: string
-  nip?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutPersonRoleInput
-  Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-}
-
-export type PersonRoleCreateOrConnectWithoutEventInstancesInput = {
-  where: Prisma.PersonRoleWhereUniqueInput
-  create: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInstancesInput, Prisma.PersonRoleUncheckedCreateWithoutEventInstancesInput>
-}
-
-export type PersonRoleUpsertWithoutEventInstancesInput = {
-  update: Prisma.XOR<Prisma.PersonRoleUpdateWithoutEventInstancesInput, Prisma.PersonRoleUncheckedUpdateWithoutEventInstancesInput>
-  create: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInstancesInput, Prisma.PersonRoleUncheckedCreateWithoutEventInstancesInput>
-  where?: Prisma.PersonRoleWhereInput
-}
-
-export type PersonRoleUpdateToOneWithWhereWithoutEventInstancesInput = {
-  where?: Prisma.PersonRoleWhereInput
-  data: Prisma.XOR<Prisma.PersonRoleUpdateWithoutEventInstancesInput, Prisma.PersonRoleUncheckedUpdateWithoutEventInstancesInput>
-}
-
-export type PersonRoleUpdateWithoutEventInstancesInput = {
-  career?: Prisma.StringFieldUpdateOperationsInput | string
-  nip?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
-  Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
-  Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
-  TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-}
-
-export type PersonRoleUncheckedUpdateWithoutEventInstancesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  typePersonId?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
-  career?: Prisma.StringFieldUpdateOperationsInput | string
-  nip?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-}
-
-export type PersonRoleCreateWithoutEventInput = {
-  career: string
-  nip?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Attendances?: Prisma.AttendanceCreateNestedManyWithoutPersonRoleInput
-  Inscription?: Prisma.InscriptionCreateNestedManyWithoutPersonRoleInput
-  MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutMentorInput
-  Person: Prisma.PersonCreateNestedOneWithoutPersonRoleInput
-  TypePerson: Prisma.TypePersonCreateNestedOneWithoutPersonRolesInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutPersonRoleInput
-}
-
-export type PersonRoleUncheckedCreateWithoutEventInput = {
-  id?: number
-  typePersonId: number
-  personId: number
-  career: string
-  nip?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutPersonRoleInput
-  Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutAssignedRoleInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutTechSupportInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutPersonRoleInput
-}
-
-export type PersonRoleCreateOrConnectWithoutEventInput = {
-  where: Prisma.PersonRoleWhereUniqueInput
-  create: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInput, Prisma.PersonRoleUncheckedCreateWithoutEventInput>
-}
-
-export type PersonRoleUpsertWithoutEventInput = {
-  update: Prisma.XOR<Prisma.PersonRoleUpdateWithoutEventInput, Prisma.PersonRoleUncheckedUpdateWithoutEventInput>
-  create: Prisma.XOR<Prisma.PersonRoleCreateWithoutEventInput, Prisma.PersonRoleUncheckedCreateWithoutEventInput>
-  where?: Prisma.PersonRoleWhereInput
-}
-
-export type PersonRoleUpdateToOneWithWhereWithoutEventInput = {
-  where?: Prisma.PersonRoleWhereInput
-  data: Prisma.XOR<Prisma.PersonRoleUpdateWithoutEventInput, Prisma.PersonRoleUncheckedUpdateWithoutEventInput>
-}
-
-export type PersonRoleUpdateWithoutEventInput = {
-  career?: Prisma.StringFieldUpdateOperationsInput | string
-  nip?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
-  Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
-  TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
-}
-
-export type PersonRoleUncheckedUpdateWithoutEventInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  typePersonId?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
-  career?: Prisma.StringFieldUpdateOperationsInput | string
-  nip?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
-  TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
-  TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleCreateManyTypePersonInput = {
@@ -1541,14 +1141,11 @@ export type PersonRoleUpdateWithoutTypePersonInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutPersonRoleNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateWithoutTypePersonInput = {
@@ -1561,13 +1158,10 @@ export type PersonRoleUncheckedUpdateWithoutTypePersonInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateManyWithoutTypePersonInput = {
@@ -1602,14 +1196,11 @@ export type PersonRoleUpdateWithoutPersonInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutMentorNestedInput
   TypePerson?: Prisma.TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateWithoutPersonInput = {
@@ -1622,13 +1213,10 @@ export type PersonRoleUncheckedUpdateWithoutPersonInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutPersonRoleNestedInput
-  Event?: Prisma.EventUncheckedUpdateManyWithoutPersonRoleNestedInput
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput
   TechSupportAssignmentsAsAssigned?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleNestedInput
   TechSupportAssignmentsAsTech?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutPersonRoleNestedInput
 }
 
 export type PersonRoleUncheckedUpdateManyWithoutPersonInput = {
@@ -1649,23 +1237,17 @@ export type PersonRoleUncheckedUpdateManyWithoutPersonInput = {
  */
 
 export type PersonRoleCountOutputType = {
-  Attendances: number
-  Event: number
   Inscription: number
   MentorAssignment: number
   TechSupportAssignmentsAsAssigned: number
   TechSupportAssignmentsAsTech: number
-  eventInstances: number
 }
 
 export type PersonRoleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Attendances?: boolean | PersonRoleCountOutputTypeCountAttendancesArgs
-  Event?: boolean | PersonRoleCountOutputTypeCountEventArgs
   Inscription?: boolean | PersonRoleCountOutputTypeCountInscriptionArgs
   MentorAssignment?: boolean | PersonRoleCountOutputTypeCountMentorAssignmentArgs
   TechSupportAssignmentsAsAssigned?: boolean | PersonRoleCountOutputTypeCountTechSupportAssignmentsAsAssignedArgs
   TechSupportAssignmentsAsTech?: boolean | PersonRoleCountOutputTypeCountTechSupportAssignmentsAsTechArgs
-  eventInstances?: boolean | PersonRoleCountOutputTypeCountEventInstancesArgs
 }
 
 /**
@@ -1676,20 +1258,6 @@ export type PersonRoleCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
    * Select specific fields to fetch from the PersonRoleCountOutputType
    */
   select?: Prisma.PersonRoleCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * PersonRoleCountOutputType without action
- */
-export type PersonRoleCountOutputTypeCountAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AttendanceWhereInput
-}
-
-/**
- * PersonRoleCountOutputType without action
- */
-export type PersonRoleCountOutputTypeCountEventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EventWhereInput
 }
 
 /**
@@ -1720,13 +1288,6 @@ export type PersonRoleCountOutputTypeCountTechSupportAssignmentsAsTechArgs<ExtAr
   where?: Prisma.TechSupportAssignmentsWhereInput
 }
 
-/**
- * PersonRoleCountOutputType without action
- */
-export type PersonRoleCountOutputTypeCountEventInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EventInstanceWhereInput
-}
-
 
 export type PersonRoleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1739,15 +1300,12 @@ export type PersonRoleSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   deletedAt?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  Attendances?: boolean | Prisma.PersonRole$AttendancesArgs<ExtArgs>
-  Event?: boolean | Prisma.PersonRole$EventArgs<ExtArgs>
   Inscription?: boolean | Prisma.PersonRole$InscriptionArgs<ExtArgs>
   MentorAssignment?: boolean | Prisma.PersonRole$MentorAssignmentArgs<ExtArgs>
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TypePerson?: boolean | Prisma.TypePersonDefaultArgs<ExtArgs>
   TechSupportAssignmentsAsAssigned?: boolean | Prisma.PersonRole$TechSupportAssignmentsAsAssignedArgs<ExtArgs>
   TechSupportAssignmentsAsTech?: boolean | Prisma.PersonRole$TechSupportAssignmentsAsTechArgs<ExtArgs>
-  eventInstances?: boolean | Prisma.PersonRole$eventInstancesArgs<ExtArgs>
   _count?: boolean | Prisma.PersonRoleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["personRole"]>
 
@@ -1796,15 +1354,12 @@ export type PersonRoleSelectScalar = {
 
 export type PersonRoleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "typePersonId" | "personId" | "career" | "nip" | "createdAt" | "updatedAt" | "deletedAt" | "updatedBy" | "deletedBy", ExtArgs["result"]["personRole"]>
 export type PersonRoleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Attendances?: boolean | Prisma.PersonRole$AttendancesArgs<ExtArgs>
-  Event?: boolean | Prisma.PersonRole$EventArgs<ExtArgs>
   Inscription?: boolean | Prisma.PersonRole$InscriptionArgs<ExtArgs>
   MentorAssignment?: boolean | Prisma.PersonRole$MentorAssignmentArgs<ExtArgs>
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TypePerson?: boolean | Prisma.TypePersonDefaultArgs<ExtArgs>
   TechSupportAssignmentsAsAssigned?: boolean | Prisma.PersonRole$TechSupportAssignmentsAsAssignedArgs<ExtArgs>
   TechSupportAssignmentsAsTech?: boolean | Prisma.PersonRole$TechSupportAssignmentsAsTechArgs<ExtArgs>
-  eventInstances?: boolean | Prisma.PersonRole$eventInstancesArgs<ExtArgs>
   _count?: boolean | Prisma.PersonRoleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PersonRoleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1819,15 +1374,12 @@ export type PersonRoleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type $PersonRolePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PersonRole"
   objects: {
-    Attendances: Prisma.$AttendancePayload<ExtArgs>[]
-    Event: Prisma.$EventPayload<ExtArgs>[]
     Inscription: Prisma.$InscriptionPayload<ExtArgs>[]
     MentorAssignment: Prisma.$MentorAssignmentPayload<ExtArgs>[]
     Person: Prisma.$PersonPayload<ExtArgs>
     TypePerson: Prisma.$TypePersonPayload<ExtArgs>
     TechSupportAssignmentsAsAssigned: Prisma.$TechSupportAssignmentsPayload<ExtArgs>[]
     TechSupportAssignmentsAsTech: Prisma.$TechSupportAssignmentsPayload<ExtArgs>[]
-    eventInstances: Prisma.$EventInstancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2234,15 +1786,12 @@ readonly fields: PersonRoleFieldRefs;
  */
 export interface Prisma__PersonRoleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Attendances<T extends Prisma.PersonRole$AttendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRole$AttendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Event<T extends Prisma.PersonRole$EventArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRole$EventArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Inscription<T extends Prisma.PersonRole$InscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRole$InscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   MentorAssignment<T extends Prisma.PersonRole$MentorAssignmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRole$MentorAssignmentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Person<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   TypePerson<T extends Prisma.TypePersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TypePersonDefaultArgs<ExtArgs>>): Prisma.Prisma__TypePersonClient<runtime.Types.Result.GetResult<Prisma.$TypePersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   TechSupportAssignmentsAsAssigned<T extends Prisma.PersonRole$TechSupportAssignmentsAsAssignedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRole$TechSupportAssignmentsAsAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TechSupportAssignmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   TechSupportAssignmentsAsTech<T extends Prisma.PersonRole$TechSupportAssignmentsAsTechArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRole$TechSupportAssignmentsAsTechArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TechSupportAssignmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  eventInstances<T extends Prisma.PersonRole$eventInstancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRole$eventInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2678,54 +2227,6 @@ export type PersonRoleDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * PersonRole.Attendances
- */
-export type PersonRole$AttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Attendance
-   */
-  select?: Prisma.AttendanceSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Attendance
-   */
-  omit?: Prisma.AttendanceOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AttendanceInclude<ExtArgs> | null
-  where?: Prisma.AttendanceWhereInput
-  orderBy?: Prisma.AttendanceOrderByWithRelationInput | Prisma.AttendanceOrderByWithRelationInput[]
-  cursor?: Prisma.AttendanceWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
-}
-
-/**
- * PersonRole.Event
- */
-export type PersonRole$EventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Event
-   */
-  select?: Prisma.EventSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Event
-   */
-  omit?: Prisma.EventOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EventInclude<ExtArgs> | null
-  where?: Prisma.EventWhereInput
-  orderBy?: Prisma.EventOrderByWithRelationInput | Prisma.EventOrderByWithRelationInput[]
-  cursor?: Prisma.EventWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[]
-}
-
-/**
  * PersonRole.Inscription
  */
 export type PersonRole$InscriptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2819,30 +2320,6 @@ export type PersonRole$TechSupportAssignmentsAsTechArgs<ExtArgs extends runtime.
   take?: number
   skip?: number
   distinct?: Prisma.TechSupportAssignmentsScalarFieldEnum | Prisma.TechSupportAssignmentsScalarFieldEnum[]
-}
-
-/**
- * PersonRole.eventInstances
- */
-export type PersonRole$eventInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the EventInstance
-   */
-  select?: Prisma.EventInstanceSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the EventInstance
-   */
-  omit?: Prisma.EventInstanceOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EventInstanceInclude<ExtArgs> | null
-  where?: Prisma.EventInstanceWhereInput
-  orderBy?: Prisma.EventInstanceOrderByWithRelationInput | Prisma.EventInstanceOrderByWithRelationInput[]
-  cursor?: Prisma.EventInstanceWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EventInstanceScalarFieldEnum | Prisma.EventInstanceScalarFieldEnum[]
 }
 
 /**

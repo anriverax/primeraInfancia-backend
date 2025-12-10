@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const AttendanceEnum = {
+  PRESENTE: 'PRESENTE',
+  AUSENTE: 'AUSENTE'
+} as const
+
+export type AttendanceEnum = (typeof AttendanceEnum)[keyof typeof AttendanceEnum]
+
+
 export const RoleType = {
   ADMIN: 'ADMIN',
   USER: 'USER',
@@ -32,14 +40,6 @@ export const TypePersonEnum = {
 } as const
 
 export type TypePersonEnum = (typeof TypePersonEnum)[keyof typeof TypePersonEnum]
-
-
-export const AttendanceEnum = {
-  PRESENTE: 'PRESENTE',
-  AUSENTE: 'AUSENTE'
-} as const
-
-export type AttendanceEnum = (typeof AttendanceEnum)[keyof typeof AttendanceEnum]
 
 
 export const TypeGender = {

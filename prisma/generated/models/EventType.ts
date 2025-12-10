@@ -331,16 +331,6 @@ export type EventTypeUncheckedUpdateManyInput = {
   isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
-export type EventTypeListRelationFilter = {
-  every?: Prisma.EventTypeWhereInput
-  some?: Prisma.EventTypeWhereInput
-  none?: Prisma.EventTypeWhereInput
-}
-
-export type EventTypeOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type EventTypeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -380,6 +370,34 @@ export type EventTypeSumOrderByAggregateInput = {
 export type EventTypeScalarRelationFilter = {
   is?: Prisma.EventTypeWhereInput
   isNot?: Prisma.EventTypeWhereInput
+}
+
+export type EventTypeListRelationFilter = {
+  every?: Prisma.EventTypeWhereInput
+  some?: Prisma.EventTypeWhereInput
+  none?: Prisma.EventTypeWhereInput
+}
+
+export type EventTypeOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type EventTypeCreateNestedOneWithoutEventInput = {
+  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
+  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutEventInput
+  connect?: Prisma.EventTypeWhereUniqueInput
+}
+
+export type EventTypeUpdateOneRequiredWithoutEventNestedInput = {
+  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
+  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutEventInput
+  upsert?: Prisma.EventTypeUpsertWithoutEventInput
+  connect?: Prisma.EventTypeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventTypeUpdateToOneWithWhereWithoutEventInput, Prisma.EventTypeUpdateWithoutEventInput>, Prisma.EventTypeUncheckedUpdateWithoutEventInput>
 }
 
 export type EventTypeCreateNestedManyWithoutCohortInput = {
@@ -424,18 +442,50 @@ export type EventTypeUncheckedUpdateManyWithoutCohortNestedInput = {
   deleteMany?: Prisma.EventTypeScalarWhereInput | Prisma.EventTypeScalarWhereInput[]
 }
 
-export type EventTypeCreateNestedOneWithoutEventInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutEventInput
-  connect?: Prisma.EventTypeWhereUniqueInput
+export type EventTypeCreateWithoutEventInput = {
+  name: string
+  order: number
+  isRecurringPerModule?: boolean
+  Cohort: Prisma.CohortCreateNestedOneWithoutEventTypeInput
 }
 
-export type EventTypeUpdateOneRequiredWithoutEventNestedInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutEventInput
-  upsert?: Prisma.EventTypeUpsertWithoutEventInput
-  connect?: Prisma.EventTypeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EventTypeUpdateToOneWithWhereWithoutEventInput, Prisma.EventTypeUpdateWithoutEventInput>, Prisma.EventTypeUncheckedUpdateWithoutEventInput>
+export type EventTypeUncheckedCreateWithoutEventInput = {
+  id?: number
+  name: string
+  order: number
+  cohortId: number
+  isRecurringPerModule?: boolean
+}
+
+export type EventTypeCreateOrConnectWithoutEventInput = {
+  where: Prisma.EventTypeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
+}
+
+export type EventTypeUpsertWithoutEventInput = {
+  update: Prisma.XOR<Prisma.EventTypeUpdateWithoutEventInput, Prisma.EventTypeUncheckedUpdateWithoutEventInput>
+  create: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
+  where?: Prisma.EventTypeWhereInput
+}
+
+export type EventTypeUpdateToOneWithWhereWithoutEventInput = {
+  where?: Prisma.EventTypeWhereInput
+  data: Prisma.XOR<Prisma.EventTypeUpdateWithoutEventInput, Prisma.EventTypeUncheckedUpdateWithoutEventInput>
+}
+
+export type EventTypeUpdateWithoutEventInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  Cohort?: Prisma.CohortUpdateOneRequiredWithoutEventTypeNestedInput
+}
+
+export type EventTypeUncheckedUpdateWithoutEventInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
+  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type EventTypeCreateWithoutCohortInput = {
@@ -488,52 +538,6 @@ export type EventTypeScalarWhereInput = {
   order?: Prisma.IntFilter<"EventType"> | number
   cohortId?: Prisma.IntFilter<"EventType"> | number
   isRecurringPerModule?: Prisma.BoolFilter<"EventType"> | boolean
-}
-
-export type EventTypeCreateWithoutEventInput = {
-  name: string
-  order: number
-  isRecurringPerModule?: boolean
-  Cohort: Prisma.CohortCreateNestedOneWithoutEventTypeInput
-}
-
-export type EventTypeUncheckedCreateWithoutEventInput = {
-  id?: number
-  name: string
-  order: number
-  cohortId: number
-  isRecurringPerModule?: boolean
-}
-
-export type EventTypeCreateOrConnectWithoutEventInput = {
-  where: Prisma.EventTypeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
-}
-
-export type EventTypeUpsertWithoutEventInput = {
-  update: Prisma.XOR<Prisma.EventTypeUpdateWithoutEventInput, Prisma.EventTypeUncheckedUpdateWithoutEventInput>
-  create: Prisma.XOR<Prisma.EventTypeCreateWithoutEventInput, Prisma.EventTypeUncheckedCreateWithoutEventInput>
-  where?: Prisma.EventTypeWhereInput
-}
-
-export type EventTypeUpdateToOneWithWhereWithoutEventInput = {
-  where?: Prisma.EventTypeWhereInput
-  data: Prisma.XOR<Prisma.EventTypeUpdateWithoutEventInput, Prisma.EventTypeUncheckedUpdateWithoutEventInput>
-}
-
-export type EventTypeUpdateWithoutEventInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  Cohort?: Prisma.CohortUpdateOneRequiredWithoutEventTypeNestedInput
-}
-
-export type EventTypeUncheckedUpdateWithoutEventInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type EventTypeCreateManyCohortInput = {

@@ -436,10 +436,6 @@ export type MenuItemUncheckedCreateNestedManyWithoutParentInput = {
   connect?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -470,14 +466,6 @@ export type MenuItemUpdateManyWithoutParentNestedInput = {
   update?: Prisma.MenuItemUpdateWithWhereUniqueWithoutParentInput | Prisma.MenuItemUpdateWithWhereUniqueWithoutParentInput[]
   updateMany?: Prisma.MenuItemUpdateManyWithWhereWithoutParentInput | Prisma.MenuItemUpdateManyWithWhereWithoutParentInput[]
   deleteMany?: Prisma.MenuItemScalarWhereInput | Prisma.MenuItemScalarWhereInput[]
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type MenuItemUncheckedUpdateManyWithoutParentNestedInput = {

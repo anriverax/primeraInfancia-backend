@@ -383,6 +383,11 @@ export type TrainingModuleUncheckedUpdateManyInput = {
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
+export type TrainingModuleNullableScalarRelationFilter = {
+  is?: Prisma.TrainingModuleWhereInput | null
+  isNot?: Prisma.TrainingModuleWhereInput | null
+}
+
 export type TrainingModuleListRelationFilter = {
   every?: Prisma.TrainingModuleWhereInput
   some?: Prisma.TrainingModuleWhereInput
@@ -391,11 +396,6 @@ export type TrainingModuleListRelationFilter = {
 
 export type TrainingModuleOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type TrainingModuleNullableScalarRelationFilter = {
-  is?: Prisma.TrainingModuleWhereInput | null
-  isNot?: Prisma.TrainingModuleWhereInput | null
 }
 
 export type TrainingModuleCountOrderByAggregateInput = {
@@ -445,6 +445,22 @@ export type TrainingModuleScalarRelationFilter = {
   isNot?: Prisma.TrainingModuleWhereInput
 }
 
+export type TrainingModuleCreateNestedOneWithoutEventInstancesInput = {
+  create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
+  connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutEventInstancesInput
+  connect?: Prisma.TrainingModuleWhereUniqueInput
+}
+
+export type TrainingModuleUpdateOneWithoutEventInstancesNestedInput = {
+  create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
+  connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutEventInstancesInput
+  upsert?: Prisma.TrainingModuleUpsertWithoutEventInstancesInput
+  disconnect?: Prisma.TrainingModuleWhereInput | boolean
+  delete?: Prisma.TrainingModuleWhereInput | boolean
+  connect?: Prisma.TrainingModuleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrainingModuleUpdateToOneWithWhereWithoutEventInstancesInput, Prisma.TrainingModuleUpdateWithoutEventInstancesInput>, Prisma.TrainingModuleUncheckedUpdateWithoutEventInstancesInput>
+}
+
 export type TrainingModuleCreateNestedManyWithoutCohortInput = {
   create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutCohortInput, Prisma.TrainingModuleUncheckedCreateWithoutCohortInput> | Prisma.TrainingModuleCreateWithoutCohortInput[] | Prisma.TrainingModuleUncheckedCreateWithoutCohortInput[]
   connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutCohortInput | Prisma.TrainingModuleCreateOrConnectWithoutCohortInput[]
@@ -487,22 +503,6 @@ export type TrainingModuleUncheckedUpdateManyWithoutCohortNestedInput = {
   deleteMany?: Prisma.TrainingModuleScalarWhereInput | Prisma.TrainingModuleScalarWhereInput[]
 }
 
-export type TrainingModuleCreateNestedOneWithoutEventInstancesInput = {
-  create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
-  connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutEventInstancesInput
-  connect?: Prisma.TrainingModuleWhereUniqueInput
-}
-
-export type TrainingModuleUpdateOneWithoutEventInstancesNestedInput = {
-  create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
-  connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutEventInstancesInput
-  upsert?: Prisma.TrainingModuleUpsertWithoutEventInstancesInput
-  disconnect?: Prisma.TrainingModuleWhereInput | boolean
-  delete?: Prisma.TrainingModuleWhereInput | boolean
-  connect?: Prisma.TrainingModuleWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TrainingModuleUpdateToOneWithWhereWithoutEventInstancesInput, Prisma.TrainingModuleUpdateWithoutEventInstancesInput>, Prisma.TrainingModuleUncheckedUpdateWithoutEventInstancesInput>
-}
-
 export type TrainingModuleCreateNestedOneWithoutModuleEvaluationInput = {
   create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutModuleEvaluationInput, Prisma.TrainingModuleUncheckedCreateWithoutModuleEvaluationInput>
   connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutModuleEvaluationInput
@@ -529,68 +529,6 @@ export type TrainingModuleUpdateOneRequiredWithoutModuleReportNestedInput = {
   upsert?: Prisma.TrainingModuleUpsertWithoutModuleReportInput
   connect?: Prisma.TrainingModuleWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrainingModuleUpdateToOneWithWhereWithoutModuleReportInput, Prisma.TrainingModuleUpdateWithoutModuleReportInput>, Prisma.TrainingModuleUncheckedUpdateWithoutModuleReportInput>
-}
-
-export type TrainingModuleCreateWithoutCohortInput = {
-  name: string
-  title: string
-  startDate: Date | string
-  endDate: Date | string
-  hours: number
-  ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutTrainingModuleInput
-  moduleReport?: Prisma.ModuleReportCreateNestedManyWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutTrainingModuleInput
-}
-
-export type TrainingModuleUncheckedCreateWithoutCohortInput = {
-  id?: number
-  name: string
-  title: string
-  startDate: Date | string
-  endDate: Date | string
-  hours: number
-  ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutTrainingModuleInput
-  moduleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutTrainingModuleInput
-}
-
-export type TrainingModuleCreateOrConnectWithoutCohortInput = {
-  where: Prisma.TrainingModuleWhereUniqueInput
-  create: Prisma.XOR<Prisma.TrainingModuleCreateWithoutCohortInput, Prisma.TrainingModuleUncheckedCreateWithoutCohortInput>
-}
-
-export type TrainingModuleCreateManyCohortInputEnvelope = {
-  data: Prisma.TrainingModuleCreateManyCohortInput | Prisma.TrainingModuleCreateManyCohortInput[]
-  skipDuplicates?: boolean
-}
-
-export type TrainingModuleUpsertWithWhereUniqueWithoutCohortInput = {
-  where: Prisma.TrainingModuleWhereUniqueInput
-  update: Prisma.XOR<Prisma.TrainingModuleUpdateWithoutCohortInput, Prisma.TrainingModuleUncheckedUpdateWithoutCohortInput>
-  create: Prisma.XOR<Prisma.TrainingModuleCreateWithoutCohortInput, Prisma.TrainingModuleUncheckedCreateWithoutCohortInput>
-}
-
-export type TrainingModuleUpdateWithWhereUniqueWithoutCohortInput = {
-  where: Prisma.TrainingModuleWhereUniqueInput
-  data: Prisma.XOR<Prisma.TrainingModuleUpdateWithoutCohortInput, Prisma.TrainingModuleUncheckedUpdateWithoutCohortInput>
-}
-
-export type TrainingModuleUpdateManyWithWhereWithoutCohortInput = {
-  where: Prisma.TrainingModuleScalarWhereInput
-  data: Prisma.XOR<Prisma.TrainingModuleUpdateManyMutationInput, Prisma.TrainingModuleUncheckedUpdateManyWithoutCohortInput>
-}
-
-export type TrainingModuleScalarWhereInput = {
-  AND?: Prisma.TrainingModuleScalarWhereInput | Prisma.TrainingModuleScalarWhereInput[]
-  OR?: Prisma.TrainingModuleScalarWhereInput[]
-  NOT?: Prisma.TrainingModuleScalarWhereInput | Prisma.TrainingModuleScalarWhereInput[]
-  id?: Prisma.IntFilter<"TrainingModule"> | number
-  name?: Prisma.StringFilter<"TrainingModule"> | string
-  title?: Prisma.StringFilter<"TrainingModule"> | string
-  startDate?: Prisma.DateTimeFilter<"TrainingModule"> | Date | string
-  endDate?: Prisma.DateTimeFilter<"TrainingModule"> | Date | string
-  hours?: Prisma.IntFilter<"TrainingModule"> | number
-  cohortId?: Prisma.IntFilter<"TrainingModule"> | number
 }
 
 export type TrainingModuleCreateWithoutEventInstancesInput = {
@@ -653,6 +591,68 @@ export type TrainingModuleUncheckedUpdateWithoutEventInstancesInput = {
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleNestedInput
   moduleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutTrainingModuleNestedInput
+}
+
+export type TrainingModuleCreateWithoutCohortInput = {
+  name: string
+  title: string
+  startDate: Date | string
+  endDate: Date | string
+  hours: number
+  ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutTrainingModuleInput
+  moduleReport?: Prisma.ModuleReportCreateNestedManyWithoutTrainingModuleInput
+  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutTrainingModuleInput
+}
+
+export type TrainingModuleUncheckedCreateWithoutCohortInput = {
+  id?: number
+  name: string
+  title: string
+  startDate: Date | string
+  endDate: Date | string
+  hours: number
+  ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutTrainingModuleInput
+  moduleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutTrainingModuleInput
+  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutTrainingModuleInput
+}
+
+export type TrainingModuleCreateOrConnectWithoutCohortInput = {
+  where: Prisma.TrainingModuleWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrainingModuleCreateWithoutCohortInput, Prisma.TrainingModuleUncheckedCreateWithoutCohortInput>
+}
+
+export type TrainingModuleCreateManyCohortInputEnvelope = {
+  data: Prisma.TrainingModuleCreateManyCohortInput | Prisma.TrainingModuleCreateManyCohortInput[]
+  skipDuplicates?: boolean
+}
+
+export type TrainingModuleUpsertWithWhereUniqueWithoutCohortInput = {
+  where: Prisma.TrainingModuleWhereUniqueInput
+  update: Prisma.XOR<Prisma.TrainingModuleUpdateWithoutCohortInput, Prisma.TrainingModuleUncheckedUpdateWithoutCohortInput>
+  create: Prisma.XOR<Prisma.TrainingModuleCreateWithoutCohortInput, Prisma.TrainingModuleUncheckedCreateWithoutCohortInput>
+}
+
+export type TrainingModuleUpdateWithWhereUniqueWithoutCohortInput = {
+  where: Prisma.TrainingModuleWhereUniqueInput
+  data: Prisma.XOR<Prisma.TrainingModuleUpdateWithoutCohortInput, Prisma.TrainingModuleUncheckedUpdateWithoutCohortInput>
+}
+
+export type TrainingModuleUpdateManyWithWhereWithoutCohortInput = {
+  where: Prisma.TrainingModuleScalarWhereInput
+  data: Prisma.XOR<Prisma.TrainingModuleUpdateManyMutationInput, Prisma.TrainingModuleUncheckedUpdateManyWithoutCohortInput>
+}
+
+export type TrainingModuleScalarWhereInput = {
+  AND?: Prisma.TrainingModuleScalarWhereInput | Prisma.TrainingModuleScalarWhereInput[]
+  OR?: Prisma.TrainingModuleScalarWhereInput[]
+  NOT?: Prisma.TrainingModuleScalarWhereInput | Prisma.TrainingModuleScalarWhereInput[]
+  id?: Prisma.IntFilter<"TrainingModule"> | number
+  name?: Prisma.StringFilter<"TrainingModule"> | string
+  title?: Prisma.StringFilter<"TrainingModule"> | string
+  startDate?: Prisma.DateTimeFilter<"TrainingModule"> | Date | string
+  endDate?: Prisma.DateTimeFilter<"TrainingModule"> | Date | string
+  hours?: Prisma.IntFilter<"TrainingModule"> | number
+  cohortId?: Prisma.IntFilter<"TrainingModule"> | number
 }
 
 export type TrainingModuleCreateWithoutModuleEvaluationInput = {

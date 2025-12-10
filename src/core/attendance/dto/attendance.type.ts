@@ -5,12 +5,12 @@ import {
   PersonRole,
   PrincipalSchool,
   School,
-  Attendance,
-  Event
+  Event,
+  EventAttendance
 } from "prisma/generated/client";
 
 export interface IAttendanceList
-  extends Pick<Attendance, "id" | "status" | "checkIn" | "checkOut" | "modality"> {
+  extends Pick<EventAttendance, "id" | "status" | "checkIn" | "checkOut"> {
   EventInstance: {
     id: number;
   };
@@ -30,38 +30,6 @@ export interface IAttendanceGroupedWithPagination {
   data: IAttendanceGrouped[];
   meta: IPagination;
 }
-
-export interface IFindLastAttendace extends Pick<Attendance, "checkIn" | "coordenates" | "modality"> {
-  EventInstance: Pick<Event, "id">;
-  PersonRole: Pick<PersonRole, "typePersonId"> & {
-    Person: Pick<Person, "firstName" | "lastName1" | "lastName2">;
-  };
-}
-
-export interface ILastAttendanceDetails extends Pick<IFindLastAttendace, "coordenates"> {
-  fullName: string;
-}
-
-export interface ILastAttendance extends Pick<IFindLastAttendace, "modality"> {
-  id: number;
-  event: string;
-  checkIn: string;
-  details: ILastAttendanceDetails[];
-}
-
-export type IAttendanceResult = Pick<Attendance, "id" | "coordenates">;
-
-export type IAttendanceInput = Pick<
-  Attendance,
-  | "eventInstanceId"
-  | "status"
-  | "modality"
-  | "comment"
-  | "justificationUrl"
-  | "coordenates"
-  | "personRoleId"
-  | "checkOut"
->;
 
 export type IGetAllEvent = Pick<Event, "id" | "name">;
 

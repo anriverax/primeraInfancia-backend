@@ -2,11 +2,9 @@ import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AttendanceDto } from "./dto/attendance.dto";
-import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.command";
 import { GetPersonRoleByUserQuery } from "./cqrs/queries/PersonRole/getPersonRoleByUser.query";
 import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/findLastAttendance.query";
 import {
-  ILastAttendance,
   IAttendanceGrouped,
   IMentorResult,
   ITeachersAssignmentMentorResult
@@ -19,6 +17,7 @@ import { GetTeacherAssignmentsByUserIdQuery } from "./cqrs/queries/mentorAssignm
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
 import { AttendanceEnum, RoleType } from "prisma/generated/client";
 import { GetMentorsAssignedToUserQuery } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
+import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.command";
 
 /**
  * Attendance controller
@@ -103,7 +102,7 @@ export class AttendanceController {
   @AuthRequired()
   @Post()
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  async createAttendance(@Body() data: AttendanceDto, @Req() req: Request): Promise<any> {
+  async create(@Body() data: AttendanceDto, @Req() req: Request): Promise<any> {
     const userId = req["user"].sub;
 
     const personRole = await this.queryBus.execute(new GetPersonRoleByUserQuery(parseInt(userId)));
@@ -213,7 +212,7 @@ export class AttendanceController {
    */
   @AuthRequired()
   @Get("last")
-  async getMyLastAttendance(@Req() req: Request): Promise<ILastAttendance[]> {
+  async getMyLastAttendance(@Req() req: Request): Promise<any[]> {
     const userId = req["user"].sub;
 
     const attendanceResult = await this.queryBus.execute(new FindLastAttendanceQuery(parseInt(userId)));
