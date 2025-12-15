@@ -12,13 +12,15 @@ model AttendanceSession {
   EventInstance   EventInstance     @relation(fields: [eventInstanceId], references: [id])
   createdAt       DateTime          @default(now())
   createdBy       Int
-  attendances     EventAttendance[]
+  delegateId      Int
+  Delegate        Person            @relation(fields: [delegateId], references: [id])
+  EventAttendance EventAttendance[]
 }
 
 model EventAttendance {
   id                   Int               @id @default(autoincrement())
   attendanceSessionId  Int
-  personId            Int
+  personId             Int
   checkIn              DateTime
   checkOut             DateTime?
   status               AttendanceEnum

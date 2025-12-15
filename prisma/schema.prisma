@@ -125,29 +125,30 @@ model MenuPermission {
 }
 
 model Person {
-  id              Int               @id @default(autoincrement())
-  firstName       String
-  lastName1       String
-  lastName2       String?
-  dui             String            @unique
-  address         String
-  gender          TypeGender
-  phoneNumber     String
-  birthdate       DateTime?         @db.Date
-  districtId      Int
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  deletedAt       DateTime?
-  createdBy       Int               @default(0)
-  updatedBy       Int?
-  deletedBy       Int?
-  District        District          @relation(fields: [districtId], references: [id])
-  PersonRole      PersonRole[]
-  PrincipalSchool PrincipalSchool[]
-  EventInstances  EventInstance[]
-  EventAttendance EventAttendance[]
-  WorkAttendance  WorkAttendance[]
-  User User?
+  id                Int                 @id @default(autoincrement())
+  firstName         String
+  lastName1         String
+  lastName2         String?
+  dui               String              @unique
+  address           String
+  gender            TypeGender
+  phoneNumber       String
+  birthdate         DateTime?           @db.Date
+  districtId        Int
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int                 @default(0)
+  updatedBy         Int?
+  deletedBy         Int?
+  District          District            @relation(fields: [districtId], references: [id])
+  PersonRole        PersonRole[]
+  PrincipalSchool   PrincipalSchool[]
+  EventInstances    EventInstance[]
+  EventAttendance   EventAttendance[]
+  WorkAttendance    WorkAttendance[]
+  AttendanceSession AttendanceSession[]
+  User              User?
 
   @@index([districtId, deletedAt])
 }
@@ -329,7 +330,6 @@ model TrainingModule {
   ModuleEvaluation ModuleEvaluation[]
   moduleReport     ModuleReport[]
   Cohort           Cohort             @relation(fields: [cohortId], references: [id])
-  eventInstances   EventInstance[]
 }
 
 model EvaluationInstrument {
