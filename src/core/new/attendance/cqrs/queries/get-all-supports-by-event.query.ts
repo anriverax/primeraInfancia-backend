@@ -1,4 +1,4 @@
-import { PrismaService } from '@/services/prisma/prisma.service';
+import { PrismaService } from "@/services/prisma/prisma.service";
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 
 export class GetAllSupportsByEventQuery {}
@@ -8,10 +8,20 @@ export class GetAllSupportsByEventHandler implements IQueryHandler<GetAllSupport
   constructor(private readonly prisma: PrismaService) {}
 
   execute(): Promise<any[]> {
-    return this.prisma.event.findMany({
+    return this.prisma.techSupportAssignments.findMany({
+      where: {
+        TechSupport: {
+          Person: {
+            User: { id: 2 }
+          }
+        }
+      },
       select: {
-        id: true,
-        name: true
+        TechSupport: {
+          select: {
+            
+          }
+        }
       }
     });
   }
