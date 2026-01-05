@@ -19,10 +19,8 @@ export class GetGroupByUserHandler {
     const groupDetail = await this.prisma.mentorAssignment.findMany({
       where: {
         Mentor: {
-          Person: {
-            User: {
-              id: responsableId
-            }
+          User: {
+            id: responsableId
           }
         }
       },
@@ -30,33 +28,30 @@ export class GetGroupByUserHandler {
         Inscription: {
           select: {
             id: true,
-            PersonRole: {
+
+            Person: {
               select: {
-                Person: {
+                id: true,
+                firstName: true,
+                lastName1: true,
+                lastName2: true,
+                phoneNumber: true,
+                User: {
                   select: {
-                    id: true,
-                    firstName: true,
-                    lastName1: true,
-                    lastName2: true,
-                    phoneNumber: true,
-                    User: {
+                    email: true
+                  }
+                },
+                PrincipalSchool: {
+                  select: {
+                    School: {
                       select: {
-                        email: true
-                      }
-                    },
-                    PrincipalSchool: {
-                      select: {
-                        School: {
+                        name: true,
+                        District: {
                           select: {
                             name: true,
-                            District: {
+                            Municipality: {
                               select: {
-                                name: true,
-                                Municipality: {
-                                  select: {
-                                    name: true
-                                  }
-                                }
+                                name: true
                               }
                             }
                           }

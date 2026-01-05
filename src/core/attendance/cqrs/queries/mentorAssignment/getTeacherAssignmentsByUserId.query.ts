@@ -1,4 +1,4 @@
-import { ITeachersAssignmentMentor } from "@/core/attendance/dto/attendance.type";
+import { ITeachersAssignmentMentor } from "@/core/attendanceNOI/dto/attendance.type";
 import { Query, QueryHandler } from "@nestjs/cqrs";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { Prisma, RoleType } from "prisma/generated/client";
@@ -45,18 +45,14 @@ export class GetTeacherAssignmentsByUserIdHandler {
       where = {
         TechSupportAssignment: {
           AssignedRole: {
-            Person: {
-              User: { id: query.userId }
-            }
+            User: { id: query.userId }
           }
         }
       };
     } else {
       where = {
         Mentor: {
-          Person: {
-            User: { id: query.userId }
-          }
+          User: { id: query.userId }
         }
       };
     }
@@ -67,33 +63,28 @@ export class GetTeacherAssignmentsByUserIdHandler {
         Inscription: {
           select: {
             deletedBy: true,
-            PersonRole: {
+
+            Person: {
               select: {
                 id: true,
                 deletedBy: true,
-                Person: {
+                firstName: true,
+                lastName1: true,
+                lastName2: true,
+                PrincipalSchool: {
                   select: {
-                    id: true,
                     deletedBy: true,
-                    firstName: true,
-                    lastName1: true,
-                    lastName2: true,
-                    PrincipalSchool: {
+                    School: {
                       select: {
-                        deletedBy: true,
-                        School: {
+                        code: true,
+                        name: true,
+                        coordenates: true,
+                        District: {
                           select: {
-                            code: true,
                             name: true,
-                            coordenates: true,
-                            District: {
+                            Municipality: {
                               select: {
-                                name: true,
-                                Municipality: {
-                                  select: {
-                                    name: true
-                                  }
-                                }
+                                name: true
                               }
                             }
                           }

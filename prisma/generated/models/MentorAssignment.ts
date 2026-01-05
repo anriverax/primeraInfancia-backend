@@ -281,7 +281,7 @@ export type MentorAssignmentWhereInput = {
   deletedBy?: Prisma.IntNullableFilter<"MentorAssignment"> | number | null
   techSupportAssignmentId?: Prisma.IntFilter<"MentorAssignment"> | number
   Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
-  Mentor?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
+  Mentor?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   TechSupportAssignment?: Prisma.XOR<Prisma.TechSupportAssignmentsScalarRelationFilter, Prisma.TechSupportAssignmentsWhereInput>
 }
 
@@ -297,7 +297,7 @@ export type MentorAssignmentOrderByWithRelationInput = {
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   techSupportAssignmentId?: Prisma.SortOrder
   Inscription?: Prisma.InscriptionOrderByWithRelationInput
-  Mentor?: Prisma.PersonRoleOrderByWithRelationInput
+  Mentor?: Prisma.PersonOrderByWithRelationInput
   TechSupportAssignment?: Prisma.TechSupportAssignmentsOrderByWithRelationInput
 }
 
@@ -317,7 +317,7 @@ export type MentorAssignmentWhereUniqueInput = Prisma.AtLeast<{
   deletedBy?: Prisma.IntNullableFilter<"MentorAssignment"> | number | null
   techSupportAssignmentId?: Prisma.IntFilter<"MentorAssignment"> | number
   Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
-  Mentor?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
+  Mentor?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   TechSupportAssignment?: Prisma.XOR<Prisma.TechSupportAssignmentsScalarRelationFilter, Prisma.TechSupportAssignmentsWhereInput>
 }, "id" | "mentorId_inscriptionId">
 
@@ -363,7 +363,7 @@ export type MentorAssignmentCreateInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   Inscription: Prisma.InscriptionCreateNestedOneWithoutMentorAssignmentInput
-  Mentor: Prisma.PersonRoleCreateNestedOneWithoutMentorAssignmentInput
+  Mentor: Prisma.PersonCreateNestedOneWithoutMentorAssignmentsInput
   TechSupportAssignment: Prisma.TechSupportAssignmentsCreateNestedOneWithoutMentorAssignmentInput
 }
 
@@ -388,7 +388,7 @@ export type MentorAssignmentUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutMentorAssignmentNestedInput
-  Mentor?: Prisma.PersonRoleUpdateOneRequiredWithoutMentorAssignmentNestedInput
+  Mentor?: Prisma.PersonUpdateOneRequiredWithoutMentorAssignmentsNestedInput
   TechSupportAssignment?: Prisma.TechSupportAssignmentsUpdateOneRequiredWithoutMentorAssignmentNestedInput
 }
 
@@ -514,48 +514,6 @@ export type MentorAssignmentSumOrderByAggregateInput = {
   techSupportAssignmentId?: Prisma.SortOrder
 }
 
-export type MentorAssignmentCreateNestedManyWithoutMentorInput = {
-  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
-  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
-  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
-  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-}
-
-export type MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput = {
-  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
-  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
-  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
-  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-}
-
-export type MentorAssignmentUpdateManyWithoutMentorNestedInput = {
-  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
-  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
-  upsert?: Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput[]
-  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
-  set?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  disconnect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  delete?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  update?: Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput[]
-  updateMany?: Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput | Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput[]
-  deleteMany?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
-}
-
-export type MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput = {
-  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
-  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
-  upsert?: Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput[]
-  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
-  set?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  disconnect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  delete?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
-  update?: Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput[]
-  updateMany?: Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput | Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput[]
-  deleteMany?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
-}
-
 export type MentorAssignmentCreateNestedManyWithoutTechSupportAssignmentInput = {
   create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput> | Prisma.MentorAssignmentCreateWithoutTechSupportAssignmentInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput[]
   connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutTechSupportAssignmentInput | Prisma.MentorAssignmentCreateOrConnectWithoutTechSupportAssignmentInput[]
@@ -640,6 +598,162 @@ export type MentorAssignmentUncheckedUpdateManyWithoutInscriptionNestedInput = {
   deleteMany?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
 }
 
+export type MentorAssignmentCreateNestedManyWithoutMentorInput = {
+  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
+  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
+  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+}
+
+export type MentorAssignmentUncheckedCreateNestedManyWithoutMentorInput = {
+  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
+  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
+  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+}
+
+export type MentorAssignmentUpdateManyWithoutMentorNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
+  upsert?: Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput[]
+  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
+  set?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  disconnect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  delete?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  update?: Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput[]
+  updateMany?: Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput | Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput[]
+  deleteMany?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
+}
+
+export type MentorAssignmentUncheckedUpdateManyWithoutMentorNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutMentorInput, Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput> | Prisma.MentorAssignmentCreateWithoutMentorInput[] | Prisma.MentorAssignmentUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput | Prisma.MentorAssignmentCreateOrConnectWithoutMentorInput[]
+  upsert?: Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpsertWithWhereUniqueWithoutMentorInput[]
+  createMany?: Prisma.MentorAssignmentCreateManyMentorInputEnvelope
+  set?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  disconnect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  delete?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  connect?: Prisma.MentorAssignmentWhereUniqueInput | Prisma.MentorAssignmentWhereUniqueInput[]
+  update?: Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput | Prisma.MentorAssignmentUpdateWithWhereUniqueWithoutMentorInput[]
+  updateMany?: Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput | Prisma.MentorAssignmentUpdateManyWithWhereWithoutMentorInput[]
+  deleteMany?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
+}
+
+export type MentorAssignmentCreateWithoutTechSupportAssignmentInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Inscription: Prisma.InscriptionCreateNestedOneWithoutMentorAssignmentInput
+  Mentor: Prisma.PersonCreateNestedOneWithoutMentorAssignmentsInput
+}
+
+export type MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput = {
+  id?: number
+  mentorId: number
+  inscriptionId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type MentorAssignmentCreateOrConnectWithoutTechSupportAssignmentInput = {
+  where: Prisma.MentorAssignmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput>
+}
+
+export type MentorAssignmentCreateManyTechSupportAssignmentInputEnvelope = {
+  data: Prisma.MentorAssignmentCreateManyTechSupportAssignmentInput | Prisma.MentorAssignmentCreateManyTechSupportAssignmentInput[]
+  skipDuplicates?: boolean
+}
+
+export type MentorAssignmentUpsertWithWhereUniqueWithoutTechSupportAssignmentInput = {
+  where: Prisma.MentorAssignmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedUpdateWithoutTechSupportAssignmentInput>
+  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput>
+}
+
+export type MentorAssignmentUpdateWithWhereUniqueWithoutTechSupportAssignmentInput = {
+  where: Prisma.MentorAssignmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedUpdateWithoutTechSupportAssignmentInput>
+}
+
+export type MentorAssignmentUpdateManyWithWhereWithoutTechSupportAssignmentInput = {
+  where: Prisma.MentorAssignmentScalarWhereInput
+  data: Prisma.XOR<Prisma.MentorAssignmentUpdateManyMutationInput, Prisma.MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentInput>
+}
+
+export type MentorAssignmentScalarWhereInput = {
+  AND?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
+  OR?: Prisma.MentorAssignmentScalarWhereInput[]
+  NOT?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
+  id?: Prisma.IntFilter<"MentorAssignment"> | number
+  mentorId?: Prisma.IntFilter<"MentorAssignment"> | number
+  inscriptionId?: Prisma.IntFilter<"MentorAssignment"> | number
+  createdAt?: Prisma.DateTimeFilter<"MentorAssignment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"MentorAssignment"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"MentorAssignment"> | Date | string | null
+  createdBy?: Prisma.IntFilter<"MentorAssignment"> | number
+  updatedBy?: Prisma.IntNullableFilter<"MentorAssignment"> | number | null
+  deletedBy?: Prisma.IntNullableFilter<"MentorAssignment"> | number | null
+  techSupportAssignmentId?: Prisma.IntFilter<"MentorAssignment"> | number
+}
+
+export type MentorAssignmentCreateWithoutInscriptionInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Mentor: Prisma.PersonCreateNestedOneWithoutMentorAssignmentsInput
+  TechSupportAssignment: Prisma.TechSupportAssignmentsCreateNestedOneWithoutMentorAssignmentInput
+}
+
+export type MentorAssignmentUncheckedCreateWithoutInscriptionInput = {
+  id?: number
+  mentorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  techSupportAssignmentId: number
+}
+
+export type MentorAssignmentCreateOrConnectWithoutInscriptionInput = {
+  where: Prisma.MentorAssignmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedCreateWithoutInscriptionInput>
+}
+
+export type MentorAssignmentCreateManyInscriptionInputEnvelope = {
+  data: Prisma.MentorAssignmentCreateManyInscriptionInput | Prisma.MentorAssignmentCreateManyInscriptionInput[]
+  skipDuplicates?: boolean
+}
+
+export type MentorAssignmentUpsertWithWhereUniqueWithoutInscriptionInput = {
+  where: Prisma.MentorAssignmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedUpdateWithoutInscriptionInput>
+  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedCreateWithoutInscriptionInput>
+}
+
+export type MentorAssignmentUpdateWithWhereUniqueWithoutInscriptionInput = {
+  where: Prisma.MentorAssignmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedUpdateWithoutInscriptionInput>
+}
+
+export type MentorAssignmentUpdateManyWithWhereWithoutInscriptionInput = {
+  where: Prisma.MentorAssignmentScalarWhereInput
+  data: Prisma.XOR<Prisma.MentorAssignmentUpdateManyMutationInput, Prisma.MentorAssignmentUncheckedUpdateManyWithoutInscriptionInput>
+}
+
 export type MentorAssignmentCreateWithoutMentorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -689,34 +803,7 @@ export type MentorAssignmentUpdateManyWithWhereWithoutMentorInput = {
   data: Prisma.XOR<Prisma.MentorAssignmentUpdateManyMutationInput, Prisma.MentorAssignmentUncheckedUpdateManyWithoutMentorInput>
 }
 
-export type MentorAssignmentScalarWhereInput = {
-  AND?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
-  OR?: Prisma.MentorAssignmentScalarWhereInput[]
-  NOT?: Prisma.MentorAssignmentScalarWhereInput | Prisma.MentorAssignmentScalarWhereInput[]
-  id?: Prisma.IntFilter<"MentorAssignment"> | number
-  mentorId?: Prisma.IntFilter<"MentorAssignment"> | number
-  inscriptionId?: Prisma.IntFilter<"MentorAssignment"> | number
-  createdAt?: Prisma.DateTimeFilter<"MentorAssignment"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"MentorAssignment"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"MentorAssignment"> | Date | string | null
-  createdBy?: Prisma.IntFilter<"MentorAssignment"> | number
-  updatedBy?: Prisma.IntNullableFilter<"MentorAssignment"> | number | null
-  deletedBy?: Prisma.IntNullableFilter<"MentorAssignment"> | number | null
-  techSupportAssignmentId?: Prisma.IntFilter<"MentorAssignment"> | number
-}
-
-export type MentorAssignmentCreateWithoutTechSupportAssignmentInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutMentorAssignmentInput
-  Mentor: Prisma.PersonRoleCreateNestedOneWithoutMentorAssignmentInput
-}
-
-export type MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput = {
+export type MentorAssignmentCreateManyTechSupportAssignmentInput = {
   id?: number
   mentorId: number
   inscriptionId: number
@@ -728,44 +815,42 @@ export type MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput = {
   deletedBy?: number | null
 }
 
-export type MentorAssignmentCreateOrConnectWithoutTechSupportAssignmentInput = {
-  where: Prisma.MentorAssignmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput>
+export type MentorAssignmentUpdateWithoutTechSupportAssignmentInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutMentorAssignmentNestedInput
+  Mentor?: Prisma.PersonUpdateOneRequiredWithoutMentorAssignmentsNestedInput
 }
 
-export type MentorAssignmentCreateManyTechSupportAssignmentInputEnvelope = {
-  data: Prisma.MentorAssignmentCreateManyTechSupportAssignmentInput | Prisma.MentorAssignmentCreateManyTechSupportAssignmentInput[]
-  skipDuplicates?: boolean
+export type MentorAssignmentUncheckedUpdateWithoutTechSupportAssignmentInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
+  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type MentorAssignmentUpsertWithWhereUniqueWithoutTechSupportAssignmentInput = {
-  where: Prisma.MentorAssignmentWhereUniqueInput
-  update: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedUpdateWithoutTechSupportAssignmentInput>
-  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedCreateWithoutTechSupportAssignmentInput>
+export type MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
+  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type MentorAssignmentUpdateWithWhereUniqueWithoutTechSupportAssignmentInput = {
-  where: Prisma.MentorAssignmentWhereUniqueInput
-  data: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutTechSupportAssignmentInput, Prisma.MentorAssignmentUncheckedUpdateWithoutTechSupportAssignmentInput>
-}
-
-export type MentorAssignmentUpdateManyWithWhereWithoutTechSupportAssignmentInput = {
-  where: Prisma.MentorAssignmentScalarWhereInput
-  data: Prisma.XOR<Prisma.MentorAssignmentUpdateManyMutationInput, Prisma.MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentInput>
-}
-
-export type MentorAssignmentCreateWithoutInscriptionInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Mentor: Prisma.PersonRoleCreateNestedOneWithoutMentorAssignmentInput
-  TechSupportAssignment: Prisma.TechSupportAssignmentsCreateNestedOneWithoutMentorAssignmentInput
-}
-
-export type MentorAssignmentUncheckedCreateWithoutInscriptionInput = {
+export type MentorAssignmentCreateManyInscriptionInput = {
   id?: number
   mentorId: number
   createdAt?: Date | string
@@ -777,30 +862,39 @@ export type MentorAssignmentUncheckedCreateWithoutInscriptionInput = {
   techSupportAssignmentId: number
 }
 
-export type MentorAssignmentCreateOrConnectWithoutInscriptionInput = {
-  where: Prisma.MentorAssignmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedCreateWithoutInscriptionInput>
+export type MentorAssignmentUpdateWithoutInscriptionInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Mentor?: Prisma.PersonUpdateOneRequiredWithoutMentorAssignmentsNestedInput
+  TechSupportAssignment?: Prisma.TechSupportAssignmentsUpdateOneRequiredWithoutMentorAssignmentNestedInput
 }
 
-export type MentorAssignmentCreateManyInscriptionInputEnvelope = {
-  data: Prisma.MentorAssignmentCreateManyInscriptionInput | Prisma.MentorAssignmentCreateManyInscriptionInput[]
-  skipDuplicates?: boolean
+export type MentorAssignmentUncheckedUpdateWithoutInscriptionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  techSupportAssignmentId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type MentorAssignmentUpsertWithWhereUniqueWithoutInscriptionInput = {
-  where: Prisma.MentorAssignmentWhereUniqueInput
-  update: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedUpdateWithoutInscriptionInput>
-  create: Prisma.XOR<Prisma.MentorAssignmentCreateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedCreateWithoutInscriptionInput>
-}
-
-export type MentorAssignmentUpdateWithWhereUniqueWithoutInscriptionInput = {
-  where: Prisma.MentorAssignmentWhereUniqueInput
-  data: Prisma.XOR<Prisma.MentorAssignmentUpdateWithoutInscriptionInput, Prisma.MentorAssignmentUncheckedUpdateWithoutInscriptionInput>
-}
-
-export type MentorAssignmentUpdateManyWithWhereWithoutInscriptionInput = {
-  where: Prisma.MentorAssignmentScalarWhereInput
-  data: Prisma.XOR<Prisma.MentorAssignmentUpdateManyMutationInput, Prisma.MentorAssignmentUncheckedUpdateManyWithoutInscriptionInput>
+export type MentorAssignmentUncheckedUpdateManyWithoutInscriptionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  techSupportAssignmentId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MentorAssignmentCreateManyMentorInput = {
@@ -850,100 +944,6 @@ export type MentorAssignmentUncheckedUpdateManyWithoutMentorInput = {
   techSupportAssignmentId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type MentorAssignmentCreateManyTechSupportAssignmentInput = {
-  id?: number
-  mentorId: number
-  inscriptionId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-}
-
-export type MentorAssignmentUpdateWithoutTechSupportAssignmentInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutMentorAssignmentNestedInput
-  Mentor?: Prisma.PersonRoleUpdateOneRequiredWithoutMentorAssignmentNestedInput
-}
-
-export type MentorAssignmentUncheckedUpdateWithoutTechSupportAssignmentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type MentorAssignmentCreateManyInscriptionInput = {
-  id?: number
-  mentorId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  techSupportAssignmentId: number
-}
-
-export type MentorAssignmentUpdateWithoutInscriptionInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Mentor?: Prisma.PersonRoleUpdateOneRequiredWithoutMentorAssignmentNestedInput
-  TechSupportAssignment?: Prisma.TechSupportAssignmentsUpdateOneRequiredWithoutMentorAssignmentNestedInput
-}
-
-export type MentorAssignmentUncheckedUpdateWithoutInscriptionInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  techSupportAssignmentId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type MentorAssignmentUncheckedUpdateManyWithoutInscriptionInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  mentorId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  techSupportAssignmentId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
 
 
 export type MentorAssignmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -958,7 +958,7 @@ export type MentorAssignmentSelect<ExtArgs extends runtime.Types.Extensions.Inte
   deletedBy?: boolean
   techSupportAssignmentId?: boolean
   Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
-  Mentor?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TechSupportAssignment?: boolean | Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorAssignment"]>
 
@@ -974,7 +974,7 @@ export type MentorAssignmentSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   deletedBy?: boolean
   techSupportAssignmentId?: boolean
   Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
-  Mentor?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TechSupportAssignment?: boolean | Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorAssignment"]>
 
@@ -990,7 +990,7 @@ export type MentorAssignmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   deletedBy?: boolean
   techSupportAssignmentId?: boolean
   Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
-  Mentor?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TechSupportAssignment?: boolean | Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorAssignment"]>
 
@@ -1010,17 +1010,17 @@ export type MentorAssignmentSelectScalar = {
 export type MentorAssignmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mentorId" | "inscriptionId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy" | "techSupportAssignmentId", ExtArgs["result"]["mentorAssignment"]>
 export type MentorAssignmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
-  Mentor?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TechSupportAssignment?: boolean | Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs>
 }
 export type MentorAssignmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
-  Mentor?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TechSupportAssignment?: boolean | Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs>
 }
 export type MentorAssignmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
-  Mentor?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   TechSupportAssignment?: boolean | Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs>
 }
 
@@ -1028,7 +1028,7 @@ export type $MentorAssignmentPayload<ExtArgs extends runtime.Types.Extensions.In
   name: "MentorAssignment"
   objects: {
     Inscription: Prisma.$InscriptionPayload<ExtArgs>
-    Mentor: Prisma.$PersonRolePayload<ExtArgs>
+    Mentor: Prisma.$PersonPayload<ExtArgs>
     TechSupportAssignment: Prisma.$TechSupportAssignmentsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1437,7 +1437,7 @@ readonly fields: MentorAssignmentFieldRefs;
 export interface Prisma__MentorAssignmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Inscription<T extends Prisma.InscriptionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InscriptionDefaultArgs<ExtArgs>>): Prisma.Prisma__InscriptionClient<runtime.Types.Result.GetResult<Prisma.$InscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Mentor<T extends Prisma.PersonRoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRoleDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonRoleClient<runtime.Types.Result.GetResult<Prisma.$PersonRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Mentor<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   TechSupportAssignment<T extends Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TechSupportAssignmentsDefaultArgs<ExtArgs>>): Prisma.Prisma__TechSupportAssignmentsClient<runtime.Types.Result.GetResult<Prisma.$TechSupportAssignmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

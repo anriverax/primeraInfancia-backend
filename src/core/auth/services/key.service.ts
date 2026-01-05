@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import * as crypto from "crypto";
 import { QueryBus } from "@nestjs/cqrs";
-import { GetAllUserKeyByUserIdQuery } from "../cqrs/queries/userKey/findMany/getAllUserKeyByUserId.query";
-import { GetByUserIdUserKeyQuery } from "../cqrs/queries/userKey/findFirst/getByUserIdUserKey.query";
+import { GetAllUserKeyByUserIdQuery } from "../cqrs/queries/userKey/findMany/get-all-userKey-by-userId.query";
+import { GetByUserIdUserKeyQuery } from "../cqrs/queries/userKey/findFirst/get-by-userId-userKey.query";
 import { UserKeyProjection } from "../cqrs/projections/userkey.projection";
 
 @Injectable()

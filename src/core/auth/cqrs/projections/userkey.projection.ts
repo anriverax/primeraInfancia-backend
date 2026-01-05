@@ -1,10 +1,12 @@
 import { Injectable } from "@nestjs/common";
 // Import User type from Prisma Client
-import { IUserKeyCreate } from "../../dto/auth.type";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { handlePrismaError } from "@/common/helpers/functions";
+import { UserKey } from "prisma/generated/client";
 
-@Injectable({})
+export type IUserKeyCreate = Pick<UserKey, "userId" | "publicKey" | "privateKey">;
+
+@Injectable()
 export class UserKeyProjection {
   constructor(private prisma: PrismaService) {}
 

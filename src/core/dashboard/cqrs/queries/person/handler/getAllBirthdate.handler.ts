@@ -7,21 +7,17 @@ export class GetAllBirthdateHandler {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(): Promise<{ birthdate: Date | null }[]> {
-    const persons = await this.prisma.personRole.findMany({
+    const persons = await this.prisma.person.findMany({
       where: {
         typePersonId: 2
       },
       select: {
-        Person: {
-          select: {
-            birthdate: true
-          }
-        }
+        birthdate: true
       }
     });
 
     if (persons.length > 0) {
-      const personList = persons.map((person) => ({ birthdate: person.Person.birthdate }));
+      const personList = persons.map((person) => ({ birthdate: person.birthdate }));
       return personList;
     }
 

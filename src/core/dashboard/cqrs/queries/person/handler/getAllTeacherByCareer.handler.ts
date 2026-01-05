@@ -8,7 +8,7 @@ export class GetAllTeacherByCareerHandler {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(): Promise<IGroupCount[]> {
-    const teachersByCareer = await this.prisma.personRole.groupBy({
+    const teachersByCareer = await this.prisma.person.groupBy({
       by: ["career"],
       _count: {
         _all: true

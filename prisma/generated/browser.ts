@@ -48,6 +48,31 @@ export type EventInstance = Prisma.EventInstanceModel
  */
 export type Event = Prisma.EventModel
 /**
+ * Model GroupStaff
+ * 
+ */
+export type GroupStaff = Prisma.GroupStaffModel
+/**
+ * Model Group
+ * 
+ */
+export type Group = Prisma.GroupModel
+/**
+ * Model TechSupportAssignments
+ * 
+ */
+export type TechSupportAssignments = Prisma.TechSupportAssignmentsModel
+/**
+ * Model Inscription
+ * 
+ */
+export type Inscription = Prisma.InscriptionModel
+/**
+ * Model MentorAssignment
+ * 
+ */
+export type MentorAssignment = Prisma.MentorAssignmentModel
+/**
  * Model Cohort
  * 
  */
@@ -123,11 +148,6 @@ export type Person = Prisma.PersonModel
  */
 export type PrincipalSchool = Prisma.PrincipalSchoolModel
 /**
- * Model PersonRole
- * 
- */
-export type PersonRole = Prisma.PersonRoleModel
-/**
  * Model User
  * 
  */
@@ -137,36 +157,6 @@ export type User = Prisma.UserModel
  * 
  */
 export type UserKey = Prisma.UserKeyModel
-/**
- * Model Group
- * 
- */
-export type Group = Prisma.GroupModel
-/**
- * Model TechSupportAssignments
- * 
- */
-export type TechSupportAssignments = Prisma.TechSupportAssignmentsModel
-/**
- * Model Inscription
- * 
- */
-export type Inscription = Prisma.InscriptionModel
-/**
- * Model MentorAssignment
- * 
- */
-export type MentorAssignment = Prisma.MentorAssignmentModel
-/**
- * Model TrainingBatch
- * 
- */
-export type TrainingBatch = Prisma.TrainingBatchModel
-/**
- * Model TrainingSlot
- * 
- */
-export type TrainingSlot = Prisma.TrainingSlotModel
 /**
  * Model TrainingModule
  * 

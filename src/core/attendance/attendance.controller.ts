@@ -2,22 +2,29 @@ import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AttendanceDto } from "./dto/attendance.dto";
-import { GetPersonRoleByUserQuery } from "./cqrs/queries/PersonRole/getPersonRoleByUser.query";
-import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/findLastAttendance.query";
+import { FindLastAttendanceQuery } from "./cqrs/queries/attendance/find-lastAttendance.query";
 import {
+  FindLastAttendanceResult,
+  GetAllEventResult,
+  GetAllInscriptionResult,
+  GetAllSupportResult,
   IAttendanceGrouped,
-  IMentorResult,
-  ITeachersAssignmentMentorResult
+  IMentorResult
 } from "./dto/attendance.type";
 import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
 import { PaginationDto } from "@/common/helpers/dto";
 import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
-import { GetTeacherAssignmentsByUserIdQuery } from "./cqrs/queries/mentorAssignment/getTeacherAssignmentsByUserId.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
-import { AttendanceEnum, RoleType } from "prisma/generated/client";
 import { GetMentorsAssignedToUserQuery } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
-import { CreateAttendanceCommand } from "./cqrs/command/create/createAttendance.command";
+import { GetAllEventsByUserQuery } from "./cqrs/queries/events/get-all-events-by-user.handler";
+import { FindGroupIdByUserIdQuery } from "./cqrs/queries/support/find-groupId-by-userId.query";
+import { GetAllSupportByGroupIdQuery } from "./cqrs/queries/support/get-all-support-by-groupId.query";
+import { GetResposibleQuery } from "./cqrs/queries/support/get-responsible.query";
+import { GetAllInscriptionByUserQuery } from "./cqrs/queries/inscriptions/get-all-inscription-by-user.query";
+import { CreateAttendanceSessionCommand } from "./cqrs/command/attendanceSession/create-attendanceSession.command";
+import { CreateEventAttendanceCommand } from "./cqrs/command/eventAttendance/create-eventAttendance.command";
+import { FindPersonByUserQuery } from "./cqrs/queries/person/find-person-byUser.query";
 
 /**
  * Attendance controller
@@ -47,41 +54,43 @@ export class AttendanceController {
    * @param req Request with `user.sub` (user ID) and `user.role`.
    * @returns Teachers assigned to the mentor and mentor's events.
    */
+
+  @AuthRequired()
+  @Get("me/support")
+  async listSupport(
+    @Req() req: Request,
+    @Query("isResponsible") isResponsible: string
+  ): Promise<GetAllSupportResult[] | []> {
+    const userId = req["user"].sub;
+
+    if (isResponsible !== "true") {
+      const result = await this.queryBus.execute(new FindGroupIdByUserIdQuery(userId, true));
+      if (!result) return [];
+
+      return await this.queryBus.execute(new GetAllSupportByGroupIdQuery(result.groupId, userId));
+    }
+
+    return await this.queryBus.execute(new GetResposibleQuery(userId));
+  }
+
+  @AuthRequired()
+  @Get("me/events")
+  async listEvents(@Query("responsible") responsible: string): Promise<GetAllEventResult[]> {
+    return await this.queryBus.execute(new GetAllEventsByUserQuery(parseInt(responsible)));
+  }
+
   @AuthRequired()
   @Get("me/teachers")
   async listTeachers(
-    @Req() req: Request,
-    @Query("mentorId") mentorId: string,
-    @Query("leaderId") leaderId: string
-  ): Promise<ITeachersAssignmentMentorResult[]> {
-    let id: number = 0;
-    let userRole: RoleType;
-    const userId = req["user"].sub;
-    const role = req["user"].role;
+    @Query("responsible") responsible: string
+  ): Promise<GetAllInscriptionResult[] | []> {
+    const result = await this.queryBus.execute(
+      new FindGroupIdByUserIdQuery(parseInt(responsible), false)
+    );
 
-    const isLeader = role === RoleType.USER_TECNICO_APOYO && leaderId;
-    const isMentor = role === RoleType.USER_TECNICO_APOYO && mentorId;
+    if (!result) return [];
 
-    if (RoleType.USER_TECNICO_APOYO === role) {
-      if (isLeader) {
-        userRole = RoleType.USER_FORMADOR;
-        id = parseInt(leaderId);
-      } else if (isMentor) {
-        userRole = RoleType.USER_MENTOR;
-        id = parseInt(mentorId);
-      } else {
-        userRole = RoleType.USER_MENTOR;
-        id = parseInt(userId);
-      }
-    } else {
-      userRole = role;
-      id = parseInt(userId);
-    }
-
-    const result = await this.queryBus.execute(new GetTeacherAssignmentsByUserIdQuery(id, userRole));
-    const data = this.mentorAssignmentService.order(result);
-
-    return data;
+    return await this.queryBus.execute(new GetAllInscriptionByUserQuery(result.id, result.groupId));
   }
 
   /**
@@ -101,21 +110,21 @@ export class AttendanceController {
    */
   @AuthRequired()
   @Post()
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  async create(@Body() data: AttendanceDto, @Req() req: Request): Promise<any> {
+  async create(@Body() data: AttendanceDto, @Req() req: Request): Promise<NestResponse<void>> {
     const userId = req["user"].sub;
 
-    const personRole = await this.queryBus.execute(new GetPersonRoleByUserQuery(parseInt(userId)));
-    const { teacherId, ...rest } = data;
-    const checkOutState = rest.status === AttendanceEnum.AUSENTE ? new Date() : null;
+    const { eventInstanceId, modality, supportId, coordenates, teacherId, justificationUrl, ...rest } =
+      data;
 
-    const attendanceData = await this.commandBus.execute(
-      new CreateAttendanceCommand(
+    const person = await this.queryBus.execute(new FindPersonByUserQuery(parseInt(userId)));
+
+    const attendanceSession = await this.commandBus.execute(
+      new CreateAttendanceSessionCommand(
         {
-          ...rest,
-          eventInstanceId: 1,
-          checkOut: checkOutState,
-          personRoleId: personRole!.id
+          eventInstanceId,
+          modality,
+          supportId: person?.id!,
+          coordenates: coordenates || "0,0"
         },
         userId
       )
@@ -123,20 +132,22 @@ export class AttendanceController {
 
     for (const teacher of teacherId) {
       await this.commandBus.execute(
-        new CreateAttendanceCommand(
-          { ...rest, eventInstanceId: 1, checkOut: checkOutState, personRoleId: teacher },
+        new CreateEventAttendanceCommand(
+          {
+            ...rest,
+            justificationFileUrl: justificationUrl,
+            attendanceSessionId: attendanceSession.id,
+            teacherId: teacher
+          },
           userId
         )
       );
     }
 
-    if (rest.status === AttendanceEnum.AUSENTE) {
-      return {
-        statusCode: 201,
-        message: "Jornada finalizada por ausencia.",
-        data: attendanceData
-      };
-    }
+    return {
+      statusCode: 201,
+      message: "Jornada iniciada."
+    };
   }
 
   /**
@@ -212,16 +223,13 @@ export class AttendanceController {
    */
   @AuthRequired()
   @Get("last")
-  async getMyLastAttendance(@Req() req: Request): Promise<any[]> {
+  async lastAttendance(@Req() req: Request): Promise<FindLastAttendanceResult | null> {
     const userId = req["user"].sub;
+    const person = await this.queryBus.execute(new FindPersonByUserQuery(parseInt(userId)));
 
-    const attendanceResult = await this.queryBus.execute(new FindLastAttendanceQuery(parseInt(userId)));
-
-    if (!attendanceResult) return [];
-
-    const res = this.mentorAssignmentService.getTeachersByTypePerson(attendanceResult);
-
-    return res;
+    if (!person) return null;
+    console.log("person", person);
+    return await this.queryBus.execute(new FindLastAttendanceQuery(person.id));
   }
 
   /**

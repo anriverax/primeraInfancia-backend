@@ -1,19 +1,14 @@
 import { BadRequestException, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as argon from "argon2";
-import { Resend } from "resend";
 import { RedisService } from "@/services/redis/redis.service";
 import { generateCode } from "@/common/helpers/functions";
 import { ILoginResponse, IUser } from "../dto/auth.type";
-import { renderedVerifyEmail } from "../templates/verifyEmail";
-import { renderedChangePasswd } from "../templates/changePasswd";
 
 @Injectable({})
 export class AuthService {
   private readonly logger = new Logger("AuthService");
   constructor(
-    private readonly config: ConfigService,
     private readonly jwtService: JwtService,
     private readonly redisService: RedisService
   ) {}
@@ -35,37 +30,11 @@ export class AuthService {
     return argon.verify(hashedPassword, password);
   }
 
-  async sendVerificationEmail(email: string, passwd: string): Promise<void> {
+  async createCodeVerificationEmail(email: string): Promise<void> {
     try {
-      const resend = new Resend(this.config.get<string>("resend"));
       const code = generateCode(6);
 
-      await resend.emails.send({
-        from: "Docentes Primera Infancia <anriverax@codear.dev>",
-        to: [email],
-        subject: "Verifica tu correo electrónico - Docentes Primera Infancia",
-        html: renderedVerifyEmail(code, passwd)
-      });
-
-      await this.redisService.set("verifyEmailCode", code, 3 * 24 * 60 * 60); // TTL de 3 días
-    } catch (error) {
-      this.logger.error(`❌ Se produjo un error: `, error);
-      throw new BadRequestException(
-        "Se ha producido un error al intentar enviar el correo electrónico. Por favor, inténtelo nuevamente más tarde."
-      );
-    }
-  }
-
-  async sendChangePasswd(email: string): Promise<void> {
-    try {
-      const resend = new Resend(this.config.get<string>("resend"));
-
-      await resend.emails.send({
-        from: "Docentes Primera Infancia <anriverax@codear.dev>",
-        to: [email],
-        subject: "Cambio de contraseña - Docentes Primera Infancia",
-        html: renderedChangePasswd()
-      });
+      await this.redisService.set(`verifyEmailCode:${email}`, code, 3 * 24 * 60 * 60); // TTL de 3 días
     } catch (error) {
       this.logger.error(`❌ Se produjo un error: `, error);
       throw new BadRequestException(
@@ -96,15 +65,13 @@ export class AuthService {
     }
   }
 
-  async verifyEmailCode(code: string): Promise<boolean> {
+  async verifyEmailCode(email: string, code: string): Promise<void> {
     try {
-      const storedCode = await this.redisService.get("verifyEmailCode");
+      const storedCode = await this.redisService.get(`verifyEmailCode:${email}`);
 
       if (storedCode && storedCode === code) {
         // Remove the verification code after use
-        await this.redisService.del("verifyEmailCode");
-
-        return true;
+        await this.redisService.del(`verifyEmailCode:${email}`);
       } else throw new BadRequestException("El código de verificación es incorrecto o ha expirado.");
     } catch (error) {
       this.logger.error(`❌ Error al verificar el código de correo electrónico: `, error);

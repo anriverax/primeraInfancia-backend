@@ -43,7 +43,6 @@ export type EventTypeMinAggregateOutputType = {
   name: string | null
   order: number | null
   cohortId: number | null
-  isRecurringPerModule: boolean | null
 }
 
 export type EventTypeMaxAggregateOutputType = {
@@ -51,7 +50,6 @@ export type EventTypeMaxAggregateOutputType = {
   name: string | null
   order: number | null
   cohortId: number | null
-  isRecurringPerModule: boolean | null
 }
 
 export type EventTypeCountAggregateOutputType = {
@@ -59,7 +57,6 @@ export type EventTypeCountAggregateOutputType = {
   name: number
   order: number
   cohortId: number
-  isRecurringPerModule: number
   _all: number
 }
 
@@ -81,7 +78,6 @@ export type EventTypeMinAggregateInputType = {
   name?: true
   order?: true
   cohortId?: true
-  isRecurringPerModule?: true
 }
 
 export type EventTypeMaxAggregateInputType = {
@@ -89,7 +85,6 @@ export type EventTypeMaxAggregateInputType = {
   name?: true
   order?: true
   cohortId?: true
-  isRecurringPerModule?: true
 }
 
 export type EventTypeCountAggregateInputType = {
@@ -97,7 +92,6 @@ export type EventTypeCountAggregateInputType = {
   name?: true
   order?: true
   cohortId?: true
-  isRecurringPerModule?: true
   _all?: true
 }
 
@@ -192,7 +186,6 @@ export type EventTypeGroupByOutputType = {
   name: string
   order: number
   cohortId: number
-  isRecurringPerModule: boolean
   _count: EventTypeCountAggregateOutputType | null
   _avg: EventTypeAvgAggregateOutputType | null
   _sum: EventTypeSumAggregateOutputType | null
@@ -223,7 +216,6 @@ export type EventTypeWhereInput = {
   name?: Prisma.StringFilter<"EventType"> | string
   order?: Prisma.IntFilter<"EventType"> | number
   cohortId?: Prisma.IntFilter<"EventType"> | number
-  isRecurringPerModule?: Prisma.BoolFilter<"EventType"> | boolean
   Event?: Prisma.EventListRelationFilter
   Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
 }
@@ -233,7 +225,6 @@ export type EventTypeOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   cohortId?: Prisma.SortOrder
-  isRecurringPerModule?: Prisma.SortOrder
   Event?: Prisma.EventOrderByRelationAggregateInput
   Cohort?: Prisma.CohortOrderByWithRelationInput
 }
@@ -246,7 +237,6 @@ export type EventTypeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.EventTypeWhereInput | Prisma.EventTypeWhereInput[]
   order?: Prisma.IntFilter<"EventType"> | number
   cohortId?: Prisma.IntFilter<"EventType"> | number
-  isRecurringPerModule?: Prisma.BoolFilter<"EventType"> | boolean
   Event?: Prisma.EventListRelationFilter
   Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
 }, "id" | "name">
@@ -256,7 +246,6 @@ export type EventTypeOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   cohortId?: Prisma.SortOrder
-  isRecurringPerModule?: Prisma.SortOrder
   _count?: Prisma.EventTypeCountOrderByAggregateInput
   _avg?: Prisma.EventTypeAvgOrderByAggregateInput
   _max?: Prisma.EventTypeMaxOrderByAggregateInput
@@ -272,13 +261,11 @@ export type EventTypeScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"EventType"> | string
   order?: Prisma.IntWithAggregatesFilter<"EventType"> | number
   cohortId?: Prisma.IntWithAggregatesFilter<"EventType"> | number
-  isRecurringPerModule?: Prisma.BoolWithAggregatesFilter<"EventType"> | boolean
 }
 
 export type EventTypeCreateInput = {
   name: string
   order: number
-  isRecurringPerModule?: boolean
   Event?: Prisma.EventCreateNestedManyWithoutEventTypeInput
   Cohort: Prisma.CohortCreateNestedOneWithoutEventTypeInput
 }
@@ -288,14 +275,12 @@ export type EventTypeUncheckedCreateInput = {
   name: string
   order: number
   cohortId: number
-  isRecurringPerModule?: boolean
   Event?: Prisma.EventUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Event?: Prisma.EventUpdateManyWithoutEventTypeNestedInput
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutEventTypeNestedInput
 }
@@ -305,7 +290,6 @@ export type EventTypeUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Event?: Prisma.EventUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
@@ -314,13 +298,11 @@ export type EventTypeCreateManyInput = {
   name: string
   order: number
   cohortId: number
-  isRecurringPerModule?: boolean
 }
 
 export type EventTypeUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type EventTypeUncheckedUpdateManyInput = {
@@ -328,7 +310,6 @@ export type EventTypeUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type EventTypeCountOrderByAggregateInput = {
@@ -336,7 +317,6 @@ export type EventTypeCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   cohortId?: Prisma.SortOrder
-  isRecurringPerModule?: Prisma.SortOrder
 }
 
 export type EventTypeAvgOrderByAggregateInput = {
@@ -350,7 +330,6 @@ export type EventTypeMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   cohortId?: Prisma.SortOrder
-  isRecurringPerModule?: Prisma.SortOrder
 }
 
 export type EventTypeMinOrderByAggregateInput = {
@@ -358,7 +337,6 @@ export type EventTypeMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   cohortId?: Prisma.SortOrder
-  isRecurringPerModule?: Prisma.SortOrder
 }
 
 export type EventTypeSumOrderByAggregateInput = {
@@ -380,10 +358,6 @@ export type EventTypeListRelationFilter = {
 
 export type EventTypeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
 }
 
 export type EventTypeCreateNestedOneWithoutEventInput = {
@@ -445,7 +419,6 @@ export type EventTypeUncheckedUpdateManyWithoutCohortNestedInput = {
 export type EventTypeCreateWithoutEventInput = {
   name: string
   order: number
-  isRecurringPerModule?: boolean
   Cohort: Prisma.CohortCreateNestedOneWithoutEventTypeInput
 }
 
@@ -454,7 +427,6 @@ export type EventTypeUncheckedCreateWithoutEventInput = {
   name: string
   order: number
   cohortId: number
-  isRecurringPerModule?: boolean
 }
 
 export type EventTypeCreateOrConnectWithoutEventInput = {
@@ -476,7 +448,6 @@ export type EventTypeUpdateToOneWithWhereWithoutEventInput = {
 export type EventTypeUpdateWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutEventTypeNestedInput
 }
 
@@ -485,13 +456,11 @@ export type EventTypeUncheckedUpdateWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type EventTypeCreateWithoutCohortInput = {
   name: string
   order: number
-  isRecurringPerModule?: boolean
   Event?: Prisma.EventCreateNestedManyWithoutEventTypeInput
 }
 
@@ -499,7 +468,6 @@ export type EventTypeUncheckedCreateWithoutCohortInput = {
   id?: number
   name: string
   order: number
-  isRecurringPerModule?: boolean
   Event?: Prisma.EventUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
@@ -537,20 +505,17 @@ export type EventTypeScalarWhereInput = {
   name?: Prisma.StringFilter<"EventType"> | string
   order?: Prisma.IntFilter<"EventType"> | number
   cohortId?: Prisma.IntFilter<"EventType"> | number
-  isRecurringPerModule?: Prisma.BoolFilter<"EventType"> | boolean
 }
 
 export type EventTypeCreateManyCohortInput = {
   id?: number
   name: string
   order: number
-  isRecurringPerModule?: boolean
 }
 
 export type EventTypeUpdateWithoutCohortInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Event?: Prisma.EventUpdateManyWithoutEventTypeNestedInput
 }
 
@@ -558,7 +523,6 @@ export type EventTypeUncheckedUpdateWithoutCohortInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Event?: Prisma.EventUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
@@ -566,7 +530,6 @@ export type EventTypeUncheckedUpdateManyWithoutCohortInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  isRecurringPerModule?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -605,7 +568,6 @@ export type EventTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   name?: boolean
   order?: boolean
   cohortId?: boolean
-  isRecurringPerModule?: boolean
   Event?: boolean | Prisma.EventType$EventArgs<ExtArgs>
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.EventTypeCountOutputTypeDefaultArgs<ExtArgs>
@@ -616,7 +578,6 @@ export type EventTypeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   name?: boolean
   order?: boolean
   cohortId?: boolean
-  isRecurringPerModule?: boolean
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventType"]>
 
@@ -625,7 +586,6 @@ export type EventTypeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   name?: boolean
   order?: boolean
   cohortId?: boolean
-  isRecurringPerModule?: boolean
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventType"]>
 
@@ -634,10 +594,9 @@ export type EventTypeSelectScalar = {
   name?: boolean
   order?: boolean
   cohortId?: boolean
-  isRecurringPerModule?: boolean
 }
 
-export type EventTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "order" | "cohortId" | "isRecurringPerModule", ExtArgs["result"]["eventType"]>
+export type EventTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "order" | "cohortId", ExtArgs["result"]["eventType"]>
 export type EventTypeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Event?: boolean | Prisma.EventType$EventArgs<ExtArgs>
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
@@ -661,7 +620,6 @@ export type $EventTypePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     name: string
     order: number
     cohortId: number
-    isRecurringPerModule: boolean
   }, ExtArgs["result"]["eventType"]>
   composites: {}
 }
@@ -1091,7 +1049,6 @@ export interface EventTypeFieldRefs {
   readonly name: Prisma.FieldRef<"EventType", 'String'>
   readonly order: Prisma.FieldRef<"EventType", 'Int'>
   readonly cohortId: Prisma.FieldRef<"EventType", 'Int'>
-  readonly isRecurringPerModule: Prisma.FieldRef<"EventType", 'Boolean'>
 }
     
 

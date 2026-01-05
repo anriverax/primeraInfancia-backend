@@ -46,7 +46,7 @@ export class DashboardService {
 
   getSchoolCountByDepartment(data: GetAllAppendixResponse[]) {
     const schoolCount = data.flatMap(
-      (item) => item.Inscription?.PersonRole?.Person?.PrincipalSchool?.map((ps) => ps.School) ?? []
+      (item) => item.Inscription?.Person?.PrincipalSchool?.map((ps) => ps.School) ?? []
     );
 
     return schoolCount;

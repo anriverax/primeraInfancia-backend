@@ -13,17 +13,13 @@ export class GetAllRegisteredTeachersHandler {
 
     const persons = await this.prisma.inscription.findMany({
       select: {
-        PersonRole: {
-          select: {
-            deletedAt: true
-          }
-        }
+        deletedAt: true
       }
     });
 
     if (persons.length > 0) {
-      activeTeachers = persons.filter((person) => person.PersonRole.deletedAt === null).length;
-      inactiveTeachers = persons.filter((person) => person.PersonRole.deletedAt !== null).length;
+      activeTeachers = persons.filter((person) => person.deletedAt === null).length;
+      inactiveTeachers = persons.filter((person) => person.deletedAt !== null).length;
     }
 
     return { active: activeTeachers, inactive: inactiveTeachers };

@@ -30,6 +30,7 @@ export type InscriptionAvgAggregateOutputType = {
   id: number | null
   groupId: number | null
   teacherId: number | null
+  mentorId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -39,6 +40,7 @@ export type InscriptionSumAggregateOutputType = {
   id: number | null
   groupId: number | null
   teacherId: number | null
+  mentorId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -48,6 +50,7 @@ export type InscriptionMinAggregateOutputType = {
   id: number | null
   groupId: number | null
   teacherId: number | null
+  mentorId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -60,6 +63,7 @@ export type InscriptionMaxAggregateOutputType = {
   id: number | null
   groupId: number | null
   teacherId: number | null
+  mentorId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -72,6 +76,7 @@ export type InscriptionCountAggregateOutputType = {
   id: number
   groupId: number
   teacherId: number
+  mentorId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -86,6 +91,7 @@ export type InscriptionAvgAggregateInputType = {
   id?: true
   groupId?: true
   teacherId?: true
+  mentorId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -95,6 +101,7 @@ export type InscriptionSumAggregateInputType = {
   id?: true
   groupId?: true
   teacherId?: true
+  mentorId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -104,6 +111,7 @@ export type InscriptionMinAggregateInputType = {
   id?: true
   groupId?: true
   teacherId?: true
+  mentorId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -116,6 +124,7 @@ export type InscriptionMaxAggregateInputType = {
   id?: true
   groupId?: true
   teacherId?: true
+  mentorId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -128,6 +137,7 @@ export type InscriptionCountAggregateInputType = {
   id?: true
   groupId?: true
   teacherId?: true
+  mentorId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -227,6 +237,7 @@ export type InscriptionGroupByOutputType = {
   id: number
   groupId: number
   teacherId: number
+  mentorId: number | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -262,72 +273,77 @@ export type InscriptionWhereInput = {
   id?: Prisma.IntFilter<"Inscription"> | number
   groupId?: Prisma.IntFilter<"Inscription"> | number
   teacherId?: Prisma.IntFilter<"Inscription"> | number
+  mentorId?: Prisma.IntNullableFilter<"Inscription"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Inscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Inscription"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Inscription"> | Date | string | null
   createdBy?: Prisma.IntFilter<"Inscription"> | number
   updatedBy?: Prisma.IntNullableFilter<"Inscription"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"Inscription"> | number | null
-  SurveyData?: Prisma.SurveyDataListRelationFilter
   Group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
-  PersonRole?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
+  Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
+  Mentor?: Prisma.XOR<Prisma.GroupStaffNullableScalarRelationFilter, Prisma.GroupStaffWhereInput> | null
+  SurveyData?: Prisma.SurveyDataListRelationFilter
   MentorAssignment?: Prisma.MentorAssignmentListRelationFilter
   ModuleEvaluation?: Prisma.ModuleEvaluationListRelationFilter
   ModuleReport?: Prisma.ModuleReportListRelationFilter
   TrainingEvaluation?: Prisma.TrainingEvaluationListRelationFilter
   TrainingReport?: Prisma.TrainingReportListRelationFilter
-  TrainingSlot?: Prisma.TrainingSlotListRelationFilter
 }
 
 export type InscriptionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
+  mentorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  SurveyData?: Prisma.SurveyDataOrderByRelationAggregateInput
   Group?: Prisma.GroupOrderByWithRelationInput
-  PersonRole?: Prisma.PersonRoleOrderByWithRelationInput
+  Person?: Prisma.PersonOrderByWithRelationInput
+  Mentor?: Prisma.GroupStaffOrderByWithRelationInput
+  SurveyData?: Prisma.SurveyDataOrderByRelationAggregateInput
   MentorAssignment?: Prisma.MentorAssignmentOrderByRelationAggregateInput
   ModuleEvaluation?: Prisma.ModuleEvaluationOrderByRelationAggregateInput
   ModuleReport?: Prisma.ModuleReportOrderByRelationAggregateInput
   TrainingEvaluation?: Prisma.TrainingEvaluationOrderByRelationAggregateInput
   TrainingReport?: Prisma.TrainingReportOrderByRelationAggregateInput
-  TrainingSlot?: Prisma.TrainingSlotOrderByRelationAggregateInput
 }
 
 export type InscriptionWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  groupId_teacherId?: Prisma.InscriptionGroupIdTeacherIdCompoundUniqueInput
   AND?: Prisma.InscriptionWhereInput | Prisma.InscriptionWhereInput[]
   OR?: Prisma.InscriptionWhereInput[]
   NOT?: Prisma.InscriptionWhereInput | Prisma.InscriptionWhereInput[]
   groupId?: Prisma.IntFilter<"Inscription"> | number
   teacherId?: Prisma.IntFilter<"Inscription"> | number
+  mentorId?: Prisma.IntNullableFilter<"Inscription"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Inscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Inscription"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Inscription"> | Date | string | null
   createdBy?: Prisma.IntFilter<"Inscription"> | number
   updatedBy?: Prisma.IntNullableFilter<"Inscription"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"Inscription"> | number | null
-  SurveyData?: Prisma.SurveyDataListRelationFilter
   Group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
-  PersonRole?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
+  Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
+  Mentor?: Prisma.XOR<Prisma.GroupStaffNullableScalarRelationFilter, Prisma.GroupStaffWhereInput> | null
+  SurveyData?: Prisma.SurveyDataListRelationFilter
   MentorAssignment?: Prisma.MentorAssignmentListRelationFilter
   ModuleEvaluation?: Prisma.ModuleEvaluationListRelationFilter
   ModuleReport?: Prisma.ModuleReportListRelationFilter
   TrainingEvaluation?: Prisma.TrainingEvaluationListRelationFilter
   TrainingReport?: Prisma.TrainingReportListRelationFilter
-  TrainingSlot?: Prisma.TrainingSlotListRelationFilter
-}, "id">
+}, "id" | "groupId_teacherId">
 
 export type InscriptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
+  mentorId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -348,6 +364,7 @@ export type InscriptionScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Inscription"> | number
   groupId?: Prisma.IntWithAggregatesFilter<"Inscription"> | number
   teacherId?: Prisma.IntWithAggregatesFilter<"Inscription"> | number
+  mentorId?: Prisma.IntNullableWithAggregatesFilter<"Inscription"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Inscription"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Inscription"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Inscription"> | Date | string | null
@@ -363,21 +380,22 @@ export type InscriptionCreateInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -390,7 +408,6 @@ export type InscriptionUncheckedCreateInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUpdateInput = {
@@ -400,21 +417,22 @@ export type InscriptionUpdateInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -427,13 +445,13 @@ export type InscriptionUncheckedUpdateInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionCreateManyInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -455,6 +473,7 @@ export type InscriptionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -473,10 +492,16 @@ export type InscriptionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type InscriptionGroupIdTeacherIdCompoundUniqueInput = {
+  groupId: number
+  teacherId: number
+}
+
 export type InscriptionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
+  mentorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -489,6 +514,7 @@ export type InscriptionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
+  mentorId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -498,6 +524,7 @@ export type InscriptionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
+  mentorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -510,6 +537,7 @@ export type InscriptionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
+  mentorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -522,6 +550,7 @@ export type InscriptionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
+  mentorId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -532,45 +561,45 @@ export type InscriptionScalarRelationFilter = {
   isNot?: Prisma.InscriptionWhereInput
 }
 
-export type InscriptionCreateNestedManyWithoutPersonRoleInput = {
-  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonRoleInput, Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput> | Prisma.InscriptionCreateWithoutPersonRoleInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput[]
-  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput | Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput[]
-  createMany?: Prisma.InscriptionCreateManyPersonRoleInputEnvelope
+export type InscriptionCreateNestedManyWithoutMentorInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutMentorInput, Prisma.InscriptionUncheckedCreateWithoutMentorInput> | Prisma.InscriptionCreateWithoutMentorInput[] | Prisma.InscriptionUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutMentorInput | Prisma.InscriptionCreateOrConnectWithoutMentorInput[]
+  createMany?: Prisma.InscriptionCreateManyMentorInputEnvelope
   connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
 }
 
-export type InscriptionUncheckedCreateNestedManyWithoutPersonRoleInput = {
-  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonRoleInput, Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput> | Prisma.InscriptionCreateWithoutPersonRoleInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput[]
-  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput | Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput[]
-  createMany?: Prisma.InscriptionCreateManyPersonRoleInputEnvelope
+export type InscriptionUncheckedCreateNestedManyWithoutMentorInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutMentorInput, Prisma.InscriptionUncheckedCreateWithoutMentorInput> | Prisma.InscriptionCreateWithoutMentorInput[] | Prisma.InscriptionUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutMentorInput | Prisma.InscriptionCreateOrConnectWithoutMentorInput[]
+  createMany?: Prisma.InscriptionCreateManyMentorInputEnvelope
   connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
 }
 
-export type InscriptionUpdateManyWithoutPersonRoleNestedInput = {
-  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonRoleInput, Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput> | Prisma.InscriptionCreateWithoutPersonRoleInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput[]
-  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput | Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput[]
-  upsert?: Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonRoleInput | Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonRoleInput[]
-  createMany?: Prisma.InscriptionCreateManyPersonRoleInputEnvelope
+export type InscriptionUpdateManyWithoutMentorNestedInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutMentorInput, Prisma.InscriptionUncheckedCreateWithoutMentorInput> | Prisma.InscriptionCreateWithoutMentorInput[] | Prisma.InscriptionUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutMentorInput | Prisma.InscriptionCreateOrConnectWithoutMentorInput[]
+  upsert?: Prisma.InscriptionUpsertWithWhereUniqueWithoutMentorInput | Prisma.InscriptionUpsertWithWhereUniqueWithoutMentorInput[]
+  createMany?: Prisma.InscriptionCreateManyMentorInputEnvelope
   set?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
   disconnect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
   delete?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
   connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
-  update?: Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonRoleInput | Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonRoleInput[]
-  updateMany?: Prisma.InscriptionUpdateManyWithWhereWithoutPersonRoleInput | Prisma.InscriptionUpdateManyWithWhereWithoutPersonRoleInput[]
+  update?: Prisma.InscriptionUpdateWithWhereUniqueWithoutMentorInput | Prisma.InscriptionUpdateWithWhereUniqueWithoutMentorInput[]
+  updateMany?: Prisma.InscriptionUpdateManyWithWhereWithoutMentorInput | Prisma.InscriptionUpdateManyWithWhereWithoutMentorInput[]
   deleteMany?: Prisma.InscriptionScalarWhereInput | Prisma.InscriptionScalarWhereInput[]
 }
 
-export type InscriptionUncheckedUpdateManyWithoutPersonRoleNestedInput = {
-  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonRoleInput, Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput> | Prisma.InscriptionCreateWithoutPersonRoleInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput[]
-  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput | Prisma.InscriptionCreateOrConnectWithoutPersonRoleInput[]
-  upsert?: Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonRoleInput | Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonRoleInput[]
-  createMany?: Prisma.InscriptionCreateManyPersonRoleInputEnvelope
+export type InscriptionUncheckedUpdateManyWithoutMentorNestedInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutMentorInput, Prisma.InscriptionUncheckedCreateWithoutMentorInput> | Prisma.InscriptionCreateWithoutMentorInput[] | Prisma.InscriptionUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutMentorInput | Prisma.InscriptionCreateOrConnectWithoutMentorInput[]
+  upsert?: Prisma.InscriptionUpsertWithWhereUniqueWithoutMentorInput | Prisma.InscriptionUpsertWithWhereUniqueWithoutMentorInput[]
+  createMany?: Prisma.InscriptionCreateManyMentorInputEnvelope
   set?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
   disconnect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
   delete?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
   connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
-  update?: Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonRoleInput | Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonRoleInput[]
-  updateMany?: Prisma.InscriptionUpdateManyWithWhereWithoutPersonRoleInput | Prisma.InscriptionUpdateManyWithWhereWithoutPersonRoleInput[]
+  update?: Prisma.InscriptionUpdateWithWhereUniqueWithoutMentorInput | Prisma.InscriptionUpdateWithWhereUniqueWithoutMentorInput[]
+  updateMany?: Prisma.InscriptionUpdateManyWithWhereWithoutMentorInput | Prisma.InscriptionUpdateManyWithWhereWithoutMentorInput[]
   deleteMany?: Prisma.InscriptionScalarWhereInput | Prisma.InscriptionScalarWhereInput[]
 }
 
@@ -630,18 +659,46 @@ export type InscriptionUpdateOneRequiredWithoutMentorAssignmentNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InscriptionUpdateToOneWithWhereWithoutMentorAssignmentInput, Prisma.InscriptionUpdateWithoutMentorAssignmentInput>, Prisma.InscriptionUncheckedUpdateWithoutMentorAssignmentInput>
 }
 
-export type InscriptionCreateNestedOneWithoutTrainingSlotInput = {
-  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutTrainingSlotInput, Prisma.InscriptionUncheckedCreateWithoutTrainingSlotInput>
-  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutTrainingSlotInput
-  connect?: Prisma.InscriptionWhereUniqueInput
+export type InscriptionCreateNestedManyWithoutPersonInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonInput, Prisma.InscriptionUncheckedCreateWithoutPersonInput> | Prisma.InscriptionCreateWithoutPersonInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonInput | Prisma.InscriptionCreateOrConnectWithoutPersonInput[]
+  createMany?: Prisma.InscriptionCreateManyPersonInputEnvelope
+  connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
 }
 
-export type InscriptionUpdateOneRequiredWithoutTrainingSlotNestedInput = {
-  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutTrainingSlotInput, Prisma.InscriptionUncheckedCreateWithoutTrainingSlotInput>
-  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutTrainingSlotInput
-  upsert?: Prisma.InscriptionUpsertWithoutTrainingSlotInput
-  connect?: Prisma.InscriptionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.InscriptionUpdateToOneWithWhereWithoutTrainingSlotInput, Prisma.InscriptionUpdateWithoutTrainingSlotInput>, Prisma.InscriptionUncheckedUpdateWithoutTrainingSlotInput>
+export type InscriptionUncheckedCreateNestedManyWithoutPersonInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonInput, Prisma.InscriptionUncheckedCreateWithoutPersonInput> | Prisma.InscriptionCreateWithoutPersonInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonInput | Prisma.InscriptionCreateOrConnectWithoutPersonInput[]
+  createMany?: Prisma.InscriptionCreateManyPersonInputEnvelope
+  connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+}
+
+export type InscriptionUpdateManyWithoutPersonNestedInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonInput, Prisma.InscriptionUncheckedCreateWithoutPersonInput> | Prisma.InscriptionCreateWithoutPersonInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonInput | Prisma.InscriptionCreateOrConnectWithoutPersonInput[]
+  upsert?: Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonInput | Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonInput[]
+  createMany?: Prisma.InscriptionCreateManyPersonInputEnvelope
+  set?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  disconnect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  delete?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  update?: Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonInput | Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonInput[]
+  updateMany?: Prisma.InscriptionUpdateManyWithWhereWithoutPersonInput | Prisma.InscriptionUpdateManyWithWhereWithoutPersonInput[]
+  deleteMany?: Prisma.InscriptionScalarWhereInput | Prisma.InscriptionScalarWhereInput[]
+}
+
+export type InscriptionUncheckedUpdateManyWithoutPersonNestedInput = {
+  create?: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonInput, Prisma.InscriptionUncheckedCreateWithoutPersonInput> | Prisma.InscriptionCreateWithoutPersonInput[] | Prisma.InscriptionUncheckedCreateWithoutPersonInput[]
+  connectOrCreate?: Prisma.InscriptionCreateOrConnectWithoutPersonInput | Prisma.InscriptionCreateOrConnectWithoutPersonInput[]
+  upsert?: Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonInput | Prisma.InscriptionUpsertWithWhereUniqueWithoutPersonInput[]
+  createMany?: Prisma.InscriptionCreateManyPersonInputEnvelope
+  set?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  disconnect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  delete?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  connect?: Prisma.InscriptionWhereUniqueInput | Prisma.InscriptionWhereUniqueInput[]
+  update?: Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonInput | Prisma.InscriptionUpdateWithWhereUniqueWithoutPersonInput[]
+  updateMany?: Prisma.InscriptionUpdateManyWithWhereWithoutPersonInput | Prisma.InscriptionUpdateManyWithWhereWithoutPersonInput[]
+  deleteMany?: Prisma.InscriptionScalarWhereInput | Prisma.InscriptionScalarWhereInput[]
 }
 
 export type InscriptionCreateNestedOneWithoutModuleEvaluationInput = {
@@ -714,26 +771,27 @@ export type InscriptionUpdateOneRequiredWithoutSurveyDataNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InscriptionUpdateToOneWithWhereWithoutSurveyDataInput, Prisma.InscriptionUpdateWithoutSurveyDataInput>, Prisma.InscriptionUncheckedUpdateWithoutSurveyDataInput>
 }
 
-export type InscriptionCreateWithoutPersonRoleInput = {
+export type InscriptionCreateWithoutMentorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
-export type InscriptionUncheckedCreateWithoutPersonRoleInput = {
+export type InscriptionUncheckedCreateWithoutMentorInput = {
   id?: number
   groupId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -746,33 +804,32 @@ export type InscriptionUncheckedCreateWithoutPersonRoleInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
-export type InscriptionCreateOrConnectWithoutPersonRoleInput = {
+export type InscriptionCreateOrConnectWithoutMentorInput = {
   where: Prisma.InscriptionWhereUniqueInput
-  create: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonRoleInput, Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput>
+  create: Prisma.XOR<Prisma.InscriptionCreateWithoutMentorInput, Prisma.InscriptionUncheckedCreateWithoutMentorInput>
 }
 
-export type InscriptionCreateManyPersonRoleInputEnvelope = {
-  data: Prisma.InscriptionCreateManyPersonRoleInput | Prisma.InscriptionCreateManyPersonRoleInput[]
+export type InscriptionCreateManyMentorInputEnvelope = {
+  data: Prisma.InscriptionCreateManyMentorInput | Prisma.InscriptionCreateManyMentorInput[]
   skipDuplicates?: boolean
 }
 
-export type InscriptionUpsertWithWhereUniqueWithoutPersonRoleInput = {
+export type InscriptionUpsertWithWhereUniqueWithoutMentorInput = {
   where: Prisma.InscriptionWhereUniqueInput
-  update: Prisma.XOR<Prisma.InscriptionUpdateWithoutPersonRoleInput, Prisma.InscriptionUncheckedUpdateWithoutPersonRoleInput>
-  create: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonRoleInput, Prisma.InscriptionUncheckedCreateWithoutPersonRoleInput>
+  update: Prisma.XOR<Prisma.InscriptionUpdateWithoutMentorInput, Prisma.InscriptionUncheckedUpdateWithoutMentorInput>
+  create: Prisma.XOR<Prisma.InscriptionCreateWithoutMentorInput, Prisma.InscriptionUncheckedCreateWithoutMentorInput>
 }
 
-export type InscriptionUpdateWithWhereUniqueWithoutPersonRoleInput = {
+export type InscriptionUpdateWithWhereUniqueWithoutMentorInput = {
   where: Prisma.InscriptionWhereUniqueInput
-  data: Prisma.XOR<Prisma.InscriptionUpdateWithoutPersonRoleInput, Prisma.InscriptionUncheckedUpdateWithoutPersonRoleInput>
+  data: Prisma.XOR<Prisma.InscriptionUpdateWithoutMentorInput, Prisma.InscriptionUncheckedUpdateWithoutMentorInput>
 }
 
-export type InscriptionUpdateManyWithWhereWithoutPersonRoleInput = {
+export type InscriptionUpdateManyWithWhereWithoutMentorInput = {
   where: Prisma.InscriptionScalarWhereInput
-  data: Prisma.XOR<Prisma.InscriptionUpdateManyMutationInput, Prisma.InscriptionUncheckedUpdateManyWithoutPersonRoleInput>
+  data: Prisma.XOR<Prisma.InscriptionUpdateManyMutationInput, Prisma.InscriptionUncheckedUpdateManyWithoutMentorInput>
 }
 
 export type InscriptionScalarWhereInput = {
@@ -782,6 +839,7 @@ export type InscriptionScalarWhereInput = {
   id?: Prisma.IntFilter<"Inscription"> | number
   groupId?: Prisma.IntFilter<"Inscription"> | number
   teacherId?: Prisma.IntFilter<"Inscription"> | number
+  mentorId?: Prisma.IntNullableFilter<"Inscription"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Inscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Inscription"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Inscription"> | Date | string | null
@@ -797,19 +855,20 @@ export type InscriptionCreateWithoutGroupInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
   SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateWithoutGroupInput = {
   id?: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -822,7 +881,6 @@ export type InscriptionUncheckedCreateWithoutGroupInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionCreateOrConnectWithoutGroupInput = {
@@ -858,20 +916,21 @@ export type InscriptionCreateWithoutMentorAssignmentInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateWithoutMentorAssignmentInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -883,7 +942,6 @@ export type InscriptionUncheckedCreateWithoutMentorAssignmentInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionCreateOrConnectWithoutMentorAssignmentInput = {
@@ -909,20 +967,21 @@ export type InscriptionUpdateWithoutMentorAssignmentInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateWithoutMentorAssignmentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -934,19 +993,18 @@ export type InscriptionUncheckedUpdateWithoutMentorAssignmentInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
-export type InscriptionCreateWithoutTrainingSlotInput = {
+export type InscriptionCreateWithoutPersonInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
@@ -954,10 +1012,10 @@ export type InscriptionCreateWithoutTrainingSlotInput = {
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
 }
 
-export type InscriptionUncheckedCreateWithoutTrainingSlotInput = {
+export type InscriptionUncheckedCreateWithoutPersonInput = {
   id?: number
   groupId: number
-  teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -972,55 +1030,30 @@ export type InscriptionUncheckedCreateWithoutTrainingSlotInput = {
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
-export type InscriptionCreateOrConnectWithoutTrainingSlotInput = {
+export type InscriptionCreateOrConnectWithoutPersonInput = {
   where: Prisma.InscriptionWhereUniqueInput
-  create: Prisma.XOR<Prisma.InscriptionCreateWithoutTrainingSlotInput, Prisma.InscriptionUncheckedCreateWithoutTrainingSlotInput>
+  create: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonInput, Prisma.InscriptionUncheckedCreateWithoutPersonInput>
 }
 
-export type InscriptionUpsertWithoutTrainingSlotInput = {
-  update: Prisma.XOR<Prisma.InscriptionUpdateWithoutTrainingSlotInput, Prisma.InscriptionUncheckedUpdateWithoutTrainingSlotInput>
-  create: Prisma.XOR<Prisma.InscriptionCreateWithoutTrainingSlotInput, Prisma.InscriptionUncheckedCreateWithoutTrainingSlotInput>
-  where?: Prisma.InscriptionWhereInput
+export type InscriptionCreateManyPersonInputEnvelope = {
+  data: Prisma.InscriptionCreateManyPersonInput | Prisma.InscriptionCreateManyPersonInput[]
+  skipDuplicates?: boolean
 }
 
-export type InscriptionUpdateToOneWithWhereWithoutTrainingSlotInput = {
-  where?: Prisma.InscriptionWhereInput
-  data: Prisma.XOR<Prisma.InscriptionUpdateWithoutTrainingSlotInput, Prisma.InscriptionUncheckedUpdateWithoutTrainingSlotInput>
+export type InscriptionUpsertWithWhereUniqueWithoutPersonInput = {
+  where: Prisma.InscriptionWhereUniqueInput
+  update: Prisma.XOR<Prisma.InscriptionUpdateWithoutPersonInput, Prisma.InscriptionUncheckedUpdateWithoutPersonInput>
+  create: Prisma.XOR<Prisma.InscriptionCreateWithoutPersonInput, Prisma.InscriptionUncheckedCreateWithoutPersonInput>
 }
 
-export type InscriptionUpdateWithoutTrainingSlotInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
-  Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
-  ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
-  ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
-  TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
-  TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
+export type InscriptionUpdateWithWhereUniqueWithoutPersonInput = {
+  where: Prisma.InscriptionWhereUniqueInput
+  data: Prisma.XOR<Prisma.InscriptionUpdateWithoutPersonInput, Prisma.InscriptionUncheckedUpdateWithoutPersonInput>
 }
 
-export type InscriptionUncheckedUpdateWithoutTrainingSlotInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  groupId?: Prisma.IntFieldUpdateOperationsInput | number
-  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUncheckedUpdateManyWithoutInscriptionNestedInput
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutInscriptionNestedInput
-  ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
-  ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
+export type InscriptionUpdateManyWithWhereWithoutPersonInput = {
+  where: Prisma.InscriptionScalarWhereInput
+  data: Prisma.XOR<Prisma.InscriptionUpdateManyMutationInput, Prisma.InscriptionUncheckedUpdateManyWithoutPersonInput>
 }
 
 export type InscriptionCreateWithoutModuleEvaluationInput = {
@@ -1030,20 +1063,21 @@ export type InscriptionCreateWithoutModuleEvaluationInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateWithoutModuleEvaluationInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1055,7 +1089,6 @@ export type InscriptionUncheckedCreateWithoutModuleEvaluationInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionCreateOrConnectWithoutModuleEvaluationInput = {
@@ -1081,20 +1114,21 @@ export type InscriptionUpdateWithoutModuleEvaluationInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateWithoutModuleEvaluationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1106,7 +1140,6 @@ export type InscriptionUncheckedUpdateWithoutModuleEvaluationInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionCreateWithoutModuleReportInput = {
@@ -1116,20 +1149,21 @@ export type InscriptionCreateWithoutModuleReportInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateWithoutModuleReportInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1141,7 +1175,6 @@ export type InscriptionUncheckedCreateWithoutModuleReportInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionCreateOrConnectWithoutModuleReportInput = {
@@ -1167,20 +1200,21 @@ export type InscriptionUpdateWithoutModuleReportInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateWithoutModuleReportInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1192,7 +1226,6 @@ export type InscriptionUncheckedUpdateWithoutModuleReportInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionCreateWithoutTrainingEvaluationInput = {
@@ -1202,20 +1235,21 @@ export type InscriptionCreateWithoutTrainingEvaluationInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateWithoutTrainingEvaluationInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1227,7 +1261,6 @@ export type InscriptionUncheckedCreateWithoutTrainingEvaluationInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionCreateOrConnectWithoutTrainingEvaluationInput = {
@@ -1253,20 +1286,21 @@ export type InscriptionUpdateWithoutTrainingEvaluationInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateWithoutTrainingEvaluationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1278,7 +1312,6 @@ export type InscriptionUncheckedUpdateWithoutTrainingEvaluationInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionCreateWithoutTrainingReportInput = {
@@ -1288,20 +1321,21 @@ export type InscriptionCreateWithoutTrainingReportInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
+  SurveyData?: Prisma.SurveyDataCreateNestedManyWithoutInscriptionInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateWithoutTrainingReportInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1313,7 +1347,6 @@ export type InscriptionUncheckedCreateWithoutTrainingReportInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionCreateOrConnectWithoutTrainingReportInput = {
@@ -1339,20 +1372,21 @@ export type InscriptionUpdateWithoutTrainingReportInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateWithoutTrainingReportInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1364,7 +1398,6 @@ export type InscriptionUncheckedUpdateWithoutTrainingReportInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionCreateWithoutSurveyDataInput = {
@@ -1375,19 +1408,20 @@ export type InscriptionCreateWithoutSurveyDataInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   Group: Prisma.GroupCreateNestedOneWithoutInscriptionInput
-  PersonRole: Prisma.PersonRoleCreateNestedOneWithoutInscriptionInput
+  Person: Prisma.PersonCreateNestedOneWithoutInscriptionsInput
+  Mentor?: Prisma.GroupStaffCreateNestedOneWithoutInscriptionsInput
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutInscriptionInput
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutInscriptionInput
   ModuleReport?: Prisma.ModuleReportCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionUncheckedCreateWithoutSurveyDataInput = {
   id?: number
   groupId: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1399,7 +1433,6 @@ export type InscriptionUncheckedCreateWithoutSurveyDataInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedCreateNestedManyWithoutInscriptionInput
   TrainingReport?: Prisma.TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedCreateNestedManyWithoutInscriptionInput
 }
 
 export type InscriptionCreateOrConnectWithoutSurveyDataInput = {
@@ -1426,19 +1459,20 @@ export type InscriptionUpdateWithoutSurveyDataInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateWithoutSurveyDataInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1450,12 +1484,12 @@ export type InscriptionUncheckedUpdateWithoutSurveyDataInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
-export type InscriptionCreateManyPersonRoleInput = {
+export type InscriptionCreateManyMentorInput = {
   id?: number
   groupId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1464,26 +1498,27 @@ export type InscriptionCreateManyPersonRoleInput = {
   deletedBy?: number | null
 }
 
-export type InscriptionUpdateWithoutPersonRoleInput = {
+export type InscriptionUpdateWithoutMentorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
-export type InscriptionUncheckedUpdateWithoutPersonRoleInput = {
+export type InscriptionUncheckedUpdateWithoutMentorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1496,12 +1531,12 @@ export type InscriptionUncheckedUpdateWithoutPersonRoleInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
-export type InscriptionUncheckedUpdateManyWithoutPersonRoleInput = {
+export type InscriptionUncheckedUpdateManyWithoutMentorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1513,6 +1548,7 @@ export type InscriptionUncheckedUpdateManyWithoutPersonRoleInput = {
 export type InscriptionCreateManyGroupInput = {
   id?: number
   teacherId: number
+  mentorId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1528,19 +1564,20 @@ export type InscriptionUpdateWithoutGroupInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Person?: Prisma.PersonUpdateOneRequiredWithoutInscriptionsNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
   SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
-  PersonRole?: Prisma.PersonRoleUpdateOneRequiredWithoutInscriptionNestedInput
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
   ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateWithoutGroupInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1553,12 +1590,71 @@ export type InscriptionUncheckedUpdateWithoutGroupInput = {
   ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
   TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
-  TrainingSlot?: Prisma.TrainingSlotUncheckedUpdateManyWithoutInscriptionNestedInput
 }
 
 export type InscriptionUncheckedUpdateManyWithoutGroupInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type InscriptionCreateManyPersonInput = {
+  id?: number
+  groupId: number
+  mentorId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type InscriptionUpdateWithoutPersonInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Group?: Prisma.GroupUpdateOneRequiredWithoutInscriptionNestedInput
+  Mentor?: Prisma.GroupStaffUpdateOneWithoutInscriptionsNestedInput
+  SurveyData?: Prisma.SurveyDataUpdateManyWithoutInscriptionNestedInput
+  MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutInscriptionNestedInput
+  ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutInscriptionNestedInput
+  ModuleReport?: Prisma.ModuleReportUpdateManyWithoutInscriptionNestedInput
+  TrainingEvaluation?: Prisma.TrainingEvaluationUpdateManyWithoutInscriptionNestedInput
+  TrainingReport?: Prisma.TrainingReportUpdateManyWithoutInscriptionNestedInput
+}
+
+export type InscriptionUncheckedUpdateWithoutPersonInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  groupId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SurveyData?: Prisma.SurveyDataUncheckedUpdateManyWithoutInscriptionNestedInput
+  MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutInscriptionNestedInput
+  ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
+  ModuleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput
+  TrainingEvaluation?: Prisma.TrainingEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput
+  TrainingReport?: Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput
+}
+
+export type InscriptionUncheckedUpdateManyWithoutPersonInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  groupId?: Prisma.IntFieldUpdateOperationsInput | number
+  mentorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1579,7 +1675,6 @@ export type InscriptionCountOutputType = {
   ModuleReport: number
   TrainingEvaluation: number
   TrainingReport: number
-  TrainingSlot: number
 }
 
 export type InscriptionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1589,7 +1684,6 @@ export type InscriptionCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   ModuleReport?: boolean | InscriptionCountOutputTypeCountModuleReportArgs
   TrainingEvaluation?: boolean | InscriptionCountOutputTypeCountTrainingEvaluationArgs
   TrainingReport?: boolean | InscriptionCountOutputTypeCountTrainingReportArgs
-  TrainingSlot?: boolean | InscriptionCountOutputTypeCountTrainingSlotArgs
 }
 
 /**
@@ -1644,33 +1738,27 @@ export type InscriptionCountOutputTypeCountTrainingReportArgs<ExtArgs extends ru
   where?: Prisma.TrainingReportWhereInput
 }
 
-/**
- * InscriptionCountOutputType without action
- */
-export type InscriptionCountOutputTypeCountTrainingSlotArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TrainingSlotWhereInput
-}
-
 
 export type InscriptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   groupId?: boolean
   teacherId?: boolean
+  mentorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  SurveyData?: boolean | Prisma.Inscription$SurveyDataArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  PersonRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.Inscription$MentorArgs<ExtArgs>
+  SurveyData?: boolean | Prisma.Inscription$SurveyDataArgs<ExtArgs>
   MentorAssignment?: boolean | Prisma.Inscription$MentorAssignmentArgs<ExtArgs>
   ModuleEvaluation?: boolean | Prisma.Inscription$ModuleEvaluationArgs<ExtArgs>
   ModuleReport?: boolean | Prisma.Inscription$ModuleReportArgs<ExtArgs>
   TrainingEvaluation?: boolean | Prisma.Inscription$TrainingEvaluationArgs<ExtArgs>
   TrainingReport?: boolean | Prisma.Inscription$TrainingReportArgs<ExtArgs>
-  TrainingSlot?: boolean | Prisma.Inscription$TrainingSlotArgs<ExtArgs>
   _count?: boolean | Prisma.InscriptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inscription"]>
 
@@ -1678,6 +1766,7 @@ export type InscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   groupId?: boolean
   teacherId?: boolean
+  mentorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1685,13 +1774,15 @@ export type InscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedBy?: boolean
   deletedBy?: boolean
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  PersonRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.Inscription$MentorArgs<ExtArgs>
 }, ExtArgs["result"]["inscription"]>
 
 export type InscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   groupId?: boolean
   teacherId?: boolean
+  mentorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1699,13 +1790,15 @@ export type InscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedBy?: boolean
   deletedBy?: boolean
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  PersonRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.Inscription$MentorArgs<ExtArgs>
 }, ExtArgs["result"]["inscription"]>
 
 export type InscriptionSelectScalar = {
   id?: boolean
   groupId?: boolean
   teacherId?: boolean
+  mentorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1714,45 +1807,48 @@ export type InscriptionSelectScalar = {
   deletedBy?: boolean
 }
 
-export type InscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "groupId" | "teacherId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["inscription"]>
+export type InscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "groupId" | "teacherId" | "mentorId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["inscription"]>
 export type InscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  SurveyData?: boolean | Prisma.Inscription$SurveyDataArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  PersonRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.Inscription$MentorArgs<ExtArgs>
+  SurveyData?: boolean | Prisma.Inscription$SurveyDataArgs<ExtArgs>
   MentorAssignment?: boolean | Prisma.Inscription$MentorAssignmentArgs<ExtArgs>
   ModuleEvaluation?: boolean | Prisma.Inscription$ModuleEvaluationArgs<ExtArgs>
   ModuleReport?: boolean | Prisma.Inscription$ModuleReportArgs<ExtArgs>
   TrainingEvaluation?: boolean | Prisma.Inscription$TrainingEvaluationArgs<ExtArgs>
   TrainingReport?: boolean | Prisma.Inscription$TrainingReportArgs<ExtArgs>
-  TrainingSlot?: boolean | Prisma.Inscription$TrainingSlotArgs<ExtArgs>
   _count?: boolean | Prisma.InscriptionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InscriptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  PersonRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.Inscription$MentorArgs<ExtArgs>
 }
 export type InscriptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  PersonRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  Mentor?: boolean | Prisma.Inscription$MentorArgs<ExtArgs>
 }
 
 export type $InscriptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Inscription"
   objects: {
-    SurveyData: Prisma.$SurveyDataPayload<ExtArgs>[]
     Group: Prisma.$GroupPayload<ExtArgs>
-    PersonRole: Prisma.$PersonRolePayload<ExtArgs>
+    Person: Prisma.$PersonPayload<ExtArgs>
+    Mentor: Prisma.$GroupStaffPayload<ExtArgs> | null
+    SurveyData: Prisma.$SurveyDataPayload<ExtArgs>[]
     MentorAssignment: Prisma.$MentorAssignmentPayload<ExtArgs>[]
     ModuleEvaluation: Prisma.$ModuleEvaluationPayload<ExtArgs>[]
     ModuleReport: Prisma.$ModuleReportPayload<ExtArgs>[]
     TrainingEvaluation: Prisma.$TrainingEvaluationPayload<ExtArgs>[]
     TrainingReport: Prisma.$TrainingReportPayload<ExtArgs>[]
-    TrainingSlot: Prisma.$TrainingSlotPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     groupId: number
     teacherId: number
+    mentorId: number | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2153,15 +2249,15 @@ readonly fields: InscriptionFieldRefs;
  */
 export interface Prisma__InscriptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  SurveyData<T extends Prisma.Inscription$SurveyDataArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$SurveyDataArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveyDataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Group<T extends Prisma.GroupDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GroupDefaultArgs<ExtArgs>>): Prisma.Prisma__GroupClient<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  PersonRole<T extends Prisma.PersonRoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRoleDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonRoleClient<runtime.Types.Result.GetResult<Prisma.$PersonRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Person<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Mentor<T extends Prisma.Inscription$MentorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$MentorArgs<ExtArgs>>): Prisma.Prisma__GroupStaffClient<runtime.Types.Result.GetResult<Prisma.$GroupStaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  SurveyData<T extends Prisma.Inscription$SurveyDataArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$SurveyDataArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveyDataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   MentorAssignment<T extends Prisma.Inscription$MentorAssignmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$MentorAssignmentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ModuleEvaluation<T extends Prisma.Inscription$ModuleEvaluationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$ModuleEvaluationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ModuleReport<T extends Prisma.Inscription$ModuleReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$ModuleReportArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   TrainingEvaluation<T extends Prisma.Inscription$TrainingEvaluationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$TrainingEvaluationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainingEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   TrainingReport<T extends Prisma.Inscription$TrainingReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$TrainingReportArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainingReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  TrainingSlot<T extends Prisma.Inscription$TrainingSlotArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inscription$TrainingSlotArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainingSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2194,6 +2290,7 @@ export interface InscriptionFieldRefs {
   readonly id: Prisma.FieldRef<"Inscription", 'Int'>
   readonly groupId: Prisma.FieldRef<"Inscription", 'Int'>
   readonly teacherId: Prisma.FieldRef<"Inscription", 'Int'>
+  readonly mentorId: Prisma.FieldRef<"Inscription", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Inscription", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Inscription", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Inscription", 'DateTime'>
@@ -2596,6 +2693,25 @@ export type InscriptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
+ * Inscription.Mentor
+ */
+export type Inscription$MentorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GroupStaff
+   */
+  select?: Prisma.GroupStaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GroupStaff
+   */
+  omit?: Prisma.GroupStaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GroupStaffInclude<ExtArgs> | null
+  where?: Prisma.GroupStaffWhereInput
+}
+
+/**
  * Inscription.SurveyData
  */
 export type Inscription$SurveyDataArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2737,30 +2853,6 @@ export type Inscription$TrainingReportArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.TrainingReportScalarFieldEnum | Prisma.TrainingReportScalarFieldEnum[]
-}
-
-/**
- * Inscription.TrainingSlot
- */
-export type Inscription$TrainingSlotArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TrainingSlot
-   */
-  select?: Prisma.TrainingSlotSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TrainingSlot
-   */
-  omit?: Prisma.TrainingSlotOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TrainingSlotInclude<ExtArgs> | null
-  where?: Prisma.TrainingSlotWhereInput
-  orderBy?: Prisma.TrainingSlotOrderByWithRelationInput | Prisma.TrainingSlotOrderByWithRelationInput[]
-  cursor?: Prisma.TrainingSlotWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TrainingSlotScalarFieldEnum | Prisma.TrainingSlotScalarFieldEnum[]
 }
 
 /**

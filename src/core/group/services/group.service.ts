@@ -14,8 +14,8 @@ export class GroupService {
     const getTechSupport = groupTechSupport.reduce(
       (acc, g) => {
         acc.techSupport = {
-          id: g.TechSupport.Person.id,
-          fullName: `${g.TechSupport.Person.firstName} ${g.TechSupport.Person.lastName1} ${g.TechSupport.Person.lastName2}`
+          id: g.TechSupport.id,
+          fullName: `${g.TechSupport.firstName} ${g.TechSupport.lastName1} ${g.TechSupport.lastName2}`
         };
 
         return acc;
@@ -26,8 +26,8 @@ export class GroupService {
     const getAssigneRole = groupTechSupport.reduce(
       (acc, g) => {
         acc.trainer = {
-          id: g.AssignedRole.Person.id,
-          fullName: `${g.AssignedRole.Person.firstName} ${g.AssignedRole.Person.lastName1} ${g.AssignedRole.Person.lastName2}`
+          id: g.AssignedRole.id,
+          fullName: `${g.AssignedRole.firstName} ${g.AssignedRole.lastName1} ${g.AssignedRole.lastName2}`
         };
 
         return acc;
@@ -40,10 +40,10 @@ export class GroupService {
         acc.mentors = [
           ...new Map(
             g.MentorAssignment.map((item) => [
-              item.Mentor.Person.id,
+              item.Mentor.id,
               {
-                id: item.Mentor.Person.id,
-                fullName: `${item.Mentor.Person.firstName} ${item.Mentor.Person.lastName1} ${item.Mentor.Person.lastName2}`
+                id: item.Mentor.id,
+                fullName: `${item.Mentor.firstName} ${item.Mentor.lastName1} ${item.Mentor.lastName2}`
               }
             ])
           ).values()
@@ -57,10 +57,7 @@ export class GroupService {
     const getTeachers = groupTechSupport.reduce(
       (acc, ins) => {
         ins.MentorAssignment.forEach((item) => {
-          const {
-            PersonRole: { Person },
-            ...i
-          } = item.Inscription;
+          const { Person, ...i } = item.Inscription;
 
           const { User, PrincipalSchool, ...p } = Person;
 
@@ -93,18 +90,18 @@ export class GroupService {
   removeProperties(data: IGroupByUser[]): IGroupByUserCustom[] {
     const gdResult = data.map((item: IGroupByUser) => {
       const { Inscription } = item;
-      const { PersonRole, ...i } = Inscription;
+      const { Person, ...i } = Inscription;
 
       const data = {
         id: i.id,
         Person: {
-          id: PersonRole.Person.id,
-          fullName: `${PersonRole.Person.firstName} ${PersonRole.Person.lastName1} ${PersonRole.Person.lastName2}`,
-          phoneNumber: PersonRole.Person.phoneNumber,
-          email: PersonRole.Person.User?.email ?? "",
-          school: PersonRole.Person.PrincipalSchool[0]?.School?.name ?? "",
-          district: PersonRole.Person.PrincipalSchool[0]?.School?.District?.name,
-          municipality: PersonRole.Person.PrincipalSchool[0]?.School?.District?.Municipality?.name
+          id: Person.id,
+          fullName: `${Person.firstName} ${Person.lastName1} ${Person.lastName2}`,
+          phoneNumber: Person.phoneNumber,
+          email: Person.User?.email ?? "",
+          school: Person.PrincipalSchool[0]?.School?.name ?? "",
+          district: Person.PrincipalSchool[0]?.School?.District?.name,
+          municipality: Person.PrincipalSchool[0]?.School?.District?.Municipality?.name
         }
       };
 

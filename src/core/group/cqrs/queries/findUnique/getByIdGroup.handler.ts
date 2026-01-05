@@ -29,41 +29,37 @@ export class GetByIdGroupHandler {
           select: {
             id: true,
             TechSupport: {
-              select: {
-                Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
-              }
+              select: { id: true, firstName: true, lastName1: true, lastName2: true }
             },
             AssignedRole: {
-              select: {
-                Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
-              }
+              select: { id: true, firstName: true, lastName1: true, lastName2: true }
             },
             MentorAssignment: {
               select: {
                 Mentor: {
                   select: {
-                    Person: { select: { id: true, firstName: true, lastName1: true, lastName2: true } }
+                    id: true,
+                    firstName: true,
+                    lastName1: true,
+                    lastName2: true
                   }
                 },
                 Inscription: {
                   select: {
                     id: true,
                     deletedAt: true,
-                    PersonRole: {
+
+                    Person: {
                       select: {
-                        Person: {
+                        id: true,
+                        firstName: true,
+                        lastName1: true,
+                        lastName2: true,
+                        phoneNumber: true,
+                        User: { select: { email: true, avatar: true } },
+                        PrincipalSchool: {
                           select: {
-                            id: true,
-                            firstName: true,
-                            lastName1: true,
-                            lastName2: true,
-                            phoneNumber: true,
-                            User: { select: { email: true, avatar: true } },
-                            PrincipalSchool: {
-                              select: {
-                                School: { select: { name: true } }
-                              }
-                            }
+                            School: { select: { name: true } }
                           }
                         }
                       }

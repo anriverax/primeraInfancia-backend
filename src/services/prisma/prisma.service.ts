@@ -6,14 +6,15 @@ import { Prisma, PrismaClient } from "prisma/generated/client";
 
 const modelsWithSoftDelete = [
   "Group",
-  "GroupLeader",
+  "GroupStaff",
   "PersonRole",
+  "EventInstance",
+  "Inscription",
   "MentorAssignment",
   "Section",
   "Question",
   "Answer",
-  "SurveyData",
-  "EventInstance"
+  "SurveyData"
 ];
 
 // We'll apply $extends to the instance created in the constructor so the adapter is used.

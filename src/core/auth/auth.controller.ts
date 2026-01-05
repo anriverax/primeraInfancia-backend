@@ -19,12 +19,11 @@ import { NestResponse } from "@/common/helpers/types";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { TokenService } from "./services/token.service";
 import { RefreshTokenGuard } from "@/common/guards/refreshToken.guard";
-import { RegisterUserCommand } from "./cqrs/commands/register/registerUser.command";
-import { VerifyEmailCommand } from "./cqrs/commands/verifyEmail/verifyEmail.command";
-import { GetByRolIdQuery } from "./cqrs/queries/role/getByRolId.query";
-import { GetAllPermissionQuery } from "./cqrs/queries/menuPermission/getAllPermission.query";
-import { FindUniqueUserQuery } from "./cqrs/queries/user/findUniqueUser.query";
-import { ChangePasswdCommand } from "./cqrs/commands/changePasswd/changePasswd.handler";
+import { GetByRolIdQuery } from "./cqrs/queries/role/get-by-rol-id.query";
+import { GetAllPermissionQuery } from "./cqrs/queries/menuPermission/get-all-permission.query";
+import { ChangePasswdCommand } from "./cqrs/commands/change-passwd/change-passwd.command";
+import { RegisterUserCommand } from "./cqrs/commands/register/register-user.handler";
+import { FindUniqueUserQuery } from "./cqrs/queries/user/find-unique-user.handler";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -38,7 +37,13 @@ export class AuthController {
 
   @Post("register")
   async register(@Body() data: AuthDto): Promise<NestResponse<void>> {
-    return this.commandBus.execute(new RegisterUserCommand(data));
+    await this.commandBus.execute(new RegisterUserCommand(data));
+
+    return {
+      statusCode: 200,
+      message:
+        "Registro exitoso. Se ha enviado un correo de verificación a su dirección de correo electrónico. Por favor, revise su bandeja de entrada y siga las instrucciones para completar el proceso."
+    };
   }
 
   @AuthRequired()
@@ -101,9 +106,13 @@ export class AuthController {
   ): Promise<NestResponse<boolean>> {
     if (!req["user"]) throw new UnauthorizedException("Usuario no autenticado.");
 
-    const { id, email } = req["user"] as { id: number; email: string; sub: number; role: string };
+    const { email } = req["user"] as { id: number; email: string; sub: number; role: string };
+    await this.authService.verifyEmailCode(email, data.verifyCode);
 
-    return this.commandBus.execute(new VerifyEmailCommand({ id, email, ...data }));
+    return {
+      statusCode: 200,
+      message: "¡Correo electrónico verificado exitosamente!"
+    };
   }
 
   @AuthRequired()

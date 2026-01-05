@@ -292,6 +292,7 @@ export type GroupWhereInput = {
   Department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   Inscription?: Prisma.InscriptionListRelationFilter
   GroupTechSupport?: Prisma.TechSupportAssignmentsListRelationFilter
+  GroupStaff?: Prisma.GroupStaffListRelationFilter
 }
 
 export type GroupOrderByWithRelationInput = {
@@ -310,6 +311,7 @@ export type GroupOrderByWithRelationInput = {
   Department?: Prisma.DepartmentOrderByWithRelationInput
   Inscription?: Prisma.InscriptionOrderByRelationAggregateInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsOrderByRelationAggregateInput
+  GroupStaff?: Prisma.GroupStaffOrderByRelationAggregateInput
 }
 
 export type GroupWhereUniqueInput = Prisma.AtLeast<{
@@ -331,6 +333,7 @@ export type GroupWhereUniqueInput = Prisma.AtLeast<{
   Department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   Inscription?: Prisma.InscriptionListRelationFilter
   GroupTechSupport?: Prisma.TechSupportAssignmentsListRelationFilter
+  GroupStaff?: Prisma.GroupStaffListRelationFilter
 }, "id">
 
 export type GroupOrderByWithAggregationInput = {
@@ -382,6 +385,7 @@ export type GroupCreateInput = {
   Department: Prisma.DepartmentCreateNestedOneWithoutGroupInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutGroupInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUncheckedCreateInput = {
@@ -398,6 +402,7 @@ export type GroupUncheckedCreateInput = {
   deletedBy?: number | null
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutGroupInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUpdateInput = {
@@ -413,6 +418,7 @@ export type GroupUpdateInput = {
   Department?: Prisma.DepartmentUpdateOneRequiredWithoutGroupNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutGroupNestedInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateInput = {
@@ -429,6 +435,7 @@ export type GroupUncheckedUpdateInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutGroupNestedInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupCreateManyInput = {
@@ -470,14 +477,9 @@ export type GroupUncheckedUpdateManyInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type GroupListRelationFilter = {
-  every?: Prisma.GroupWhereInput
-  some?: Prisma.GroupWhereInput
-  none?: Prisma.GroupWhereInput
-}
-
-export type GroupOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type GroupScalarRelationFilter = {
+  is?: Prisma.GroupWhereInput
+  isNot?: Prisma.GroupWhereInput
 }
 
 export type GroupCountOrderByAggregateInput = {
@@ -542,9 +544,56 @@ export type GroupSumOrderByAggregateInput = {
   deletedBy?: Prisma.SortOrder
 }
 
-export type GroupScalarRelationFilter = {
-  is?: Prisma.GroupWhereInput
-  isNot?: Prisma.GroupWhereInput
+export type GroupListRelationFilter = {
+  every?: Prisma.GroupWhereInput
+  some?: Prisma.GroupWhereInput
+  none?: Prisma.GroupWhereInput
+}
+
+export type GroupOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type GroupCreateNestedOneWithoutGroupStaffInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutGroupStaffInput, Prisma.GroupUncheckedCreateWithoutGroupStaffInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutGroupStaffInput
+  connect?: Prisma.GroupWhereUniqueInput
+}
+
+export type GroupUpdateOneRequiredWithoutGroupStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutGroupStaffInput, Prisma.GroupUncheckedCreateWithoutGroupStaffInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutGroupStaffInput
+  upsert?: Prisma.GroupUpsertWithoutGroupStaffInput
+  connect?: Prisma.GroupWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupUpdateToOneWithWhereWithoutGroupStaffInput, Prisma.GroupUpdateWithoutGroupStaffInput>, Prisma.GroupUncheckedUpdateWithoutGroupStaffInput>
+}
+
+export type GroupCreateNestedOneWithoutGroupTechSupportInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutGroupTechSupportInput
+  connect?: Prisma.GroupWhereUniqueInput
+}
+
+export type GroupUpdateOneRequiredWithoutGroupTechSupportNestedInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutGroupTechSupportInput
+  upsert?: Prisma.GroupUpsertWithoutGroupTechSupportInput
+  connect?: Prisma.GroupWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupUpdateToOneWithWhereWithoutGroupTechSupportInput, Prisma.GroupUpdateWithoutGroupTechSupportInput>, Prisma.GroupUncheckedUpdateWithoutGroupTechSupportInput>
+}
+
+export type GroupCreateNestedOneWithoutInscriptionInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutInscriptionInput
+  connect?: Prisma.GroupWhereUniqueInput
+}
+
+export type GroupUpdateOneRequiredWithoutInscriptionNestedInput = {
+  create?: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
+  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutInscriptionInput
+  upsert?: Prisma.GroupUpsertWithoutInscriptionInput
+  connect?: Prisma.GroupWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupUpdateToOneWithWhereWithoutInscriptionInput, Prisma.GroupUpdateWithoutInscriptionInput>, Prisma.GroupUncheckedUpdateWithoutInscriptionInput>
 }
 
 export type GroupCreateNestedManyWithoutCohortInput = {
@@ -631,32 +680,238 @@ export type GroupUncheckedUpdateManyWithoutDepartmentNestedInput = {
   deleteMany?: Prisma.GroupScalarWhereInput | Prisma.GroupScalarWhereInput[]
 }
 
-export type GroupCreateNestedOneWithoutGroupTechSupportInput = {
-  create?: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
-  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutGroupTechSupportInput
-  connect?: Prisma.GroupWhereUniqueInput
+export type GroupCreateWithoutGroupStaffInput = {
+  name: string
+  memberCount: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Cohort: Prisma.CohortCreateNestedOneWithoutGroupInput
+  Department: Prisma.DepartmentCreateNestedOneWithoutGroupInput
+  Inscription?: Prisma.InscriptionCreateNestedManyWithoutGroupInput
+  GroupTechSupport?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutGroupInput
 }
 
-export type GroupUpdateOneRequiredWithoutGroupTechSupportNestedInput = {
-  create?: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
-  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutGroupTechSupportInput
-  upsert?: Prisma.GroupUpsertWithoutGroupTechSupportInput
-  connect?: Prisma.GroupWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupUpdateToOneWithWhereWithoutGroupTechSupportInput, Prisma.GroupUpdateWithoutGroupTechSupportInput>, Prisma.GroupUncheckedUpdateWithoutGroupTechSupportInput>
+export type GroupUncheckedCreateWithoutGroupStaffInput = {
+  id?: number
+  name: string
+  memberCount: number
+  cohortId: number
+  departmentId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutGroupInput
+  GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput
 }
 
-export type GroupCreateNestedOneWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
-  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutInscriptionInput
-  connect?: Prisma.GroupWhereUniqueInput
+export type GroupCreateOrConnectWithoutGroupStaffInput = {
+  where: Prisma.GroupWhereUniqueInput
+  create: Prisma.XOR<Prisma.GroupCreateWithoutGroupStaffInput, Prisma.GroupUncheckedCreateWithoutGroupStaffInput>
 }
 
-export type GroupUpdateOneRequiredWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
-  connectOrCreate?: Prisma.GroupCreateOrConnectWithoutInscriptionInput
-  upsert?: Prisma.GroupUpsertWithoutInscriptionInput
-  connect?: Prisma.GroupWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GroupUpdateToOneWithWhereWithoutInscriptionInput, Prisma.GroupUpdateWithoutInscriptionInput>, Prisma.GroupUncheckedUpdateWithoutInscriptionInput>
+export type GroupUpsertWithoutGroupStaffInput = {
+  update: Prisma.XOR<Prisma.GroupUpdateWithoutGroupStaffInput, Prisma.GroupUncheckedUpdateWithoutGroupStaffInput>
+  create: Prisma.XOR<Prisma.GroupCreateWithoutGroupStaffInput, Prisma.GroupUncheckedCreateWithoutGroupStaffInput>
+  where?: Prisma.GroupWhereInput
+}
+
+export type GroupUpdateToOneWithWhereWithoutGroupStaffInput = {
+  where?: Prisma.GroupWhereInput
+  data: Prisma.XOR<Prisma.GroupUpdateWithoutGroupStaffInput, Prisma.GroupUncheckedUpdateWithoutGroupStaffInput>
+}
+
+export type GroupUpdateWithoutGroupStaffInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Cohort?: Prisma.CohortUpdateOneRequiredWithoutGroupNestedInput
+  Department?: Prisma.DepartmentUpdateOneRequiredWithoutGroupNestedInput
+  Inscription?: Prisma.InscriptionUpdateManyWithoutGroupNestedInput
+  GroupTechSupport?: Prisma.TechSupportAssignmentsUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupUncheckedUpdateWithoutGroupStaffInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutGroupNestedInput
+  GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupCreateWithoutGroupTechSupportInput = {
+  name: string
+  memberCount: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Cohort: Prisma.CohortCreateNestedOneWithoutGroupInput
+  Department: Prisma.DepartmentCreateNestedOneWithoutGroupInput
+  Inscription?: Prisma.InscriptionCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffCreateNestedManyWithoutGroupInput
+}
+
+export type GroupUncheckedCreateWithoutGroupTechSupportInput = {
+  id?: number
+  name: string
+  memberCount: number
+  cohortId: number
+  departmentId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffUncheckedCreateNestedManyWithoutGroupInput
+}
+
+export type GroupCreateOrConnectWithoutGroupTechSupportInput = {
+  where: Prisma.GroupWhereUniqueInput
+  create: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
+}
+
+export type GroupUpsertWithoutGroupTechSupportInput = {
+  update: Prisma.XOR<Prisma.GroupUpdateWithoutGroupTechSupportInput, Prisma.GroupUncheckedUpdateWithoutGroupTechSupportInput>
+  create: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
+  where?: Prisma.GroupWhereInput
+}
+
+export type GroupUpdateToOneWithWhereWithoutGroupTechSupportInput = {
+  where?: Prisma.GroupWhereInput
+  data: Prisma.XOR<Prisma.GroupUpdateWithoutGroupTechSupportInput, Prisma.GroupUncheckedUpdateWithoutGroupTechSupportInput>
+}
+
+export type GroupUpdateWithoutGroupTechSupportInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Cohort?: Prisma.CohortUpdateOneRequiredWithoutGroupNestedInput
+  Department?: Prisma.DepartmentUpdateOneRequiredWithoutGroupNestedInput
+  Inscription?: Prisma.InscriptionUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupUncheckedUpdateWithoutGroupTechSupportInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUncheckedUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupCreateWithoutInscriptionInput = {
+  name: string
+  memberCount: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Cohort: Prisma.CohortCreateNestedOneWithoutGroupInput
+  Department: Prisma.DepartmentCreateNestedOneWithoutGroupInput
+  GroupTechSupport?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffCreateNestedManyWithoutGroupInput
+}
+
+export type GroupUncheckedCreateWithoutInscriptionInput = {
+  id?: number
+  name: string
+  memberCount: number
+  cohortId: number
+  departmentId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffUncheckedCreateNestedManyWithoutGroupInput
+}
+
+export type GroupCreateOrConnectWithoutInscriptionInput = {
+  where: Prisma.GroupWhereUniqueInput
+  create: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
+}
+
+export type GroupUpsertWithoutInscriptionInput = {
+  update: Prisma.XOR<Prisma.GroupUpdateWithoutInscriptionInput, Prisma.GroupUncheckedUpdateWithoutInscriptionInput>
+  create: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
+  where?: Prisma.GroupWhereInput
+}
+
+export type GroupUpdateToOneWithWhereWithoutInscriptionInput = {
+  where?: Prisma.GroupWhereInput
+  data: Prisma.XOR<Prisma.GroupUpdateWithoutInscriptionInput, Prisma.GroupUncheckedUpdateWithoutInscriptionInput>
+}
+
+export type GroupUpdateWithoutInscriptionInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Cohort?: Prisma.CohortUpdateOneRequiredWithoutGroupNestedInput
+  Department?: Prisma.DepartmentUpdateOneRequiredWithoutGroupNestedInput
+  GroupTechSupport?: Prisma.TechSupportAssignmentsUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUpdateManyWithoutGroupNestedInput
+}
+
+export type GroupUncheckedUpdateWithoutInscriptionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
+  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupCreateWithoutCohortInput = {
@@ -671,6 +926,7 @@ export type GroupCreateWithoutCohortInput = {
   Department: Prisma.DepartmentCreateNestedOneWithoutGroupInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutGroupInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUncheckedCreateWithoutCohortInput = {
@@ -686,6 +942,7 @@ export type GroupUncheckedCreateWithoutCohortInput = {
   deletedBy?: number | null
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutGroupInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type GroupCreateOrConnectWithoutCohortInput = {
@@ -743,6 +1000,7 @@ export type GroupCreateWithoutDepartmentInput = {
   Cohort: Prisma.CohortCreateNestedOneWithoutGroupInput
   Inscription?: Prisma.InscriptionCreateNestedManyWithoutGroupInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffCreateNestedManyWithoutGroupInput
 }
 
 export type GroupUncheckedCreateWithoutDepartmentInput = {
@@ -758,6 +1016,7 @@ export type GroupUncheckedCreateWithoutDepartmentInput = {
   deletedBy?: number | null
   Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutGroupInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput
+  GroupStaff?: Prisma.GroupStaffUncheckedCreateNestedManyWithoutGroupInput
 }
 
 export type GroupCreateOrConnectWithoutDepartmentInput = {
@@ -786,154 +1045,6 @@ export type GroupUpdateManyWithWhereWithoutDepartmentInput = {
   data: Prisma.XOR<Prisma.GroupUpdateManyMutationInput, Prisma.GroupUncheckedUpdateManyWithoutDepartmentInput>
 }
 
-export type GroupCreateWithoutGroupTechSupportInput = {
-  name: string
-  memberCount: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Cohort: Prisma.CohortCreateNestedOneWithoutGroupInput
-  Department: Prisma.DepartmentCreateNestedOneWithoutGroupInput
-  Inscription?: Prisma.InscriptionCreateNestedManyWithoutGroupInput
-}
-
-export type GroupUncheckedCreateWithoutGroupTechSupportInput = {
-  id?: number
-  name: string
-  memberCount: number
-  cohortId: number
-  departmentId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Inscription?: Prisma.InscriptionUncheckedCreateNestedManyWithoutGroupInput
-}
-
-export type GroupCreateOrConnectWithoutGroupTechSupportInput = {
-  where: Prisma.GroupWhereUniqueInput
-  create: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
-}
-
-export type GroupUpsertWithoutGroupTechSupportInput = {
-  update: Prisma.XOR<Prisma.GroupUpdateWithoutGroupTechSupportInput, Prisma.GroupUncheckedUpdateWithoutGroupTechSupportInput>
-  create: Prisma.XOR<Prisma.GroupCreateWithoutGroupTechSupportInput, Prisma.GroupUncheckedCreateWithoutGroupTechSupportInput>
-  where?: Prisma.GroupWhereInput
-}
-
-export type GroupUpdateToOneWithWhereWithoutGroupTechSupportInput = {
-  where?: Prisma.GroupWhereInput
-  data: Prisma.XOR<Prisma.GroupUpdateWithoutGroupTechSupportInput, Prisma.GroupUncheckedUpdateWithoutGroupTechSupportInput>
-}
-
-export type GroupUpdateWithoutGroupTechSupportInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Cohort?: Prisma.CohortUpdateOneRequiredWithoutGroupNestedInput
-  Department?: Prisma.DepartmentUpdateOneRequiredWithoutGroupNestedInput
-  Inscription?: Prisma.InscriptionUpdateManyWithoutGroupNestedInput
-}
-
-export type GroupUncheckedUpdateWithoutGroupTechSupportInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutGroupNestedInput
-}
-
-export type GroupCreateWithoutInscriptionInput = {
-  name: string
-  memberCount: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Cohort: Prisma.CohortCreateNestedOneWithoutGroupInput
-  Department: Prisma.DepartmentCreateNestedOneWithoutGroupInput
-  GroupTechSupport?: Prisma.TechSupportAssignmentsCreateNestedManyWithoutGroupInput
-}
-
-export type GroupUncheckedCreateWithoutInscriptionInput = {
-  id?: number
-  name: string
-  memberCount: number
-  cohortId: number
-  departmentId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput
-}
-
-export type GroupCreateOrConnectWithoutInscriptionInput = {
-  where: Prisma.GroupWhereUniqueInput
-  create: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
-}
-
-export type GroupUpsertWithoutInscriptionInput = {
-  update: Prisma.XOR<Prisma.GroupUpdateWithoutInscriptionInput, Prisma.GroupUncheckedUpdateWithoutInscriptionInput>
-  create: Prisma.XOR<Prisma.GroupCreateWithoutInscriptionInput, Prisma.GroupUncheckedCreateWithoutInscriptionInput>
-  where?: Prisma.GroupWhereInput
-}
-
-export type GroupUpdateToOneWithWhereWithoutInscriptionInput = {
-  where?: Prisma.GroupWhereInput
-  data: Prisma.XOR<Prisma.GroupUpdateWithoutInscriptionInput, Prisma.GroupUncheckedUpdateWithoutInscriptionInput>
-}
-
-export type GroupUpdateWithoutInscriptionInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Cohort?: Prisma.CohortUpdateOneRequiredWithoutGroupNestedInput
-  Department?: Prisma.DepartmentUpdateOneRequiredWithoutGroupNestedInput
-  GroupTechSupport?: Prisma.TechSupportAssignmentsUpdateManyWithoutGroupNestedInput
-}
-
-export type GroupUncheckedUpdateWithoutInscriptionInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  memberCount?: Prisma.IntFieldUpdateOperationsInput | number
-  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput
-}
-
 export type GroupCreateManyCohortInput = {
   id?: number
   name: string
@@ -959,6 +1070,7 @@ export type GroupUpdateWithoutCohortInput = {
   Department?: Prisma.DepartmentUpdateOneRequiredWithoutGroupNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutGroupNestedInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutCohortInput = {
@@ -974,6 +1086,7 @@ export type GroupUncheckedUpdateWithoutCohortInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutGroupNestedInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutCohortInput = {
@@ -1014,6 +1127,7 @@ export type GroupUpdateWithoutDepartmentInput = {
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutGroupNestedInput
   Inscription?: Prisma.InscriptionUpdateManyWithoutGroupNestedInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutDepartmentInput = {
@@ -1029,6 +1143,7 @@ export type GroupUncheckedUpdateWithoutDepartmentInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Inscription?: Prisma.InscriptionUncheckedUpdateManyWithoutGroupNestedInput
   GroupTechSupport?: Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput
+  GroupStaff?: Prisma.GroupStaffUncheckedUpdateManyWithoutGroupNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1052,11 +1167,13 @@ export type GroupUncheckedUpdateManyWithoutDepartmentInput = {
 export type GroupCountOutputType = {
   Inscription: number
   GroupTechSupport: number
+  GroupStaff: number
 }
 
 export type GroupCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Inscription?: boolean | GroupCountOutputTypeCountInscriptionArgs
   GroupTechSupport?: boolean | GroupCountOutputTypeCountGroupTechSupportArgs
+  GroupStaff?: boolean | GroupCountOutputTypeCountGroupStaffArgs
 }
 
 /**
@@ -1083,6 +1200,13 @@ export type GroupCountOutputTypeCountGroupTechSupportArgs<ExtArgs extends runtim
   where?: Prisma.TechSupportAssignmentsWhereInput
 }
 
+/**
+ * GroupCountOutputType without action
+ */
+export type GroupCountOutputTypeCountGroupStaffArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GroupStaffWhereInput
+}
+
 
 export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1100,6 +1224,7 @@ export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   Department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   Inscription?: boolean | Prisma.Group$InscriptionArgs<ExtArgs>
   GroupTechSupport?: boolean | Prisma.Group$GroupTechSupportArgs<ExtArgs>
+  GroupStaff?: boolean | Prisma.Group$GroupStaffArgs<ExtArgs>
   _count?: boolean | Prisma.GroupCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["group"]>
 
@@ -1155,6 +1280,7 @@ export type GroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   Department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   Inscription?: boolean | Prisma.Group$InscriptionArgs<ExtArgs>
   GroupTechSupport?: boolean | Prisma.Group$GroupTechSupportArgs<ExtArgs>
+  GroupStaff?: boolean | Prisma.Group$GroupStaffArgs<ExtArgs>
   _count?: boolean | Prisma.GroupCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GroupIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1173,6 +1299,7 @@ export type $GroupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     Department: Prisma.$DepartmentPayload<ExtArgs>
     Inscription: Prisma.$InscriptionPayload<ExtArgs>[]
     GroupTechSupport: Prisma.$TechSupportAssignmentsPayload<ExtArgs>[]
+    GroupStaff: Prisma.$GroupStaffPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1584,6 +1711,7 @@ export interface Prisma__GroupClient<T, Null = never, ExtArgs extends runtime.Ty
   Department<T extends Prisma.DepartmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DepartmentDefaultArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Inscription<T extends Prisma.Group$InscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$InscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   GroupTechSupport<T extends Prisma.Group$GroupTechSupportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$GroupTechSupportArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TechSupportAssignmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  GroupStaff<T extends Prisma.Group$GroupStaffArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$GroupStaffArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2065,6 +2193,30 @@ export type Group$GroupTechSupportArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.TechSupportAssignmentsScalarFieldEnum | Prisma.TechSupportAssignmentsScalarFieldEnum[]
+}
+
+/**
+ * Group.GroupStaff
+ */
+export type Group$GroupStaffArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GroupStaff
+   */
+  select?: Prisma.GroupStaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GroupStaff
+   */
+  omit?: Prisma.GroupStaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GroupStaffInclude<ExtArgs> | null
+  where?: Prisma.GroupStaffWhereInput
+  orderBy?: Prisma.GroupStaffOrderByWithRelationInput | Prisma.GroupStaffOrderByWithRelationInput[]
+  cursor?: Prisma.GroupStaffWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GroupStaffScalarFieldEnum | Prisma.GroupStaffScalarFieldEnum[]
 }
 
 /**

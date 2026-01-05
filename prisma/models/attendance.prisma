@@ -4,37 +4,41 @@ enum AttendanceEnum {
 }
 
 model AttendanceSession {
-  id              Int               @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   eventInstanceId Int
   modality        String
   checkIn         DateTime
   checkOut        DateTime?
+  coordenates     String?
+  supportId       Int
+
+  createdAt DateTime @default(now())
+  createdBy Int
+
   EventInstance   EventInstance     @relation(fields: [eventInstanceId], references: [id])
-  createdAt       DateTime          @default(now())
-  createdBy       Int
-  delegateId      Int
-  Delegate        Person            @relation(fields: [delegateId], references: [id])
+  Support         Person            @relation(fields: [supportId], references: [id])
   EventAttendance EventAttendance[]
+
+  @@unique([supportId, checkOut])
 }
 
 model EventAttendance {
   id                   Int               @id @default(autoincrement())
   attendanceSessionId  Int
-  personId             Int
+  teacherId            Int
   checkIn              DateTime
   checkOut             DateTime?
   status               AttendanceEnum
   comment              String?
   justificationFileUrl String?
-  coordinates          String?
-  Person               Person            @relation(fields: [personId], references: [id])
+  Person               Person            @relation(fields: [teacherId], references: [id])
   AttendanceSession    AttendanceSession @relation(fields: [attendanceSessionId], references: [id])
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
   createdBy            Int
   updatedBy            Int?
 
-  @@unique([personId, attendanceSessionId])
+  @@unique([teacherId, attendanceSessionId])
 }
 
 model WorkAttendance {

@@ -2,26 +2,23 @@ import { Module } from "@nestjs/common";
 import { CqrsModule, EventBus } from "@nestjs/cqrs";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./services/auth.service";
-import { RegisterUserHandler } from "./cqrs/commands/register/registerUser.command";
-import { UserRegisteredHandler } from "./cqrs/events/registered/userRegistered.handler";
+import { RegisterUserHandler } from "./cqrs/commands/register/register-user.command";
 import { UserProjection } from "./cqrs/projections/user.projection";
 import { UserKeyProjection } from "./cqrs/projections/userkey.projection";
-import { FindUniqueUserQueryHandler } from "./cqrs/queries/user/findUniqueUser.query";
 import { EventBusWithStore } from "@/services/events/eventBusWithStore";
 import { EventStoreService } from "@/services/events/eventStore.service";
 import { RedisService } from "@/services/redis/redis.service";
 import { TokenService } from "./services/token.service";
 import { KeyService } from "./services/key.service";
 import { JwtModule } from "@nestjs/jwt";
-import { ChangePasswdHandler } from "./cqrs/commands/changePasswd/changePasswd.handler";
-import { GetAllUserKeyByUserIdHandler } from "./cqrs/queries/userKey/findMany/getAllUserKeyByUserId.handler";
-import { GetByUserIdUserKeyHandler } from "./cqrs/queries/userKey/findFirst/getByUserIdUserKey.handler";
-import { PasswdChangedHandler } from "./cqrs/events/passwdChanged/passwdChanged.handler";
-import { VerifyEmailHandler } from "./cqrs/commands/verifyEmail/verifyEmail.handler";
-import { GetByRolIdHandler } from "./cqrs/queries/role/getByRolId.handler";
-import { GetAllPermissionHandler } from "./cqrs/queries/menuPermission/getAllPermission.handler";
+import { ChangePasswdHandler } from "./cqrs/commands/change-passwd/change-passwd.handler";
+import { GetAllPermissionHandler } from "./cqrs/queries/menuPermission/get-all-permission.handler";
+import { GetByRolIdHandler } from "./cqrs/queries/role/get-by-rol-id.handler";
+import { GetByUserIdUserKeyHandler } from "./cqrs/queries/userKey/findFirst/get-by-userId-userKey.handler";
+import { GetAllUserKeyByUserIdHandler } from "./cqrs/queries/userKey/findMany/get-all-userKey-by-userId.handler";
+import { FindUniqueUserQueryHandler } from "./cqrs/queries/user/find-unique-user.query";
 
-const CommandHandlers = [RegisterUserHandler, VerifyEmailHandler, ChangePasswdHandler];
+const CommandHandlers = [RegisterUserHandler, ChangePasswdHandler];
 
 const QueryHandlers = [
   FindUniqueUserQueryHandler,
@@ -30,7 +27,6 @@ const QueryHandlers = [
   GetByRolIdHandler,
   GetAllPermissionHandler
 ];
-const EventHandlers = [UserRegisteredHandler, PasswdChangedHandler];
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
@@ -51,7 +47,6 @@ const EventHandlers = [UserRegisteredHandler, PasswdChangedHandler];
     EventStoreService,
     ...CommandHandlers,
     ...QueryHandlers,
-    ...EventHandlers,
     {
       provide: EventBusWithStore,
       useFactory: (eventBus: EventBus, eventStore: EventStoreService) =>

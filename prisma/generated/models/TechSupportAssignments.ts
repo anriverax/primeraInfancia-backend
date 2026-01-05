@@ -281,10 +281,9 @@ export type TechSupportAssignmentsWhereInput = {
   updatedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
   MentorAssignment?: Prisma.MentorAssignmentListRelationFilter
-  AssignedRole?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
+  AssignedRole?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   Group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
-  TechSupport?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
-  TrainingBatch?: Prisma.TrainingBatchListRelationFilter
+  TechSupport?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
 }
 
 export type TechSupportAssignmentsOrderByWithRelationInput = {
@@ -299,10 +298,9 @@ export type TechSupportAssignmentsOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   MentorAssignment?: Prisma.MentorAssignmentOrderByRelationAggregateInput
-  AssignedRole?: Prisma.PersonRoleOrderByWithRelationInput
+  AssignedRole?: Prisma.PersonOrderByWithRelationInput
   Group?: Prisma.GroupOrderByWithRelationInput
-  TechSupport?: Prisma.PersonRoleOrderByWithRelationInput
-  TrainingBatch?: Prisma.TrainingBatchOrderByRelationAggregateInput
+  TechSupport?: Prisma.PersonOrderByWithRelationInput
 }
 
 export type TechSupportAssignmentsWhereUniqueInput = Prisma.AtLeast<{
@@ -320,10 +318,9 @@ export type TechSupportAssignmentsWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
   MentorAssignment?: Prisma.MentorAssignmentListRelationFilter
-  AssignedRole?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
+  AssignedRole?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   Group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
-  TechSupport?: Prisma.XOR<Prisma.PersonRoleScalarRelationFilter, Prisma.PersonRoleWhereInput>
-  TrainingBatch?: Prisma.TrainingBatchListRelationFilter
+  TechSupport?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
 }, "id">
 
 export type TechSupportAssignmentsOrderByWithAggregationInput = {
@@ -368,10 +365,9 @@ export type TechSupportAssignmentsCreateInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutTechSupportAssignmentInput
-  AssignedRole: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsAssignedInput
+  AssignedRole: Prisma.PersonCreateNestedOneWithoutAssignedRolesInput
   Group: Prisma.GroupCreateNestedOneWithoutGroupTechSupportInput
-  TechSupport: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsTechInput
-  TrainingBatch?: Prisma.TrainingBatchCreateNestedManyWithoutTrainerGroupAssignmentsInput
+  TechSupport: Prisma.PersonCreateNestedOneWithoutTechSupportRolesInput
 }
 
 export type TechSupportAssignmentsUncheckedCreateInput = {
@@ -386,7 +382,6 @@ export type TechSupportAssignmentsUncheckedCreateInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutTechSupportAssignmentInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedCreateNestedManyWithoutTrainerGroupAssignmentsInput
 }
 
 export type TechSupportAssignmentsUpdateInput = {
@@ -397,10 +392,9 @@ export type TechSupportAssignmentsUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutTechSupportAssignmentNestedInput
-  AssignedRole?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsAssignedNestedInput
+  AssignedRole?: Prisma.PersonUpdateOneRequiredWithoutAssignedRolesNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutGroupTechSupportNestedInput
-  TechSupport?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsTechNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUpdateManyWithoutTrainerGroupAssignmentsNestedInput
+  TechSupport?: Prisma.PersonUpdateOneRequiredWithoutTechSupportRolesNestedInput
 }
 
 export type TechSupportAssignmentsUncheckedUpdateInput = {
@@ -415,7 +409,6 @@ export type TechSupportAssignmentsUncheckedUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedUpdateManyWithoutTrainerGroupAssignmentsNestedInput
 }
 
 export type TechSupportAssignmentsCreateManyInput = {
@@ -527,6 +520,62 @@ export type TechSupportAssignmentsScalarRelationFilter = {
   isNot?: Prisma.TechSupportAssignmentsWhereInput
 }
 
+export type TechSupportAssignmentsCreateNestedManyWithoutGroupInput = {
+  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
+  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
+  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
+  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+}
+
+export type TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput = {
+  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
+  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
+  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
+  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+}
+
+export type TechSupportAssignmentsUpdateManyWithoutGroupNestedInput = {
+  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
+  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
+  upsert?: Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput[]
+  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
+  set?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  disconnect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  delete?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  update?: Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput[]
+  updateMany?: Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput[]
+  deleteMany?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
+}
+
+export type TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput = {
+  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
+  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
+  upsert?: Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput[]
+  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
+  set?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  disconnect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  delete?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
+  update?: Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput[]
+  updateMany?: Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput[]
+  deleteMany?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
+}
+
+export type TechSupportAssignmentsCreateNestedOneWithoutMentorAssignmentInput = {
+  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutMentorAssignmentInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutMentorAssignmentInput>
+  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutMentorAssignmentInput
+  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput
+}
+
+export type TechSupportAssignmentsUpdateOneRequiredWithoutMentorAssignmentNestedInput = {
+  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutMentorAssignmentInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutMentorAssignmentInput>
+  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutMentorAssignmentInput
+  upsert?: Prisma.TechSupportAssignmentsUpsertWithoutMentorAssignmentInput
+  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TechSupportAssignmentsUpdateToOneWithWhereWithoutMentorAssignmentInput, Prisma.TechSupportAssignmentsUpdateWithoutMentorAssignmentInput>, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutMentorAssignmentInput>
+}
+
 export type TechSupportAssignmentsCreateNestedManyWithoutAssignedRoleInput = {
   create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput> | Prisma.TechSupportAssignmentsCreateWithoutAssignedRoleInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput[]
   connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutAssignedRoleInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutAssignedRoleInput[]
@@ -611,198 +660,6 @@ export type TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportNestedInp
   deleteMany?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
 }
 
-export type TechSupportAssignmentsCreateNestedManyWithoutGroupInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
-  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-}
-
-export type TechSupportAssignmentsUncheckedCreateNestedManyWithoutGroupInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
-  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-}
-
-export type TechSupportAssignmentsUpdateManyWithoutGroupNestedInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
-  upsert?: Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput[]
-  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
-  set?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  disconnect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  delete?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  update?: Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput[]
-  updateMany?: Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput[]
-  deleteMany?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
-}
-
-export type TechSupportAssignmentsUncheckedUpdateManyWithoutGroupNestedInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutGroupInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput> | Prisma.TechSupportAssignmentsCreateWithoutGroupInput[] | Prisma.TechSupportAssignmentsUncheckedCreateWithoutGroupInput[]
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput | Prisma.TechSupportAssignmentsCreateOrConnectWithoutGroupInput[]
-  upsert?: Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpsertWithWhereUniqueWithoutGroupInput[]
-  createMany?: Prisma.TechSupportAssignmentsCreateManyGroupInputEnvelope
-  set?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  disconnect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  delete?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput | Prisma.TechSupportAssignmentsWhereUniqueInput[]
-  update?: Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateWithWhereUniqueWithoutGroupInput[]
-  updateMany?: Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput | Prisma.TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput[]
-  deleteMany?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
-}
-
-export type TechSupportAssignmentsCreateNestedOneWithoutMentorAssignmentInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutMentorAssignmentInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutMentorAssignmentInput>
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutMentorAssignmentInput
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput
-}
-
-export type TechSupportAssignmentsUpdateOneRequiredWithoutMentorAssignmentNestedInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutMentorAssignmentInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutMentorAssignmentInput>
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutMentorAssignmentInput
-  upsert?: Prisma.TechSupportAssignmentsUpsertWithoutMentorAssignmentInput
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TechSupportAssignmentsUpdateToOneWithWhereWithoutMentorAssignmentInput, Prisma.TechSupportAssignmentsUpdateWithoutMentorAssignmentInput>, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutMentorAssignmentInput>
-}
-
-export type TechSupportAssignmentsCreateNestedOneWithoutTrainingBatchInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTrainingBatchInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTrainingBatchInput>
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutTrainingBatchInput
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput
-}
-
-export type TechSupportAssignmentsUpdateOneRequiredWithoutTrainingBatchNestedInput = {
-  create?: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTrainingBatchInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTrainingBatchInput>
-  connectOrCreate?: Prisma.TechSupportAssignmentsCreateOrConnectWithoutTrainingBatchInput
-  upsert?: Prisma.TechSupportAssignmentsUpsertWithoutTrainingBatchInput
-  connect?: Prisma.TechSupportAssignmentsWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TechSupportAssignmentsUpdateToOneWithWhereWithoutTrainingBatchInput, Prisma.TechSupportAssignmentsUpdateWithoutTrainingBatchInput>, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutTrainingBatchInput>
-}
-
-export type TechSupportAssignmentsCreateWithoutAssignedRoleInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutTechSupportAssignmentInput
-  Group: Prisma.GroupCreateNestedOneWithoutGroupTechSupportInput
-  TechSupport: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsTechInput
-  TrainingBatch?: Prisma.TrainingBatchCreateNestedManyWithoutTrainerGroupAssignmentsInput
-}
-
-export type TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput = {
-  id?: number
-  techSupportId: number
-  groupId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutTechSupportAssignmentInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedCreateNestedManyWithoutTrainerGroupAssignmentsInput
-}
-
-export type TechSupportAssignmentsCreateOrConnectWithoutAssignedRoleInput = {
-  where: Prisma.TechSupportAssignmentsWhereUniqueInput
-  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput>
-}
-
-export type TechSupportAssignmentsCreateManyAssignedRoleInputEnvelope = {
-  data: Prisma.TechSupportAssignmentsCreateManyAssignedRoleInput | Prisma.TechSupportAssignmentsCreateManyAssignedRoleInput[]
-  skipDuplicates?: boolean
-}
-
-export type TechSupportAssignmentsCreateWithoutTechSupportInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutTechSupportAssignmentInput
-  AssignedRole: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsAssignedInput
-  Group: Prisma.GroupCreateNestedOneWithoutGroupTechSupportInput
-  TrainingBatch?: Prisma.TrainingBatchCreateNestedManyWithoutTrainerGroupAssignmentsInput
-}
-
-export type TechSupportAssignmentsUncheckedCreateWithoutTechSupportInput = {
-  id?: number
-  assignedRoleId: number
-  groupId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutTechSupportAssignmentInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedCreateNestedManyWithoutTrainerGroupAssignmentsInput
-}
-
-export type TechSupportAssignmentsCreateOrConnectWithoutTechSupportInput = {
-  where: Prisma.TechSupportAssignmentsWhereUniqueInput
-  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTechSupportInput>
-}
-
-export type TechSupportAssignmentsCreateManyTechSupportInputEnvelope = {
-  data: Prisma.TechSupportAssignmentsCreateManyTechSupportInput | Prisma.TechSupportAssignmentsCreateManyTechSupportInput[]
-  skipDuplicates?: boolean
-}
-
-export type TechSupportAssignmentsUpsertWithWhereUniqueWithoutAssignedRoleInput = {
-  where: Prisma.TechSupportAssignmentsWhereUniqueInput
-  update: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutAssignedRoleInput>
-  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput>
-}
-
-export type TechSupportAssignmentsUpdateWithWhereUniqueWithoutAssignedRoleInput = {
-  where: Prisma.TechSupportAssignmentsWhereUniqueInput
-  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutAssignedRoleInput>
-}
-
-export type TechSupportAssignmentsUpdateManyWithWhereWithoutAssignedRoleInput = {
-  where: Prisma.TechSupportAssignmentsScalarWhereInput
-  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateManyMutationInput, Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleInput>
-}
-
-export type TechSupportAssignmentsScalarWhereInput = {
-  AND?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
-  OR?: Prisma.TechSupportAssignmentsScalarWhereInput[]
-  NOT?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
-  id?: Prisma.IntFilter<"TechSupportAssignments"> | number
-  techSupportId?: Prisma.IntFilter<"TechSupportAssignments"> | number
-  assignedRoleId?: Prisma.IntFilter<"TechSupportAssignments"> | number
-  groupId?: Prisma.IntFilter<"TechSupportAssignments"> | number
-  createdAt?: Prisma.DateTimeFilter<"TechSupportAssignments"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"TechSupportAssignments"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"TechSupportAssignments"> | Date | string | null
-  createdBy?: Prisma.IntFilter<"TechSupportAssignments"> | number
-  updatedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
-  deletedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
-}
-
-export type TechSupportAssignmentsUpsertWithWhereUniqueWithoutTechSupportInput = {
-  where: Prisma.TechSupportAssignmentsWhereUniqueInput
-  update: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutTechSupportInput>
-  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTechSupportInput>
-}
-
-export type TechSupportAssignmentsUpdateWithWhereUniqueWithoutTechSupportInput = {
-  where: Prisma.TechSupportAssignmentsWhereUniqueInput
-  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutTechSupportInput>
-}
-
-export type TechSupportAssignmentsUpdateManyWithWhereWithoutTechSupportInput = {
-  where: Prisma.TechSupportAssignmentsScalarWhereInput
-  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateManyMutationInput, Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportInput>
-}
-
 export type TechSupportAssignmentsCreateWithoutGroupInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -811,9 +668,8 @@ export type TechSupportAssignmentsCreateWithoutGroupInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutTechSupportAssignmentInput
-  AssignedRole: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsAssignedInput
-  TechSupport: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsTechInput
-  TrainingBatch?: Prisma.TrainingBatchCreateNestedManyWithoutTrainerGroupAssignmentsInput
+  AssignedRole: Prisma.PersonCreateNestedOneWithoutAssignedRolesInput
+  TechSupport: Prisma.PersonCreateNestedOneWithoutTechSupportRolesInput
 }
 
 export type TechSupportAssignmentsUncheckedCreateWithoutGroupInput = {
@@ -827,7 +683,6 @@ export type TechSupportAssignmentsUncheckedCreateWithoutGroupInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutTechSupportAssignmentInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedCreateNestedManyWithoutTrainerGroupAssignmentsInput
 }
 
 export type TechSupportAssignmentsCreateOrConnectWithoutGroupInput = {
@@ -856,6 +711,22 @@ export type TechSupportAssignmentsUpdateManyWithWhereWithoutGroupInput = {
   data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateManyMutationInput, Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutGroupInput>
 }
 
+export type TechSupportAssignmentsScalarWhereInput = {
+  AND?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
+  OR?: Prisma.TechSupportAssignmentsScalarWhereInput[]
+  NOT?: Prisma.TechSupportAssignmentsScalarWhereInput | Prisma.TechSupportAssignmentsScalarWhereInput[]
+  id?: Prisma.IntFilter<"TechSupportAssignments"> | number
+  techSupportId?: Prisma.IntFilter<"TechSupportAssignments"> | number
+  assignedRoleId?: Prisma.IntFilter<"TechSupportAssignments"> | number
+  groupId?: Prisma.IntFilter<"TechSupportAssignments"> | number
+  createdAt?: Prisma.DateTimeFilter<"TechSupportAssignments"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TechSupportAssignments"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"TechSupportAssignments"> | Date | string | null
+  createdBy?: Prisma.IntFilter<"TechSupportAssignments"> | number
+  updatedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
+  deletedBy?: Prisma.IntNullableFilter<"TechSupportAssignments"> | number | null
+}
+
 export type TechSupportAssignmentsCreateWithoutMentorAssignmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -863,10 +734,9 @@ export type TechSupportAssignmentsCreateWithoutMentorAssignmentInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  AssignedRole: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsAssignedInput
+  AssignedRole: Prisma.PersonCreateNestedOneWithoutAssignedRolesInput
   Group: Prisma.GroupCreateNestedOneWithoutGroupTechSupportInput
-  TechSupport: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsTechInput
-  TrainingBatch?: Prisma.TrainingBatchCreateNestedManyWithoutTrainerGroupAssignmentsInput
+  TechSupport: Prisma.PersonCreateNestedOneWithoutTechSupportRolesInput
 }
 
 export type TechSupportAssignmentsUncheckedCreateWithoutMentorAssignmentInput = {
@@ -880,7 +750,6 @@ export type TechSupportAssignmentsUncheckedCreateWithoutMentorAssignmentInput = 
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  TrainingBatch?: Prisma.TrainingBatchUncheckedCreateNestedManyWithoutTrainerGroupAssignmentsInput
 }
 
 export type TechSupportAssignmentsCreateOrConnectWithoutMentorAssignmentInput = {
@@ -906,10 +775,9 @@ export type TechSupportAssignmentsUpdateWithoutMentorAssignmentInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  AssignedRole?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsAssignedNestedInput
+  AssignedRole?: Prisma.PersonUpdateOneRequiredWithoutAssignedRolesNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutGroupTechSupportNestedInput
-  TechSupport?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsTechNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUpdateManyWithoutTrainerGroupAssignmentsNestedInput
+  TechSupport?: Prisma.PersonUpdateOneRequiredWithoutTechSupportRolesNestedInput
 }
 
 export type TechSupportAssignmentsUncheckedUpdateWithoutMentorAssignmentInput = {
@@ -923,10 +791,9 @@ export type TechSupportAssignmentsUncheckedUpdateWithoutMentorAssignmentInput = 
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  TrainingBatch?: Prisma.TrainingBatchUncheckedUpdateManyWithoutTrainerGroupAssignmentsNestedInput
 }
 
-export type TechSupportAssignmentsCreateWithoutTrainingBatchInput = {
+export type TechSupportAssignmentsCreateWithoutAssignedRoleInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -934,14 +801,47 @@ export type TechSupportAssignmentsCreateWithoutTrainingBatchInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutTechSupportAssignmentInput
-  AssignedRole: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsAssignedInput
   Group: Prisma.GroupCreateNestedOneWithoutGroupTechSupportInput
-  TechSupport: Prisma.PersonRoleCreateNestedOneWithoutTechSupportAssignmentsAsTechInput
+  TechSupport: Prisma.PersonCreateNestedOneWithoutTechSupportRolesInput
 }
 
-export type TechSupportAssignmentsUncheckedCreateWithoutTrainingBatchInput = {
+export type TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput = {
   id?: number
   techSupportId: number
+  groupId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutTechSupportAssignmentInput
+}
+
+export type TechSupportAssignmentsCreateOrConnectWithoutAssignedRoleInput = {
+  where: Prisma.TechSupportAssignmentsWhereUniqueInput
+  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput>
+}
+
+export type TechSupportAssignmentsCreateManyAssignedRoleInputEnvelope = {
+  data: Prisma.TechSupportAssignmentsCreateManyAssignedRoleInput | Prisma.TechSupportAssignmentsCreateManyAssignedRoleInput[]
+  skipDuplicates?: boolean
+}
+
+export type TechSupportAssignmentsCreateWithoutTechSupportInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  MentorAssignment?: Prisma.MentorAssignmentCreateNestedManyWithoutTechSupportAssignmentInput
+  AssignedRole: Prisma.PersonCreateNestedOneWithoutAssignedRolesInput
+  Group: Prisma.GroupCreateNestedOneWithoutGroupTechSupportInput
+}
+
+export type TechSupportAssignmentsUncheckedCreateWithoutTechSupportInput = {
+  id?: number
   assignedRoleId: number
   groupId: number
   createdAt?: Date | string
@@ -953,23 +853,61 @@ export type TechSupportAssignmentsUncheckedCreateWithoutTrainingBatchInput = {
   MentorAssignment?: Prisma.MentorAssignmentUncheckedCreateNestedManyWithoutTechSupportAssignmentInput
 }
 
-export type TechSupportAssignmentsCreateOrConnectWithoutTrainingBatchInput = {
+export type TechSupportAssignmentsCreateOrConnectWithoutTechSupportInput = {
   where: Prisma.TechSupportAssignmentsWhereUniqueInput
-  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTrainingBatchInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTrainingBatchInput>
+  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTechSupportInput>
 }
 
-export type TechSupportAssignmentsUpsertWithoutTrainingBatchInput = {
-  update: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutTrainingBatchInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutTrainingBatchInput>
-  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTrainingBatchInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTrainingBatchInput>
-  where?: Prisma.TechSupportAssignmentsWhereInput
+export type TechSupportAssignmentsCreateManyTechSupportInputEnvelope = {
+  data: Prisma.TechSupportAssignmentsCreateManyTechSupportInput | Prisma.TechSupportAssignmentsCreateManyTechSupportInput[]
+  skipDuplicates?: boolean
 }
 
-export type TechSupportAssignmentsUpdateToOneWithWhereWithoutTrainingBatchInput = {
-  where?: Prisma.TechSupportAssignmentsWhereInput
-  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutTrainingBatchInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutTrainingBatchInput>
+export type TechSupportAssignmentsUpsertWithWhereUniqueWithoutAssignedRoleInput = {
+  where: Prisma.TechSupportAssignmentsWhereUniqueInput
+  update: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutAssignedRoleInput>
+  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutAssignedRoleInput>
 }
 
-export type TechSupportAssignmentsUpdateWithoutTrainingBatchInput = {
+export type TechSupportAssignmentsUpdateWithWhereUniqueWithoutAssignedRoleInput = {
+  where: Prisma.TechSupportAssignmentsWhereUniqueInput
+  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutAssignedRoleInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutAssignedRoleInput>
+}
+
+export type TechSupportAssignmentsUpdateManyWithWhereWithoutAssignedRoleInput = {
+  where: Prisma.TechSupportAssignmentsScalarWhereInput
+  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateManyMutationInput, Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleInput>
+}
+
+export type TechSupportAssignmentsUpsertWithWhereUniqueWithoutTechSupportInput = {
+  where: Prisma.TechSupportAssignmentsWhereUniqueInput
+  update: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutTechSupportInput>
+  create: Prisma.XOR<Prisma.TechSupportAssignmentsCreateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedCreateWithoutTechSupportInput>
+}
+
+export type TechSupportAssignmentsUpdateWithWhereUniqueWithoutTechSupportInput = {
+  where: Prisma.TechSupportAssignmentsWhereUniqueInput
+  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateWithoutTechSupportInput, Prisma.TechSupportAssignmentsUncheckedUpdateWithoutTechSupportInput>
+}
+
+export type TechSupportAssignmentsUpdateManyWithWhereWithoutTechSupportInput = {
+  where: Prisma.TechSupportAssignmentsScalarWhereInput
+  data: Prisma.XOR<Prisma.TechSupportAssignmentsUpdateManyMutationInput, Prisma.TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportInput>
+}
+
+export type TechSupportAssignmentsCreateManyGroupInput = {
+  id?: number
+  techSupportId: number
+  assignedRoleId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type TechSupportAssignmentsUpdateWithoutGroupInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -977,16 +915,14 @@ export type TechSupportAssignmentsUpdateWithoutTrainingBatchInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutTechSupportAssignmentNestedInput
-  AssignedRole?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsAssignedNestedInput
-  Group?: Prisma.GroupUpdateOneRequiredWithoutGroupTechSupportNestedInput
-  TechSupport?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsTechNestedInput
+  AssignedRole?: Prisma.PersonUpdateOneRequiredWithoutAssignedRolesNestedInput
+  TechSupport?: Prisma.PersonUpdateOneRequiredWithoutTechSupportRolesNestedInput
 }
 
-export type TechSupportAssignmentsUncheckedUpdateWithoutTrainingBatchInput = {
+export type TechSupportAssignmentsUncheckedUpdateWithoutGroupInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   techSupportId?: Prisma.IntFieldUpdateOperationsInput | number
   assignedRoleId?: Prisma.IntFieldUpdateOperationsInput | number
-  groupId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -994,6 +930,18 @@ export type TechSupportAssignmentsUncheckedUpdateWithoutTrainingBatchInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentNestedInput
+}
+
+export type TechSupportAssignmentsUncheckedUpdateManyWithoutGroupInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  techSupportId?: Prisma.IntFieldUpdateOperationsInput | number
+  assignedRoleId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TechSupportAssignmentsCreateManyAssignedRoleInput = {
@@ -1029,8 +977,7 @@ export type TechSupportAssignmentsUpdateWithoutAssignedRoleInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutTechSupportAssignmentNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutGroupTechSupportNestedInput
-  TechSupport?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsTechNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUpdateManyWithoutTrainerGroupAssignmentsNestedInput
+  TechSupport?: Prisma.PersonUpdateOneRequiredWithoutTechSupportRolesNestedInput
 }
 
 export type TechSupportAssignmentsUncheckedUpdateWithoutAssignedRoleInput = {
@@ -1044,7 +991,6 @@ export type TechSupportAssignmentsUncheckedUpdateWithoutAssignedRoleInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedUpdateManyWithoutTrainerGroupAssignmentsNestedInput
 }
 
 export type TechSupportAssignmentsUncheckedUpdateManyWithoutAssignedRoleInput = {
@@ -1067,9 +1013,8 @@ export type TechSupportAssignmentsUpdateWithoutTechSupportInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutTechSupportAssignmentNestedInput
-  AssignedRole?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsAssignedNestedInput
+  AssignedRole?: Prisma.PersonUpdateOneRequiredWithoutAssignedRolesNestedInput
   Group?: Prisma.GroupUpdateOneRequiredWithoutGroupTechSupportNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUpdateManyWithoutTrainerGroupAssignmentsNestedInput
 }
 
 export type TechSupportAssignmentsUncheckedUpdateWithoutTechSupportInput = {
@@ -1083,64 +1028,12 @@ export type TechSupportAssignmentsUncheckedUpdateWithoutTechSupportInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedUpdateManyWithoutTrainerGroupAssignmentsNestedInput
 }
 
 export type TechSupportAssignmentsUncheckedUpdateManyWithoutTechSupportInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   assignedRoleId?: Prisma.IntFieldUpdateOperationsInput | number
   groupId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type TechSupportAssignmentsCreateManyGroupInput = {
-  id?: number
-  techSupportId: number
-  assignedRoleId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-}
-
-export type TechSupportAssignmentsUpdateWithoutGroupInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  MentorAssignment?: Prisma.MentorAssignmentUpdateManyWithoutTechSupportAssignmentNestedInput
-  AssignedRole?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsAssignedNestedInput
-  TechSupport?: Prisma.PersonRoleUpdateOneRequiredWithoutTechSupportAssignmentsAsTechNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUpdateManyWithoutTrainerGroupAssignmentsNestedInput
-}
-
-export type TechSupportAssignmentsUncheckedUpdateWithoutGroupInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  techSupportId?: Prisma.IntFieldUpdateOperationsInput | number
-  assignedRoleId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  MentorAssignment?: Prisma.MentorAssignmentUncheckedUpdateManyWithoutTechSupportAssignmentNestedInput
-  TrainingBatch?: Prisma.TrainingBatchUncheckedUpdateManyWithoutTrainerGroupAssignmentsNestedInput
-}
-
-export type TechSupportAssignmentsUncheckedUpdateManyWithoutGroupInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  techSupportId?: Prisma.IntFieldUpdateOperationsInput | number
-  assignedRoleId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1156,12 +1049,10 @@ export type TechSupportAssignmentsUncheckedUpdateManyWithoutGroupInput = {
 
 export type TechSupportAssignmentsCountOutputType = {
   MentorAssignment: number
-  TrainingBatch: number
 }
 
 export type TechSupportAssignmentsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   MentorAssignment?: boolean | TechSupportAssignmentsCountOutputTypeCountMentorAssignmentArgs
-  TrainingBatch?: boolean | TechSupportAssignmentsCountOutputTypeCountTrainingBatchArgs
 }
 
 /**
@@ -1181,13 +1072,6 @@ export type TechSupportAssignmentsCountOutputTypeCountMentorAssignmentArgs<ExtAr
   where?: Prisma.MentorAssignmentWhereInput
 }
 
-/**
- * TechSupportAssignmentsCountOutputType without action
- */
-export type TechSupportAssignmentsCountOutputTypeCountTrainingBatchArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TrainingBatchWhereInput
-}
-
 
 export type TechSupportAssignmentsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1201,10 +1085,9 @@ export type TechSupportAssignmentsSelect<ExtArgs extends runtime.Types.Extension
   updatedBy?: boolean
   deletedBy?: boolean
   MentorAssignment?: boolean | Prisma.TechSupportAssignments$MentorAssignmentArgs<ExtArgs>
-  AssignedRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  AssignedRole?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  TechSupport?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
-  TrainingBatch?: boolean | Prisma.TechSupportAssignments$TrainingBatchArgs<ExtArgs>
+  TechSupport?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.TechSupportAssignmentsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["techSupportAssignments"]>
 
@@ -1219,9 +1102,9 @@ export type TechSupportAssignmentsSelectCreateManyAndReturn<ExtArgs extends runt
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  AssignedRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  AssignedRole?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  TechSupport?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  TechSupport?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["techSupportAssignments"]>
 
 export type TechSupportAssignmentsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1235,9 +1118,9 @@ export type TechSupportAssignmentsSelectUpdateManyAndReturn<ExtArgs extends runt
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  AssignedRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  AssignedRole?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  TechSupport?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  TechSupport?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["techSupportAssignments"]>
 
 export type TechSupportAssignmentsSelectScalar = {
@@ -1256,31 +1139,29 @@ export type TechSupportAssignmentsSelectScalar = {
 export type TechSupportAssignmentsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "techSupportId" | "assignedRoleId" | "groupId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["techSupportAssignments"]>
 export type TechSupportAssignmentsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   MentorAssignment?: boolean | Prisma.TechSupportAssignments$MentorAssignmentArgs<ExtArgs>
-  AssignedRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  AssignedRole?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  TechSupport?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
-  TrainingBatch?: boolean | Prisma.TechSupportAssignments$TrainingBatchArgs<ExtArgs>
+  TechSupport?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.TechSupportAssignmentsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TechSupportAssignmentsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  AssignedRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  AssignedRole?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  TechSupport?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  TechSupport?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
 }
 export type TechSupportAssignmentsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  AssignedRole?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  AssignedRole?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
-  TechSupport?: boolean | Prisma.PersonRoleDefaultArgs<ExtArgs>
+  TechSupport?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
 }
 
 export type $TechSupportAssignmentsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TechSupportAssignments"
   objects: {
     MentorAssignment: Prisma.$MentorAssignmentPayload<ExtArgs>[]
-    AssignedRole: Prisma.$PersonRolePayload<ExtArgs>
+    AssignedRole: Prisma.$PersonPayload<ExtArgs>
     Group: Prisma.$GroupPayload<ExtArgs>
-    TechSupport: Prisma.$PersonRolePayload<ExtArgs>
-    TrainingBatch: Prisma.$TrainingBatchPayload<ExtArgs>[]
+    TechSupport: Prisma.$PersonPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1688,10 +1569,9 @@ readonly fields: TechSupportAssignmentsFieldRefs;
 export interface Prisma__TechSupportAssignmentsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   MentorAssignment<T extends Prisma.TechSupportAssignments$MentorAssignmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TechSupportAssignments$MentorAssignmentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  AssignedRole<T extends Prisma.PersonRoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRoleDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonRoleClient<runtime.Types.Result.GetResult<Prisma.$PersonRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  AssignedRole<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Group<T extends Prisma.GroupDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GroupDefaultArgs<ExtArgs>>): Prisma.Prisma__GroupClient<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  TechSupport<T extends Prisma.PersonRoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonRoleDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonRoleClient<runtime.Types.Result.GetResult<Prisma.$PersonRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  TrainingBatch<T extends Prisma.TechSupportAssignments$TrainingBatchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TechSupportAssignments$TrainingBatchArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainingBatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  TechSupport<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2148,30 +2028,6 @@ export type TechSupportAssignments$MentorAssignmentArgs<ExtArgs extends runtime.
   take?: number
   skip?: number
   distinct?: Prisma.MentorAssignmentScalarFieldEnum | Prisma.MentorAssignmentScalarFieldEnum[]
-}
-
-/**
- * TechSupportAssignments.TrainingBatch
- */
-export type TechSupportAssignments$TrainingBatchArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TrainingBatch
-   */
-  select?: Prisma.TrainingBatchSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TrainingBatch
-   */
-  omit?: Prisma.TrainingBatchOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TrainingBatchInclude<ExtArgs> | null
-  where?: Prisma.TrainingBatchWhereInput
-  orderBy?: Prisma.TrainingBatchOrderByWithRelationInput | Prisma.TrainingBatchOrderByWithRelationInput[]
-  cursor?: Prisma.TrainingBatchWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TrainingBatchScalarFieldEnum | Prisma.TrainingBatchScalarFieldEnum[]
 }
 
 /**

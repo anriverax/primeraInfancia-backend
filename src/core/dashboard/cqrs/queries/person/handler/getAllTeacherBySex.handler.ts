@@ -14,11 +14,7 @@ export class GetAllTeacherBySexHandler {
         _all: true
       },
       where: {
-        PersonRole: {
-          some: {
-            typePersonId: 2
-          }
-        }
+        typePersonId: 2
       }
     });
 

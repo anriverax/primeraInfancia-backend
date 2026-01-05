@@ -243,7 +243,6 @@ export type TrainingModuleWhereInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationListRelationFilter
   moduleReport?: Prisma.ModuleReportListRelationFilter
   Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
-  eventInstances?: Prisma.EventInstanceListRelationFilter
 }
 
 export type TrainingModuleOrderByWithRelationInput = {
@@ -257,7 +256,6 @@ export type TrainingModuleOrderByWithRelationInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationOrderByRelationAggregateInput
   moduleReport?: Prisma.ModuleReportOrderByRelationAggregateInput
   Cohort?: Prisma.CohortOrderByWithRelationInput
-  eventInstances?: Prisma.EventInstanceOrderByRelationAggregateInput
 }
 
 export type TrainingModuleWhereUniqueInput = Prisma.AtLeast<{
@@ -274,7 +272,6 @@ export type TrainingModuleWhereUniqueInput = Prisma.AtLeast<{
   ModuleEvaluation?: Prisma.ModuleEvaluationListRelationFilter
   moduleReport?: Prisma.ModuleReportListRelationFilter
   Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
-  eventInstances?: Prisma.EventInstanceListRelationFilter
 }, "id">
 
 export type TrainingModuleOrderByWithAggregationInput = {
@@ -314,7 +311,6 @@ export type TrainingModuleCreateInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutTrainingModuleInput
   moduleReport?: Prisma.ModuleReportCreateNestedManyWithoutTrainingModuleInput
   Cohort: Prisma.CohortCreateNestedOneWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleUncheckedCreateInput = {
@@ -327,7 +323,6 @@ export type TrainingModuleUncheckedCreateInput = {
   cohortId: number
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutTrainingModuleInput
   moduleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleUpdateInput = {
@@ -339,7 +334,6 @@ export type TrainingModuleUpdateInput = {
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutTrainingModuleNestedInput
   moduleReport?: Prisma.ModuleReportUpdateManyWithoutTrainingModuleNestedInput
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleUncheckedUpdateInput = {
@@ -352,7 +346,6 @@ export type TrainingModuleUncheckedUpdateInput = {
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleNestedInput
   moduleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleCreateManyInput = {
@@ -381,11 +374,6 @@ export type TrainingModuleUncheckedUpdateManyInput = {
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hours?: Prisma.IntFieldUpdateOperationsInput | number
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type TrainingModuleNullableScalarRelationFilter = {
-  is?: Prisma.TrainingModuleWhereInput | null
-  isNot?: Prisma.TrainingModuleWhereInput | null
 }
 
 export type TrainingModuleListRelationFilter = {
@@ -443,22 +431,6 @@ export type TrainingModuleSumOrderByAggregateInput = {
 export type TrainingModuleScalarRelationFilter = {
   is?: Prisma.TrainingModuleWhereInput
   isNot?: Prisma.TrainingModuleWhereInput
-}
-
-export type TrainingModuleCreateNestedOneWithoutEventInstancesInput = {
-  create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
-  connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutEventInstancesInput
-  connect?: Prisma.TrainingModuleWhereUniqueInput
-}
-
-export type TrainingModuleUpdateOneWithoutEventInstancesNestedInput = {
-  create?: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
-  connectOrCreate?: Prisma.TrainingModuleCreateOrConnectWithoutEventInstancesInput
-  upsert?: Prisma.TrainingModuleUpsertWithoutEventInstancesInput
-  disconnect?: Prisma.TrainingModuleWhereInput | boolean
-  delete?: Prisma.TrainingModuleWhereInput | boolean
-  connect?: Prisma.TrainingModuleWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TrainingModuleUpdateToOneWithWhereWithoutEventInstancesInput, Prisma.TrainingModuleUpdateWithoutEventInstancesInput>, Prisma.TrainingModuleUncheckedUpdateWithoutEventInstancesInput>
 }
 
 export type TrainingModuleCreateNestedManyWithoutCohortInput = {
@@ -531,68 +503,6 @@ export type TrainingModuleUpdateOneRequiredWithoutModuleReportNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrainingModuleUpdateToOneWithWhereWithoutModuleReportInput, Prisma.TrainingModuleUpdateWithoutModuleReportInput>, Prisma.TrainingModuleUncheckedUpdateWithoutModuleReportInput>
 }
 
-export type TrainingModuleCreateWithoutEventInstancesInput = {
-  name: string
-  title: string
-  startDate: Date | string
-  endDate: Date | string
-  hours: number
-  ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutTrainingModuleInput
-  moduleReport?: Prisma.ModuleReportCreateNestedManyWithoutTrainingModuleInput
-  Cohort: Prisma.CohortCreateNestedOneWithoutTrainingModuleInput
-}
-
-export type TrainingModuleUncheckedCreateWithoutEventInstancesInput = {
-  id?: number
-  name: string
-  title: string
-  startDate: Date | string
-  endDate: Date | string
-  hours: number
-  cohortId: number
-  ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutTrainingModuleInput
-  moduleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutTrainingModuleInput
-}
-
-export type TrainingModuleCreateOrConnectWithoutEventInstancesInput = {
-  where: Prisma.TrainingModuleWhereUniqueInput
-  create: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
-}
-
-export type TrainingModuleUpsertWithoutEventInstancesInput = {
-  update: Prisma.XOR<Prisma.TrainingModuleUpdateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedUpdateWithoutEventInstancesInput>
-  create: Prisma.XOR<Prisma.TrainingModuleCreateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedCreateWithoutEventInstancesInput>
-  where?: Prisma.TrainingModuleWhereInput
-}
-
-export type TrainingModuleUpdateToOneWithWhereWithoutEventInstancesInput = {
-  where?: Prisma.TrainingModuleWhereInput
-  data: Prisma.XOR<Prisma.TrainingModuleUpdateWithoutEventInstancesInput, Prisma.TrainingModuleUncheckedUpdateWithoutEventInstancesInput>
-}
-
-export type TrainingModuleUpdateWithoutEventInstancesInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hours?: Prisma.IntFieldUpdateOperationsInput | number
-  ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutTrainingModuleNestedInput
-  moduleReport?: Prisma.ModuleReportUpdateManyWithoutTrainingModuleNestedInput
-  Cohort?: Prisma.CohortUpdateOneRequiredWithoutTrainingModuleNestedInput
-}
-
-export type TrainingModuleUncheckedUpdateWithoutEventInstancesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hours?: Prisma.IntFieldUpdateOperationsInput | number
-  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleNestedInput
-  moduleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutTrainingModuleNestedInput
-}
-
 export type TrainingModuleCreateWithoutCohortInput = {
   name: string
   title: string
@@ -601,7 +511,6 @@ export type TrainingModuleCreateWithoutCohortInput = {
   hours: number
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutTrainingModuleInput
   moduleReport?: Prisma.ModuleReportCreateNestedManyWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleUncheckedCreateWithoutCohortInput = {
@@ -613,7 +522,6 @@ export type TrainingModuleUncheckedCreateWithoutCohortInput = {
   hours: number
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutTrainingModuleInput
   moduleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleCreateOrConnectWithoutCohortInput = {
@@ -663,7 +571,6 @@ export type TrainingModuleCreateWithoutModuleEvaluationInput = {
   hours: number
   moduleReport?: Prisma.ModuleReportCreateNestedManyWithoutTrainingModuleInput
   Cohort: Prisma.CohortCreateNestedOneWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleUncheckedCreateWithoutModuleEvaluationInput = {
@@ -675,7 +582,6 @@ export type TrainingModuleUncheckedCreateWithoutModuleEvaluationInput = {
   hours: number
   cohortId: number
   moduleReport?: Prisma.ModuleReportUncheckedCreateNestedManyWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleCreateOrConnectWithoutModuleEvaluationInput = {
@@ -702,7 +608,6 @@ export type TrainingModuleUpdateWithoutModuleEvaluationInput = {
   hours?: Prisma.IntFieldUpdateOperationsInput | number
   moduleReport?: Prisma.ModuleReportUpdateManyWithoutTrainingModuleNestedInput
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleUncheckedUpdateWithoutModuleEvaluationInput = {
@@ -714,7 +619,6 @@ export type TrainingModuleUncheckedUpdateWithoutModuleEvaluationInput = {
   hours?: Prisma.IntFieldUpdateOperationsInput | number
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
   moduleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleCreateWithoutModuleReportInput = {
@@ -725,7 +629,6 @@ export type TrainingModuleCreateWithoutModuleReportInput = {
   hours: number
   ModuleEvaluation?: Prisma.ModuleEvaluationCreateNestedManyWithoutTrainingModuleInput
   Cohort: Prisma.CohortCreateNestedOneWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleUncheckedCreateWithoutModuleReportInput = {
@@ -737,7 +640,6 @@ export type TrainingModuleUncheckedCreateWithoutModuleReportInput = {
   hours: number
   cohortId: number
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedCreateNestedManyWithoutTrainingModuleInput
-  eventInstances?: Prisma.EventInstanceUncheckedCreateNestedManyWithoutTrainingModuleInput
 }
 
 export type TrainingModuleCreateOrConnectWithoutModuleReportInput = {
@@ -764,7 +666,6 @@ export type TrainingModuleUpdateWithoutModuleReportInput = {
   hours?: Prisma.IntFieldUpdateOperationsInput | number
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutTrainingModuleNestedInput
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleUncheckedUpdateWithoutModuleReportInput = {
@@ -776,7 +677,6 @@ export type TrainingModuleUncheckedUpdateWithoutModuleReportInput = {
   hours?: Prisma.IntFieldUpdateOperationsInput | number
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleCreateManyCohortInput = {
@@ -796,7 +696,6 @@ export type TrainingModuleUpdateWithoutCohortInput = {
   hours?: Prisma.IntFieldUpdateOperationsInput | number
   ModuleEvaluation?: Prisma.ModuleEvaluationUpdateManyWithoutTrainingModuleNestedInput
   moduleReport?: Prisma.ModuleReportUpdateManyWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleUncheckedUpdateWithoutCohortInput = {
@@ -808,7 +707,6 @@ export type TrainingModuleUncheckedUpdateWithoutCohortInput = {
   hours?: Prisma.IntFieldUpdateOperationsInput | number
   ModuleEvaluation?: Prisma.ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleNestedInput
   moduleReport?: Prisma.ModuleReportUncheckedUpdateManyWithoutTrainingModuleNestedInput
-  eventInstances?: Prisma.EventInstanceUncheckedUpdateManyWithoutTrainingModuleNestedInput
 }
 
 export type TrainingModuleUncheckedUpdateManyWithoutCohortInput = {
@@ -828,13 +726,11 @@ export type TrainingModuleUncheckedUpdateManyWithoutCohortInput = {
 export type TrainingModuleCountOutputType = {
   ModuleEvaluation: number
   moduleReport: number
-  eventInstances: number
 }
 
 export type TrainingModuleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ModuleEvaluation?: boolean | TrainingModuleCountOutputTypeCountModuleEvaluationArgs
   moduleReport?: boolean | TrainingModuleCountOutputTypeCountModuleReportArgs
-  eventInstances?: boolean | TrainingModuleCountOutputTypeCountEventInstancesArgs
 }
 
 /**
@@ -861,13 +757,6 @@ export type TrainingModuleCountOutputTypeCountModuleReportArgs<ExtArgs extends r
   where?: Prisma.ModuleReportWhereInput
 }
 
-/**
- * TrainingModuleCountOutputType without action
- */
-export type TrainingModuleCountOutputTypeCountEventInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EventInstanceWhereInput
-}
-
 
 export type TrainingModuleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -880,7 +769,6 @@ export type TrainingModuleSelect<ExtArgs extends runtime.Types.Extensions.Intern
   ModuleEvaluation?: boolean | Prisma.TrainingModule$ModuleEvaluationArgs<ExtArgs>
   moduleReport?: boolean | Prisma.TrainingModule$moduleReportArgs<ExtArgs>
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
-  eventInstances?: boolean | Prisma.TrainingModule$eventInstancesArgs<ExtArgs>
   _count?: boolean | Prisma.TrainingModuleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trainingModule"]>
 
@@ -921,7 +809,6 @@ export type TrainingModuleInclude<ExtArgs extends runtime.Types.Extensions.Inter
   ModuleEvaluation?: boolean | Prisma.TrainingModule$ModuleEvaluationArgs<ExtArgs>
   moduleReport?: boolean | Prisma.TrainingModule$moduleReportArgs<ExtArgs>
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
-  eventInstances?: boolean | Prisma.TrainingModule$eventInstancesArgs<ExtArgs>
   _count?: boolean | Prisma.TrainingModuleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TrainingModuleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -937,7 +824,6 @@ export type $TrainingModulePayload<ExtArgs extends runtime.Types.Extensions.Inte
     ModuleEvaluation: Prisma.$ModuleEvaluationPayload<ExtArgs>[]
     moduleReport: Prisma.$ModuleReportPayload<ExtArgs>[]
     Cohort: Prisma.$CohortPayload<ExtArgs>
-    eventInstances: Prisma.$EventInstancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1344,7 +1230,6 @@ export interface Prisma__TrainingModuleClient<T, Null = never, ExtArgs extends r
   ModuleEvaluation<T extends Prisma.TrainingModule$ModuleEvaluationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainingModule$ModuleEvaluationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   moduleReport<T extends Prisma.TrainingModule$moduleReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainingModule$moduleReportArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Cohort<T extends Prisma.CohortDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CohortDefaultArgs<ExtArgs>>): Prisma.Prisma__CohortClient<runtime.Types.Result.GetResult<Prisma.$CohortPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  eventInstances<T extends Prisma.TrainingModule$eventInstancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainingModule$eventInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1822,30 +1707,6 @@ export type TrainingModule$moduleReportArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.ModuleReportScalarFieldEnum | Prisma.ModuleReportScalarFieldEnum[]
-}
-
-/**
- * TrainingModule.eventInstances
- */
-export type TrainingModule$eventInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the EventInstance
-   */
-  select?: Prisma.EventInstanceSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the EventInstance
-   */
-  omit?: Prisma.EventInstanceOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EventInstanceInclude<ExtArgs> | null
-  where?: Prisma.EventInstanceWhereInput
-  orderBy?: Prisma.EventInstanceOrderByWithRelationInput | Prisma.EventInstanceOrderByWithRelationInput[]
-  cursor?: Prisma.EventInstanceWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EventInstanceScalarFieldEnum | Prisma.EventInstanceScalarFieldEnum[]
 }
 
 /**

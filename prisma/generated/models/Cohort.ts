@@ -327,20 +327,6 @@ export type CohortUpdateOneRequiredWithoutEventTypeNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CohortUpdateToOneWithWhereWithoutEventTypeInput, Prisma.CohortUpdateWithoutEventTypeInput>, Prisma.CohortUncheckedUpdateWithoutEventTypeInput>
 }
 
-export type CohortCreateNestedOneWithoutSchoolInput = {
-  create?: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
-  connectOrCreate?: Prisma.CohortCreateOrConnectWithoutSchoolInput
-  connect?: Prisma.CohortWhereUniqueInput
-}
-
-export type CohortUpdateOneRequiredWithoutSchoolNestedInput = {
-  create?: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
-  connectOrCreate?: Prisma.CohortCreateOrConnectWithoutSchoolInput
-  upsert?: Prisma.CohortUpsertWithoutSchoolInput
-  connect?: Prisma.CohortWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CohortUpdateToOneWithWhereWithoutSchoolInput, Prisma.CohortUpdateWithoutSchoolInput>, Prisma.CohortUncheckedUpdateWithoutSchoolInput>
-}
-
 export type CohortCreateNestedOneWithoutGroupInput = {
   create?: Prisma.XOR<Prisma.CohortCreateWithoutGroupInput, Prisma.CohortUncheckedCreateWithoutGroupInput>
   connectOrCreate?: Prisma.CohortCreateOrConnectWithoutGroupInput
@@ -353,6 +339,20 @@ export type CohortUpdateOneRequiredWithoutGroupNestedInput = {
   upsert?: Prisma.CohortUpsertWithoutGroupInput
   connect?: Prisma.CohortWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CohortUpdateToOneWithWhereWithoutGroupInput, Prisma.CohortUpdateWithoutGroupInput>, Prisma.CohortUncheckedUpdateWithoutGroupInput>
+}
+
+export type CohortCreateNestedOneWithoutSchoolInput = {
+  create?: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
+  connectOrCreate?: Prisma.CohortCreateOrConnectWithoutSchoolInput
+  connect?: Prisma.CohortWhereUniqueInput
+}
+
+export type CohortUpdateOneRequiredWithoutSchoolNestedInput = {
+  create?: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
+  connectOrCreate?: Prisma.CohortCreateOrConnectWithoutSchoolInput
+  upsert?: Prisma.CohortUpsertWithoutSchoolInput
+  connect?: Prisma.CohortWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CohortUpdateToOneWithWhereWithoutSchoolInput, Prisma.CohortUpdateWithoutSchoolInput>, Prisma.CohortUncheckedUpdateWithoutSchoolInput>
 }
 
 export type CohortCreateNestedOneWithoutTrainingModuleInput = {
@@ -415,52 +415,6 @@ export type CohortUncheckedUpdateWithoutEventTypeInput = {
   TrainingModule?: Prisma.TrainingModuleUncheckedUpdateManyWithoutCohortNestedInput
 }
 
-export type CohortCreateWithoutSchoolInput = {
-  name: string
-  EventType?: Prisma.EventTypeCreateNestedManyWithoutCohortInput
-  Group?: Prisma.GroupCreateNestedManyWithoutCohortInput
-  TrainingModule?: Prisma.TrainingModuleCreateNestedManyWithoutCohortInput
-}
-
-export type CohortUncheckedCreateWithoutSchoolInput = {
-  id?: number
-  name: string
-  EventType?: Prisma.EventTypeUncheckedCreateNestedManyWithoutCohortInput
-  Group?: Prisma.GroupUncheckedCreateNestedManyWithoutCohortInput
-  TrainingModule?: Prisma.TrainingModuleUncheckedCreateNestedManyWithoutCohortInput
-}
-
-export type CohortCreateOrConnectWithoutSchoolInput = {
-  where: Prisma.CohortWhereUniqueInput
-  create: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
-}
-
-export type CohortUpsertWithoutSchoolInput = {
-  update: Prisma.XOR<Prisma.CohortUpdateWithoutSchoolInput, Prisma.CohortUncheckedUpdateWithoutSchoolInput>
-  create: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
-  where?: Prisma.CohortWhereInput
-}
-
-export type CohortUpdateToOneWithWhereWithoutSchoolInput = {
-  where?: Prisma.CohortWhereInput
-  data: Prisma.XOR<Prisma.CohortUpdateWithoutSchoolInput, Prisma.CohortUncheckedUpdateWithoutSchoolInput>
-}
-
-export type CohortUpdateWithoutSchoolInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  EventType?: Prisma.EventTypeUpdateManyWithoutCohortNestedInput
-  Group?: Prisma.GroupUpdateManyWithoutCohortNestedInput
-  TrainingModule?: Prisma.TrainingModuleUpdateManyWithoutCohortNestedInput
-}
-
-export type CohortUncheckedUpdateWithoutSchoolInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  EventType?: Prisma.EventTypeUncheckedUpdateManyWithoutCohortNestedInput
-  Group?: Prisma.GroupUncheckedUpdateManyWithoutCohortNestedInput
-  TrainingModule?: Prisma.TrainingModuleUncheckedUpdateManyWithoutCohortNestedInput
-}
-
 export type CohortCreateWithoutGroupInput = {
   name: string
   EventType?: Prisma.EventTypeCreateNestedManyWithoutCohortInput
@@ -504,6 +458,52 @@ export type CohortUncheckedUpdateWithoutGroupInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   EventType?: Prisma.EventTypeUncheckedUpdateManyWithoutCohortNestedInput
   School?: Prisma.SchoolUncheckedUpdateManyWithoutCohortNestedInput
+  TrainingModule?: Prisma.TrainingModuleUncheckedUpdateManyWithoutCohortNestedInput
+}
+
+export type CohortCreateWithoutSchoolInput = {
+  name: string
+  EventType?: Prisma.EventTypeCreateNestedManyWithoutCohortInput
+  Group?: Prisma.GroupCreateNestedManyWithoutCohortInput
+  TrainingModule?: Prisma.TrainingModuleCreateNestedManyWithoutCohortInput
+}
+
+export type CohortUncheckedCreateWithoutSchoolInput = {
+  id?: number
+  name: string
+  EventType?: Prisma.EventTypeUncheckedCreateNestedManyWithoutCohortInput
+  Group?: Prisma.GroupUncheckedCreateNestedManyWithoutCohortInput
+  TrainingModule?: Prisma.TrainingModuleUncheckedCreateNestedManyWithoutCohortInput
+}
+
+export type CohortCreateOrConnectWithoutSchoolInput = {
+  where: Prisma.CohortWhereUniqueInput
+  create: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
+}
+
+export type CohortUpsertWithoutSchoolInput = {
+  update: Prisma.XOR<Prisma.CohortUpdateWithoutSchoolInput, Prisma.CohortUncheckedUpdateWithoutSchoolInput>
+  create: Prisma.XOR<Prisma.CohortCreateWithoutSchoolInput, Prisma.CohortUncheckedCreateWithoutSchoolInput>
+  where?: Prisma.CohortWhereInput
+}
+
+export type CohortUpdateToOneWithWhereWithoutSchoolInput = {
+  where?: Prisma.CohortWhereInput
+  data: Prisma.XOR<Prisma.CohortUpdateWithoutSchoolInput, Prisma.CohortUncheckedUpdateWithoutSchoolInput>
+}
+
+export type CohortUpdateWithoutSchoolInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  EventType?: Prisma.EventTypeUpdateManyWithoutCohortNestedInput
+  Group?: Prisma.GroupUpdateManyWithoutCohortNestedInput
+  TrainingModule?: Prisma.TrainingModuleUpdateManyWithoutCohortNestedInput
+}
+
+export type CohortUncheckedUpdateWithoutSchoolInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  EventType?: Prisma.EventTypeUncheckedUpdateManyWithoutCohortNestedInput
+  Group?: Prisma.GroupUncheckedUpdateManyWithoutCohortNestedInput
   TrainingModule?: Prisma.TrainingModuleUncheckedUpdateManyWithoutCohortNestedInput
 }
 

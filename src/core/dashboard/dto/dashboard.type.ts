@@ -51,16 +51,14 @@ export interface DashboardMentoring {
 
 export interface GetAllAppendixResponse {
   Inscription: {
-    PersonRole: {
-      Person: {
-        PrincipalSchool: {
-          School: {
-            id: number;
-            name: string;
-            District: { Municipality: { Department: DepartmentList } };
-          };
-        }[];
-      };
+    Person: {
+      PrincipalSchool: {
+        School: {
+          id: number;
+          name: string;
+          District: { Municipality: { Department: DepartmentList } };
+        };
+      }[];
     };
   };
 }

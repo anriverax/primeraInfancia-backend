@@ -29,7 +29,7 @@ export type AggregateEventAttendance = {
 export type EventAttendanceAvgAggregateOutputType = {
   id: number | null
   attendanceSessionId: number | null
-  personId: number | null
+  teacherId: number | null
   createdBy: number | null
   updatedBy: number | null
 }
@@ -37,7 +37,7 @@ export type EventAttendanceAvgAggregateOutputType = {
 export type EventAttendanceSumAggregateOutputType = {
   id: number | null
   attendanceSessionId: number | null
-  personId: number | null
+  teacherId: number | null
   createdBy: number | null
   updatedBy: number | null
 }
@@ -45,13 +45,12 @@ export type EventAttendanceSumAggregateOutputType = {
 export type EventAttendanceMinAggregateOutputType = {
   id: number | null
   attendanceSessionId: number | null
-  personId: number | null
+  teacherId: number | null
   checkIn: Date | null
   checkOut: Date | null
   status: $Enums.AttendanceEnum | null
   comment: string | null
   justificationFileUrl: string | null
-  coordinates: string | null
   createdAt: Date | null
   updatedAt: Date | null
   createdBy: number | null
@@ -61,13 +60,12 @@ export type EventAttendanceMinAggregateOutputType = {
 export type EventAttendanceMaxAggregateOutputType = {
   id: number | null
   attendanceSessionId: number | null
-  personId: number | null
+  teacherId: number | null
   checkIn: Date | null
   checkOut: Date | null
   status: $Enums.AttendanceEnum | null
   comment: string | null
   justificationFileUrl: string | null
-  coordinates: string | null
   createdAt: Date | null
   updatedAt: Date | null
   createdBy: number | null
@@ -77,13 +75,12 @@ export type EventAttendanceMaxAggregateOutputType = {
 export type EventAttendanceCountAggregateOutputType = {
   id: number
   attendanceSessionId: number
-  personId: number
+  teacherId: number
   checkIn: number
   checkOut: number
   status: number
   comment: number
   justificationFileUrl: number
-  coordinates: number
   createdAt: number
   updatedAt: number
   createdBy: number
@@ -95,7 +92,7 @@ export type EventAttendanceCountAggregateOutputType = {
 export type EventAttendanceAvgAggregateInputType = {
   id?: true
   attendanceSessionId?: true
-  personId?: true
+  teacherId?: true
   createdBy?: true
   updatedBy?: true
 }
@@ -103,7 +100,7 @@ export type EventAttendanceAvgAggregateInputType = {
 export type EventAttendanceSumAggregateInputType = {
   id?: true
   attendanceSessionId?: true
-  personId?: true
+  teacherId?: true
   createdBy?: true
   updatedBy?: true
 }
@@ -111,13 +108,12 @@ export type EventAttendanceSumAggregateInputType = {
 export type EventAttendanceMinAggregateInputType = {
   id?: true
   attendanceSessionId?: true
-  personId?: true
+  teacherId?: true
   checkIn?: true
   checkOut?: true
   status?: true
   comment?: true
   justificationFileUrl?: true
-  coordinates?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
@@ -127,13 +123,12 @@ export type EventAttendanceMinAggregateInputType = {
 export type EventAttendanceMaxAggregateInputType = {
   id?: true
   attendanceSessionId?: true
-  personId?: true
+  teacherId?: true
   checkIn?: true
   checkOut?: true
   status?: true
   comment?: true
   justificationFileUrl?: true
-  coordinates?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
@@ -143,13 +138,12 @@ export type EventAttendanceMaxAggregateInputType = {
 export type EventAttendanceCountAggregateInputType = {
   id?: true
   attendanceSessionId?: true
-  personId?: true
+  teacherId?: true
   checkIn?: true
   checkOut?: true
   status?: true
   comment?: true
   justificationFileUrl?: true
-  coordinates?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
@@ -246,13 +240,12 @@ export type EventAttendanceGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type EventAttendanceGroupByOutputType = {
   id: number
   attendanceSessionId: number
-  personId: number
+  teacherId: number
   checkIn: Date
   checkOut: Date | null
   status: $Enums.AttendanceEnum
   comment: string | null
   justificationFileUrl: string | null
-  coordinates: string | null
   createdAt: Date
   updatedAt: Date
   createdBy: number
@@ -285,13 +278,12 @@ export type EventAttendanceWhereInput = {
   NOT?: Prisma.EventAttendanceWhereInput | Prisma.EventAttendanceWhereInput[]
   id?: Prisma.IntFilter<"EventAttendance"> | number
   attendanceSessionId?: Prisma.IntFilter<"EventAttendance"> | number
-  personId?: Prisma.IntFilter<"EventAttendance"> | number
+  teacherId?: Prisma.IntFilter<"EventAttendance"> | number
   checkIn?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   checkOut?: Prisma.DateTimeNullableFilter<"EventAttendance"> | Date | string | null
   status?: Prisma.EnumAttendanceEnumFilter<"EventAttendance"> | $Enums.AttendanceEnum
   comment?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
   justificationFileUrl?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
-  coordinates?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   createdBy?: Prisma.IntFilter<"EventAttendance"> | number
@@ -303,13 +295,12 @@ export type EventAttendanceWhereInput = {
 export type EventAttendanceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   attendanceSessionId?: Prisma.SortOrder
-  personId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   justificationFileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  coordinates?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -320,36 +311,34 @@ export type EventAttendanceOrderByWithRelationInput = {
 
 export type EventAttendanceWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  personId_attendanceSessionId?: Prisma.EventAttendancePersonIdAttendanceSessionIdCompoundUniqueInput
+  teacherId_attendanceSessionId?: Prisma.EventAttendanceTeacherIdAttendanceSessionIdCompoundUniqueInput
   AND?: Prisma.EventAttendanceWhereInput | Prisma.EventAttendanceWhereInput[]
   OR?: Prisma.EventAttendanceWhereInput[]
   NOT?: Prisma.EventAttendanceWhereInput | Prisma.EventAttendanceWhereInput[]
   attendanceSessionId?: Prisma.IntFilter<"EventAttendance"> | number
-  personId?: Prisma.IntFilter<"EventAttendance"> | number
+  teacherId?: Prisma.IntFilter<"EventAttendance"> | number
   checkIn?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   checkOut?: Prisma.DateTimeNullableFilter<"EventAttendance"> | Date | string | null
   status?: Prisma.EnumAttendanceEnumFilter<"EventAttendance"> | $Enums.AttendanceEnum
   comment?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
   justificationFileUrl?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
-  coordinates?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   createdBy?: Prisma.IntFilter<"EventAttendance"> | number
   updatedBy?: Prisma.IntNullableFilter<"EventAttendance"> | number | null
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   AttendanceSession?: Prisma.XOR<Prisma.AttendanceSessionScalarRelationFilter, Prisma.AttendanceSessionWhereInput>
-}, "id" | "personId_attendanceSessionId">
+}, "id" | "teacherId_attendanceSessionId">
 
 export type EventAttendanceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   attendanceSessionId?: Prisma.SortOrder
-  personId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   justificationFileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  coordinates?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -367,13 +356,12 @@ export type EventAttendanceScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EventAttendanceScalarWhereWithAggregatesInput | Prisma.EventAttendanceScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"EventAttendance"> | number
   attendanceSessionId?: Prisma.IntWithAggregatesFilter<"EventAttendance"> | number
-  personId?: Prisma.IntWithAggregatesFilter<"EventAttendance"> | number
+  teacherId?: Prisma.IntWithAggregatesFilter<"EventAttendance"> | number
   checkIn?: Prisma.DateTimeWithAggregatesFilter<"EventAttendance"> | Date | string
   checkOut?: Prisma.DateTimeNullableWithAggregatesFilter<"EventAttendance"> | Date | string | null
   status?: Prisma.EnumAttendanceEnumWithAggregatesFilter<"EventAttendance"> | $Enums.AttendanceEnum
   comment?: Prisma.StringNullableWithAggregatesFilter<"EventAttendance"> | string | null
   justificationFileUrl?: Prisma.StringNullableWithAggregatesFilter<"EventAttendance"> | string | null
-  coordinates?: Prisma.StringNullableWithAggregatesFilter<"EventAttendance"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EventAttendance"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EventAttendance"> | Date | string
   createdBy?: Prisma.IntWithAggregatesFilter<"EventAttendance"> | number
@@ -386,25 +374,23 @@ export type EventAttendanceCreateInput = {
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
   updatedBy?: number | null
   Person: Prisma.PersonCreateNestedOneWithoutEventAttendanceInput
-  AttendanceSession: Prisma.AttendanceSessionCreateNestedOneWithoutAttendancesInput
+  AttendanceSession: Prisma.AttendanceSessionCreateNestedOneWithoutEventAttendanceInput
 }
 
 export type EventAttendanceUncheckedCreateInput = {
   id?: number
   attendanceSessionId: number
-  personId: number
+  teacherId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -417,25 +403,23 @@ export type EventAttendanceUpdateInput = {
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Person?: Prisma.PersonUpdateOneRequiredWithoutEventAttendanceNestedInput
-  AttendanceSession?: Prisma.AttendanceSessionUpdateOneRequiredWithoutAttendancesNestedInput
+  AttendanceSession?: Prisma.AttendanceSessionUpdateOneRequiredWithoutEventAttendanceNestedInput
 }
 
 export type EventAttendanceUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   attendanceSessionId?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -445,13 +429,12 @@ export type EventAttendanceUncheckedUpdateInput = {
 export type EventAttendanceCreateManyInput = {
   id?: number
   attendanceSessionId: number
-  personId: number
+  teacherId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -464,7 +447,6 @@ export type EventAttendanceUpdateManyMutationInput = {
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -474,13 +456,12 @@ export type EventAttendanceUpdateManyMutationInput = {
 export type EventAttendanceUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   attendanceSessionId?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -497,21 +478,20 @@ export type EventAttendanceOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type EventAttendancePersonIdAttendanceSessionIdCompoundUniqueInput = {
-  personId: number
+export type EventAttendanceTeacherIdAttendanceSessionIdCompoundUniqueInput = {
+  teacherId: number
   attendanceSessionId: number
 }
 
 export type EventAttendanceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attendanceSessionId?: Prisma.SortOrder
-  personId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrder
   status?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   justificationFileUrl?: Prisma.SortOrder
-  coordinates?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -521,7 +501,7 @@ export type EventAttendanceCountOrderByAggregateInput = {
 export type EventAttendanceAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attendanceSessionId?: Prisma.SortOrder
-  personId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
 }
@@ -529,13 +509,12 @@ export type EventAttendanceAvgOrderByAggregateInput = {
 export type EventAttendanceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attendanceSessionId?: Prisma.SortOrder
-  personId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrder
   status?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   justificationFileUrl?: Prisma.SortOrder
-  coordinates?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -545,13 +524,12 @@ export type EventAttendanceMaxOrderByAggregateInput = {
 export type EventAttendanceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attendanceSessionId?: Prisma.SortOrder
-  personId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrder
   status?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   justificationFileUrl?: Prisma.SortOrder
-  coordinates?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -561,7 +539,7 @@ export type EventAttendanceMinOrderByAggregateInput = {
 export type EventAttendanceSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attendanceSessionId?: Prisma.SortOrder
-  personId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
 }
@@ -610,10 +588,6 @@ export type EventAttendanceUncheckedUpdateManyWithoutAttendanceSessionNestedInpu
 
 export type EnumAttendanceEnumFieldUpdateOperationsInput = {
   set?: $Enums.AttendanceEnum
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -672,7 +646,6 @@ export type EventAttendanceCreateWithoutAttendanceSessionInput = {
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -682,13 +655,12 @@ export type EventAttendanceCreateWithoutAttendanceSessionInput = {
 
 export type EventAttendanceUncheckedCreateWithoutAttendanceSessionInput = {
   id?: number
-  personId: number
+  teacherId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -727,13 +699,12 @@ export type EventAttendanceScalarWhereInput = {
   NOT?: Prisma.EventAttendanceScalarWhereInput | Prisma.EventAttendanceScalarWhereInput[]
   id?: Prisma.IntFilter<"EventAttendance"> | number
   attendanceSessionId?: Prisma.IntFilter<"EventAttendance"> | number
-  personId?: Prisma.IntFilter<"EventAttendance"> | number
+  teacherId?: Prisma.IntFilter<"EventAttendance"> | number
   checkIn?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   checkOut?: Prisma.DateTimeNullableFilter<"EventAttendance"> | Date | string | null
   status?: Prisma.EnumAttendanceEnumFilter<"EventAttendance"> | $Enums.AttendanceEnum
   comment?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
   justificationFileUrl?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
-  coordinates?: Prisma.StringNullableFilter<"EventAttendance"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventAttendance"> | Date | string
   createdBy?: Prisma.IntFilter<"EventAttendance"> | number
@@ -746,12 +717,11 @@ export type EventAttendanceCreateWithoutPersonInput = {
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
   updatedBy?: number | null
-  AttendanceSession: Prisma.AttendanceSessionCreateNestedOneWithoutAttendancesInput
+  AttendanceSession: Prisma.AttendanceSessionCreateNestedOneWithoutEventAttendanceInput
 }
 
 export type EventAttendanceUncheckedCreateWithoutPersonInput = {
@@ -762,7 +732,6 @@ export type EventAttendanceUncheckedCreateWithoutPersonInput = {
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -797,13 +766,12 @@ export type EventAttendanceUpdateManyWithWhereWithoutPersonInput = {
 
 export type EventAttendanceCreateManyAttendanceSessionInput = {
   id?: number
-  personId: number
+  teacherId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -816,7 +784,6 @@ export type EventAttendanceUpdateWithoutAttendanceSessionInput = {
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -826,13 +793,12 @@ export type EventAttendanceUpdateWithoutAttendanceSessionInput = {
 
 export type EventAttendanceUncheckedUpdateWithoutAttendanceSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -841,13 +807,12 @@ export type EventAttendanceUncheckedUpdateWithoutAttendanceSessionInput = {
 
 export type EventAttendanceUncheckedUpdateManyWithoutAttendanceSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -862,7 +827,6 @@ export type EventAttendanceCreateManyPersonInput = {
   status: $Enums.AttendanceEnum
   comment?: string | null
   justificationFileUrl?: string | null
-  coordinates?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -875,12 +839,11 @@ export type EventAttendanceUpdateWithoutPersonInput = {
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  AttendanceSession?: Prisma.AttendanceSessionUpdateOneRequiredWithoutAttendancesNestedInput
+  AttendanceSession?: Prisma.AttendanceSessionUpdateOneRequiredWithoutEventAttendanceNestedInput
 }
 
 export type EventAttendanceUncheckedUpdateWithoutPersonInput = {
@@ -891,7 +854,6 @@ export type EventAttendanceUncheckedUpdateWithoutPersonInput = {
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -906,7 +868,6 @@ export type EventAttendanceUncheckedUpdateManyWithoutPersonInput = {
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -918,13 +879,12 @@ export type EventAttendanceUncheckedUpdateManyWithoutPersonInput = {
 export type EventAttendanceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attendanceSessionId?: boolean
-  personId?: boolean
+  teacherId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
   comment?: boolean
   justificationFileUrl?: boolean
-  coordinates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
@@ -936,13 +896,12 @@ export type EventAttendanceSelect<ExtArgs extends runtime.Types.Extensions.Inter
 export type EventAttendanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attendanceSessionId?: boolean
-  personId?: boolean
+  teacherId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
   comment?: boolean
   justificationFileUrl?: boolean
-  coordinates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
@@ -954,13 +913,12 @@ export type EventAttendanceSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
 export type EventAttendanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attendanceSessionId?: boolean
-  personId?: boolean
+  teacherId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
   comment?: boolean
   justificationFileUrl?: boolean
-  coordinates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
@@ -972,20 +930,19 @@ export type EventAttendanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type EventAttendanceSelectScalar = {
   id?: boolean
   attendanceSessionId?: boolean
-  personId?: boolean
+  teacherId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
   comment?: boolean
   justificationFileUrl?: boolean
-  coordinates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
 }
 
-export type EventAttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attendanceSessionId" | "personId" | "checkIn" | "checkOut" | "status" | "comment" | "justificationFileUrl" | "coordinates" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy", ExtArgs["result"]["eventAttendance"]>
+export type EventAttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attendanceSessionId" | "teacherId" | "checkIn" | "checkOut" | "status" | "comment" | "justificationFileUrl" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy", ExtArgs["result"]["eventAttendance"]>
 export type EventAttendanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   AttendanceSession?: boolean | Prisma.AttendanceSessionDefaultArgs<ExtArgs>
@@ -1008,13 +965,12 @@ export type $EventAttendancePayload<ExtArgs extends runtime.Types.Extensions.Int
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     attendanceSessionId: number
-    personId: number
+    teacherId: number
     checkIn: Date
     checkOut: Date | null
     status: $Enums.AttendanceEnum
     comment: string | null
     justificationFileUrl: string | null
-    coordinates: string | null
     createdAt: Date
     updatedAt: Date
     createdBy: number
@@ -1446,13 +1402,12 @@ export interface Prisma__EventAttendanceClient<T, Null = never, ExtArgs extends 
 export interface EventAttendanceFieldRefs {
   readonly id: Prisma.FieldRef<"EventAttendance", 'Int'>
   readonly attendanceSessionId: Prisma.FieldRef<"EventAttendance", 'Int'>
-  readonly personId: Prisma.FieldRef<"EventAttendance", 'Int'>
+  readonly teacherId: Prisma.FieldRef<"EventAttendance", 'Int'>
   readonly checkIn: Prisma.FieldRef<"EventAttendance", 'DateTime'>
   readonly checkOut: Prisma.FieldRef<"EventAttendance", 'DateTime'>
   readonly status: Prisma.FieldRef<"EventAttendance", 'AttendanceEnum'>
   readonly comment: Prisma.FieldRef<"EventAttendance", 'String'>
   readonly justificationFileUrl: Prisma.FieldRef<"EventAttendance", 'String'>
-  readonly coordinates: Prisma.FieldRef<"EventAttendance", 'String'>
   readonly createdAt: Prisma.FieldRef<"EventAttendance", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EventAttendance", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"EventAttendance", 'Int'>

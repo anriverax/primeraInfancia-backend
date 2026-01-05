@@ -1,8 +1,14 @@
 import { Injectable } from "@nestjs/common";
-// Import User type from Prisma Client
-import { IAuthEvent, IUpdatePasswdIsVerifiedParams } from "../../dto/auth.type";
+import { IAuth, IUser } from "../../dto/auth.type";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { handlePrismaError } from "@/common/helpers/functions";
+import { User, UserKey } from "prisma/generated/client";
+
+export type IAuthEvent = IAuth & Pick<User, "isVerified"> & Pick<UserKey, "publicKey" | "privateKey">;
+
+export interface IUpdatePasswdIsVerifiedParams extends Pick<IUser, "id" | "email"> {
+  data: Pick<IUser, "passwd" | "isVerified" | "email">;
+}
 
 @Injectable()
 export class UserProjection {
@@ -10,15 +16,13 @@ export class UserProjection {
 
   async register(data: IAuthEvent): Promise<void> {
     const {
-      career,
-      nip,
       email,
       passwd,
       roleId,
       isVerified,
       publicKey,
       privateKey,
-      typePersonId,
+
       schoolId,
       ...personData
     } = data;
@@ -30,8 +34,7 @@ export class UserProjection {
           User: {
             create: { email, passwd, roleId, isVerified, UserKey: { create: { publicKey, privateKey } } }
           },
-          ...(schoolId && { PrincipalSchool: { create: { schoolId } } }),
-          PersonRole: { create: { typePersonId, career, nip } }
+          ...(schoolId && { PrincipalSchool: { create: { schoolId } } })
         }
       });
     } catch (error) {

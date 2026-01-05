@@ -3,7 +3,6 @@ model EventType {
   name                 String  @unique
   order                Int
   cohortId             Int
-  isRecurringPerModule Boolean @default(false)
   Event                Event[]
   Cohort               Cohort  @relation(fields: [cohortId], references: [id])
 }

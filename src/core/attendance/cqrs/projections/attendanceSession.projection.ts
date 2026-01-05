@@ -1,31 +1,24 @@
 import { handlePrismaError } from "@/common/helpers/functions";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
+import { CreateAttendanceSessionData } from "../../dto/attendance.type";
+import { AttendanceSession } from "prisma/generated/client";
 
 @Injectable()
 export class AttendanceSessionProjection {
   constructor(private prisma: PrismaService) {}
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  async register(data, userId: number): Promise<any> {
+
+  async register(data: CreateAttendanceSessionData, userId: number): Promise<AttendanceSession> {
     try {
       return await this.prisma.attendanceSession.create({
         data: {
           ...data,
           checkIn: new Date(),
           createdBy: userId
-        },
-        select: {
-          id: true,
-          modality: true,
-          EventInstance: {
-            select: {
-              id: true
-            }
-          }
         }
       });
     } catch (error) {
-      handlePrismaError("AttendanceProjection", error);
+      handlePrismaError("AttendanceSessionProjection", error);
     }
   }
 

@@ -1,4 +1,4 @@
-import { Permission, Person, PersonRole, Role, UserKey } from "prisma/generated/client";
+import { Permission, Person, Role } from "prisma/generated/client";
 import { User } from "prisma/generated/client";
 
 export type IAuth = Pick<
@@ -13,12 +13,10 @@ export type IAuth = Pick<
   | "birthdate"
   | "districtId"
 > &
-  Pick<PersonRole, "typePersonId" | "career" | "nip"> &
+  Pick<Person, "typePersonId" | "career" | "nip"> &
   Pick<User, "email" | "passwd" | "roleId"> & {
     schoolId?: number;
   };
-
-export type IAuthEvent = IAuth & Pick<User, "isVerified"> & Pick<UserKey, "publicKey" | "privateKey">;
 
 export interface IUser extends User {
   Role: Role;
@@ -38,31 +36,6 @@ export interface ILoginResponse {
   permissions: string[];
 }
 
-export type IToken = Pick<IUser, "email"> & Pick<ILoginResponse, "accessToken">;
-
-export interface IPayload extends Pick<ILogin, "email" | "role"> {
-  sub: number;
-  iat: number;
-  exp: number;
-}
-
-export type IUserKeyCreate = Pick<UserKey, "userId" | "publicKey" | "privateKey">;
-
-export interface IChangePasswd extends Pick<IUser, "id"> {
-  oldEmail: string;
-  newEmail: string;
-  hashedPassword: string;
-}
-
-export type IFindUserByParams = Partial<Pick<IUser, "id" | "email">>;
-
-export interface IUpdatePasswdIsVerifiedParams extends Pick<IUser, "id" | "email"> {
-  data: Pick<IUser, "passwd" | "isVerified" | "email">;
-}
-
-export interface IVerifyEmail extends Pick<IUser, "id" | "email"> {
-  verifyCode: string;
-}
 export type IAuthPermission = Pick<Permission, "name">;
 
 export interface IAuthRolePermission {

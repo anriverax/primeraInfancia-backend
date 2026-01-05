@@ -57,6 +57,11 @@ export const ModelName = {
   EventType: 'EventType',
   EventInstance: 'EventInstance',
   Event: 'Event',
+  GroupStaff: 'GroupStaff',
+  Group: 'Group',
+  TechSupportAssignments: 'TechSupportAssignments',
+  Inscription: 'Inscription',
+  MentorAssignment: 'MentorAssignment',
   Cohort: 'Cohort',
   TypePerson: 'TypePerson',
   Zone: 'Zone',
@@ -72,15 +77,8 @@ export const ModelName = {
   MenuPermission: 'MenuPermission',
   Person: 'Person',
   PrincipalSchool: 'PrincipalSchool',
-  PersonRole: 'PersonRole',
   User: 'User',
   UserKey: 'UserKey',
-  Group: 'Group',
-  TechSupportAssignments: 'TechSupportAssignments',
-  Inscription: 'Inscription',
-  MentorAssignment: 'MentorAssignment',
-  TrainingBatch: 'TrainingBatch',
-  TrainingSlot: 'TrainingSlot',
   TrainingModule: 'TrainingModule',
   EvaluationInstrument: 'EvaluationInstrument',
   EvaluationInstrumentDetail: 'EvaluationInstrumentDetail',
@@ -118,6 +116,8 @@ export const AttendanceSessionScalarFieldEnum = {
   modality: 'modality',
   checkIn: 'checkIn',
   checkOut: 'checkOut',
+  coordenates: 'coordenates',
+  supportId: 'supportId',
   createdAt: 'createdAt',
   createdBy: 'createdBy'
 } as const
@@ -128,13 +128,12 @@ export type AttendanceSessionScalarFieldEnum = (typeof AttendanceSessionScalarFi
 export const EventAttendanceScalarFieldEnum = {
   id: 'id',
   attendanceSessionId: 'attendanceSessionId',
-  personId: 'personId',
+  teacherId: 'teacherId',
   checkIn: 'checkIn',
   checkOut: 'checkOut',
   status: 'status',
   comment: 'comment',
   justificationFileUrl: 'justificationFileUrl',
-  coordinates: 'coordinates',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdBy: 'createdBy',
@@ -166,8 +165,7 @@ export const EventTypeScalarFieldEnum = {
   id: 'id',
   name: 'name',
   order: 'order',
-  cohortId: 'cohortId',
-  isRecurringPerModule: 'isRecurringPerModule'
+  cohortId: 'cohortId'
 } as const
 
 export type EventTypeScalarFieldEnum = (typeof EventTypeScalarFieldEnum)[keyof typeof EventTypeScalarFieldEnum]
@@ -176,9 +174,7 @@ export type EventTypeScalarFieldEnum = (typeof EventTypeScalarFieldEnum)[keyof t
 export const EventInstanceScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
-  trainingModuleId: 'trainingModuleId',
   responsibleId: 'responsibleId',
-  scheduledDate: 'scheduledDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdBy: 'createdBy',
@@ -197,6 +193,84 @@ export const EventScalarFieldEnum = {
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const GroupStaffScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  personId: 'personId',
+  parentId: 'parentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type GroupStaffScalarFieldEnum = (typeof GroupStaffScalarFieldEnum)[keyof typeof GroupStaffScalarFieldEnum]
+
+
+export const GroupScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  memberCount: 'memberCount',
+  cohortId: 'cohortId',
+  departmentId: 'departmentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedBy: 'deletedBy'
+} as const
+
+export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
+
+
+export const TechSupportAssignmentsScalarFieldEnum = {
+  id: 'id',
+  techSupportId: 'techSupportId',
+  assignedRoleId: 'assignedRoleId',
+  groupId: 'groupId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedBy: 'deletedBy'
+} as const
+
+export type TechSupportAssignmentsScalarFieldEnum = (typeof TechSupportAssignmentsScalarFieldEnum)[keyof typeof TechSupportAssignmentsScalarFieldEnum]
+
+
+export const InscriptionScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  teacherId: 'teacherId',
+  mentorId: 'mentorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedBy: 'deletedBy'
+} as const
+
+export type InscriptionScalarFieldEnum = (typeof InscriptionScalarFieldEnum)[keyof typeof InscriptionScalarFieldEnum]
+
+
+export const MentorAssignmentScalarFieldEnum = {
+  id: 'id',
+  mentorId: 'mentorId',
+  inscriptionId: 'inscriptionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedBy: 'deletedBy',
+  techSupportAssignmentId: 'techSupportAssignmentId'
+} as const
+
+export type MentorAssignmentScalarFieldEnum = (typeof MentorAssignmentScalarFieldEnum)[keyof typeof MentorAssignmentScalarFieldEnum]
 
 
 export const CohortScalarFieldEnum = {
@@ -333,6 +407,9 @@ export const PersonScalarFieldEnum = {
   gender: 'gender',
   phoneNumber: 'phoneNumber',
   birthdate: 'birthdate',
+  career: 'career',
+  nip: 'nip',
+  typePersonId: 'typePersonId',
   districtId: 'districtId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -357,22 +434,6 @@ export const PrincipalSchoolScalarFieldEnum = {
 } as const
 
 export type PrincipalSchoolScalarFieldEnum = (typeof PrincipalSchoolScalarFieldEnum)[keyof typeof PrincipalSchoolScalarFieldEnum]
-
-
-export const PersonRoleScalarFieldEnum = {
-  id: 'id',
-  typePersonId: 'typePersonId',
-  personId: 'personId',
-  career: 'career',
-  nip: 'nip',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  updatedBy: 'updatedBy',
-  deletedBy: 'deletedBy'
-} as const
-
-export type PersonRoleScalarFieldEnum = (typeof PersonRoleScalarFieldEnum)[keyof typeof PersonRoleScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -405,98 +466,6 @@ export const UserKeyScalarFieldEnum = {
 } as const
 
 export type UserKeyScalarFieldEnum = (typeof UserKeyScalarFieldEnum)[keyof typeof UserKeyScalarFieldEnum]
-
-
-export const GroupScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  memberCount: 'memberCount',
-  cohortId: 'cohortId',
-  departmentId: 'departmentId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy',
-  deletedBy: 'deletedBy'
-} as const
-
-export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
-
-
-export const TechSupportAssignmentsScalarFieldEnum = {
-  id: 'id',
-  techSupportId: 'techSupportId',
-  assignedRoleId: 'assignedRoleId',
-  groupId: 'groupId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy',
-  deletedBy: 'deletedBy'
-} as const
-
-export type TechSupportAssignmentsScalarFieldEnum = (typeof TechSupportAssignmentsScalarFieldEnum)[keyof typeof TechSupportAssignmentsScalarFieldEnum]
-
-
-export const InscriptionScalarFieldEnum = {
-  id: 'id',
-  groupId: 'groupId',
-  teacherId: 'teacherId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy',
-  deletedBy: 'deletedBy'
-} as const
-
-export type InscriptionScalarFieldEnum = (typeof InscriptionScalarFieldEnum)[keyof typeof InscriptionScalarFieldEnum]
-
-
-export const MentorAssignmentScalarFieldEnum = {
-  id: 'id',
-  mentorId: 'mentorId',
-  inscriptionId: 'inscriptionId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy',
-  deletedBy: 'deletedBy',
-  techSupportAssignmentId: 'techSupportAssignmentId'
-} as const
-
-export type MentorAssignmentScalarFieldEnum = (typeof MentorAssignmentScalarFieldEnum)[keyof typeof MentorAssignmentScalarFieldEnum]
-
-
-export const TrainingBatchScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  trainerAssignmentId: 'trainerAssignmentId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
-} as const
-
-export type TrainingBatchScalarFieldEnum = (typeof TrainingBatchScalarFieldEnum)[keyof typeof TrainingBatchScalarFieldEnum]
-
-
-export const TrainingSlotScalarFieldEnum = {
-  id: 'id',
-  trainingBatchId: 'trainingBatchId',
-  inscriptionId: 'inscriptionId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy',
-  deletedBy: 'deletedBy'
-} as const
-
-export type TrainingSlotScalarFieldEnum = (typeof TrainingSlotScalarFieldEnum)[keyof typeof TrainingSlotScalarFieldEnum]
 
 
 export const TrainingModuleScalarFieldEnum = {

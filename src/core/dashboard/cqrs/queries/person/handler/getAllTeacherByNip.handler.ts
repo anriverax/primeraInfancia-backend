@@ -7,7 +7,7 @@ export class GetAllTeacherByNipHandler {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(): Promise<number> {
-    const teachersByNip = await this.prisma.personRole.findMany({
+    const teachersByNip = await this.prisma.person.findMany({
       where: {
         nip: {
           gt: 0 // "greater than 0"

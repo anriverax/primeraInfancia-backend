@@ -23,15 +23,13 @@ export class MentorAssignmentService {
     const newData: ITeachersAssignmentMentorResult[] = [];
 
     data.forEach((d) => {
-      const { deletedBy, PersonRole } = d.Inscription;
-      const person = PersonRole.Person;
+      const { deletedBy, Person } = d.Inscription;
 
-      const principalSchool = PersonRole.Person.PrincipalSchool.find((p) => p.deletedBy === null);
+      const principalSchool = Person.PrincipalSchool.find((p) => p.deletedBy === null);
 
       if (deletedBy === null && principalSchool) {
-        const id = PersonRole.id;
-        const fullName = `${person.firstName} ${person.lastName1} ${person.lastName2}`;
-
+        const id = Person.id;
+        const fullName = `${Person.firstName} ${Person.lastName1} ${Person.lastName2}`;
         const { code, name, coordenates, District } = principalSchool.School;
         const location = `${District.Municipality.name} / ${District.name}`;
 
@@ -108,7 +106,7 @@ export class MentorAssignmentService {
 
       if (deletedBy === null) {
         const id = d.Mentor.id;
-        const { firstName, lastName1, lastName2 } = d.Mentor.Person;
+        const { firstName, lastName1, lastName2 } = d.Mentor;
         const fullName = `${firstName} ${lastName1} ${lastName2}`;
 
         newData.push({ id, fullName });

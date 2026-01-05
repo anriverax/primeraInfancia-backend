@@ -192,13 +192,13 @@ export type TypePersonWhereInput = {
   NOT?: Prisma.TypePersonWhereInput | Prisma.TypePersonWhereInput[]
   id?: Prisma.IntFilter<"TypePerson"> | number
   name?: Prisma.EnumTypePersonEnumFilter<"TypePerson"> | $Enums.TypePersonEnum
-  PersonRoles?: Prisma.PersonRoleListRelationFilter
+  Person?: Prisma.PersonListRelationFilter
 }
 
 export type TypePersonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  PersonRoles?: Prisma.PersonRoleOrderByRelationAggregateInput
+  Person?: Prisma.PersonOrderByRelationAggregateInput
 }
 
 export type TypePersonWhereUniqueInput = Prisma.AtLeast<{
@@ -207,7 +207,7 @@ export type TypePersonWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TypePersonWhereInput[]
   NOT?: Prisma.TypePersonWhereInput | Prisma.TypePersonWhereInput[]
   name?: Prisma.EnumTypePersonEnumFilter<"TypePerson"> | $Enums.TypePersonEnum
-  PersonRoles?: Prisma.PersonRoleListRelationFilter
+  Person?: Prisma.PersonListRelationFilter
 }, "id">
 
 export type TypePersonOrderByWithAggregationInput = {
@@ -230,24 +230,24 @@ export type TypePersonScalarWhereWithAggregatesInput = {
 
 export type TypePersonCreateInput = {
   name: $Enums.TypePersonEnum
-  PersonRoles?: Prisma.PersonRoleCreateNestedManyWithoutTypePersonInput
+  Person?: Prisma.PersonCreateNestedManyWithoutTypePersonInput
 }
 
 export type TypePersonUncheckedCreateInput = {
   id?: number
   name: $Enums.TypePersonEnum
-  PersonRoles?: Prisma.PersonRoleUncheckedCreateNestedManyWithoutTypePersonInput
+  Person?: Prisma.PersonUncheckedCreateNestedManyWithoutTypePersonInput
 }
 
 export type TypePersonUpdateInput = {
   name?: Prisma.EnumTypePersonEnumFieldUpdateOperationsInput | $Enums.TypePersonEnum
-  PersonRoles?: Prisma.PersonRoleUpdateManyWithoutTypePersonNestedInput
+  Person?: Prisma.PersonUpdateManyWithoutTypePersonNestedInput
 }
 
 export type TypePersonUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.EnumTypePersonEnumFieldUpdateOperationsInput | $Enums.TypePersonEnum
-  PersonRoles?: Prisma.PersonRoleUncheckedUpdateManyWithoutTypePersonNestedInput
+  Person?: Prisma.PersonUncheckedUpdateManyWithoutTypePersonNestedInput
 }
 
 export type TypePersonCreateManyInput = {
@@ -296,50 +296,50 @@ export type EnumTypePersonEnumFieldUpdateOperationsInput = {
   set?: $Enums.TypePersonEnum
 }
 
-export type TypePersonCreateNestedOneWithoutPersonRolesInput = {
-  create?: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonRolesInput, Prisma.TypePersonUncheckedCreateWithoutPersonRolesInput>
-  connectOrCreate?: Prisma.TypePersonCreateOrConnectWithoutPersonRolesInput
+export type TypePersonCreateNestedOneWithoutPersonInput = {
+  create?: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonInput, Prisma.TypePersonUncheckedCreateWithoutPersonInput>
+  connectOrCreate?: Prisma.TypePersonCreateOrConnectWithoutPersonInput
   connect?: Prisma.TypePersonWhereUniqueInput
 }
 
-export type TypePersonUpdateOneRequiredWithoutPersonRolesNestedInput = {
-  create?: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonRolesInput, Prisma.TypePersonUncheckedCreateWithoutPersonRolesInput>
-  connectOrCreate?: Prisma.TypePersonCreateOrConnectWithoutPersonRolesInput
-  upsert?: Prisma.TypePersonUpsertWithoutPersonRolesInput
+export type TypePersonUpdateOneRequiredWithoutPersonNestedInput = {
+  create?: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonInput, Prisma.TypePersonUncheckedCreateWithoutPersonInput>
+  connectOrCreate?: Prisma.TypePersonCreateOrConnectWithoutPersonInput
+  upsert?: Prisma.TypePersonUpsertWithoutPersonInput
   connect?: Prisma.TypePersonWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TypePersonUpdateToOneWithWhereWithoutPersonRolesInput, Prisma.TypePersonUpdateWithoutPersonRolesInput>, Prisma.TypePersonUncheckedUpdateWithoutPersonRolesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TypePersonUpdateToOneWithWhereWithoutPersonInput, Prisma.TypePersonUpdateWithoutPersonInput>, Prisma.TypePersonUncheckedUpdateWithoutPersonInput>
 }
 
-export type TypePersonCreateWithoutPersonRolesInput = {
+export type TypePersonCreateWithoutPersonInput = {
   name: $Enums.TypePersonEnum
 }
 
-export type TypePersonUncheckedCreateWithoutPersonRolesInput = {
+export type TypePersonUncheckedCreateWithoutPersonInput = {
   id?: number
   name: $Enums.TypePersonEnum
 }
 
-export type TypePersonCreateOrConnectWithoutPersonRolesInput = {
+export type TypePersonCreateOrConnectWithoutPersonInput = {
   where: Prisma.TypePersonWhereUniqueInput
-  create: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonRolesInput, Prisma.TypePersonUncheckedCreateWithoutPersonRolesInput>
+  create: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonInput, Prisma.TypePersonUncheckedCreateWithoutPersonInput>
 }
 
-export type TypePersonUpsertWithoutPersonRolesInput = {
-  update: Prisma.XOR<Prisma.TypePersonUpdateWithoutPersonRolesInput, Prisma.TypePersonUncheckedUpdateWithoutPersonRolesInput>
-  create: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonRolesInput, Prisma.TypePersonUncheckedCreateWithoutPersonRolesInput>
+export type TypePersonUpsertWithoutPersonInput = {
+  update: Prisma.XOR<Prisma.TypePersonUpdateWithoutPersonInput, Prisma.TypePersonUncheckedUpdateWithoutPersonInput>
+  create: Prisma.XOR<Prisma.TypePersonCreateWithoutPersonInput, Prisma.TypePersonUncheckedCreateWithoutPersonInput>
   where?: Prisma.TypePersonWhereInput
 }
 
-export type TypePersonUpdateToOneWithWhereWithoutPersonRolesInput = {
+export type TypePersonUpdateToOneWithWhereWithoutPersonInput = {
   where?: Prisma.TypePersonWhereInput
-  data: Prisma.XOR<Prisma.TypePersonUpdateWithoutPersonRolesInput, Prisma.TypePersonUncheckedUpdateWithoutPersonRolesInput>
+  data: Prisma.XOR<Prisma.TypePersonUpdateWithoutPersonInput, Prisma.TypePersonUncheckedUpdateWithoutPersonInput>
 }
 
-export type TypePersonUpdateWithoutPersonRolesInput = {
+export type TypePersonUpdateWithoutPersonInput = {
   name?: Prisma.EnumTypePersonEnumFieldUpdateOperationsInput | $Enums.TypePersonEnum
 }
 
-export type TypePersonUncheckedUpdateWithoutPersonRolesInput = {
+export type TypePersonUncheckedUpdateWithoutPersonInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.EnumTypePersonEnumFieldUpdateOperationsInput | $Enums.TypePersonEnum
 }
@@ -350,11 +350,11 @@ export type TypePersonUncheckedUpdateWithoutPersonRolesInput = {
  */
 
 export type TypePersonCountOutputType = {
-  PersonRoles: number
+  Person: number
 }
 
 export type TypePersonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PersonRoles?: boolean | TypePersonCountOutputTypeCountPersonRolesArgs
+  Person?: boolean | TypePersonCountOutputTypeCountPersonArgs
 }
 
 /**
@@ -370,15 +370,15 @@ export type TypePersonCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
 /**
  * TypePersonCountOutputType without action
  */
-export type TypePersonCountOutputTypeCountPersonRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PersonRoleWhereInput
+export type TypePersonCountOutputTypeCountPersonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PersonWhereInput
 }
 
 
 export type TypePersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  PersonRoles?: boolean | Prisma.TypePerson$PersonRolesArgs<ExtArgs>
+  Person?: boolean | Prisma.TypePerson$PersonArgs<ExtArgs>
   _count?: boolean | Prisma.TypePersonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["typePerson"]>
 
@@ -399,7 +399,7 @@ export type TypePersonSelectScalar = {
 
 export type TypePersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["typePerson"]>
 export type TypePersonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PersonRoles?: boolean | Prisma.TypePerson$PersonRolesArgs<ExtArgs>
+  Person?: boolean | Prisma.TypePerson$PersonArgs<ExtArgs>
   _count?: boolean | Prisma.TypePersonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TypePersonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -408,7 +408,7 @@ export type TypePersonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type $TypePersonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TypePerson"
   objects: {
-    PersonRoles: Prisma.$PersonRolePayload<ExtArgs>[]
+    Person: Prisma.$PersonPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -807,7 +807,7 @@ readonly fields: TypePersonFieldRefs;
  */
 export interface Prisma__TypePersonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  PersonRoles<T extends Prisma.TypePerson$PersonRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TypePerson$PersonRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Person<T extends Prisma.TypePerson$PersonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TypePerson$PersonArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1227,27 +1227,27 @@ export type TypePersonDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * TypePerson.PersonRoles
+ * TypePerson.Person
  */
-export type TypePerson$PersonRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type TypePerson$PersonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PersonRole
+   * Select specific fields to fetch from the Person
    */
-  select?: Prisma.PersonRoleSelect<ExtArgs> | null
+  select?: Prisma.PersonSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PersonRole
+   * Omit specific fields from the Person
    */
-  omit?: Prisma.PersonRoleOmit<ExtArgs> | null
+  omit?: Prisma.PersonOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PersonRoleInclude<ExtArgs> | null
-  where?: Prisma.PersonRoleWhereInput
-  orderBy?: Prisma.PersonRoleOrderByWithRelationInput | Prisma.PersonRoleOrderByWithRelationInput[]
-  cursor?: Prisma.PersonRoleWhereUniqueInput
+  include?: Prisma.PersonInclude<ExtArgs> | null
+  where?: Prisma.PersonWhereInput
+  orderBy?: Prisma.PersonOrderByWithRelationInput | Prisma.PersonOrderByWithRelationInput[]
+  cursor?: Prisma.PersonWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PersonRoleScalarFieldEnum | Prisma.PersonRoleScalarFieldEnum[]
+  distinct?: Prisma.PersonScalarFieldEnum | Prisma.PersonScalarFieldEnum[]
 }
 
 /**

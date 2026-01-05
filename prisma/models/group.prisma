@@ -1,0 +1,98 @@
+model GroupStaff {
+  id       Int  @id @default(autoincrement())
+  groupId  Int
+  personId Int
+  parentId Int?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  Group        Group         @relation(fields: [groupId], references: [id])
+  Person       Person        @relation(fields: [personId], references: [id])
+  Parent       GroupStaff?   @relation("Hierarchy", fields: [parentId], references: [id])
+  Children     GroupStaff[]  @relation("Hierarchy")
+  inscriptions Inscription[]
+
+  @@unique([groupId, personId])
+}
+
+model Group {
+  id               Int                      @id @default(autoincrement())
+  name             String
+  memberCount      Int
+  cohortId         Int
+  departmentId     Int
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int
+  updatedBy        Int?
+  deletedBy        Int?
+  Cohort           Cohort                   @relation(fields: [cohortId], references: [id])
+  Department       Department               @relation(fields: [departmentId], references: [id])
+  Inscription      Inscription[]
+  GroupTechSupport TechSupportAssignments[] @relation("GroupTechSupport")
+  GroupStaff       GroupStaff[]
+}
+
+model TechSupportAssignments {
+  id               Int                @id @default(autoincrement())
+  techSupportId    Int
+  assignedRoleId   Int
+  groupId          Int
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int
+  updatedBy        Int?
+  deletedBy        Int?
+  MentorAssignment MentorAssignment[]
+  AssignedRole     Person             @relation("AssignedRoleToAssignments", fields: [assignedRoleId], references: [id])
+  Group            Group              @relation("GroupTechSupport", fields: [groupId], references: [id])
+  TechSupport      Person             @relation("TechSupportToAssignments", fields: [techSupportId], references: [id])
+}
+
+model Inscription {
+  id        Int  @id @default(autoincrement())
+  groupId   Int
+  teacherId Int
+  mentorId  Int? // apunta a GroupStaff con role = MENTOR
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  createdBy Int
+  updatedBy Int?
+  deletedBy Int?
+
+  Group              Group                @relation(fields: [groupId], references: [id])
+  Person             Person               @relation(fields: [teacherId], references: [id])
+  Mentor             GroupStaff?          @relation(fields: [mentorId], references: [id])
+  SurveyData         SurveyData[]
+  MentorAssignment   MentorAssignment[]
+  ModuleEvaluation   ModuleEvaluation[]
+  ModuleReport       ModuleReport[]
+  TrainingEvaluation TrainingEvaluation[]
+  TrainingReport     TrainingReport[]
+
+  @@unique([groupId, teacherId])
+}
+
+model MentorAssignment {
+  id                      Int                    @id @default(autoincrement())
+  mentorId                Int
+  inscriptionId           Int
+  createdAt               DateTime               @default(now())
+  updatedAt               DateTime               @updatedAt
+  deletedAt               DateTime?
+  createdBy               Int
+  updatedBy               Int?
+  deletedBy               Int?
+  techSupportAssignmentId Int
+  Inscription             Inscription            @relation(fields: [inscriptionId], references: [id])
+  Mentor                  Person                 @relation(fields: [mentorId], references: [id])
+  TechSupportAssignment   TechSupportAssignments @relation(fields: [techSupportAssignmentId], references: [id])
+
+  @@unique([mentorId, inscriptionId])
+}

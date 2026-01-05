@@ -40,9 +40,7 @@ interface InscriptionPerson
 }
 
 export interface GroupInscription extends Pick<Inscription, "id" | "deletedAt"> {
-  PersonRole: {
-    Person: InscriptionPerson;
-  };
+  Person: InscriptionPerson;
 }
 
 export interface IGetByIdGroup extends IGroup {
@@ -53,14 +51,12 @@ export type IGetByIdGroupOrderAssignedRole = IGroup & IOrderAssignedRole;
 
 export interface IGroupTechSupport {
   id: number;
-  TechSupport: {
-    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
-  };
-  AssignedRole: {
-    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
-  };
+  TechSupport: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
+
+  AssignedRole: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
+
   MentorAssignment: {
-    Mentor: { Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2"> };
+    Mentor: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2">;
     Inscription: GroupInscription;
   }[];
 }
@@ -107,21 +103,19 @@ export interface IOrderAssignedRole {
 
 export interface IGroupByUser {
   Inscription: Pick<Inscription, "id"> & {
-    PersonRole: {
-      Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> & {
-        User: { email: string } | null;
-        PrincipalSchool: {
-          School: {
+    Person: Pick<Person, "id" | "firstName" | "lastName1" | "lastName2" | "phoneNumber"> & {
+      User: { email: string } | null;
+      PrincipalSchool: {
+        School: {
+          name: string;
+          District: {
             name: string;
-            District: {
+            Municipality: {
               name: string;
-              Municipality: {
-                name: string;
-              };
             };
           };
-        }[];
-      };
+        };
+      }[];
     };
   };
 }

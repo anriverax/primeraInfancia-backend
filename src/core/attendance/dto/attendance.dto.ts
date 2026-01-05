@@ -1,10 +1,30 @@
 import { AttendanceEnum } from "prisma/generated/client";
 import { Transform } from "class-transformer";
 import { IsArray, IsEnum, IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { AttendanceModalityEnum } from "@/common/helpers/const";
 
 export class AttendanceDto {
   @IsNotEmpty({ message: "El evento es obligatorio." })
-  eventId: number;
+  eventInstanceId: number;
+
+  @IsNotEmpty({ message: "La modalidad es obligatorio." })
+  @IsString({ message: "La modalidad debe ser una cadena de texto." })
+  @Transform(({ value }) => value.toUpperCase())
+  @IsEnum(AttendanceModalityEnum, { message: "La modalidad debe ser Presencial o Virtual." })
+  @IsIn([AttendanceModalityEnum.PRESENCIAL, AttendanceModalityEnum.VIRTUAL], {
+    message: "La modalidad debe ser Presencial o Virtual."
+  })
+  modality: (typeof AttendanceModalityEnum)[keyof typeof AttendanceModalityEnum];
+
+  @IsNotEmpty({ message: "El responsable es obligatorio." })
+  supportId: number;
+
+  @IsOptional()
+  coordenates: string | null;
+
+  @IsNotEmpty({ message: "El docente o docentes son obligatorio." })
+  @IsArray()
+  teacherId: number[];
 
   @IsNotEmpty({ message: "El estado es obligatorio." })
   @IsString({ message: "El estado debe ser una cadena de texto." })
@@ -14,23 +34,6 @@ export class AttendanceDto {
     message: "El estado debe ser PRESENTE o AUSENTE."
   })
   status: AttendanceEnum;
-
-  @IsNotEmpty({ message: "El docente o docentes son obligatorio." })
-  @IsArray()
-  teacherId: number[];
-
-  @IsNotEmpty({ message: "La modalidad es obligatorio." })
-  @IsString({ message: "La modalidad debe ser una cadena de texto." })
-  @Transform(({ value }) =>
-    typeof value === "string" ? value.charAt(0).toUpperCase() + value.slice(1).toLowerCase() : value
-  )
-  @IsIn(["Presencial", "Virtual"], {
-    message: "La modalidad debe ser Presencial o Virtual."
-  })
-  modality: "Presencial" | "Virtual";
-
-  @IsOptional()
-  coordenates: string | null;
 
   @IsOptional()
   comment: string | null;

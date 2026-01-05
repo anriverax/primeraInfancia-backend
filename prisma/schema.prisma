@@ -17,9 +17,9 @@ model Cohort {
 }
 
 model TypePerson {
-  id          Int            @id @default(autoincrement())
-  name        TypePersonEnum
-  PersonRoles PersonRole[]
+  id     Int            @id @default(autoincrement())
+  name   TypePersonEnum
+  Person Person[]
 }
 
 model Zone {
@@ -125,30 +125,38 @@ model MenuPermission {
 }
 
 model Person {
-  id                Int                 @id @default(autoincrement())
+  id                Int                      @id @default(autoincrement())
   firstName         String
   lastName1         String
   lastName2         String?
-  dui               String              @unique
+  dui               String                   @unique
   address           String
   gender            TypeGender
   phoneNumber       String
-  birthdate         DateTime?           @db.Date
+  birthdate         DateTime?                @db.Date
+  career            String
+  nip               Int?
+  typePersonId      Int
   districtId        Int
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt         DateTime                 @default(now())
+  updatedAt         DateTime                 @updatedAt
   deletedAt         DateTime?
-  createdBy         Int                 @default(0)
+  createdBy         Int                      @default(0)
   updatedBy         Int?
   deletedBy         Int?
-  District          District            @relation(fields: [districtId], references: [id])
-  PersonRole        PersonRole[]
+  TypePerson        TypePerson               @relation(fields: [typePersonId], references: [id])
+  District          District                 @relation(fields: [districtId], references: [id])
   PrincipalSchool   PrincipalSchool[]
   EventInstances    EventInstance[]
   EventAttendance   EventAttendance[]
   WorkAttendance    WorkAttendance[]
   AttendanceSession AttendanceSession[]
+  AssignedRoles     TechSupportAssignments[] @relation("AssignedRoleToAssignments")
+  TechSupportRoles  TechSupportAssignments[] @relation("TechSupportToAssignments")
   User              User?
+  inscriptions      Inscription[]
+  mentorAssignments MentorAssignment[]
+  GroupStaff        GroupStaff[]
 
   @@index([districtId, deletedAt])
 }
@@ -164,28 +172,6 @@ model PrincipalSchool {
   deletedBy Int?
   Person    Person    @relation(fields: [personId], references: [id])
   School    School    @relation(fields: [schoolId], references: [id])
-}
-
-model PersonRole {
-  id                               Int                      @id @default(autoincrement())
-  typePersonId                     Int
-  personId                         Int
-  career                           String
-  nip                              Int?
-  createdAt                        DateTime                 @default(now())
-  updatedAt                        DateTime                 @updatedAt
-  deletedAt                        DateTime?
-  updatedBy                        Int?
-  deletedBy                        Int?
-  Inscription                      Inscription[]
-  MentorAssignment                 MentorAssignment[]
-  Person                           Person                   @relation(fields: [personId], references: [id])
-  TypePerson                       TypePerson               @relation(fields: [typePersonId], references: [id])
-  TechSupportAssignmentsAsAssigned TechSupportAssignments[] @relation("AssignedRoleToAssignments")
-  TechSupportAssignmentsAsTech     TechSupportAssignments[] @relation("TechSupportToAssignments")
-
-  @@unique([personId, typePersonId])
-  @@index([typePersonId])
 }
 
 model User {
@@ -216,107 +202,6 @@ model UserKey {
   revokedAt  DateTime?
   isActive   Boolean   @default(true)
   user       User      @relation(fields: [userId], references: [id])
-}
-
-model Group {
-  id               Int                      @id @default(autoincrement())
-  name             String
-  memberCount      Int
-  cohortId         Int
-  departmentId     Int
-  createdAt        DateTime                 @default(now())
-  updatedAt        DateTime                 @updatedAt
-  deletedAt        DateTime?
-  createdBy        Int
-  updatedBy        Int?
-  deletedBy        Int?
-  Cohort           Cohort                   @relation(fields: [cohortId], references: [id])
-  Department       Department               @relation(fields: [departmentId], references: [id])
-  Inscription      Inscription[]
-  GroupTechSupport TechSupportAssignments[] @relation("GroupTechSupport")
-}
-
-model TechSupportAssignments {
-  id               Int                @id @default(autoincrement())
-  techSupportId    Int
-  assignedRoleId   Int
-  groupId          Int
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  deletedAt        DateTime?
-  createdBy        Int
-  updatedBy        Int?
-  deletedBy        Int?
-  MentorAssignment MentorAssignment[]
-  AssignedRole     PersonRole         @relation("AssignedRoleToAssignments", fields: [assignedRoleId], references: [id])
-  Group            Group              @relation("GroupTechSupport", fields: [groupId], references: [id])
-  TechSupport      PersonRole         @relation("TechSupportToAssignments", fields: [techSupportId], references: [id])
-  TrainingBatch    TrainingBatch[]
-}
-
-model Inscription {
-  id                 Int                  @id @default(autoincrement())
-  groupId            Int
-  teacherId          Int
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  deletedAt          DateTime?
-  createdBy          Int
-  updatedBy          Int?
-  deletedBy          Int?
-  SurveyData         SurveyData[]
-  Group              Group                @relation(fields: [groupId], references: [id])
-  PersonRole         PersonRole           @relation(fields: [teacherId], references: [id])
-  MentorAssignment   MentorAssignment[]
-  ModuleEvaluation   ModuleEvaluation[]
-  ModuleReport       ModuleReport[]
-  TrainingEvaluation TrainingEvaluation[]
-  TrainingReport     TrainingReport[]
-  TrainingSlot       TrainingSlot[]
-}
-
-model MentorAssignment {
-  id                      Int                    @id @default(autoincrement())
-  mentorId                Int
-  inscriptionId           Int
-  createdAt               DateTime               @default(now())
-  updatedAt               DateTime               @updatedAt
-  deletedAt               DateTime?
-  createdBy               Int
-  updatedBy               Int?
-  deletedBy               Int?
-  techSupportAssignmentId Int
-  Inscription             Inscription            @relation(fields: [inscriptionId], references: [id])
-  Mentor                  PersonRole             @relation(fields: [mentorId], references: [id])
-  TechSupportAssignment   TechSupportAssignments @relation(fields: [techSupportAssignmentId], references: [id])
-
-  @@unique([mentorId, inscriptionId])
-}
-
-model TrainingBatch {
-  id                      Int                    @id @default(autoincrement())
-  name                    String
-  trainerAssignmentId     Int
-  createdAt               DateTime               @default(now())
-  updatedAt               DateTime               @updatedAt
-  createdBy               Int?
-  updatedBy               Int?
-  TrainerGroupAssignments TechSupportAssignments @relation(fields: [trainerAssignmentId], references: [id])
-  TrainingSlots           TrainingSlot[]
-}
-
-model TrainingSlot {
-  id              Int           @id @default(autoincrement())
-  trainingBatchId Int
-  inscriptionId   Int
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  deletedAt       DateTime?
-  createdBy       Int
-  updatedBy       Int?
-  deletedBy       Int?
-  Inscription     Inscription   @relation(fields: [inscriptionId], references: [id])
-  TrainingBatch   TrainingBatch @relation(fields: [trainingBatchId], references: [id])
 }
 
 model TrainingModule {
