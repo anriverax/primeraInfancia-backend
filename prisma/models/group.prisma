@@ -36,28 +36,11 @@ model Group {
   GroupStaff       GroupStaff[]
 }
 
-model TechSupportAssignments {
-  id               Int                @id @default(autoincrement())
-  techSupportId    Int
-  assignedRoleId   Int
-  groupId          Int
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  deletedAt        DateTime?
-  createdBy        Int
-  updatedBy        Int?
-  deletedBy        Int?
-  MentorAssignment MentorAssignment[]
-  AssignedRole     Person             @relation("AssignedRoleToAssignments", fields: [assignedRoleId], references: [id])
-  Group            Group              @relation("GroupTechSupport", fields: [groupId], references: [id])
-  TechSupport      Person             @relation("TechSupportToAssignments", fields: [techSupportId], references: [id])
-}
-
 model Inscription {
-  id        Int  @id @default(autoincrement())
+  id        Int @id @default(autoincrement())
   groupId   Int
   teacherId Int
-  mentorId  Int? // apunta a GroupStaff con role = MENTOR
+  mentorId  Int // apunta a GroupStaff con role = MENTOR
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -79,6 +62,25 @@ model Inscription {
   @@unique([groupId, teacherId])
 }
 
+//BORRAR
+model TechSupportAssignments {
+  id               Int                @id @default(autoincrement())
+  techSupportId    Int
+  assignedRoleId   Int
+  groupId          Int
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int
+  updatedBy        Int?
+  deletedBy        Int?
+  MentorAssignment MentorAssignment[]
+  AssignedRole     Person             @relation("AssignedRoleToAssignments", fields: [assignedRoleId], references: [id])
+  Group            Group              @relation("GroupTechSupport", fields: [groupId], references: [id])
+  TechSupport      Person             @relation("TechSupportToAssignments", fields: [techSupportId], references: [id])
+}
+
+//BORRAR
 model MentorAssignment {
   id                      Int                    @id @default(autoincrement())
   mentorId                Int

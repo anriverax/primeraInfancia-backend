@@ -44,21 +44,12 @@ model EventAttendance {
 model WorkAttendance {
   id                Int            @id @default(autoincrement())
   personId          Int // DE QUIÉN es la asistencia (obligatorio)
-  date              DateTime       @db.Date
   checkIn           DateTime
   checkOut          DateTime?
   status            AttendanceEnum @default(PRESENTE)
   comment           String?
   justificationFile String?
-  coordinates       String?
+  coordenates       String?
 
   Person Person @relation(fields: [personId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  updatedBy Int? // solo para correcciones posteriores
-
-  @@unique([personId, date])
-  @@index([date])
-  @@index([personId])
 }

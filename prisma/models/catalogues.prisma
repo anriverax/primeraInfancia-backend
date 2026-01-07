@@ -1,0 +1,128 @@
+model Cohort {
+  id             Int              @id @default(autoincrement())
+  name           String
+  EventType      EventType[]
+  Group          Group[]
+  School         School[]
+  TrainingModule TrainingModule[]
+}
+
+model TypePerson {
+  id     Int            @id @default(autoincrement())
+  name   TypePersonEnum
+  Person Person[]
+}
+
+model Zone {
+  id         Int          @id @default(autoincrement())
+  name       String
+  Department Department[]
+}
+
+model Department {
+  id           Int            @id @default(autoincrement())
+  name         String
+  geonameId    Int            @unique
+  zoneId       Int
+  Zone         Zone           @relation(fields: [zoneId], references: [id])
+  Group        Group[]
+  Municipality Municipality[]
+}
+
+model Municipality {
+  id           Int        @id @default(autoincrement())
+  name         String     @unique
+  departmentId Int
+  District     District[]
+  Department   Department @relation(fields: [departmentId], references: [id])
+}
+
+model District {
+  id             Int          @id @default(autoincrement())
+  name           String
+  municipalityId Int
+  Municipality   Municipality @relation(fields: [municipalityId], references: [id])
+  Person         Person[]
+  School         School[]
+}
+
+model StoredEvent {
+  id        Int      @id @default(autoincrement())
+  type      String
+  payload   Json
+  createdAt DateTime @default(now())
+  createdBy Int      @default(0)
+}
+
+model School {
+  id              Int               @id @default(autoincrement())
+  code            Int               @unique
+  name            String
+  zone            String
+  districtId      Int
+  coordenates     String
+  cohortId        Int
+  PrincipalSchool PrincipalSchool[]
+  Cohort          Cohort            @relation(fields: [cohortId], references: [id])
+  District        District          @relation(fields: [districtId], references: [id])
+}
+
+model Role {
+  id          Int              @id @default(autoincrement())
+  name        RoleType
+  Permissions RolePermission[]
+  Uses        User[]
+}
+
+model Permission {
+  id        Int              @id @default(autoincrement())
+  name      String           @unique
+  MenuItems MenuPermission[]
+  Roles     RolePermission[]
+}
+
+model RolePermission {
+  id           Int        @id @default(autoincrement())
+  isActive     Boolean
+  roleId       Int
+  permissionId Int
+  Permission   Permission @relation(fields: [permissionId], references: [id])
+  Role         Role       @relation(fields: [roleId], references: [id])
+
+  @@unique([roleId, permissionId])
+}
+
+model MenuItem {
+  id         Int              @id @default(autoincrement())
+  title      String
+  path       String
+  icon       String?
+  order      Float
+  parentId   Int?
+  Parent     MenuItem?        @relation("Menu", fields: [parentId], references: [id])
+  Children   MenuItem[]       @relation("Menu")
+  Permission MenuPermission[]
+}
+
+model MenuPermission {
+  id           Int        @id @default(autoincrement())
+  menuId       Int
+  permissionId Int
+  Menu         MenuItem   @relation(fields: [menuId], references: [id])
+  Permission   Permission @relation(fields: [permissionId], references: [id])
+
+  @@unique([menuId, permissionId])
+}
+
+model TrainingModule {
+  id               Int                @id @default(autoincrement())
+  name             String
+  title            String
+  startDate        DateTime           @db.Date
+  endDate          DateTime           @db.Date
+  hours            Int
+  cohortId         Int
+  ModuleEvaluation ModuleEvaluation[]
+  moduleReport     ModuleReport[]
+  Cohort           Cohort             @relation(fields: [cohortId], references: [id])
+}
