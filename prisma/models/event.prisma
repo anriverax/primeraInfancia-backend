@@ -1,10 +1,12 @@
 model EventType {
-  id                   Int     @id @default(autoincrement())
-  name                 String  @unique
-  order                Int
-  cohortId             Int
-  Event                Event[]
-  Cohort               Cohort  @relation(fields: [cohortId], references: [id])
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  order    Int
+  cohortId Int
+  Event    Event[]
+  Cohort   Cohort  @relation(fields: [cohortId], references: [id])
+
+  @@index([cohortId])
 }
 
 model EventInstance {
@@ -31,4 +33,6 @@ model Event {
   eventTypeId    Int
   EventType      EventType       @relation(fields: [eventTypeId], references: [id])
   eventInstances EventInstance[]
+
+  @@index([eventTypeId])
 }

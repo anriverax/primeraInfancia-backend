@@ -113,11 +113,13 @@ export class AttendanceController {
   async create(@Body() data: AttendanceDto, @Req() req: Request): Promise<NestResponse<void>> {
     const userId = req["user"].sub;
 
-    const { eventInstanceId, modality, supportId, coordenates, teacherId, justificationUrl, ...rest } =
+    const { eventInstanceId, modality, coordenates, teacherId, supportId, justificationUrl, ...rest } =
       data;
 
-    const person = await this.queryBus.execute(new FindPersonByUserQuery(parseInt(userId)));
+    console.log(supportId);
 
+    const person = await this.queryBus.execute(new FindPersonByUserQuery(parseInt(userId)));
+    /* eslint-disable  @typescript-eslint/no-non-null-asserted-optional-chain */
     const attendanceSession = await this.commandBus.execute(
       new CreateAttendanceSessionCommand(
         {
@@ -129,7 +131,7 @@ export class AttendanceController {
         userId
       )
     );
-
+    /* eslint-enable  @typescript-eslint/no-non-null-asserted-optional-chain */
     for (const teacher of teacherId) {
       await this.commandBus.execute(
         new CreateEventAttendanceCommand(

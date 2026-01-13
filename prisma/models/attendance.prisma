@@ -6,6 +6,7 @@ enum AttendanceEnum {
 model AttendanceSession {
   id              Int       @id @default(autoincrement())
   eventInstanceId Int
+  cohortId        Int
   modality        String
   checkIn         DateTime
   checkOut        DateTime?
@@ -17,9 +18,11 @@ model AttendanceSession {
 
   EventInstance   EventInstance     @relation(fields: [eventInstanceId], references: [id])
   Support         Person            @relation(fields: [supportId], references: [id])
+  Cohort          Cohort            @relation(fields: [cohortId], references: [id])
   EventAttendance EventAttendance[]
 
   @@unique([supportId, checkOut])
+  @@index([cohortId])
 }
 
 model EventAttendance {
@@ -44,6 +47,7 @@ model EventAttendance {
 model WorkAttendance {
   id                Int            @id @default(autoincrement())
   personId          Int // DE QUIÉN es la asistencia (obligatorio)
+  cohortId          Int
   checkIn           DateTime
   checkOut          DateTime?
   status            AttendanceEnum @default(PRESENTE)
@@ -52,4 +56,7 @@ model WorkAttendance {
   coordenates       String?
 
   Person Person @relation(fields: [personId], references: [id])
+  Cohort Cohort @relation(fields: [cohortId], references: [id])
+
+  @@index([cohortId])
 }

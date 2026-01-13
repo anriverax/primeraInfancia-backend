@@ -1,10 +1,13 @@
 model Cohort {
-  id             Int              @id @default(autoincrement())
-  name           String
-  EventType      EventType[]
-  Group          Group[]
-  School         School[]
-  TrainingModule TrainingModule[]
+  id                Int                 @id @default(autoincrement())
+  name              String
+  EventType         EventType[]
+  Group             Group[]
+  School            School[]
+  TrainingModule    TrainingModule[]
+  Person            Person[]
+  AttendanceSession AttendanceSession[]
+  WorkAttendance    WorkAttendance[]
 }
 
 model TypePerson {
@@ -18,7 +21,7 @@ model Zone {
   name       String
   Department Department[]
 }
-
+ 
 model Department {
   id           Int            @id @default(autoincrement())
   name         String

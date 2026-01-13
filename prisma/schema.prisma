@@ -50,6 +50,7 @@ model Person {
   nip               Int?
   typePersonId      Int
   districtId        Int
+  cohortId          Int                      @default(1)
   createdAt         DateTime                 @default(now())
   updatedAt         DateTime                 @updatedAt
   deletedAt         DateTime?
@@ -58,6 +59,7 @@ model Person {
   deletedBy         Int?
   TypePerson        TypePerson               @relation(fields: [typePersonId], references: [id])
   District          District                 @relation(fields: [districtId], references: [id])
+  Cohort            Cohort                   @relation(fields: [cohortId], references: [id])
   PrincipalSchool   PrincipalSchool[]
   EventInstances    EventInstance[]
   EventAttendance   EventAttendance[]
@@ -284,8 +286,6 @@ model uploads {
   error     String?
   s3uri     String?   @db.VarChar
 }
-
-
 
 /**
  * ================================
