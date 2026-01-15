@@ -20,10 +20,11 @@ export class AuthService {
   async verifyPasswd(hashedPassword: string, passwd: string): Promise<void> {
     const pwdMatch = await argon.verify(hashedPassword, passwd);
 
-    if (!pwdMatch)
+    if (!pwdMatch) {
       throw new UnauthorizedException(
         "Credenciales incorrectas. Por favor, verifique su usuario y contraseña e intente nuevamente."
       );
+    }
   }
 
   async comparePasswords(password: string, hashedPassword: string): Promise<boolean> {
