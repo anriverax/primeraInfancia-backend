@@ -63,7 +63,10 @@ export class AuthController {
     const { value1, value2 } = data;
 
     const user = await this.queryBus.execute(new FindUniqueUserQuery({ email: value1 }));
-    if (!user) throw new NotFoundException("El usuario no existe en el sistema.");
+    if (!user)
+      throw new NotFoundException(
+        "Credenciales incorrectas. Por favor, verifique su usuario y contraseña e intente nuevamente."
+      );
 
     await this.authService.verifyPasswd(user.passwd, value2);
     const userPermissions = await this.queryBus.execute(new GetByRolIdQuery(user.roleId));
