@@ -16,6 +16,7 @@ import {
 } from "./cqrs/queries/findUnique/getByIdAppendix.query";
 import { GetPersonAppendicesQuery } from "@/core/appendix/cqrs/queries/findMany/getAllAppendixAnswer.query";
 import { GetByInscriptionQuery } from "./cqrs/queries/findByInscription/getByInscription.query";
+import { GetAnswerDataByInscriptionQuery } from "./cqrs/queries/findByInscription/getAnswerDataByInscription.query";
 
 @Controller()
 @UseFilters(HttpExceptionFilter)
@@ -95,6 +96,26 @@ export class AppendixController {
     @Param("inscriptionId") inscriptionId: string
   ): Promise<NestResponse<PersonAppendixDto[]>> {
     return this.queryBus.execute(new GetPersonAppendicesQuery(parseInt(inscriptionId)));
+  }
+
+  @Get("answer-data/:inscriptionId")
+  async getAnswerDataByInscription(@Param("inscriptionId") inscriptionId: string) {
+    const id = parseInt(inscriptionId);
+    try {
+      const result = await this.queryBus.execute(new GetAnswerDataByInscriptionQuery(id));
+
+      return {
+        statusCode: 200,
+        message: "Answer data por inscriptionId",
+        data: result
+      };
+    } catch (err: any) {
+      return {
+        statusCode: 500,
+        message: err?.message || "Internal error",
+        error: err?.stack || err
+      };
+    }
   }
   /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
   /* eslint-disable @typescript-eslint/explicit-function-return-type */

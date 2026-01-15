@@ -13,13 +13,15 @@ import { DeleteAppendixHandler } from "./cqrs/commands/delete/deleteAppendix.han
 import { UpdateAppendixHandler } from "./cqrs/commands/update/updateAppendix.handler";
 import { GetPersonAppendicesHandler } from "./cqrs/queries/findMany/getAllAppendixAnswer.handler";
 import { GetByInscriptionHandler } from "@/core/appendix/cqrs/queries/findByInscription/getByInscription.query";
+import { GetAnswerDataByInscriptionHandler } from "@/core/appendix/cqrs/queries/findByInscription/getAnswerDataByInscription.query";
 
 const CommandHandlers = [
   CreateAppendixHandler,
   UpdateAppendixHandler,
   DeleteAppendixHandler,
   GetPersonAppendicesHandler,
-  GetByInscriptionHandler
+  GetByInscriptionHandler,
+  GetAnswerDataByInscriptionHandler
 ];
 const QueryHandlers = [GetAllAppendixHandler, GetByIdAppendixHandler, GetByIdDetailAppendixHandler];
 
