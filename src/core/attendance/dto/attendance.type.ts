@@ -4,7 +4,8 @@ import {
   PrincipalSchool,
   School,
   Event,
-  AttendanceEnum
+  AttendanceEnum,
+  GroupStaff
 } from "prisma/generated/client";
 
 export interface IAttendanceGrouped {
@@ -136,3 +137,22 @@ export interface FindLastAttendanceResult {
     };
   }[];
 }
+
+export interface AttendanceSessionList {
+  id: number;
+  event: string;
+  checkIn: Date;
+  checkOut: Date | null;
+  modality: string;
+  coordenates: string | null;
+  support: {
+    id: number;
+    fullName: string;
+  };
+  responsible: {
+    id: number;
+    fullName: string;
+  };
+}
+
+export type GroupStaffByUser = Pick<GroupStaff, "id" | "groupId" | "personId" | "parentId">;

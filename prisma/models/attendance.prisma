@@ -4,25 +4,28 @@ enum AttendanceEnum {
 }
 
 model AttendanceSession {
-  id              Int       @id @default(autoincrement())
-  eventInstanceId Int
-  cohortId        Int
-  modality        String
-  checkIn         DateTime
-  checkOut        DateTime?
-  coordenates     String?
-  supportId       Int
+  id               Int       @id @default(autoincrement())
+  eventInstanceId  Int
+  trainingModuleId Int
+  modality         String
+  checkIn          DateTime
+  checkOut         DateTime?
+  coordenates      String?
+  supportId        Int
 
   createdAt DateTime @default(now())
   createdBy Int
 
   EventInstance   EventInstance     @relation(fields: [eventInstanceId], references: [id])
   Support         Person            @relation(fields: [supportId], references: [id])
-  Cohort          Cohort            @relation(fields: [cohortId], references: [id])
   EventAttendance EventAttendance[]
+  TrainingModule  TrainingModule    @relation(fields: [trainingModuleId], references: [id])
 
   @@unique([supportId, checkOut])
-  @@index([cohortId])
+  @@index([trainingModuleId])
+  @@index([supportId])
+  @@index([eventInstanceId])
+  @@index([createdAt])
 }
 
 model EventAttendance {
@@ -47,7 +50,7 @@ model EventAttendance {
 model WorkAttendance {
   id                Int            @id @default(autoincrement())
   personId          Int // DE QUIÉN es la asistencia (obligatorio)
-  cohortId          Int
+  trainingModuleId  Int
   checkIn           DateTime
   checkOut          DateTime?
   status            AttendanceEnum @default(PRESENTE)
@@ -55,8 +58,8 @@ model WorkAttendance {
   justificationFile String?
   coordenates       String?
 
-  Person Person @relation(fields: [personId], references: [id])
-  Cohort Cohort @relation(fields: [cohortId], references: [id])
+  Person         Person         @relation(fields: [personId], references: [id])
+  TrainingModule TrainingModule @relation(fields: [trainingModuleId], references: [id])
 
-  @@index([cohortId])
+  @@index([trainingModuleId])
 }

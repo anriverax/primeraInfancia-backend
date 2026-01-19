@@ -1,13 +1,10 @@
 model Cohort {
   id                Int                 @id @default(autoincrement())
   name              String
-  EventType         EventType[]
   Group             Group[]
   School            School[]
   TrainingModule    TrainingModule[]
   Person            Person[]
-  AttendanceSession AttendanceSession[]
-  WorkAttendance    WorkAttendance[]
 }
 
 model TypePerson {
@@ -21,7 +18,7 @@ model Zone {
   name       String
   Department Department[]
 }
- 
+
 model Department {
   id           Int            @id @default(autoincrement())
   name         String
@@ -118,14 +115,20 @@ model MenuPermission {
 }
 
 model TrainingModule {
-  id               Int                @id @default(autoincrement())
-  name             String
-  title            String
-  startDate        DateTime           @db.Date
-  endDate          DateTime           @db.Date
-  hours            Int
-  cohortId         Int
-  ModuleEvaluation ModuleEvaluation[]
-  moduleReport     ModuleReport[]
-  Cohort           Cohort             @relation(fields: [cohortId], references: [id])
+  id                Int                 @id @default(autoincrement())
+  name              String
+  title             String
+  startDate         DateTime            @db.Date
+  endDate           DateTime            @db.Date
+  hours             Int
+  cohortId          Int
+  ModuleEvaluation  ModuleEvaluation[]
+  moduleReport      ModuleReport[]
+  Cohort            Cohort              @relation(fields: [cohortId], references: [id])
+  AttendanceSession AttendanceSession[]
+  SurveyData        SurveyData[]
+  WorkAttendance    WorkAttendance[]
+  EventSchedule     EventSchedule[]
+
+  @@index([cohortId])
 }

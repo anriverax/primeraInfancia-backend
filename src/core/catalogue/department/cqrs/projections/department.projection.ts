@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { Prisma } from "prisma/generated/client"; // Import User type from Prisma Client
 
 import { PrismaService } from "@/services/prisma/prisma.service";
@@ -15,7 +15,6 @@ import { DepartmentCreateInput } from "../../dto/department.type";
  */
 @Injectable()
 export class DepartmentProjection {
-  private readonly logger = new Logger(DepartmentProjection.name);
   /** Default Country ID used when creating departments (from env COUNTRY_ID, defaults to 3). */
   private readonly COUNTRY_ID = parseInt(process.env.COUNTRY_ID ?? "3", 10);
 
@@ -36,7 +35,6 @@ export class DepartmentProjection {
         select: { id: true }
       });
     } catch (error) {
-      this.logger.error(`❌ Prisma error: `, error as Error);
       if ((error as Prisma.PrismaClientKnownRequestError).code === "P2002") {
         throw new BadRequestException("El departamento ya existe.");
       }

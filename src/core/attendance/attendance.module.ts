@@ -17,6 +17,8 @@ import { CreateEventAttendanceHandler } from "./cqrs/command/eventAttendance/cre
 import { EventAttendanceProjection } from "./cqrs/projections/eventAttendance.projection";
 import { FindLastAttendanceHandler } from "./cqrs/queries/attendance/find-lastAttendance.handler";
 import { FindPersonByUserHandler } from "./cqrs/queries/person/find-person-byUser.handler";
+import { GetGroupStaffByUserHandler } from "./cqrs/queries/groupStaff/get-groupStaff-by-user.handler";
+import { GetAllSessionsBySupportHandler } from "./cqrs/queries/attendanceSession/get-all-sessions-by-support.handler";
 
 const AttendanceCommandHandlers = [
   CreateAttendanceSessionHandler,
@@ -25,6 +27,8 @@ const AttendanceCommandHandlers = [
 ];
 
 const AttendanceQueryHandlers = [
+  GetGroupStaffByUserHandler,
+  GetAllSessionsBySupportHandler,
   FindPersonByUserHandler,
   FindLastAttendanceHandler,
   GetTeacherAssignmentsByUserIdHandler,

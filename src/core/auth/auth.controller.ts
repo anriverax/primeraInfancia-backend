@@ -5,7 +5,6 @@ import {
   Post,
   Req,
   UnauthorizedException,
-  UseFilters,
   UseGuards,
   Get
 } from "@nestjs/common";
@@ -14,7 +13,6 @@ import { Request } from "express";
 import { AuthService } from "./services/auth.service";
 import { AuthDto, ChangePasswdDto, LoginDto } from "./dto/auth.dto";
 import { ILoginResponse } from "./dto/auth.type";
-import { HttpExceptionFilter } from "@/common/filters/http-exception.filter";
 import { NestResponse } from "@/common/helpers/types";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
 import { TokenService } from "./services/token.service";
@@ -26,7 +24,6 @@ import { RegisterUserCommand } from "./cqrs/commands/register/register-user.hand
 import { FindUniqueUserQuery } from "./cqrs/queries/user/find-unique-user.handler";
 
 @Controller()
-@UseFilters(HttpExceptionFilter)
 export class AuthController {
   constructor(
     private readonly commandBus: CommandBus,
@@ -63,10 +60,7 @@ export class AuthController {
     const { value1, value2 } = data;
 
     const user = await this.queryBus.execute(new FindUniqueUserQuery({ email: value1 }));
-    if (!user)
-      throw new NotFoundException(
-        "Credenciales incorrectas. Por favor, verifique su usuario y contraseña e intente nuevamente."
-      );
+    if (!user) throw new NotFoundException("Credenciales incorrectas.");
 
     await this.authService.verifyPasswd(user.passwd, value2);
     const userPermissions = await this.queryBus.execute(new GetByRolIdQuery(user.roleId));
@@ -98,23 +92,6 @@ export class AuthController {
       statusCode: 200,
       message: "Token de actualización generado exitosamente.",
       data
-    };
-  }
-
-  @AuthRequired()
-  @Post("verify-email")
-  async verifyEmail(
-    @Req() req: Request,
-    @Body() data: { verifyCode: string }
-  ): Promise<NestResponse<boolean>> {
-    if (!req["user"]) throw new UnauthorizedException("Usuario no autenticado.");
-
-    const { email } = req["user"] as { id: number; email: string; sub: number; role: string };
-    await this.authService.verifyEmailCode(email, data.verifyCode);
-
-    return {
-      statusCode: 200,
-      message: "¡Correo electrónico verificado exitosamente!"
     };
   }
 

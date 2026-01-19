@@ -293,18 +293,20 @@ model uploads {
  * ================================
  */
 model SurveyData {
-  id            Int         @id @default(autoincrement())
-  appendixId    Int
-  Appendix      Appendix    @relation(fields: [appendixId], references: [id])
-  survey        Json
-  inscriptionId Int
-  Inscription   Inscription @relation(fields: [inscriptionId], references: [id])
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  deletedAt     DateTime?
-  createdBy     Int
-  updatedBy     Int?
-  deletedBy     Int?
+  id               Int            @id @default(autoincrement())
+  appendixId       Int
+  trainingModuleId Int            @default(1)
+  Appendix         Appendix       @relation(fields: [appendixId], references: [id])
+  survey           Json
+  inscriptionId    Int
+  Inscription      Inscription    @relation(fields: [inscriptionId], references: [id])
+  TrainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int
+  updatedBy        Int?
+  deletedBy        Int?
 }
 
 // ====== END - SURVEY DATA ======

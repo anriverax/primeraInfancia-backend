@@ -25,6 +25,8 @@ import { GetAllInscriptionByUserQuery } from "./cqrs/queries/inscriptions/get-al
 import { CreateAttendanceSessionCommand } from "./cqrs/command/attendanceSession/create-attendanceSession.command";
 import { CreateEventAttendanceCommand } from "./cqrs/command/eventAttendance/create-eventAttendance.command";
 import { FindPersonByUserQuery } from "./cqrs/queries/person/find-person-byUser.query";
+import { GetGroupStaffByUserQuery } from "./cqrs/queries/groupStaff/get-groupStaff-by-user.query";
+import { GetAllSessionsBySupportQuery } from "./cqrs/queries/attendanceSession/get-all-sessions-by-support.query";
 
 /**
  * Attendance controller
@@ -43,6 +45,24 @@ export class AttendanceController {
     private readonly queryBus: QueryBus,
     private readonly mentorAssignmentService: MentorAssignmentService
   ) {}
+
+  @AuthRequired()
+  @Get()
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  async getAll(@Req() req: Request): Promise<any[]> {
+    console.log("userId", req["user"]);
+    const groupStaffList = await this.queryBus.execute(new GetGroupStaffByUserQuery(152));
+
+    if (groupStaffList.length === 0) {
+      return [];
+    }
+
+    const attendanceSessionsList = await this.queryBus.execute(
+      new GetAllSessionsBySupportQuery(req["user"].sub, req["user"].role)
+    );
+
+    return attendanceSessionsList;
+  }
 
   /**
    * Get teachers assigned to the authenticated mentor and the events where the mentor is responsible.

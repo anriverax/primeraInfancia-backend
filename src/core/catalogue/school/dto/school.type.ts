@@ -20,7 +20,7 @@ export interface ISchool extends Pick<School, "id" | "name" | "code" | "coordena
   _count: { PrincipalSchool: number };
 }
 
-export interface IGetAllSchool extends Omit<ISchool, "District"> {
+export interface IGetAllSchool extends Omit<ISchool, "District" | "coordenates"> {
   ubication: string;
 }
 

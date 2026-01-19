@@ -20,7 +20,6 @@ export class GetAllSchoolPaginationHandler {
           id: true,
           name: true,
           code: true,
-          coordenates: true,
           District: {
             select: {
               id: true,

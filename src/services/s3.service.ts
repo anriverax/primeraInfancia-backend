@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import fs from "fs";
 
-@Injectable({})
+@Injectable()
 export class S3Service {
   private s3: S3Client;
   private bucketName: string;

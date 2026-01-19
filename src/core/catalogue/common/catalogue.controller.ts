@@ -15,7 +15,7 @@ export class CatalogueController {
   @AuthRequired()
   @Get("menuItems")
   @ApiOkResponse({ description: "Lista de items para el menú." })
-  async getMenu(@Req() req: Request): Promise<IMenuItemResponse[] | null> {
+  async getMenu(@Req() req: Request): Promise<IMenuItemResponse[] | []> {
     const userWithPermissions = await this.queryBus.execute(
       new GetAllRolePermissionQuery(req["user"].sub)
     );
@@ -40,7 +40,7 @@ export class CatalogueController {
         }));
     }
 
-    const menuTree = uniqueMenuItems.length > 0 ? buildMenuTree(uniqueMenuItems) : null;
+    const menuTree = uniqueMenuItems.length > 0 ? buildMenuTree(uniqueMenuItems) : [];
 
     return menuTree;
   }

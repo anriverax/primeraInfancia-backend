@@ -66,25 +66,6 @@ export class AuthService {
     }
   }
 
-  async verifyEmailCode(email: string, code: string): Promise<void> {
-    try {
-      const storedCode = await this.redisService.get(`verifyEmailCode:${email}`);
-
-      if (storedCode && storedCode === code) {
-        // Remove the verification code after use
-        await this.redisService.del(`verifyEmailCode:${email}`);
-      } else throw new BadRequestException("El código de verificación es incorrecto o ha expirado.");
-    } catch (error) {
-      this.logger.error(`❌ Error al verificar el código de correo electrónico: `, error);
-
-      if (error instanceof BadRequestException) throw error;
-
-      throw new BadRequestException(
-        "Se ha producido un error al verificar el código de correo electrónico."
-      );
-    }
-  }
-
   getData(
     accessToken: string,
     refreshToken: string,
