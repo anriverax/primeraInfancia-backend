@@ -8,13 +8,10 @@ import {
   GetAllEventResult,
   GetAllInscriptionResult,
   GetAllSupportResult,
-  IAttendanceGrouped,
   IMentorResult
 } from "./dto/attendance.type";
-import { NestResponse, NestResponseWithPagination } from "@/common/helpers/types";
+import { NestResponse } from "@/common/helpers/types";
 import { UpdateAttendanceCommand } from "./cqrs/command/update/updateAttendance.command";
-import { PaginationDto } from "@/common/helpers/dto";
-import { GetAllAttendancePaginationQuery } from "./cqrs/queries/pagination/getAllAttendancePagination.query";
 import { MentorAssignmentService } from "./services/mentorAssignment.service";
 import { GetMentorsAssignedToUserQuery } from "./cqrs/queries/mentorAssignment/getMentorsAssignedToUser.query";
 import { GetAllEventsByUserQuery } from "./cqrs/queries/events/get-all-events-by-user.handler";
@@ -213,6 +210,7 @@ export class AttendanceController {
    * @param filterPagination Pagination and filter parameters (PaginationDto)
    * @returns Paginated list of attendances grouped by person
    */
+  /*
   @AuthRequired()
   @Get()
   async listAttendances(
@@ -232,7 +230,7 @@ export class AttendanceController {
       meta: result.meta
     };
   }
-
+*/
   /**
    * Get the latest attendance for the authenticated user (if exists).
    *
