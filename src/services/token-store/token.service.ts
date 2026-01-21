@@ -2,17 +2,17 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
-import { RedisService } from "@/services/redis/redis.service";
-import { ILoginResponse, IUser } from "../dto/auth.type";
+import { ILoginResponse, IUser } from "../../core/auth/dto/auth.type";
 import { Request } from "express";
 import { getPrivateKey } from "@/common/helpers/functions";
+import { ITokenStore } from "@/services/redis/redis.type";
 
 @Injectable()
 export class TokenService {
   constructor(
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-    private readonly redisService: RedisService
+    private readonly tokenStore: ITokenStore
   ) {}
 
   async setAccessToken(data: {
@@ -35,11 +35,8 @@ export class TokenService {
         expiresIn: this.config.get<string>("jwt.expiration") || "15m"
       }
     );
-
-    // Storing the tokenId in Redis
-    const accessTokenKey = `auth:access:${tokenId}`;
-
-    await this.redisService.set(accessTokenKey, "valid", 15 * 60); // TTL de 15 minutos
+    const ttl = 15 * 60; // 15 minutos
+    await this.tokenStore.storeAccessToken(tokenId, ttl);
 
     return accessToken;
   }
@@ -60,9 +57,7 @@ export class TokenService {
       }
     );
 
-    // Storing the refreshToken in Redis
-    const refreshTokenKey = `auth:refresh:${id}`;
-    await this.redisService.set(refreshTokenKey, refreshToken, 7 * 24 * 60 * 60);
+    await this.tokenStore.storeRefreshToken(id, refreshToken, 7 * 24 * 60 * 60);
 
     return refreshToken;
   }
@@ -82,6 +77,7 @@ export class TokenService {
       role: name,
       permissions
     });
+
     const refreshToken = await this.setRefreshToken({ id, email, rolId: user.Role.id, role: name });
 
     const firstName = user.Person ? user.Person.firstName : "";
@@ -111,9 +107,7 @@ export class TokenService {
       permissions: string[];
     };
 
-    const refreshTokenKey = `auth:refresh:${sub}`;
-
-    const storedToken = await this.redisService.get(refreshTokenKey);
+    const storedToken = await this.tokenStore.getRefreshToken(sub);
 
     if (!storedToken || storedToken !== req["token"])
       throw new UnauthorizedException(
@@ -124,5 +118,12 @@ export class TokenService {
     const accessToken = await this.setAccessToken({ id: sub, rolId, email, role, permissions });
 
     return accessToken;
+  }
+
+  async invalidateTokens(userId: number, tokenId?: string): Promise<void> {
+    if (tokenId) {
+      await this.tokenStore.invalidateAccessToken(tokenId);
+    }
+    await this.tokenStore.invalidateRefreshToken(userId);
   }
 }

@@ -15,13 +15,14 @@ import { AuthDto, ChangePasswdDto, LoginDto } from "./dto/auth.dto";
 import { ILoginResponse } from "./dto/auth.type";
 import { NestResponse } from "@/common/helpers/types";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { TokenService } from "./services/token.service";
+import { TokenService } from "../../services/token-store/token.service";
 import { RefreshTokenGuard } from "@/common/guards/refreshToken.guard";
 import { GetByRolIdQuery } from "./cqrs/queries/role/get-by-rol-id.query";
 import { GetAllPermissionQuery } from "./cqrs/queries/menuPermission/get-all-permission.query";
 import { ChangePasswdCommand } from "./cqrs/commands/change-passwd/change-passwd.command";
 import { RegisterUserCommand } from "./cqrs/commands/register/register-user.handler";
 import { FindUniqueUserQuery } from "./cqrs/queries/user/find-unique-user.handler";
+import { LoginCommand } from "./cqrs/commands/login/login.command";
 
 @Controller()
 export class AuthController {
@@ -57,15 +58,7 @@ export class AuthController {
 
   @Post("login")
   async login(@Body() data: LoginDto): Promise<NestResponse<ILoginResponse>> {
-    const { value1, value2 } = data;
-
-    const user = await this.queryBus.execute(new FindUniqueUserQuery({ email: value1 }));
-    if (!user) throw new NotFoundException("Credenciales incorrectas.");
-
-    await this.authService.verifyPasswd(user.passwd, value2);
-    const userPermissions = await this.queryBus.execute(new GetByRolIdQuery(user.roleId));
-
-    const result = await this.tokenService.generateTokens(user, userPermissions);
+    const result = await this.commandBus.execute(new LoginCommand(data.value1, data.value2));
 
     return {
       statusCode: 200,
