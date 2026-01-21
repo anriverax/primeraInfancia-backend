@@ -10,29 +10,16 @@ import config from "./config/config";
 import { PrismaModule } from "./services/prisma/prisma.module";
 import { RedisModule } from "./services/redis/redis.module";
 
-// module - Controller
-
-import { AuthModule } from "./core/auth/auth.module";
-import { CatalogueModule } from "./core/catalogue/common/catalogue.module";
-import { ProfileModule } from "./core/profile/profile.module";
-import { ZoneModule } from "./core/catalogue/zone/zone.module";
-import { GroupModule } from "./core/group/group.module";
-
-// test
-import { DepartmentModule } from "./core/catalogue/department/department.module";
-import { MunicipalityModule } from "./core/test/coutry/municipality/municipality.module";
-import { PermissionModule } from "./core/test/permission/permission.module";
+// module - Container modules
+import { CoreContainerModule } from "./core/core-container.module";
+import { CatalogueContainerModule } from "./core/catalogue/catalogue-container.module";
 import { AttendanceModule } from "./core/attendance/attendance.module";
-import { HealthModule } from "./core/health/health.module";
-import { TrainingModule } from "./core/catalogue/trainingModule/trainingModule.module";
-import { EvaluationInstrumentModule } from "./core/catalogue/evaluationInstrument/evaluationInstrument.module";
-import { SchoolModule } from "./core/catalogue/school/school.module";
 import { DashboardModule } from "./core/dashboard/dashboard.module";
-import { TechsupportModule } from "./core/test/techsupport/techsupport.module";
+import { TestContainerModule } from "./core/test/test-container.module";
+import { DataContainerModule } from "./core/data-container.module";
 
-// Appendix
-import { AppendixModule } from "./core/appendix/appendix.module";
-import { SurveyDataModule } from "./core/surveyData/surveyData.module";
+// module - Health check
+import { HealthModule } from "./core/health/health.module";
 
 @Module({
   imports: [
@@ -51,70 +38,27 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
         }
       })
     }),
+    // Services
     PrismaModule,
+    RedisModule.forRoot({
+      config: {
+        url: process.env.REDIS
+      }
+    }),
+    // Health check
     HealthModule,
-    AuthModule,
-    CatalogueModule,
-    ProfileModule,
-    ZoneModule,
-    GroupModule,
-    DepartmentModule,
-    MunicipalityModule,
-    PermissionModule,
-    SchoolModule,
+    // Container modules
+    CoreContainerModule,
+    CatalogueContainerModule,
     AttendanceModule,
-    TrainingModule,
-    EvaluationInstrumentModule,
     DashboardModule,
-    TechsupportModule,
-    AppendixModule,
-    SurveyDataModule,
+    TestContainerModule,
+    DataContainerModule,
+    // Router configuration for all containers
     RouterModule.register([
       {
         path: "api",
         children: [
-          {
-            path: "auth",
-            module: AuthModule
-          },
-          {
-            path: "catalogue",
-            module: CatalogueModule,
-            children: [
-              {
-                path: "cargar-data",
-                module: TechsupportModule
-              },
-              {
-                path: "department",
-                module: DepartmentModule
-              },
-              {
-                path: "zone",
-                module: ZoneModule
-              },
-              {
-                path: "trainingModule",
-                module: TrainingModule
-              },
-              {
-                path: "evaluationInstrument",
-                module: EvaluationInstrumentModule
-              },
-              {
-                path: "school",
-                module: SchoolModule
-              }
-            ]
-          },
-          {
-            path: "profile",
-            module: ProfileModule
-          },
-          {
-            path: "group",
-            module: GroupModule
-          },
           {
             path: "attendance",
             module: AttendanceModule
@@ -122,36 +66,10 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
           {
             path: "dashboard",
             module: DashboardModule
-          },
-          {
-            path: "test",
-            children: [
-              {
-                path: "municipality",
-                module: MunicipalityModule
-              },
-              {
-                path: "permission",
-                module: PermissionModule
-              }
-            ]
-          },
-          {
-            path: "appendix",
-            module: AppendixModule
-          },
-          {
-            path: "surveyData",
-            module: SurveyDataModule
           }
         ]
       }
-    ]),
-    RedisModule.forRoot({
-      config: {
-        url: process.env.REDIS
-      }
-    })
+    ])
   ],
   controllers: [],
   providers: [
@@ -160,6 +78,6 @@ import { SurveyDataModule } from "./core/surveyData/surveyData.module";
       useClass: ClassSerializerInterceptor
     }
   ],
-  exports: [JwtModule] // <-- ¡Agrega esto!
+  exports: [JwtModule]
 })
 export class AppModule {}
