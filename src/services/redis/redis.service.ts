@@ -11,7 +11,6 @@ export class RedisService {
 
   async set(key: string, value: string, ttl?: number): Promise<void> {
     const val = typeof value === "string" ? value : JSON.stringify(value);
-
     try {
       if (ttl) {
         await this.redis.set(key, val, "EX", ttl);
@@ -21,7 +20,7 @@ export class RedisService {
     } catch (error) {
       this.logger.error(
         `❌ Se produjo un error al intentar establecer la clave "${key}" en Redis.`,
-        error
+        error.message
       );
       throw error;
     }

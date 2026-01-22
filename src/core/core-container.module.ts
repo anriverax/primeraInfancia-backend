@@ -24,10 +24,6 @@ import { GroupModule } from "./group/group.module";
     GroupModule,
     RouterModule.register([
       {
-        path: "auth",
-        module: AuthModule
-      },
-      {
         path: "profile",
         module: ProfileModule
       },

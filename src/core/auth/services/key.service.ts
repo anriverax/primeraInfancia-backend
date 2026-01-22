@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import * as crypto from "crypto";
 import { QueryBus } from "@nestjs/cqrs";
@@ -47,16 +47,21 @@ export class KeyService {
   }
 
   async rotateUserKey(userId: number): Promise<void> {
-    await this.projection.updateMany(userId);
+    try {
+      await this.projection.updateMany(userId);
+      await this.projection.updateMany(userId);
 
-    const { publicKey, privateKey } = this.generateKeyPair();
-    const encryptedPrivateKey = this.encryptPrivateKey(privateKey);
+      const { publicKey, privateKey } = this.generateKeyPair();
+      const encryptedPrivateKey = this.encryptPrivateKey(privateKey);
 
-    await this.projection.create({
-      userId,
-      publicKey,
-      privateKey: encryptedPrivateKey
-    });
+      await this.projection.create({
+        userId,
+        publicKey,
+        privateKey: encryptedPrivateKey
+      });
+    } catch (error) {
+      throw new InternalServerErrorException("Key rotation failed", error);
+    }
   }
 
   async revokeKey(keyId: number): Promise<void> {

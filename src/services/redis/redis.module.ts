@@ -1,6 +1,6 @@
 import { DynamicModule, Global, Logger, Module, OnApplicationShutdown } from "@nestjs/common";
 import { REDIS_CLIENT, createRedisClient, RedisModuleOptions } from "./redis.core";
-import { RedisTokenStore } from "../token-store/redis-token-store";
+import { RedisService } from "./redis.service";
 
 @Global()
 @Module({})
@@ -19,13 +19,13 @@ export class RedisModule implements OnApplicationShutdown {
     return {
       module: RedisModule,
       providers: [
-        RedisTokenStore,
+        RedisService,
         {
           provide: REDIS_CLIENT,
           useValue: this.client
         }
       ],
-      exports: [REDIS_CLIENT, RedisTokenStore]
+      exports: [REDIS_CLIENT, RedisService]
     };
   }
 

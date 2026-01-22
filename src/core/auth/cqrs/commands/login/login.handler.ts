@@ -1,12 +1,13 @@
-import { ICommandHandler, QueryBus } from "@nestjs/cqrs";
+import { CommandHandler, ICommandHandler, QueryBus } from "@nestjs/cqrs";
 import { LoginCommand } from "./login.command";
 import { ILoginResponse } from "@/core/auth/dto/auth.type";
 import { AuthService } from "@/core/auth/services/auth.service";
 import { FindUniqueUserQuery } from "../../queries/user/find-unique-user.handler";
-import { NotFoundException } from "@nestjs/common";
+import { NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { GetByRolIdQuery } from "../../queries/role/get-by-rol-id.query";
-import { TokenService } from "@/services/token-store/token.service";
+import { TokenService } from "@/core/auth/services/token.service";
 
+@CommandHandler(LoginCommand)
 export class LoginHandler implements ICommandHandler<LoginCommand> {
   constructor(
     private readonly queryBus: QueryBus,
@@ -19,7 +20,13 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
     const user = await this.queryBus.execute(new FindUniqueUserQuery({ email: value1 }));
     if (!user) throw new NotFoundException("Credenciales incorrectas.");
 
-    await this.authService.verifyPasswd(user.passwd, value2);
+    const isPasswordValid = await this.authService.comparePasswords(value2, user.passwd);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException(
+        "Credenciales incorrectas. Por favor, verifique su usuario y contraseña e intente nuevamente."
+      );
+    }
     const userPermissions = await this.queryBus.execute(new GetByRolIdQuery(user.roleId));
 
     const result = await this.tokenService.generateTokens(user, userPermissions);

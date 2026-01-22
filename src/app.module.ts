@@ -1,6 +1,6 @@
 import { ClassSerializerInterceptor, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { APP_INTERCEPTOR, RouterModule } from "@nestjs/core";
+import { APP_INTERCEPTOR } from "@nestjs/core";
 import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 
 // config
@@ -20,6 +20,7 @@ import { DataContainerModule } from "./core/data-container.module";
 
 // module - Health check
 import { HealthModule } from "./core/health/health.module";
+import { AuthModule } from "./core/auth/auth.module";
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { HealthModule } from "./core/health/health.module";
         url: process.env.REDIS
       }
     }),
+    AuthModule,
     // Health check
     HealthModule,
     // Container modules
@@ -53,11 +55,11 @@ import { HealthModule } from "./core/health/health.module";
     AttendanceModule,
     DashboardModule,
     TestContainerModule,
-    DataContainerModule,
+    DataContainerModule
     // Router configuration for all containers
-    RouterModule.register([
+    /*RouterModule.register([
       {
-        path: "api",
+        path: "api2",
         children: [
           {
             path: "attendance",
@@ -69,7 +71,7 @@ import { HealthModule } from "./core/health/health.module";
           }
         ]
       }
-    ])
+    ])*/
   ],
   controllers: [],
   providers: [

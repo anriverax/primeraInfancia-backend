@@ -2,17 +2,21 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
-import { ILoginResponse, IUser } from "../../core/auth/dto/auth.type";
+import { ILoginResponse, IUser } from "../dto/auth.type";
 import { Request } from "express";
 import { getPrivateKey } from "@/common/helpers/functions";
-import { ITokenStore } from "@/services/redis/redis.type";
+import { timingSafeEqual } from "crypto";
+import { RedisService } from "../../../services/redis/redis.service";
 
 @Injectable()
 export class TokenService {
+  private readonly accessTokenPrefix = "auth:access:";
+  private readonly refreshTokenPrefix = "auth:refresh:";
+
   constructor(
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
-    private readonly tokenStore: ITokenStore
+    private readonly redisService: RedisService
   ) {}
 
   async setAccessToken(data: {
@@ -26,7 +30,7 @@ export class TokenService {
     const tokenId = uuidv4();
 
     const privateKey = getPrivateKey(this.config);
-
+    const ttl = 15 * 60; // 15 minutos en segundos
     const accessToken = this.jwtService.sign(
       { sub: id, email, rolId, role, tokenId, permissions },
       {
@@ -35,8 +39,8 @@ export class TokenService {
         expiresIn: this.config.get<string>("jwt.expiration") || "15m"
       }
     );
-    const ttl = 15 * 60; // 15 minutos
-    await this.tokenStore.storeAccessToken(tokenId, ttl);
+
+    await this.redisService.set(`${this.accessTokenPrefix}${tokenId}`, accessToken, ttl);
 
     return accessToken;
   }
@@ -57,7 +61,7 @@ export class TokenService {
       }
     );
 
-    await this.tokenStore.storeRefreshToken(id, refreshToken, 7 * 24 * 60 * 60);
+    await this.redisService.set(`${this.refreshTokenPrefix}${id}`, refreshToken, 7 * 24 * 60 * 60);
 
     return refreshToken;
   }
@@ -107,12 +111,13 @@ export class TokenService {
       permissions: string[];
     };
 
-    const storedToken = await this.tokenStore.getRefreshToken(sub);
+    const storedToken = await this.redisService.get(`${this.refreshTokenPrefix}${sub}`);
 
-    if (!storedToken || storedToken !== req["token"])
+    if (!storedToken || !timingSafeEqual(Buffer.from(storedToken), Buffer.from(req["token"]))) {
       throw new UnauthorizedException(
         "El token de sesión es inválido o ha expirado. Por favor, inicie sesión nuevamente."
       );
+    }
 
     // Generate a new assessToken
     const accessToken = await this.setAccessToken({ id: sub, rolId, email, role, permissions });
@@ -122,8 +127,9 @@ export class TokenService {
 
   async invalidateTokens(userId: number, tokenId?: string): Promise<void> {
     if (tokenId) {
-      await this.tokenStore.invalidateAccessToken(tokenId);
+      await this.redisService.del(`${this.accessTokenPrefix}${tokenId}`);
     }
-    await this.tokenStore.invalidateRefreshToken(userId);
+
+    await this.redisService.del(`${this.refreshTokenPrefix}${userId}`);
   }
 }

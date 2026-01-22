@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  NotFoundException,
-  Post,
-  Req,
-  UnauthorizedException,
-  UseGuards,
-  Get
-} from "@nestjs/common";
+import { Body, Controller, Post, Req, UnauthorizedException, UseGuards, Get } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { Request } from "express";
 import { AuthService } from "./services/auth.service";
@@ -15,24 +6,26 @@ import { AuthDto, ChangePasswdDto, LoginDto } from "./dto/auth.dto";
 import { ILoginResponse } from "./dto/auth.type";
 import { NestResponse } from "@/common/helpers/types";
 import { AuthRequired } from "@/common/decorators/authRequired.decorator";
-import { TokenService } from "../../services/token-store/token.service";
 import { RefreshTokenGuard } from "@/common/guards/refreshToken.guard";
-import { GetByRolIdQuery } from "./cqrs/queries/role/get-by-rol-id.query";
 import { GetAllPermissionQuery } from "./cqrs/queries/menuPermission/get-all-permission.query";
 import { ChangePasswdCommand } from "./cqrs/commands/change-passwd/change-passwd.command";
 import { RegisterUserCommand } from "./cqrs/commands/register/register-user.handler";
 import { FindUniqueUserQuery } from "./cqrs/queries/user/find-unique-user.handler";
 import { LoginCommand } from "./cqrs/commands/login/login.command";
+import { GetRefreshTokenQuery } from "./cqrs/queries/refresh-token/refresh-token.query";
 
-@Controller()
+@Controller("/auth")
 export class AuthController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly authService: AuthService,
-    private readonly tokenService: TokenService
+    private readonly authService: AuthService
   ) {}
 
+  @Get("hola")
+  async hola(): Promise<string> {
+    return "Hola mundo";
+  }
   @Post("register")
   async register(@Body() data: AuthDto): Promise<NestResponse<void>> {
     await this.commandBus.execute(new RegisterUserCommand(data));
@@ -70,16 +63,15 @@ export class AuthController {
   @Post("refresh-token")
   @UseGuards(RefreshTokenGuard)
   async refreshToken(@Req() req: Request): Promise<NestResponse<ILoginResponse>> {
-    const { email } = req["user"] as { email: string; sub: number; role: string };
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    const user = req["user"] as any;
+    /* eslint-enable @typescript-eslint/no-explicit-any */
 
-    const accessToken = await this.tokenService.refreshToken(req);
+    if (!user || !user.email || !user.sub) {
+      throw new UnauthorizedException("Usuario no autenticado.");
+    }
 
-    const user = await this.queryBus.execute(new FindUniqueUserQuery({ email }));
-    if (!user) throw new NotFoundException("El usuario no existe en el sistema.");
-
-    const userPermissions = await this.queryBus.execute(new GetByRolIdQuery(user.roleId));
-
-    const data = this.authService.getData(accessToken, req["token"], user, userPermissions);
+    const data = await this.queryBus.execute(new GetRefreshTokenQuery(req, user.email));
 
     return {
       statusCode: 200,
@@ -105,10 +97,17 @@ export class AuthController {
     }
     const isTheSamePassword = await this.authService.comparePasswords(data.value3, isExist.passwd);
 
-    if (isTheSamePassword)
+    if (isTheSamePassword) {
       throw new UnauthorizedException("La nueva contraseña no puede ser igual a la anterior.");
+    }
 
-    await this.authService.verifyPasswd(isExist.passwd, data.value2);
+    const pwdMatch = await this.authService.comparePasswords(isExist.passwd, data.value2);
+
+    if (!pwdMatch) {
+      throw new UnauthorizedException(
+        "Credenciales incorrectas. Por favor, verifique su usuario y contraseña e intente nuevamente."
+      );
+    }
 
     const hashedPassword = await this.authService.hashPassword(data.value3);
 

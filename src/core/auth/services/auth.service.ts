@@ -17,16 +17,6 @@ export class AuthService {
     return argon.hash(password);
   }
 
-  async verifyPasswd(hashedPassword: string, passwd: string): Promise<void> {
-    const pwdMatch = await argon.verify(hashedPassword, passwd);
-
-    if (!pwdMatch) {
-      throw new UnauthorizedException(
-        "Credenciales incorrectas. Por favor, verifique su usuario y contraseña e intente nuevamente."
-      );
-    }
-  }
-
   async comparePasswords(password: string, hashedPassword: string): Promise<boolean> {
     return argon.verify(hashedPassword, password);
   }
@@ -52,9 +42,14 @@ export class AuthService {
       await this.redisService.del(refreshTokenKey);
 
       if (accessToken) {
-        const decoded = this.jwtService.decode(accessToken);
-        const accessTokenKey = decoded.tokenId;
-        await this.redisService.del(`auth:access:${accessTokenKey}`);
+        try {
+          const decoded = this.jwtService.decode(accessToken);
+          if (decoded?.tokenId) {
+            await this.redisService.del(`auth:access:${decoded.tokenId}`);
+          }
+        } catch (error) {
+          this.logger.warn("Invalid token format during logout", error);
+        }
       }
 
       return true;
@@ -81,7 +76,7 @@ export class AuthService {
 
     const firstName = user.Person ? user.Person.firstName : "";
     const lastName = user.Person ? user.Person.lastName1 : "";
-    const fullName = `${firstName} ${lastName}`;
+    const fullName = [firstName, lastName].filter(Boolean).join(" ");
 
     return {
       accessToken,
