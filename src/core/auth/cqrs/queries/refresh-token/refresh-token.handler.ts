@@ -1,9 +1,9 @@
 import { IQueryHandler, QueryBus, QueryHandler } from "@nestjs/cqrs";
 import { GetRefreshTokenQuery } from "./refresh-token.query";
 import { ILoginResponse } from "@/core/auth/dto/auth.type";
-import { TokenService } from "@/core/auth/services/token.service";
+import { TokenService } from "@/core/auth/services/tokenManagement.service";
 import { NotFoundException } from "@nestjs/common";
-import { FindUniqueUserQuery } from "../user/find-unique-user.handler";
+import { FindUniqueUserQuery } from "../find-user-by-id.handler";
 import { GetByRolIdQuery } from "../role/get-by-rol-id.query";
 import { AuthService } from "@/core/auth/services/auth.service";
 

@@ -6,25 +6,28 @@
 
 ## 📊 Resumen Rápido
 
-| Componente | Descripción | Estado |
-|-----------|------------|--------|
-| **Anti-Brute Force** | Bloquea después de 5 intentos | ✅ ACTIVO |
-| **Account Lockout** | Lockout de 15 minutos automático | ✅ ACTIVO |
-| **Tracking** | Rastrea intentos fallidos en Redis | ✅ ACTIVO |
-| **Reset Automático** | Se resetea en login exitoso | ✅ ACTIVO |
-| **Logging** | Registra todos los intentos | ✅ ACTIVO |
-| **Compilación** | Build exitosa sin errores | ✅ EXITOSA |
+| Componente           | Descripción                        | Estado     |
+| -------------------- | ---------------------------------- | ---------- |
+| **Anti-Brute Force** | Bloquea después de 5 intentos      | ✅ ACTIVO  |
+| **Account Lockout**  | Lockout de 15 minutos automático   | ✅ ACTIVO  |
+| **Tracking**         | Rastrea intentos fallidos en Redis | ✅ ACTIVO  |
+| **Reset Automático** | Se resetea en login exitoso        | ✅ ACTIVO  |
+| **Logging**          | Registra todos los intentos        | ✅ ACTIVO  |
+| **Compilación**      | Build exitosa sin errores          | ✅ EXITOSA |
 
 ---
 
 ## 🛡️ Protecciones Implementadas
 
 ### 1. Method: `trackLoginAttempt()`
+
 ```typescript
 // Rastrear intentos de login
 await authService.trackLoginAttempt(email, success);
 ```
+
 **Qué hace:**
+
 - Incrementa contador en Redis
 - Bloquea después de 5 intentos
 - Se resetea en login exitoso
@@ -32,17 +35,21 @@ await authService.trackLoginAttempt(email, success);
 ---
 
 ### 2. Method: `isAccountLocked()`
+
 ```typescript
 // Verificar si cuenta está bloqueada
 const locked = await authService.isAccountLocked(email);
 ```
+
 **Qué hace:**
+
 - Verifica estado de bloqueo en Redis
 - Retorna true/false
 
 ---
 
 ### 3. LoginHandler Mejorado
+
 ```typescript
 // Flujo seguro:
 1. Verificar bloqueo
@@ -71,6 +78,7 @@ Umbral bloqueo: 5 intentos
 ## 🎯 Flujos de Seguridad
 
 ### Escenario 1: Login Exitoso
+
 ```
 ✅ Verificar bloqueo → No bloqueado
 ✅ Buscar usuario → Encontrado
@@ -80,6 +88,7 @@ Umbral bloqueo: 5 intentos
 ```
 
 ### Escenario 2: Contraseña Incorrecta (x1-4)
+
 ```
 ✅ Verificar bloqueo → No bloqueado
 ✅ Buscar usuario → Encontrado
@@ -89,6 +98,7 @@ Umbral bloqueo: 5 intentos
 ```
 
 ### Escenario 3: Quinto Intento Fallido
+
 ```
 ✅ Verificar bloqueo → No bloqueado aún
 ✅ Buscar usuario → Encontrado
@@ -98,6 +108,7 @@ Umbral bloqueo: 5 intentos
 ```
 
 ### Escenario 4: Cuenta Bloqueada
+
 ```
 🔒 Verificar bloqueo → BLOQUEADA
 🔒 Lanzar error inmediato
@@ -109,6 +120,7 @@ Umbral bloqueo: 5 intentos
 ## 💾 Almacenamiento
 
 ### Redis Keys
+
 ```
 login:attempts:user@example.com = "1"   (TTL: 15min)
 login:attempts:user@example.com = "5"   (TTL: 15min)
@@ -116,6 +128,7 @@ login:locked:user@example.com = "locked"  (TTL: 15min)
 ```
 
 **Ventajas:**
+
 - 🚀 Muy rápido (en memoria)
 - ⏰ TTL automático
 - 🔄 Escalable
@@ -139,6 +152,7 @@ login:locked:user@example.com = "locked"  (TTL: 15min)
 ## 🚀 Cómo Funciona
 
 ### Paso 1: Usuario intenta login
+
 ```
 POST /auth/login
 {
@@ -148,21 +162,23 @@ POST /auth/login
 ```
 
 ### Paso 2: LoginHandler valida
+
 ```
 1. isAccountLocked("user@example.com")
    └── Si true → Error 401 inmediato
-   
+
 2. Buscar usuario en BD
    └── Si no existe → trackLoginAttempt(false)
-   
+
 3. Validar contraseña
    └── Si incorrecta → trackLoginAttempt(false)
-   
+
 4. Login exitoso
    └── trackLoginAttempt(true) → Reset contador
 ```
 
 ### Paso 3: Respuesta al cliente
+
 ```json
 {
   "statusCode": 200 or 401,
@@ -176,6 +192,7 @@ POST /auth/login
 ## 🔍 Monitoring
 
 ### Logs en Consola
+
 ```
 ✅ "Login exitoso para user@example.com"
 ⚠️ "Intento de login fallido para user@example.com (1/5)"
@@ -185,6 +202,7 @@ POST /auth/login
 ```
 
 ### Redis Monitoring
+
 ```bash
 redis-cli
 > KEYS login:*
@@ -205,26 +223,26 @@ login:locked:hacker@evil.com
 
 ## ✨ Beneficios Finales
 
-| Beneficio | Descripción |
-|-----------|------------|
-| **Seguridad** | Previene ataques de fuerza bruta |
-| **UX** | No molesta usuarios legítimos |
-| **Performance** | Usa Redis (muy rápido) |
+| Beneficio         | Descripción                            |
+| ----------------- | -------------------------------------- |
+| **Seguridad**     | Previene ataques de fuerza bruta       |
+| **UX**            | No molesta usuarios legítimos          |
+| **Performance**   | Usa Redis (muy rápido)                 |
 | **Escalabilidad** | Funciona en arquitecturas distribuidas |
-| **Auditoría** | Logging completo |
-| **Mantenimiento** | Automático (TTL, reset) |
+| **Auditoría**     | Logging completo                       |
+| **Mantenimiento** | Automático (TTL, reset)                |
 
 ---
 
 ## 📊 Comparación Antes/Después
 
-| Aspecto | Antes | Después |
-|--------|-------|---------|
-| Protección B.F. | ❌ No | ✅ Sí |
-| Lockout automático | ❌ No | ✅ Sí |
-| Tracking de intentos | ❌ No | ✅ Sí |
-| Logging | ⚠️ Parcial | ✅ Completo |
-| Redis integration | ⚠️ Parcial | ✅ Completa |
+| Aspecto              | Antes      | Después     |
+| -------------------- | ---------- | ----------- |
+| Protección B.F.      | ❌ No      | ✅ Sí       |
+| Lockout automático   | ❌ No      | ✅ Sí       |
+| Tracking de intentos | ❌ No      | ✅ Sí       |
+| Logging              | ⚠️ Parcial | ✅ Completo |
+| Redis integration    | ⚠️ Parcial | ✅ Completa |
 
 ---
 

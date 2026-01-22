@@ -9,7 +9,7 @@ import { timingSafeEqual } from "crypto";
 import { RedisService } from "../../../services/redis/redis.service";
 
 @Injectable()
-export class TokenService {
+export class TokenManagementService {
   private readonly accessTokenPrefix = "auth:access:";
   private readonly refreshTokenPrefix = "auth:refresh:";
 

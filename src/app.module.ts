@@ -21,6 +21,7 @@ import { DataContainerModule } from "./core/data-container.module";
 // module - Health check
 import { HealthModule } from "./core/health/health.module";
 import { AuthModule } from "./core/auth/auth.module";
+import { ErrorHandlingModule } from './services/errorHandling/errorHandling.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { AuthModule } from "./core/auth/auth.module";
       })
     }),
     // Services
+    ErrorHandlingModule,
     PrismaModule,
     RedisModule.forRoot({
       config: {
@@ -56,22 +58,6 @@ import { AuthModule } from "./core/auth/auth.module";
     DashboardModule,
     TestContainerModule,
     DataContainerModule
-    // Router configuration for all containers
-    /*RouterModule.register([
-      {
-        path: "api2",
-        children: [
-          {
-            path: "attendance",
-            module: AttendanceModule
-          },
-          {
-            path: "dashboard",
-            module: DashboardModule
-          }
-        ]
-      }
-    ])*/
   ],
   controllers: [],
   providers: [

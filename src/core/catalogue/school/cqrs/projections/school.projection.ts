@@ -1,19 +1,21 @@
 import { PrismaService } from "@/services/prisma/prisma.service";
-import { BadRequestException, Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { School } from "prisma/generated/client";
 import { ICreateSchool } from "../../dto/school.type";
+import { ErrorHandlingService } from "@/services/errorHandling/error-handling.service";
 
 @Injectable()
 export class SchoolProjection {
-  private readonly logger = new Logger("SchoolProjection");
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private errorHandlingService: ErrorHandlingService
+  ) {}
 
   async add(data: ICreateSchool): Promise<School> {
     try {
       return await this.prisma.school.create({ data });
     } catch (error) {
-      this.logger.error(`❌ Error de prisma: `, error);
-      throw new BadRequestException("Se ha producido un error al procesar su solicitud.");
+      this.errorHandlingService.handlePrismaError("SchoolProjection.add", error);
     }
   }
 }

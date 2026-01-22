@@ -1,25 +1,21 @@
-import { BadRequestException, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
+import { Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import * as argon from "argon2";
+
 import { RedisService } from "@/services/redis/redis.service";
 import { generateCode } from "@/common/helpers/functions";
 import { ILoginResponse, IUser } from "../dto/auth.type";
+import { ErrorHandlingService } from "@/services/errorHandling/error-handling.service";
 
 @Injectable({})
 export class AuthService {
   private readonly logger = new Logger("AuthService");
   constructor(
     private readonly jwtService: JwtService,
-    private readonly redisService: RedisService
+    private readonly redisService: RedisService,
+    private readonly errorHandlingService: ErrorHandlingService
   ) {}
 
-  async hashPassword(password: string): Promise<string> {
-    return argon.hash(password);
-  }
 
-  async comparePasswords(password: string, hashedPassword: string): Promise<boolean> {
-    return argon.verify(hashedPassword, password);
-  }
 
   async createCodeVerificationEmail(email: string): Promise<void> {
     try {
@@ -27,9 +23,9 @@ export class AuthService {
 
       await this.redisService.set(`verifyEmailCode:${email}`, code, 3 * 24 * 60 * 60); // TTL de 3 días
     } catch (error) {
-      this.logger.error(`❌ Se produjo un error: `, error);
-      throw new BadRequestException(
-        "Se ha producido un error al intentar enviar el correo electrónico. Por favor, inténtelo nuevamente más tarde."
+      this.errorHandlingService.handleBusinessLogicError(
+        "Se ha producido un error al intentar enviar el correo electrónico. Por favor, inténtelo nuevamente más tarde",
+        error
       );
     }
   }
