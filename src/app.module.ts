@@ -21,7 +21,7 @@ import { DataContainerModule } from "./core/data-container.module";
 // module - Health check
 import { HealthModule } from "./core/health/health.module";
 import { AuthModule } from "./core/auth/auth.module";
-import { ErrorHandlingModule } from './services/errorHandling/errorHandling.module';
+import { ErrorHandlingModule } from "./services/errorHandling/errorHandling.module";
 
 @Module({
   imports: [

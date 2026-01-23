@@ -88,7 +88,7 @@ export class DashboardController {
       const count = await this.queryBus.execute(new GetSurveyByAppendixQuery(app.id));
       completed.push({ appendixId: app.id, title: app.title, count });
     }
-    console.log("completed", completed);
+
     const mentoring = await this.queryBus.execute(new GetAllAppendix1Query(parseInt(appendix)));
     const result = this.dashboardService.getSchoolCountByDepartment(mentoring);
 
