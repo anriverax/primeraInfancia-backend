@@ -1,9 +1,0 @@
--- CreateEnum
-CREATE TYPE "TeacherStatus" AS ENUM ('ACTUALIZADO', 'CAMBIO_NIVEL', 'JUBILADO', 'RETIRADO', 'INACTIVO', 'ACTIVO', 'NUEVO');
-
--- AlterTable
-ALTER TABLE "Teacher" ADD COLUMN     "schoolId" INTEGER NOT NULL DEFAULT 1,
-ADD COLUMN     "status" "TeacherStatus" NOT NULL DEFAULT 'ACTIVO';
-
--- AddForeignKey
-ALTER TABLE "Teacher" ADD CONSTRAINT "Teacher_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "School"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
