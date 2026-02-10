@@ -1,0 +1,302 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoleType {
+  ADMIN
+  USER
+  USER_FORMADOR
+  USER_MENTOR
+  USER_TECNICO_APOYO
+  USER_DOCENTE
+  USER_DIRECTOR
+}
+
+enum TypePersonEnum {
+  FORMADOR
+  MENTOR
+  TECNICO_APOYO
+  DOCENTE
+  DIRECTOR
+  EMPLEADO
+}
+
+enum TypeGender {
+  M
+  H
+}
+
+enum EvaluationEnum {
+  APROBADO
+  REPROBADO
+}
+
+enum TeacherStatus {
+  ACTUALIZADO
+  CAMBIO_NIVEL
+  JUBILADO
+  RETIRADO
+  INACTIVO
+  ACTIVO
+  NUEVO_INGRESO
+}
+
+enum StoredEventAction {
+  CREAR
+  ACTUALIZAR
+  ELIMINAR
+}
+
+model Person {
+  id                Int                 @id @default(autoincrement())
+  firstName         String
+  lastName1         String
+  lastName2         String?
+  dui               String              @unique
+  address           String
+  gender            TypeGender
+  phoneNumber       String
+  birthdate         DateTime?           @db.Date
+  career            String
+  nip               Int?
+  typePersonId      Int
+  districtId        Int
+  cohortId          Int
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int                 @default(0)
+  updatedBy         Int?
+  deletedBy         Int?
+  TypePerson        TypePerson          @relation(fields: [typePersonId], references: [id])
+  District          District            @relation(fields: [districtId], references: [id])
+  Cohort            Cohort              @relation(fields: [cohortId], references: [id])
+  EventInstances    EventInstance[]
+  EventAttendance   EventAttendance[]
+  WorkAttendance    WorkAttendance[]
+  AttendanceSession AttendanceSession[]
+  Teacher           Teacher[]
+  GroupStaff        GroupStaff[]
+  GroupStaffs       GroupStaff[]        @relation("PredecessorPerson")
+  User              User?
+
+  @@index([districtId, deletedAt])
+  @@index([dui, deletedAt])
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
+  passwd        String
+  avatar        String?
+  isVerified    Boolean       @default(false)
+  lastLoginDate DateTime?
+  roleId        Int
+  personId      Int           @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+  updatedBy     Int?
+  deletedBy     Int?
+  Person        Person        @relation(fields: [personId], references: [id])
+  Role          Role          @relation(fields: [roleId], references: [id])
+  StoredEvent   StoredEvent[]
+}
+
+model EvaluationInstrument {
+  id                         Int                          @id @default(autoincrement())
+  name                       String                       @unique
+  periodicity                String
+  percentage                 Float
+  code                       String                       @unique
+  ModuleEvaluation           ModuleEvaluation[]
+  TrainingEvaluation         TrainingEvaluation[]
+  EvaluationInstrumentDetail EvaluationInstrumentDetail[]
+  Grade                      Grade[]
+}
+
+model EvaluationInstrumentDetail {
+  id                     Int                  @id @default(autoincrement())
+  description            String
+  evaluationInstrumentId Int
+  percentage             Float
+  moduleNumber           Int? // Apply if it is per module, null if it is at the end
+  EvaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
+  Grade                  Grade[]
+}
+
+model ModuleEvaluation {
+  id                     Int                  @id @default(autoincrement())
+  grade                  Float
+  evaluationInstrumentId Int
+  teacherId              Int
+  trainingModuleId       Int
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+  deletedAt              DateTime?
+  createdBy              Int
+  updatedBy              Int?
+  deletedBy              Int?
+  EvaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
+  Teacher                Teacher              @relation(fields: [teacherId], references: [id])
+  TrainingModule         TrainingModule       @relation(fields: [trainingModuleId], references: [id])
+}
+
+model ModuleReport {
+  id                   Int            @id @default(autoincrement())
+  moduleScore          Float
+  status               EvaluationEnum
+  attendancePercentage Float
+  trainingModuleId     Int
+  teacherId            Int
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  deletedAt            DateTime?
+  createdBy            Int?
+  updatedBy            Int?
+  deletedBy            Int?
+  Teacher              Teacher        @relation(fields: [teacherId], references: [id])
+  TrainingModule       TrainingModule @relation(fields: [trainingModuleId], references: [id])
+
+  @@unique([trainingModuleId, teacherId])
+}
+
+model TrainingEvaluation {
+  id                     Int                  @id @default(autoincrement())
+  grade                  Float
+  evaluationInstrumentId Int
+  teacherId              Int
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+  deletedAt              DateTime?
+  createdBy              Int?
+  updatedBy              Int?
+  deletedBy              Int?
+  EvaluationInstrument   EvaluationInstrument @relation(fields: [evaluationInstrumentId], references: [id])
+  Teacher                Teacher              @relation(fields: [teacherId], references: [id])
+}
+
+model TrainingReport {
+  id                   Int       @id @default(autoincrement())
+  finalScore           Float
+  attendancePercentage Float
+  status               String
+  teacherId            Int
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  deletedAt            DateTime?
+  createdBy            Int
+  updatedBy            Int?
+  deletedBy            Int?
+  Teacher              Teacher   @relation(fields: [teacherId], references: [id])
+}
+
+model Appendix {
+  id          Int          @id @default(autoincrement())
+  title       String
+  subTitle    String
+  description String
+  periodicity String
+  iconName    String
+  color       String
+  total       Int?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+  createdBy   Int
+  updatedBy   Int?
+  deletedBy   Int?
+  Section     Section[]
+  SurveyData  SurveyData[]
+}
+
+model Section {
+  id         Int        @id @default(autoincrement())
+  title      String
+  summary    String
+  orderBy    Int
+  appendixId Int
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime
+  deletedAt  DateTime?
+  createdBy  Int?
+  updatedBy  Int?
+  deletedBy  Int?
+  Question   Question[]
+  Appendix   Appendix   @relation(fields: [appendixId], references: [id])
+}
+
+model Question {
+  id           Int       @id @default(autoincrement())
+  text         String
+  questionType String
+  orderBy      Int
+  subSection   String
+  isRequired   Boolean
+  sectionId    Int
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  deletedAt    DateTime?
+  createdBy    Int
+  updatedBy    Int?
+  deletedBy    Int?
+  fieldName    String
+  options      Json?
+  Section      Section   @relation(fields: [sectionId], references: [id])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+
+model Grade {
+  id                           Int                         @id @default(autoincrement())
+  email                        String?                     @db.VarChar(250)
+  evaluationInstrumentId       Int
+  evaluationInstrumentDetailId Int?
+  score                        Float
+  created_at                   DateTime?                   @default(now()) @db.Timestamp(6)
+  numero_evaluacion            Int?
+  EvaluationInstrumentDetail   EvaluationInstrumentDetail? @relation(fields: [evaluationInstrumentDetailId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  EvaluationInstrument         EvaluationInstrument        @relation(fields: [evaluationInstrumentId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([email, evaluationInstrumentId, evaluationInstrumentDetailId, numero_evaluacion], map: "unique_grade_per_student_per_module")
+}
+
+model uploads {
+  id        Int       @id @default(autoincrement())
+  filename  String    @db.VarChar(255)
+  mapping   Json
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  createdBy String    @db.VarChar(250)
+  status    String?   @default("PENDING") @db.VarChar(50)
+  error     String?
+  s3uri     String?   @db.VarChar
+}
+
+/**
+ * ================================
+ * | SURVEY DATA |
+ * ================================
+ */
+model SurveyData {
+  id               Int            @id @default(autoincrement())
+  teacherId        Int
+  appendixId       Int
+  trainingModuleId Int
+  survey           Json
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  deletedAt        DateTime?
+  createdBy        Int
+  updatedBy        Int?
+  deletedBy        Int?
+  Appendix         Appendix       @relation(fields: [appendixId], references: [id])
+  Teacher          Teacher        @relation(fields: [teacherId], references: [id])
+  TrainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
+}
+
+// ====== END - SURVEY DATA ======

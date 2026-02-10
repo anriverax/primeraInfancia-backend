@@ -1,0 +1,77 @@
+enum AttendanceEnum {
+  PRESENTE
+  AUSENTE
+}
+
+model AttendanceSession {
+  id               Int               @id @default(autoincrement())
+  eventInstanceId  Int
+  personId         Int
+  trainingModuleId Int
+  modality         String
+  checkIn          DateTime
+  checkOut         DateTime?
+  coordenates      String?
+  createdAt        DateTime          @default(now())
+  createdBy        Int
+  EventInstance    EventInstance     @relation(fields: [eventInstanceId], references: [id])
+  Person           Person            @relation(fields: [personId], references: [id])
+  TrainingModule   TrainingModule    @relation(fields: [trainingModuleId], references: [id])
+  EventAttendance  EventAttendance[]
+
+  @@unique([personId, checkOut])
+  @@index([trainingModuleId])
+  @@index([personId])
+  @@index([eventInstanceId])
+  @@index([createdAt])
+}
+
+model EventAttendance {
+  id                   Int                   @id @default(autoincrement())
+  personId             Int
+  attendanceSessionId  Int
+  checkIn              DateTime
+  checkOut             DateTime?
+  status               AttendanceEnum
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  createdBy            Int
+  updatedBy            Int?
+  Person               Person                @relation(fields: [personId], references: [id])
+  AttendanceSession    AttendanceSession     @relation(fields: [attendanceSessionId], references: [id])
+  attendanceExceptions AttendanceException[]
+
+  @@unique([personId, attendanceSessionId])
+}
+
+model AttendanceException {
+  id                      Int                   @id @default(autoincrement())
+  eventAttendanceId       Int
+  absenceClassificationId Int
+  comment                 String?
+  justificationFileUrl    String?
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+  createdBy               Int
+  updatedBy               Int?
+  AbsenceClassification   AbsenceClassification @relation(fields: [absenceClassificationId], references: [id])
+  EventAttendance         EventAttendance       @relation(fields: [eventAttendanceId], references: [id])
+
+  @@unique([eventAttendanceId, absenceClassificationId])
+}
+
+model WorkAttendance {
+  id                Int            @id @default(autoincrement())
+  personId          Int
+  trainingModuleId  Int
+  checkIn           DateTime
+  checkOut          DateTime?
+  status            AttendanceEnum @default(PRESENTE)
+  coordenates       String?
+  comment           String?
+  justificationFile String?
+  Person            Person         @relation(fields: [personId], references: [id])
+  TrainingModule    TrainingModule @relation(fields: [trainingModuleId], references: [id])
+
+  @@index([trainingModuleId])
+}
