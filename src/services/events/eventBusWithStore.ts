@@ -1,57 +1,79 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { EventBus, IEvent } from "@nestjs/cqrs";
 import { EventStoreService } from "./eventStore.service";
-import { StoredEvent } from "prisma/generated/client";
+import { IStoredEventData } from "@/common/helpers/types";
 
-@Injectable({})
+@Injectable()
 export class EventBusWithStore {
-  // Logger para registrar información y errores relacionados con esta clase.
   private readonly logger = new Logger(EventBusWithStore.name);
 
-  // Constructor que inyecta dependencias necesarias.
   constructor(
     private readonly eventBus: EventBus,
     private readonly eventStore: EventStoreService
   ) {}
 
-  // Método principal para publicar un evento individual.
-  async publish(event: IEvent, payload: Pick<StoredEvent, "payload">): Promise<void> {
+  /**
+   * Publica un evento y lo guarda en el historial de eventos
+   * @param event Evento de CQRS
+   * @param eventData Datos específicos para guardar en la auditoría
+   */
+  async publish(event: IEvent, eventData: IStoredEventData): Promise<void> {
     try {
       if (!event) throw new Error("El evento está indefinido o es nulo.");
 
-      // Guarda el evento en la base de datos
-      await this.eventStore.save(event, payload);
+      // Guarda el evento en el historial
+      await this.eventStore.save(eventData);
 
-      // Publica el evento en el EventBus para que otros manejadores lo procesen.
-      this.eventBus.publish(event);
+      // Publica el evento en el EventBus
+      await this.eventBus.publish(event);
 
-      // Registra un mensaje indicando que el evento fue publicado exitosamente.
-      this.logger.log(`✅ Evento publicado: ${event.constructor.name}`);
+      this.logger.log(
+        `✅ Evento publicado: ${event.constructor.name} - ${eventData.entityType}(${eventData.entityId}) - ${eventData.action}`
+      );
     } catch (error) {
-      // En caso de error, registra un mensaje de error con detalles del evento y el error.
       this.logger.error(
         `❌ Error al publicar el evento ${event?.constructor?.name || "unknown"}:`,
         error
       );
-
-      // Relanza el error para que pueda ser manejado por el llamador.
       throw error;
     }
   }
 
-  // Método adicional para publicar múltiples eventos a la vez.
-  async publishAll(events: IEvent[], payload: Pick<StoredEvent, "payload">): Promise<void> {
+  /**
+   * Publica múltiples eventos y los guarda en el historial
+   */
+  async publishAll(events: IEvent[], eventsData: IStoredEventData[]): Promise<void> {
     try {
-      for (const event of events) {
-        if (!event) continue; // Ignora eventos nulos o indefinidos.
+      if (events.length === 0) return;
 
-        await this.eventStore.save(event, payload);
+      if (events.length !== eventsData.length) {
+        throw new Error("La cantidad de eventos no coincide con la de datos de auditoría");
       }
 
+      // Guarda todos los eventos en el historial
+      await this.eventStore.saveMany(eventsData);
+
+      // Publica todos los eventos en el EventBus
       this.eventBus.publishAll(events);
-      this.logger.log(`✅ ${events.length} Eventos publicados.`);
+
+      this.logger.log(`✅ ${events.length} eventos publicados.`);
     } catch (error) {
       this.logger.error(`❌ Error al publicar múltiples eventos:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Publica un evento sin guardar historial (eventos internos)
+   */
+  async publishWithoutStore(event: IEvent): Promise<void> {
+    try {
+      if (!event) throw new Error("El evento está indefinido o es nulo.");
+
+      this.eventBus.publish(event);
+      this.logger.debug(`📤 Evento publicado (sin historial): ${event.constructor.name}`);
+    } catch (error) {
+      this.logger.error(`❌ Error al publicar evento sin historial:`, error);
       throw error;
     }
   }

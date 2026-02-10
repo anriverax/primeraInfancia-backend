@@ -29,34 +29,29 @@ export type AggregateEventType = {
 export type EventTypeAvgAggregateOutputType = {
   id: number | null
   order: number | null
-  cohortId: number | null
 }
 
 export type EventTypeSumAggregateOutputType = {
   id: number | null
   order: number | null
-  cohortId: number | null
 }
 
 export type EventTypeMinAggregateOutputType = {
   id: number | null
   name: string | null
   order: number | null
-  cohortId: number | null
 }
 
 export type EventTypeMaxAggregateOutputType = {
   id: number | null
   name: string | null
   order: number | null
-  cohortId: number | null
 }
 
 export type EventTypeCountAggregateOutputType = {
   id: number
   name: number
   order: number
-  cohortId: number
   _all: number
 }
 
@@ -64,34 +59,29 @@ export type EventTypeCountAggregateOutputType = {
 export type EventTypeAvgAggregateInputType = {
   id?: true
   order?: true
-  cohortId?: true
 }
 
 export type EventTypeSumAggregateInputType = {
   id?: true
   order?: true
-  cohortId?: true
 }
 
 export type EventTypeMinAggregateInputType = {
   id?: true
   name?: true
   order?: true
-  cohortId?: true
 }
 
 export type EventTypeMaxAggregateInputType = {
   id?: true
   name?: true
   order?: true
-  cohortId?: true
 }
 
 export type EventTypeCountAggregateInputType = {
   id?: true
   name?: true
   order?: true
-  cohortId?: true
   _all?: true
 }
 
@@ -185,7 +175,6 @@ export type EventTypeGroupByOutputType = {
   id: number
   name: string
   order: number
-  cohortId: number
   _count: EventTypeCountAggregateOutputType | null
   _avg: EventTypeAvgAggregateOutputType | null
   _sum: EventTypeSumAggregateOutputType | null
@@ -215,18 +204,16 @@ export type EventTypeWhereInput = {
   id?: Prisma.IntFilter<"EventType"> | number
   name?: Prisma.StringFilter<"EventType"> | string
   order?: Prisma.IntFilter<"EventType"> | number
-  cohortId?: Prisma.IntFilter<"EventType"> | number
   Event?: Prisma.EventListRelationFilter
-  Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
+  eventSchedules?: Prisma.EventScheduleListRelationFilter
 }
 
 export type EventTypeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  cohortId?: Prisma.SortOrder
   Event?: Prisma.EventOrderByRelationAggregateInput
-  Cohort?: Prisma.CohortOrderByWithRelationInput
+  eventSchedules?: Prisma.EventScheduleOrderByRelationAggregateInput
 }
 
 export type EventTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -236,16 +223,14 @@ export type EventTypeWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.EventTypeWhereInput[]
   NOT?: Prisma.EventTypeWhereInput | Prisma.EventTypeWhereInput[]
   order?: Prisma.IntFilter<"EventType"> | number
-  cohortId?: Prisma.IntFilter<"EventType"> | number
   Event?: Prisma.EventListRelationFilter
-  Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
+  eventSchedules?: Prisma.EventScheduleListRelationFilter
 }, "id" | "name">
 
 export type EventTypeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  cohortId?: Prisma.SortOrder
   _count?: Prisma.EventTypeCountOrderByAggregateInput
   _avg?: Prisma.EventTypeAvgOrderByAggregateInput
   _max?: Prisma.EventTypeMaxOrderByAggregateInput
@@ -260,44 +245,42 @@ export type EventTypeScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"EventType"> | number
   name?: Prisma.StringWithAggregatesFilter<"EventType"> | string
   order?: Prisma.IntWithAggregatesFilter<"EventType"> | number
-  cohortId?: Prisma.IntWithAggregatesFilter<"EventType"> | number
 }
 
 export type EventTypeCreateInput = {
   name: string
   order: number
   Event?: Prisma.EventCreateNestedManyWithoutEventTypeInput
-  Cohort: Prisma.CohortCreateNestedOneWithoutEventTypeInput
+  eventSchedules?: Prisma.EventScheduleCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUncheckedCreateInput = {
   id?: number
   name: string
   order: number
-  cohortId: number
   Event?: Prisma.EventUncheckedCreateNestedManyWithoutEventTypeInput
+  eventSchedules?: Prisma.EventScheduleUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   Event?: Prisma.EventUpdateManyWithoutEventTypeNestedInput
-  Cohort?: Prisma.CohortUpdateOneRequiredWithoutEventTypeNestedInput
+  eventSchedules?: Prisma.EventScheduleUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
   Event?: Prisma.EventUncheckedUpdateManyWithoutEventTypeNestedInput
+  eventSchedules?: Prisma.EventScheduleUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeCreateManyInput = {
   id?: number
   name: string
   order: number
-  cohortId: number
 }
 
 export type EventTypeUpdateManyMutationInput = {
@@ -309,40 +292,34 @@ export type EventTypeUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventTypeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  cohortId?: Prisma.SortOrder
 }
 
 export type EventTypeAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  cohortId?: Prisma.SortOrder
 }
 
 export type EventTypeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  cohortId?: Prisma.SortOrder
 }
 
 export type EventTypeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  cohortId?: Prisma.SortOrder
 }
 
 export type EventTypeSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  cohortId?: Prisma.SortOrder
 }
 
 export type EventTypeScalarRelationFilter = {
@@ -350,14 +327,18 @@ export type EventTypeScalarRelationFilter = {
   isNot?: Prisma.EventTypeWhereInput
 }
 
-export type EventTypeListRelationFilter = {
-  every?: Prisma.EventTypeWhereInput
-  some?: Prisma.EventTypeWhereInput
-  none?: Prisma.EventTypeWhereInput
+export type EventTypeCreateNestedOneWithoutEventSchedulesInput = {
+  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutEventSchedulesInput, Prisma.EventTypeUncheckedCreateWithoutEventSchedulesInput>
+  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutEventSchedulesInput
+  connect?: Prisma.EventTypeWhereUniqueInput
 }
 
-export type EventTypeOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type EventTypeUpdateOneRequiredWithoutEventSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutEventSchedulesInput, Prisma.EventTypeUncheckedCreateWithoutEventSchedulesInput>
+  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutEventSchedulesInput
+  upsert?: Prisma.EventTypeUpsertWithoutEventSchedulesInput
+  connect?: Prisma.EventTypeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventTypeUpdateToOneWithWhereWithoutEventSchedulesInput, Prisma.EventTypeUpdateWithoutEventSchedulesInput>, Prisma.EventTypeUncheckedUpdateWithoutEventSchedulesInput>
 }
 
 export type EventTypeCreateNestedOneWithoutEventInput = {
@@ -374,59 +355,59 @@ export type EventTypeUpdateOneRequiredWithoutEventNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EventTypeUpdateToOneWithWhereWithoutEventInput, Prisma.EventTypeUpdateWithoutEventInput>, Prisma.EventTypeUncheckedUpdateWithoutEventInput>
 }
 
-export type EventTypeCreateNestedManyWithoutCohortInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutCohortInput, Prisma.EventTypeUncheckedCreateWithoutCohortInput> | Prisma.EventTypeCreateWithoutCohortInput[] | Prisma.EventTypeUncheckedCreateWithoutCohortInput[]
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutCohortInput | Prisma.EventTypeCreateOrConnectWithoutCohortInput[]
-  createMany?: Prisma.EventTypeCreateManyCohortInputEnvelope
-  connect?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
+export type EventTypeCreateWithoutEventSchedulesInput = {
+  name: string
+  order: number
+  Event?: Prisma.EventCreateNestedManyWithoutEventTypeInput
 }
 
-export type EventTypeUncheckedCreateNestedManyWithoutCohortInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutCohortInput, Prisma.EventTypeUncheckedCreateWithoutCohortInput> | Prisma.EventTypeCreateWithoutCohortInput[] | Prisma.EventTypeUncheckedCreateWithoutCohortInput[]
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutCohortInput | Prisma.EventTypeCreateOrConnectWithoutCohortInput[]
-  createMany?: Prisma.EventTypeCreateManyCohortInputEnvelope
-  connect?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
+export type EventTypeUncheckedCreateWithoutEventSchedulesInput = {
+  id?: number
+  name: string
+  order: number
+  Event?: Prisma.EventUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
-export type EventTypeUpdateManyWithoutCohortNestedInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutCohortInput, Prisma.EventTypeUncheckedCreateWithoutCohortInput> | Prisma.EventTypeCreateWithoutCohortInput[] | Prisma.EventTypeUncheckedCreateWithoutCohortInput[]
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutCohortInput | Prisma.EventTypeCreateOrConnectWithoutCohortInput[]
-  upsert?: Prisma.EventTypeUpsertWithWhereUniqueWithoutCohortInput | Prisma.EventTypeUpsertWithWhereUniqueWithoutCohortInput[]
-  createMany?: Prisma.EventTypeCreateManyCohortInputEnvelope
-  set?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  disconnect?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  delete?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  connect?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  update?: Prisma.EventTypeUpdateWithWhereUniqueWithoutCohortInput | Prisma.EventTypeUpdateWithWhereUniqueWithoutCohortInput[]
-  updateMany?: Prisma.EventTypeUpdateManyWithWhereWithoutCohortInput | Prisma.EventTypeUpdateManyWithWhereWithoutCohortInput[]
-  deleteMany?: Prisma.EventTypeScalarWhereInput | Prisma.EventTypeScalarWhereInput[]
+export type EventTypeCreateOrConnectWithoutEventSchedulesInput = {
+  where: Prisma.EventTypeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventTypeCreateWithoutEventSchedulesInput, Prisma.EventTypeUncheckedCreateWithoutEventSchedulesInput>
 }
 
-export type EventTypeUncheckedUpdateManyWithoutCohortNestedInput = {
-  create?: Prisma.XOR<Prisma.EventTypeCreateWithoutCohortInput, Prisma.EventTypeUncheckedCreateWithoutCohortInput> | Prisma.EventTypeCreateWithoutCohortInput[] | Prisma.EventTypeUncheckedCreateWithoutCohortInput[]
-  connectOrCreate?: Prisma.EventTypeCreateOrConnectWithoutCohortInput | Prisma.EventTypeCreateOrConnectWithoutCohortInput[]
-  upsert?: Prisma.EventTypeUpsertWithWhereUniqueWithoutCohortInput | Prisma.EventTypeUpsertWithWhereUniqueWithoutCohortInput[]
-  createMany?: Prisma.EventTypeCreateManyCohortInputEnvelope
-  set?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  disconnect?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  delete?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  connect?: Prisma.EventTypeWhereUniqueInput | Prisma.EventTypeWhereUniqueInput[]
-  update?: Prisma.EventTypeUpdateWithWhereUniqueWithoutCohortInput | Prisma.EventTypeUpdateWithWhereUniqueWithoutCohortInput[]
-  updateMany?: Prisma.EventTypeUpdateManyWithWhereWithoutCohortInput | Prisma.EventTypeUpdateManyWithWhereWithoutCohortInput[]
-  deleteMany?: Prisma.EventTypeScalarWhereInput | Prisma.EventTypeScalarWhereInput[]
+export type EventTypeUpsertWithoutEventSchedulesInput = {
+  update: Prisma.XOR<Prisma.EventTypeUpdateWithoutEventSchedulesInput, Prisma.EventTypeUncheckedUpdateWithoutEventSchedulesInput>
+  create: Prisma.XOR<Prisma.EventTypeCreateWithoutEventSchedulesInput, Prisma.EventTypeUncheckedCreateWithoutEventSchedulesInput>
+  where?: Prisma.EventTypeWhereInput
+}
+
+export type EventTypeUpdateToOneWithWhereWithoutEventSchedulesInput = {
+  where?: Prisma.EventTypeWhereInput
+  data: Prisma.XOR<Prisma.EventTypeUpdateWithoutEventSchedulesInput, Prisma.EventTypeUncheckedUpdateWithoutEventSchedulesInput>
+}
+
+export type EventTypeUpdateWithoutEventSchedulesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  Event?: Prisma.EventUpdateManyWithoutEventTypeNestedInput
+}
+
+export type EventTypeUncheckedUpdateWithoutEventSchedulesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  Event?: Prisma.EventUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeCreateWithoutEventInput = {
   name: string
   order: number
-  Cohort: Prisma.CohortCreateNestedOneWithoutEventTypeInput
+  eventSchedules?: Prisma.EventScheduleCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeUncheckedCreateWithoutEventInput = {
   id?: number
   name: string
   order: number
-  cohortId: number
+  eventSchedules?: Prisma.EventScheduleUncheckedCreateNestedManyWithoutEventTypeInput
 }
 
 export type EventTypeCreateOrConnectWithoutEventInput = {
@@ -448,88 +429,14 @@ export type EventTypeUpdateToOneWithWhereWithoutEventInput = {
 export type EventTypeUpdateWithoutEventInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  Cohort?: Prisma.CohortUpdateOneRequiredWithoutEventTypeNestedInput
+  eventSchedules?: Prisma.EventScheduleUpdateManyWithoutEventTypeNestedInput
 }
 
 export type EventTypeUncheckedUpdateWithoutEventInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type EventTypeCreateWithoutCohortInput = {
-  name: string
-  order: number
-  Event?: Prisma.EventCreateNestedManyWithoutEventTypeInput
-}
-
-export type EventTypeUncheckedCreateWithoutCohortInput = {
-  id?: number
-  name: string
-  order: number
-  Event?: Prisma.EventUncheckedCreateNestedManyWithoutEventTypeInput
-}
-
-export type EventTypeCreateOrConnectWithoutCohortInput = {
-  where: Prisma.EventTypeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EventTypeCreateWithoutCohortInput, Prisma.EventTypeUncheckedCreateWithoutCohortInput>
-}
-
-export type EventTypeCreateManyCohortInputEnvelope = {
-  data: Prisma.EventTypeCreateManyCohortInput | Prisma.EventTypeCreateManyCohortInput[]
-  skipDuplicates?: boolean
-}
-
-export type EventTypeUpsertWithWhereUniqueWithoutCohortInput = {
-  where: Prisma.EventTypeWhereUniqueInput
-  update: Prisma.XOR<Prisma.EventTypeUpdateWithoutCohortInput, Prisma.EventTypeUncheckedUpdateWithoutCohortInput>
-  create: Prisma.XOR<Prisma.EventTypeCreateWithoutCohortInput, Prisma.EventTypeUncheckedCreateWithoutCohortInput>
-}
-
-export type EventTypeUpdateWithWhereUniqueWithoutCohortInput = {
-  where: Prisma.EventTypeWhereUniqueInput
-  data: Prisma.XOR<Prisma.EventTypeUpdateWithoutCohortInput, Prisma.EventTypeUncheckedUpdateWithoutCohortInput>
-}
-
-export type EventTypeUpdateManyWithWhereWithoutCohortInput = {
-  where: Prisma.EventTypeScalarWhereInput
-  data: Prisma.XOR<Prisma.EventTypeUpdateManyMutationInput, Prisma.EventTypeUncheckedUpdateManyWithoutCohortInput>
-}
-
-export type EventTypeScalarWhereInput = {
-  AND?: Prisma.EventTypeScalarWhereInput | Prisma.EventTypeScalarWhereInput[]
-  OR?: Prisma.EventTypeScalarWhereInput[]
-  NOT?: Prisma.EventTypeScalarWhereInput | Prisma.EventTypeScalarWhereInput[]
-  id?: Prisma.IntFilter<"EventType"> | number
-  name?: Prisma.StringFilter<"EventType"> | string
-  order?: Prisma.IntFilter<"EventType"> | number
-  cohortId?: Prisma.IntFilter<"EventType"> | number
-}
-
-export type EventTypeCreateManyCohortInput = {
-  id?: number
-  name: string
-  order: number
-}
-
-export type EventTypeUpdateWithoutCohortInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  Event?: Prisma.EventUpdateManyWithoutEventTypeNestedInput
-}
-
-export type EventTypeUncheckedUpdateWithoutCohortInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  Event?: Prisma.EventUncheckedUpdateManyWithoutEventTypeNestedInput
-}
-
-export type EventTypeUncheckedUpdateManyWithoutCohortInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  eventSchedules?: Prisma.EventScheduleUncheckedUpdateManyWithoutEventTypeNestedInput
 }
 
 
@@ -539,10 +446,12 @@ export type EventTypeUncheckedUpdateManyWithoutCohortInput = {
 
 export type EventTypeCountOutputType = {
   Event: number
+  eventSchedules: number
 }
 
 export type EventTypeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Event?: boolean | EventTypeCountOutputTypeCountEventArgs
+  eventSchedules?: boolean | EventTypeCountOutputTypeCountEventSchedulesArgs
 }
 
 /**
@@ -562,14 +471,20 @@ export type EventTypeCountOutputTypeCountEventArgs<ExtArgs extends runtime.Types
   where?: Prisma.EventWhereInput
 }
 
+/**
+ * EventTypeCountOutputType without action
+ */
+export type EventTypeCountOutputTypeCountEventSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EventScheduleWhereInput
+}
+
 
 export type EventTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   order?: boolean
-  cohortId?: boolean
   Event?: boolean | Prisma.EventType$EventArgs<ExtArgs>
-  Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
+  eventSchedules?: boolean | Prisma.EventType$eventSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.EventTypeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventType"]>
 
@@ -577,49 +492,39 @@ export type EventTypeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   name?: boolean
   order?: boolean
-  cohortId?: boolean
-  Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventType"]>
 
 export type EventTypeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   order?: boolean
-  cohortId?: boolean
-  Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventType"]>
 
 export type EventTypeSelectScalar = {
   id?: boolean
   name?: boolean
   order?: boolean
-  cohortId?: boolean
 }
 
-export type EventTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "order" | "cohortId", ExtArgs["result"]["eventType"]>
+export type EventTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "order", ExtArgs["result"]["eventType"]>
 export type EventTypeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Event?: boolean | Prisma.EventType$EventArgs<ExtArgs>
-  Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
+  eventSchedules?: boolean | Prisma.EventType$eventSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.EventTypeCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type EventTypeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
-}
-export type EventTypeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
-}
+export type EventTypeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type EventTypeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $EventTypePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "EventType"
   objects: {
     Event: Prisma.$EventPayload<ExtArgs>[]
-    Cohort: Prisma.$CohortPayload<ExtArgs>
+    eventSchedules: Prisma.$EventSchedulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     order: number
-    cohortId: number
   }, ExtArgs["result"]["eventType"]>
   composites: {}
 }
@@ -1015,7 +920,7 @@ readonly fields: EventTypeFieldRefs;
 export interface Prisma__EventTypeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Event<T extends Prisma.EventType$EventArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventType$EventArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Cohort<T extends Prisma.CohortDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CohortDefaultArgs<ExtArgs>>): Prisma.Prisma__CohortClient<runtime.Types.Result.GetResult<Prisma.$CohortPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  eventSchedules<T extends Prisma.EventType$eventSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventType$eventSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1048,7 +953,6 @@ export interface EventTypeFieldRefs {
   readonly id: Prisma.FieldRef<"EventType", 'Int'>
   readonly name: Prisma.FieldRef<"EventType", 'String'>
   readonly order: Prisma.FieldRef<"EventType", 'Int'>
-  readonly cohortId: Prisma.FieldRef<"EventType", 'Int'>
 }
     
 
@@ -1298,10 +1202,6 @@ export type EventTypeCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    */
   data: Prisma.EventTypeCreateManyInput | Prisma.EventTypeCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EventTypeIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1372,10 +1272,6 @@ export type EventTypeUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many EventTypes to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EventTypeIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1466,6 +1362,30 @@ export type EventType$EventArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[]
+}
+
+/**
+ * EventType.eventSchedules
+ */
+export type EventType$eventSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EventSchedule
+   */
+  select?: Prisma.EventScheduleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EventSchedule
+   */
+  omit?: Prisma.EventScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EventScheduleInclude<ExtArgs> | null
+  where?: Prisma.EventScheduleWhereInput
+  orderBy?: Prisma.EventScheduleOrderByWithRelationInput | Prisma.EventScheduleOrderByWithRelationInput[]
+  cursor?: Prisma.EventScheduleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EventScheduleScalarFieldEnum | Prisma.EventScheduleScalarFieldEnum[]
 }
 
 /**

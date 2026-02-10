@@ -1,4 +1,3 @@
-
 # OEI-PrimeraInfancia
 
 ## 🌟 Backend - Primera Infáncia
@@ -88,6 +87,74 @@ npm run start:dev
 
 ---
 
-## 📄 Licencia
+## � CQRS - Cuándo Usar Projections
+
+### ✅ **CREAR Projections cuando:**
+
+Las projections escriben **efectos secundarios más allá de la persistencia**:
+
+```typescript
+@Injectable()
+export class UserProjection {
+  constructor(
+    private userRepo: IUserRepository,
+    private emailService: EmailService, // ← Efecto secundario
+    private auditLogger: AuditLoggerService, // ← Efecto secundario
+    private cache: CacheService // ← Efecto secundario
+  ) {}
+
+  async create(data: CreateUserData): Promise<void> {
+    // 1. Persiste en BD
+    await this.userRepo.create(data);
+
+    // 2. Envía email de bienvenida
+    await this.emailService.sendWelcomeEmail(data.email);
+
+    // 3. Registra en auditoría
+    await this.auditLogger.log({ action: "USER_CREATED", data });
+
+    // 4. Invalida caché
+    await this.cache.invalidate("users");
+  }
+}
+```
+
+### ❌ **NO CREAR Projections cuando:**
+
+Solo hay **operaciones CRUD simples** (sin efectos secundarios):
+
+```typescript
+// ❌ INNECESARIO - Solo persiste
+@Injectable()
+export class PersonProjection {
+  async create(data: CreatePersonData): Promise<void> {
+    await this.personRepo.create(data); // Solo esto
+  }
+}
+
+// ✅ MEJOR - Handler directo
+@CommandHandler(CreatePersonCommand)
+export class CreatePersonHandler {
+  constructor(private personRepo: IPersonRepository) {}
+  async execute(cmd: CreatePersonCommand) {
+    await this.personRepo.create(cmd.data);
+  }
+}
+```
+
+### 📌 **Resumen:**
+
+| Escenario           | Usar Projection | Usar Handler Directo |
+| ------------------- | --------------- | -------------------- |
+| CRUD puro           | ❌ No           | ✅ Sí                |
+| Envío de email      | ✅ Sí           | ❌ No                |
+| Auditoría / Logging | ✅ Sí           | ❌ No                |
+| Invalidar caché     | ✅ Sí           | ❌ No                |
+| Publicar eventos    | ✅ Sí           | ❌ No                |
+| Notificaciones      | ✅ Sí           | ❌ No                |
+
+---
+
+## �📄 Licencia
 
 Este proyecto está bajo la licencia [Apache 2.0](LICENSE).

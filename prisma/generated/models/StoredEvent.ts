@@ -28,32 +28,41 @@ export type AggregateStoredEvent = {
 
 export type StoredEventAvgAggregateOutputType = {
   id: number | null
+  entityId: number | null
   createdBy: number | null
 }
 
 export type StoredEventSumAggregateOutputType = {
   id: number | null
+  entityId: number | null
   createdBy: number | null
 }
 
 export type StoredEventMinAggregateOutputType = {
   id: number | null
-  type: string | null
+  entityType: string | null
+  entityId: number | null
+  action: $Enums.StoredEventAction | null
   createdAt: Date | null
   createdBy: number | null
 }
 
 export type StoredEventMaxAggregateOutputType = {
   id: number | null
-  type: string | null
+  entityType: string | null
+  entityId: number | null
+  action: $Enums.StoredEventAction | null
   createdAt: Date | null
   createdBy: number | null
 }
 
 export type StoredEventCountAggregateOutputType = {
   id: number
-  type: number
-  payload: number
+  entityType: number
+  entityId: number
+  action: number
+  oldValues: number
+  newValues: number
   createdAt: number
   createdBy: number
   _all: number
@@ -62,32 +71,41 @@ export type StoredEventCountAggregateOutputType = {
 
 export type StoredEventAvgAggregateInputType = {
   id?: true
+  entityId?: true
   createdBy?: true
 }
 
 export type StoredEventSumAggregateInputType = {
   id?: true
+  entityId?: true
   createdBy?: true
 }
 
 export type StoredEventMinAggregateInputType = {
   id?: true
-  type?: true
+  entityType?: true
+  entityId?: true
+  action?: true
   createdAt?: true
   createdBy?: true
 }
 
 export type StoredEventMaxAggregateInputType = {
   id?: true
-  type?: true
+  entityType?: true
+  entityId?: true
+  action?: true
   createdAt?: true
   createdBy?: true
 }
 
 export type StoredEventCountAggregateInputType = {
   id?: true
-  type?: true
-  payload?: true
+  entityType?: true
+  entityId?: true
+  action?: true
+  oldValues?: true
+  newValues?: true
   createdAt?: true
   createdBy?: true
   _all?: true
@@ -181,8 +199,11 @@ export type StoredEventGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type StoredEventGroupByOutputType = {
   id: number
-  type: string
-  payload: runtime.JsonValue
+  entityType: string
+  entityId: number
+  action: $Enums.StoredEventAction
+  oldValues: runtime.JsonValue | null
+  newValues: runtime.JsonValue | null
   createdAt: Date
   createdBy: number
   _count: StoredEventCountAggregateOutputType | null
@@ -212,18 +233,26 @@ export type StoredEventWhereInput = {
   OR?: Prisma.StoredEventWhereInput[]
   NOT?: Prisma.StoredEventWhereInput | Prisma.StoredEventWhereInput[]
   id?: Prisma.IntFilter<"StoredEvent"> | number
-  type?: Prisma.StringFilter<"StoredEvent"> | string
-  payload?: Prisma.JsonFilter<"StoredEvent">
+  entityType?: Prisma.StringFilter<"StoredEvent"> | string
+  entityId?: Prisma.IntFilter<"StoredEvent"> | number
+  action?: Prisma.EnumStoredEventActionFilter<"StoredEvent"> | $Enums.StoredEventAction
+  oldValues?: Prisma.JsonNullableFilter<"StoredEvent">
+  newValues?: Prisma.JsonNullableFilter<"StoredEvent">
   createdAt?: Prisma.DateTimeFilter<"StoredEvent"> | Date | string
   createdBy?: Prisma.IntFilter<"StoredEvent"> | number
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type StoredEventOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  payload?: Prisma.SortOrder
+  entityType?: Prisma.SortOrder
+  entityId?: Prisma.SortOrder
+  action?: Prisma.SortOrder
+  oldValues?: Prisma.SortOrderInput | Prisma.SortOrder
+  newValues?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type StoredEventWhereUniqueInput = Prisma.AtLeast<{
@@ -231,16 +260,23 @@ export type StoredEventWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.StoredEventWhereInput | Prisma.StoredEventWhereInput[]
   OR?: Prisma.StoredEventWhereInput[]
   NOT?: Prisma.StoredEventWhereInput | Prisma.StoredEventWhereInput[]
-  type?: Prisma.StringFilter<"StoredEvent"> | string
-  payload?: Prisma.JsonFilter<"StoredEvent">
+  entityType?: Prisma.StringFilter<"StoredEvent"> | string
+  entityId?: Prisma.IntFilter<"StoredEvent"> | number
+  action?: Prisma.EnumStoredEventActionFilter<"StoredEvent"> | $Enums.StoredEventAction
+  oldValues?: Prisma.JsonNullableFilter<"StoredEvent">
+  newValues?: Prisma.JsonNullableFilter<"StoredEvent">
   createdAt?: Prisma.DateTimeFilter<"StoredEvent"> | Date | string
   createdBy?: Prisma.IntFilter<"StoredEvent"> | number
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type StoredEventOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  payload?: Prisma.SortOrder
+  entityType?: Prisma.SortOrder
+  entityId?: Prisma.SortOrder
+  action?: Prisma.SortOrder
+  oldValues?: Prisma.SortOrderInput | Prisma.SortOrder
+  newValues?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   _count?: Prisma.StoredEventCountOrderByAggregateInput
@@ -255,140 +291,355 @@ export type StoredEventScalarWhereWithAggregatesInput = {
   OR?: Prisma.StoredEventScalarWhereWithAggregatesInput[]
   NOT?: Prisma.StoredEventScalarWhereWithAggregatesInput | Prisma.StoredEventScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"StoredEvent"> | number
-  type?: Prisma.StringWithAggregatesFilter<"StoredEvent"> | string
-  payload?: Prisma.JsonWithAggregatesFilter<"StoredEvent">
+  entityType?: Prisma.StringWithAggregatesFilter<"StoredEvent"> | string
+  entityId?: Prisma.IntWithAggregatesFilter<"StoredEvent"> | number
+  action?: Prisma.EnumStoredEventActionWithAggregatesFilter<"StoredEvent"> | $Enums.StoredEventAction
+  oldValues?: Prisma.JsonNullableWithAggregatesFilter<"StoredEvent">
+  newValues?: Prisma.JsonNullableWithAggregatesFilter<"StoredEvent">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StoredEvent"> | Date | string
   createdBy?: Prisma.IntWithAggregatesFilter<"StoredEvent"> | number
 }
 
 export type StoredEventCreateInput = {
-  type: string
-  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  entityType: string
+  entityId: number
+  action: $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  createdBy?: number
+  User: Prisma.UserCreateNestedOneWithoutStoredEventInput
 }
 
 export type StoredEventUncheckedCreateInput = {
   id?: number
-  type: string
-  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  entityType: string
+  entityId: number
+  action: $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  createdBy?: number
+  createdBy: number
 }
 
 export type StoredEventUpdateInput = {
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  entityId?: Prisma.IntFieldUpdateOperationsInput | number
+  action?: Prisma.EnumStoredEventActionFieldUpdateOperationsInput | $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  User?: Prisma.UserUpdateOneRequiredWithoutStoredEventNestedInput
 }
 
 export type StoredEventUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  entityId?: Prisma.IntFieldUpdateOperationsInput | number
+  action?: Prisma.EnumStoredEventActionFieldUpdateOperationsInput | $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type StoredEventCreateManyInput = {
   id?: number
-  type: string
-  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  entityType: string
+  entityId: number
+  action: $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  createdBy?: number
+  createdBy: number
 }
 
 export type StoredEventUpdateManyMutationInput = {
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  entityId?: Prisma.IntFieldUpdateOperationsInput | number
+  action?: Prisma.EnumStoredEventActionFieldUpdateOperationsInput | $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type StoredEventUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  entityId?: Prisma.IntFieldUpdateOperationsInput | number
+  action?: Prisma.EnumStoredEventActionFieldUpdateOperationsInput | $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type StoredEventCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  payload?: Prisma.SortOrder
+  entityType?: Prisma.SortOrder
+  entityId?: Prisma.SortOrder
+  action?: Prisma.SortOrder
+  oldValues?: Prisma.SortOrder
+  newValues?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
 }
 
 export type StoredEventAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  entityId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
 }
 
 export type StoredEventMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  entityType?: Prisma.SortOrder
+  entityId?: Prisma.SortOrder
+  action?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
 }
 
 export type StoredEventMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
+  entityType?: Prisma.SortOrder
+  entityId?: Prisma.SortOrder
+  action?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
 }
 
 export type StoredEventSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  entityId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
+}
+
+export type StoredEventListRelationFilter = {
+  every?: Prisma.StoredEventWhereInput
+  some?: Prisma.StoredEventWhereInput
+  none?: Prisma.StoredEventWhereInput
+}
+
+export type StoredEventOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type EnumStoredEventActionFieldUpdateOperationsInput = {
+  set?: $Enums.StoredEventAction
+}
+
+export type StoredEventCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.StoredEventCreateWithoutUserInput, Prisma.StoredEventUncheckedCreateWithoutUserInput> | Prisma.StoredEventCreateWithoutUserInput[] | Prisma.StoredEventUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StoredEventCreateOrConnectWithoutUserInput | Prisma.StoredEventCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.StoredEventCreateManyUserInputEnvelope
+  connect?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+}
+
+export type StoredEventUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.StoredEventCreateWithoutUserInput, Prisma.StoredEventUncheckedCreateWithoutUserInput> | Prisma.StoredEventCreateWithoutUserInput[] | Prisma.StoredEventUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StoredEventCreateOrConnectWithoutUserInput | Prisma.StoredEventCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.StoredEventCreateManyUserInputEnvelope
+  connect?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+}
+
+export type StoredEventUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.StoredEventCreateWithoutUserInput, Prisma.StoredEventUncheckedCreateWithoutUserInput> | Prisma.StoredEventCreateWithoutUserInput[] | Prisma.StoredEventUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StoredEventCreateOrConnectWithoutUserInput | Prisma.StoredEventCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.StoredEventUpsertWithWhereUniqueWithoutUserInput | Prisma.StoredEventUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.StoredEventCreateManyUserInputEnvelope
+  set?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  disconnect?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  delete?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  connect?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  update?: Prisma.StoredEventUpdateWithWhereUniqueWithoutUserInput | Prisma.StoredEventUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.StoredEventUpdateManyWithWhereWithoutUserInput | Prisma.StoredEventUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.StoredEventScalarWhereInput | Prisma.StoredEventScalarWhereInput[]
+}
+
+export type StoredEventUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.StoredEventCreateWithoutUserInput, Prisma.StoredEventUncheckedCreateWithoutUserInput> | Prisma.StoredEventCreateWithoutUserInput[] | Prisma.StoredEventUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StoredEventCreateOrConnectWithoutUserInput | Prisma.StoredEventCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.StoredEventUpsertWithWhereUniqueWithoutUserInput | Prisma.StoredEventUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.StoredEventCreateManyUserInputEnvelope
+  set?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  disconnect?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  delete?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  connect?: Prisma.StoredEventWhereUniqueInput | Prisma.StoredEventWhereUniqueInput[]
+  update?: Prisma.StoredEventUpdateWithWhereUniqueWithoutUserInput | Prisma.StoredEventUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.StoredEventUpdateManyWithWhereWithoutUserInput | Prisma.StoredEventUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.StoredEventScalarWhereInput | Prisma.StoredEventScalarWhereInput[]
+}
+
+export type StoredEventCreateWithoutUserInput = {
+  entityType: string
+  entityId: number
+  action: $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type StoredEventUncheckedCreateWithoutUserInput = {
+  id?: number
+  entityType: string
+  entityId: number
+  action: $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type StoredEventCreateOrConnectWithoutUserInput = {
+  where: Prisma.StoredEventWhereUniqueInput
+  create: Prisma.XOR<Prisma.StoredEventCreateWithoutUserInput, Prisma.StoredEventUncheckedCreateWithoutUserInput>
+}
+
+export type StoredEventCreateManyUserInputEnvelope = {
+  data: Prisma.StoredEventCreateManyUserInput | Prisma.StoredEventCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type StoredEventUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.StoredEventWhereUniqueInput
+  update: Prisma.XOR<Prisma.StoredEventUpdateWithoutUserInput, Prisma.StoredEventUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.StoredEventCreateWithoutUserInput, Prisma.StoredEventUncheckedCreateWithoutUserInput>
+}
+
+export type StoredEventUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.StoredEventWhereUniqueInput
+  data: Prisma.XOR<Prisma.StoredEventUpdateWithoutUserInput, Prisma.StoredEventUncheckedUpdateWithoutUserInput>
+}
+
+export type StoredEventUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.StoredEventScalarWhereInput
+  data: Prisma.XOR<Prisma.StoredEventUpdateManyMutationInput, Prisma.StoredEventUncheckedUpdateManyWithoutUserInput>
+}
+
+export type StoredEventScalarWhereInput = {
+  AND?: Prisma.StoredEventScalarWhereInput | Prisma.StoredEventScalarWhereInput[]
+  OR?: Prisma.StoredEventScalarWhereInput[]
+  NOT?: Prisma.StoredEventScalarWhereInput | Prisma.StoredEventScalarWhereInput[]
+  id?: Prisma.IntFilter<"StoredEvent"> | number
+  entityType?: Prisma.StringFilter<"StoredEvent"> | string
+  entityId?: Prisma.IntFilter<"StoredEvent"> | number
+  action?: Prisma.EnumStoredEventActionFilter<"StoredEvent"> | $Enums.StoredEventAction
+  oldValues?: Prisma.JsonNullableFilter<"StoredEvent">
+  newValues?: Prisma.JsonNullableFilter<"StoredEvent">
+  createdAt?: Prisma.DateTimeFilter<"StoredEvent"> | Date | string
+  createdBy?: Prisma.IntFilter<"StoredEvent"> | number
+}
+
+export type StoredEventCreateManyUserInput = {
+  id?: number
+  entityType: string
+  entityId: number
+  action: $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type StoredEventUpdateWithoutUserInput = {
+  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  entityId?: Prisma.IntFieldUpdateOperationsInput | number
+  action?: Prisma.EnumStoredEventActionFieldUpdateOperationsInput | $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StoredEventUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  entityId?: Prisma.IntFieldUpdateOperationsInput | number
+  action?: Prisma.EnumStoredEventActionFieldUpdateOperationsInput | $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StoredEventUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  entityId?: Prisma.IntFieldUpdateOperationsInput | number
+  action?: Prisma.EnumStoredEventActionFieldUpdateOperationsInput | $Enums.StoredEventAction
+  oldValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  newValues?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
 
 export type StoredEventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  type?: boolean
-  payload?: boolean
+  entityType?: boolean
+  entityId?: boolean
+  action?: boolean
+  oldValues?: boolean
+  newValues?: boolean
   createdAt?: boolean
   createdBy?: boolean
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storedEvent"]>
 
 export type StoredEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  type?: boolean
-  payload?: boolean
+  entityType?: boolean
+  entityId?: boolean
+  action?: boolean
+  oldValues?: boolean
+  newValues?: boolean
   createdAt?: boolean
   createdBy?: boolean
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storedEvent"]>
 
 export type StoredEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  type?: boolean
-  payload?: boolean
+  entityType?: boolean
+  entityId?: boolean
+  action?: boolean
+  oldValues?: boolean
+  newValues?: boolean
   createdAt?: boolean
   createdBy?: boolean
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storedEvent"]>
 
 export type StoredEventSelectScalar = {
   id?: boolean
-  type?: boolean
-  payload?: boolean
+  entityType?: boolean
+  entityId?: boolean
+  action?: boolean
+  oldValues?: boolean
+  newValues?: boolean
   createdAt?: boolean
   createdBy?: boolean
 }
 
-export type StoredEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "payload" | "createdAt" | "createdBy", ExtArgs["result"]["storedEvent"]>
+export type StoredEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "entityType" | "entityId" | "action" | "oldValues" | "newValues" | "createdAt" | "createdBy", ExtArgs["result"]["storedEvent"]>
+export type StoredEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type StoredEventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type StoredEventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $StoredEventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StoredEvent"
-  objects: {}
+  objects: {
+    User: Prisma.$UserPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    type: string
-    payload: runtime.JsonValue
+    entityType: string
+    entityId: number
+    action: $Enums.StoredEventAction
+    oldValues: runtime.JsonValue | null
+    newValues: runtime.JsonValue | null
     createdAt: Date
     createdBy: number
   }, ExtArgs["result"]["storedEvent"]>
@@ -785,6 +1036,7 @@ readonly fields: StoredEventFieldRefs;
  */
 export interface Prisma__StoredEventClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -815,8 +1067,11 @@ export interface Prisma__StoredEventClient<T, Null = never, ExtArgs extends runt
  */
 export interface StoredEventFieldRefs {
   readonly id: Prisma.FieldRef<"StoredEvent", 'Int'>
-  readonly type: Prisma.FieldRef<"StoredEvent", 'String'>
-  readonly payload: Prisma.FieldRef<"StoredEvent", 'Json'>
+  readonly entityType: Prisma.FieldRef<"StoredEvent", 'String'>
+  readonly entityId: Prisma.FieldRef<"StoredEvent", 'Int'>
+  readonly action: Prisma.FieldRef<"StoredEvent", 'StoredEventAction'>
+  readonly oldValues: Prisma.FieldRef<"StoredEvent", 'Json'>
+  readonly newValues: Prisma.FieldRef<"StoredEvent", 'Json'>
   readonly createdAt: Prisma.FieldRef<"StoredEvent", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"StoredEvent", 'Int'>
 }
@@ -836,6 +1091,10 @@ export type StoredEventFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
+  /**
    * Filter, which StoredEvent to fetch.
    */
   where: Prisma.StoredEventWhereUniqueInput
@@ -854,6 +1113,10 @@ export type StoredEventFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Exten
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
+  /**
    * Filter, which StoredEvent to fetch.
    */
   where: Prisma.StoredEventWhereUniqueInput
@@ -871,6 +1134,10 @@ export type StoredEventFindFirstArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the StoredEvent
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
   /**
    * Filter, which StoredEvent to fetch.
    */
@@ -920,6 +1187,10 @@ export type StoredEventFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
+  /**
    * Filter, which StoredEvent to fetch.
    */
   where?: Prisma.StoredEventWhereInput
@@ -968,6 +1239,10 @@ export type StoredEventFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
+  /**
    * Filter, which StoredEvents to fetch.
    */
   where?: Prisma.StoredEventWhereInput
@@ -1011,6 +1286,10 @@ export type StoredEventCreateArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
+  /**
    * The data needed to create a StoredEvent.
    */
   data: Prisma.XOR<Prisma.StoredEventCreateInput, Prisma.StoredEventUncheckedCreateInput>
@@ -1044,6 +1323,10 @@ export type StoredEventCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    */
   data: Prisma.StoredEventCreateManyInput | Prisma.StoredEventCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1058,6 +1341,10 @@ export type StoredEventUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the StoredEvent
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
   /**
    * The data needed to update a StoredEvent.
    */
@@ -1110,6 +1397,10 @@ export type StoredEventUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * Limit how many StoredEvents to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1124,6 +1415,10 @@ export type StoredEventUpsertArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the StoredEvent
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
   /**
    * The filter to search for the StoredEvent to update in case it exists.
    */
@@ -1150,6 +1445,10 @@ export type StoredEventDeleteArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the StoredEvent
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
   /**
    * Filter which StoredEvent to delete.
    */
@@ -1182,4 +1481,8 @@ export type StoredEventDefaultArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the StoredEvent
    */
   omit?: Prisma.StoredEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
 }

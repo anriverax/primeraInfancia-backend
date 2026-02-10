@@ -12,11 +12,16 @@ RUN npm install
 # Copiamos todo el código
 COPY . .
 
+# Poner un DATABASE_URL de relleno solo para que cargue prisma.config.ts
+ENV DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder?schema=public"
 
 # Generamos Prisma Client
 RUN npx prisma generate
-COPY prisma ./prisma
+# COPY prisma ./prisma
 # Compilamos la aplicación
+
+
+# 4) Compilar la app
 RUN npm run build
 
 # -------------------------------------
@@ -41,7 +46,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN chown -R node:node /fpi-backend
 # Usamos usuario no-root
-USER node 
+USER node
 
 EXPOSE 3001
 

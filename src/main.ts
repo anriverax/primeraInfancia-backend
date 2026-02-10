@@ -1,4 +1,4 @@
-import { ValidationPipe } from "@nestjs/common";
+import { ValidationPipe, Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import * as cookieParser from "cookie-parser";
 import { AppModule } from "./app.module";
@@ -7,10 +7,11 @@ import { HttpExceptionFilter } from "./common/filters/http-exception.filter";
 /* eslint-disable */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const logger = new Logger("Bootstrap");
   app.useGlobalFilters(new HttpExceptionFilter());
   app.setGlobalPrefix("/api");
   app.enableCors({
-    origin: process.env.SERVER_URL, // Cambia esto si tu frontend está en otro dominio/puerto
+    origin: process.env.SERVER_URL,
     credentials: true
   });
 
@@ -24,12 +25,9 @@ async function bootstrap() {
       }
     })
   );
-  app.use(cookieParser()); // Configura cookie-parser
+  app.use(cookieParser());
 
-  await app.listen(3001, () =>
-    console.log(`
-🚀 Server ready at: http://localhost:3001`)
-  );
+  await app.listen(3001, () => logger.log("Server ready at: http://localhost:3001"));
 }
 
 bootstrap();

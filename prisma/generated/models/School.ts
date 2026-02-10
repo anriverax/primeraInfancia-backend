@@ -244,9 +244,9 @@ export type SchoolWhereInput = {
   districtId?: Prisma.IntFilter<"School"> | number
   coordenates?: Prisma.StringFilter<"School"> | string
   cohortId?: Prisma.IntFilter<"School"> | number
-  PrincipalSchool?: Prisma.PrincipalSchoolListRelationFilter
   Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
   District?: Prisma.XOR<Prisma.DistrictScalarRelationFilter, Prisma.DistrictWhereInput>
+  Teacher?: Prisma.TeacherListRelationFilter
 }
 
 export type SchoolOrderByWithRelationInput = {
@@ -257,9 +257,9 @@ export type SchoolOrderByWithRelationInput = {
   districtId?: Prisma.SortOrder
   coordenates?: Prisma.SortOrder
   cohortId?: Prisma.SortOrder
-  PrincipalSchool?: Prisma.PrincipalSchoolOrderByRelationAggregateInput
   Cohort?: Prisma.CohortOrderByWithRelationInput
   District?: Prisma.DistrictOrderByWithRelationInput
+  Teacher?: Prisma.TeacherOrderByRelationAggregateInput
 }
 
 export type SchoolWhereUniqueInput = Prisma.AtLeast<{
@@ -273,9 +273,9 @@ export type SchoolWhereUniqueInput = Prisma.AtLeast<{
   districtId?: Prisma.IntFilter<"School"> | number
   coordenates?: Prisma.StringFilter<"School"> | string
   cohortId?: Prisma.IntFilter<"School"> | number
-  PrincipalSchool?: Prisma.PrincipalSchoolListRelationFilter
   Cohort?: Prisma.XOR<Prisma.CohortScalarRelationFilter, Prisma.CohortWhereInput>
   District?: Prisma.XOR<Prisma.DistrictScalarRelationFilter, Prisma.DistrictWhereInput>
+  Teacher?: Prisma.TeacherListRelationFilter
 }, "id" | "code">
 
 export type SchoolOrderByWithAggregationInput = {
@@ -311,9 +311,9 @@ export type SchoolCreateInput = {
   name: string
   zone: string
   coordenates: string
-  PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutSchoolInput
   Cohort: Prisma.CohortCreateNestedOneWithoutSchoolInput
   District: Prisma.DistrictCreateNestedOneWithoutSchoolInput
+  Teacher?: Prisma.TeacherCreateNestedManyWithoutSchoolInput
 }
 
 export type SchoolUncheckedCreateInput = {
@@ -324,7 +324,7 @@ export type SchoolUncheckedCreateInput = {
   districtId: number
   coordenates: string
   cohortId: number
-  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutSchoolInput
+  Teacher?: Prisma.TeacherUncheckedCreateNestedManyWithoutSchoolInput
 }
 
 export type SchoolUpdateInput = {
@@ -332,9 +332,9 @@ export type SchoolUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   zone?: Prisma.StringFieldUpdateOperationsInput | string
   coordenates?: Prisma.StringFieldUpdateOperationsInput | string
-  PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutSchoolNestedInput
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutSchoolNestedInput
   District?: Prisma.DistrictUpdateOneRequiredWithoutSchoolNestedInput
+  Teacher?: Prisma.TeacherUpdateManyWithoutSchoolNestedInput
 }
 
 export type SchoolUncheckedUpdateInput = {
@@ -345,7 +345,7 @@ export type SchoolUncheckedUpdateInput = {
   districtId?: Prisma.IntFieldUpdateOperationsInput | number
   coordenates?: Prisma.StringFieldUpdateOperationsInput | string
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutSchoolNestedInput
+  Teacher?: Prisma.TeacherUncheckedUpdateManyWithoutSchoolNestedInput
 }
 
 export type SchoolCreateManyInput = {
@@ -518,18 +518,18 @@ export type SchoolUncheckedUpdateManyWithoutDistrictNestedInput = {
   deleteMany?: Prisma.SchoolScalarWhereInput | Prisma.SchoolScalarWhereInput[]
 }
 
-export type SchoolCreateNestedOneWithoutPrincipalSchoolInput = {
-  create?: Prisma.XOR<Prisma.SchoolCreateWithoutPrincipalSchoolInput, Prisma.SchoolUncheckedCreateWithoutPrincipalSchoolInput>
-  connectOrCreate?: Prisma.SchoolCreateOrConnectWithoutPrincipalSchoolInput
+export type SchoolCreateNestedOneWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.SchoolCreateWithoutTeacherInput, Prisma.SchoolUncheckedCreateWithoutTeacherInput>
+  connectOrCreate?: Prisma.SchoolCreateOrConnectWithoutTeacherInput
   connect?: Prisma.SchoolWhereUniqueInput
 }
 
-export type SchoolUpdateOneRequiredWithoutPrincipalSchoolNestedInput = {
-  create?: Prisma.XOR<Prisma.SchoolCreateWithoutPrincipalSchoolInput, Prisma.SchoolUncheckedCreateWithoutPrincipalSchoolInput>
-  connectOrCreate?: Prisma.SchoolCreateOrConnectWithoutPrincipalSchoolInput
-  upsert?: Prisma.SchoolUpsertWithoutPrincipalSchoolInput
+export type SchoolUpdateOneRequiredWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.SchoolCreateWithoutTeacherInput, Prisma.SchoolUncheckedCreateWithoutTeacherInput>
+  connectOrCreate?: Prisma.SchoolCreateOrConnectWithoutTeacherInput
+  upsert?: Prisma.SchoolUpsertWithoutTeacherInput
   connect?: Prisma.SchoolWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SchoolUpdateToOneWithWhereWithoutPrincipalSchoolInput, Prisma.SchoolUpdateWithoutPrincipalSchoolInput>, Prisma.SchoolUncheckedUpdateWithoutPrincipalSchoolInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SchoolUpdateToOneWithWhereWithoutTeacherInput, Prisma.SchoolUpdateWithoutTeacherInput>, Prisma.SchoolUncheckedUpdateWithoutTeacherInput>
 }
 
 export type SchoolCreateWithoutCohortInput = {
@@ -537,8 +537,8 @@ export type SchoolCreateWithoutCohortInput = {
   name: string
   zone: string
   coordenates: string
-  PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutSchoolInput
   District: Prisma.DistrictCreateNestedOneWithoutSchoolInput
+  Teacher?: Prisma.TeacherCreateNestedManyWithoutSchoolInput
 }
 
 export type SchoolUncheckedCreateWithoutCohortInput = {
@@ -548,7 +548,7 @@ export type SchoolUncheckedCreateWithoutCohortInput = {
   zone: string
   districtId: number
   coordenates: string
-  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutSchoolInput
+  Teacher?: Prisma.TeacherUncheckedCreateNestedManyWithoutSchoolInput
 }
 
 export type SchoolCreateOrConnectWithoutCohortInput = {
@@ -595,8 +595,8 @@ export type SchoolCreateWithoutDistrictInput = {
   name: string
   zone: string
   coordenates: string
-  PrincipalSchool?: Prisma.PrincipalSchoolCreateNestedManyWithoutSchoolInput
   Cohort: Prisma.CohortCreateNestedOneWithoutSchoolInput
+  Teacher?: Prisma.TeacherCreateNestedManyWithoutSchoolInput
 }
 
 export type SchoolUncheckedCreateWithoutDistrictInput = {
@@ -606,7 +606,7 @@ export type SchoolUncheckedCreateWithoutDistrictInput = {
   zone: string
   coordenates: string
   cohortId: number
-  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedCreateNestedManyWithoutSchoolInput
+  Teacher?: Prisma.TeacherUncheckedCreateNestedManyWithoutSchoolInput
 }
 
 export type SchoolCreateOrConnectWithoutDistrictInput = {
@@ -635,7 +635,7 @@ export type SchoolUpdateManyWithWhereWithoutDistrictInput = {
   data: Prisma.XOR<Prisma.SchoolUpdateManyMutationInput, Prisma.SchoolUncheckedUpdateManyWithoutDistrictInput>
 }
 
-export type SchoolCreateWithoutPrincipalSchoolInput = {
+export type SchoolCreateWithoutTeacherInput = {
   code: number
   name: string
   zone: string
@@ -644,7 +644,7 @@ export type SchoolCreateWithoutPrincipalSchoolInput = {
   District: Prisma.DistrictCreateNestedOneWithoutSchoolInput
 }
 
-export type SchoolUncheckedCreateWithoutPrincipalSchoolInput = {
+export type SchoolUncheckedCreateWithoutTeacherInput = {
   id?: number
   code: number
   name: string
@@ -654,23 +654,23 @@ export type SchoolUncheckedCreateWithoutPrincipalSchoolInput = {
   cohortId: number
 }
 
-export type SchoolCreateOrConnectWithoutPrincipalSchoolInput = {
+export type SchoolCreateOrConnectWithoutTeacherInput = {
   where: Prisma.SchoolWhereUniqueInput
-  create: Prisma.XOR<Prisma.SchoolCreateWithoutPrincipalSchoolInput, Prisma.SchoolUncheckedCreateWithoutPrincipalSchoolInput>
+  create: Prisma.XOR<Prisma.SchoolCreateWithoutTeacherInput, Prisma.SchoolUncheckedCreateWithoutTeacherInput>
 }
 
-export type SchoolUpsertWithoutPrincipalSchoolInput = {
-  update: Prisma.XOR<Prisma.SchoolUpdateWithoutPrincipalSchoolInput, Prisma.SchoolUncheckedUpdateWithoutPrincipalSchoolInput>
-  create: Prisma.XOR<Prisma.SchoolCreateWithoutPrincipalSchoolInput, Prisma.SchoolUncheckedCreateWithoutPrincipalSchoolInput>
+export type SchoolUpsertWithoutTeacherInput = {
+  update: Prisma.XOR<Prisma.SchoolUpdateWithoutTeacherInput, Prisma.SchoolUncheckedUpdateWithoutTeacherInput>
+  create: Prisma.XOR<Prisma.SchoolCreateWithoutTeacherInput, Prisma.SchoolUncheckedCreateWithoutTeacherInput>
   where?: Prisma.SchoolWhereInput
 }
 
-export type SchoolUpdateToOneWithWhereWithoutPrincipalSchoolInput = {
+export type SchoolUpdateToOneWithWhereWithoutTeacherInput = {
   where?: Prisma.SchoolWhereInput
-  data: Prisma.XOR<Prisma.SchoolUpdateWithoutPrincipalSchoolInput, Prisma.SchoolUncheckedUpdateWithoutPrincipalSchoolInput>
+  data: Prisma.XOR<Prisma.SchoolUpdateWithoutTeacherInput, Prisma.SchoolUncheckedUpdateWithoutTeacherInput>
 }
 
-export type SchoolUpdateWithoutPrincipalSchoolInput = {
+export type SchoolUpdateWithoutTeacherInput = {
   code?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   zone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -679,7 +679,7 @@ export type SchoolUpdateWithoutPrincipalSchoolInput = {
   District?: Prisma.DistrictUpdateOneRequiredWithoutSchoolNestedInput
 }
 
-export type SchoolUncheckedUpdateWithoutPrincipalSchoolInput = {
+export type SchoolUncheckedUpdateWithoutTeacherInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -703,8 +703,8 @@ export type SchoolUpdateWithoutCohortInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   zone?: Prisma.StringFieldUpdateOperationsInput | string
   coordenates?: Prisma.StringFieldUpdateOperationsInput | string
-  PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutSchoolNestedInput
   District?: Prisma.DistrictUpdateOneRequiredWithoutSchoolNestedInput
+  Teacher?: Prisma.TeacherUpdateManyWithoutSchoolNestedInput
 }
 
 export type SchoolUncheckedUpdateWithoutCohortInput = {
@@ -714,7 +714,7 @@ export type SchoolUncheckedUpdateWithoutCohortInput = {
   zone?: Prisma.StringFieldUpdateOperationsInput | string
   districtId?: Prisma.IntFieldUpdateOperationsInput | number
   coordenates?: Prisma.StringFieldUpdateOperationsInput | string
-  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutSchoolNestedInput
+  Teacher?: Prisma.TeacherUncheckedUpdateManyWithoutSchoolNestedInput
 }
 
 export type SchoolUncheckedUpdateManyWithoutCohortInput = {
@@ -740,8 +740,8 @@ export type SchoolUpdateWithoutDistrictInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   zone?: Prisma.StringFieldUpdateOperationsInput | string
   coordenates?: Prisma.StringFieldUpdateOperationsInput | string
-  PrincipalSchool?: Prisma.PrincipalSchoolUpdateManyWithoutSchoolNestedInput
   Cohort?: Prisma.CohortUpdateOneRequiredWithoutSchoolNestedInput
+  Teacher?: Prisma.TeacherUpdateManyWithoutSchoolNestedInput
 }
 
 export type SchoolUncheckedUpdateWithoutDistrictInput = {
@@ -751,7 +751,7 @@ export type SchoolUncheckedUpdateWithoutDistrictInput = {
   zone?: Prisma.StringFieldUpdateOperationsInput | string
   coordenates?: Prisma.StringFieldUpdateOperationsInput | string
   cohortId?: Prisma.IntFieldUpdateOperationsInput | number
-  PrincipalSchool?: Prisma.PrincipalSchoolUncheckedUpdateManyWithoutSchoolNestedInput
+  Teacher?: Prisma.TeacherUncheckedUpdateManyWithoutSchoolNestedInput
 }
 
 export type SchoolUncheckedUpdateManyWithoutDistrictInput = {
@@ -769,11 +769,11 @@ export type SchoolUncheckedUpdateManyWithoutDistrictInput = {
  */
 
 export type SchoolCountOutputType = {
-  PrincipalSchool: number
+  Teacher: number
 }
 
 export type SchoolCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PrincipalSchool?: boolean | SchoolCountOutputTypeCountPrincipalSchoolArgs
+  Teacher?: boolean | SchoolCountOutputTypeCountTeacherArgs
 }
 
 /**
@@ -789,8 +789,8 @@ export type SchoolCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * SchoolCountOutputType without action
  */
-export type SchoolCountOutputTypeCountPrincipalSchoolArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PrincipalSchoolWhereInput
+export type SchoolCountOutputTypeCountTeacherArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeacherWhereInput
 }
 
 
@@ -802,9 +802,9 @@ export type SchoolSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   districtId?: boolean
   coordenates?: boolean
   cohortId?: boolean
-  PrincipalSchool?: boolean | Prisma.School$PrincipalSchoolArgs<ExtArgs>
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
   District?: boolean | Prisma.DistrictDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.School$TeacherArgs<ExtArgs>
   _count?: boolean | Prisma.SchoolCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["school"]>
 
@@ -844,9 +844,9 @@ export type SchoolSelectScalar = {
 
 export type SchoolOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "zone" | "districtId" | "coordenates" | "cohortId", ExtArgs["result"]["school"]>
 export type SchoolInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  PrincipalSchool?: boolean | Prisma.School$PrincipalSchoolArgs<ExtArgs>
   Cohort?: boolean | Prisma.CohortDefaultArgs<ExtArgs>
   District?: boolean | Prisma.DistrictDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.School$TeacherArgs<ExtArgs>
   _count?: boolean | Prisma.SchoolCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SchoolIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -861,9 +861,9 @@ export type SchoolIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type $SchoolPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "School"
   objects: {
-    PrincipalSchool: Prisma.$PrincipalSchoolPayload<ExtArgs>[]
     Cohort: Prisma.$CohortPayload<ExtArgs>
     District: Prisma.$DistrictPayload<ExtArgs>
+    Teacher: Prisma.$TeacherPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1267,9 +1267,9 @@ readonly fields: SchoolFieldRefs;
  */
 export interface Prisma__SchoolClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  PrincipalSchool<T extends Prisma.School$PrincipalSchoolArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.School$PrincipalSchoolArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrincipalSchoolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Cohort<T extends Prisma.CohortDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CohortDefaultArgs<ExtArgs>>): Prisma.Prisma__CohortClient<runtime.Types.Result.GetResult<Prisma.$CohortPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   District<T extends Prisma.DistrictDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DistrictDefaultArgs<ExtArgs>>): Prisma.Prisma__DistrictClient<runtime.Types.Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Teacher<T extends Prisma.School$TeacherArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.School$TeacherArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1702,27 +1702,27 @@ export type SchoolDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * School.PrincipalSchool
+ * School.Teacher
  */
-export type School$PrincipalSchoolArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type School$TeacherArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PrincipalSchool
+   * Select specific fields to fetch from the Teacher
    */
-  select?: Prisma.PrincipalSchoolSelect<ExtArgs> | null
+  select?: Prisma.TeacherSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PrincipalSchool
+   * Omit specific fields from the Teacher
    */
-  omit?: Prisma.PrincipalSchoolOmit<ExtArgs> | null
+  omit?: Prisma.TeacherOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PrincipalSchoolInclude<ExtArgs> | null
-  where?: Prisma.PrincipalSchoolWhereInput
-  orderBy?: Prisma.PrincipalSchoolOrderByWithRelationInput | Prisma.PrincipalSchoolOrderByWithRelationInput[]
-  cursor?: Prisma.PrincipalSchoolWhereUniqueInput
+  include?: Prisma.TeacherInclude<ExtArgs> | null
+  where?: Prisma.TeacherWhereInput
+  orderBy?: Prisma.TeacherOrderByWithRelationInput | Prisma.TeacherOrderByWithRelationInput[]
+  cursor?: Prisma.TeacherWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PrincipalSchoolScalarFieldEnum | Prisma.PrincipalSchoolScalarFieldEnum[]
+  distinct?: Prisma.TeacherScalarFieldEnum | Prisma.TeacherScalarFieldEnum[]
 }
 
 /**

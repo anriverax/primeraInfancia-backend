@@ -1,0 +1,29 @@
+import { Module } from "@nestjs/common";
+import { CqrsModule } from "@nestjs/cqrs";
+import { GetAllAppendixHandler } from "./cqrs/queries/get-all-appendix.query";
+import { AppendixProjection } from "./cqrs/projections/appendix.projection";
+import { AppendixController } from "./appendix.controller";
+import { CreateAppendixHandler } from "./cqrs/commands/create/createAppendix.handler";
+import { JwtModule } from "@nestjs/jwt";
+import {
+  GetByIdAppendixHandler,
+  GetByIdDetailAppendixHandler
+} from "./cqrs/queries/findUnique/getByIdAppendix.handler";
+import { DeleteAppendixHandler } from "./cqrs/commands/delete/deleteAppendix.handler";
+import { UpdateAppendixHandler } from "./cqrs/commands/update/updateAppendix.handler";
+import { GetByInscriptionHandler } from "./cqrs/queries/findByInscription/getByInscription.query";
+
+const CommandHandlers = [
+  CreateAppendixHandler,
+  UpdateAppendixHandler,
+  DeleteAppendixHandler,
+  GetByInscriptionHandler
+];
+const QueryHandlers = [GetAllAppendixHandler, GetByIdAppendixHandler, GetByIdDetailAppendixHandler];
+
+@Module({
+  imports: [CqrsModule, JwtModule],
+  controllers: [AppendixController],
+  providers: [AppendixProjection, ...CommandHandlers, ...QueryHandlers]
+})
+export class AppendixModule {}

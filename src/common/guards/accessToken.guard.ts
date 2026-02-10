@@ -13,6 +13,21 @@ import { AUTH_REQUIRED } from "@/common/decorators/authRequired.decorator";
 import { ConfigService } from "@nestjs/config";
 import { getPublicKey } from "../helpers/functions";
 
+/* eslint-disable @typescript-eslint/no-namespace */
+declare global {
+  namespace Express {
+    interface Request {
+      authenticatedUser?: {
+        id: number;
+        email: string;
+        roleId?: number;
+        role?: string;
+        permissions?: string[];
+      };
+    }
+  }
+}
+
 @Injectable()
 export class AccessTokenGuard implements CanActivate {
   private readonly logger = new Logger(AccessTokenGuard.name);
@@ -70,13 +85,29 @@ export class AccessTokenGuard implements CanActivate {
 
       await this.redis.get(tokenKey || decoded.tokenId);
 
+      // Validate user data
+      if (!payload.email || !payload.sub) {
+        throw new UnauthorizedException("Datos de usuario incompletos.");
+      }
+
+      // Map user data to authenticatedUser
+      request.authenticatedUser = {
+        id: payload.sub,
+        email: payload.email,
+        roleId: payload.rolId,
+        role: payload.role,
+        permissions: payload.permissions
+      };
+
       request["user"] = payload;
       request["token"] = token;
       this.logger.log("Se pudo validar el token de acceso.");
       return true;
     } catch (error) {
-      this.logger.error("No se pudo validar el token de acceso. 1", error);
+      this.logger.error("No se pudo validar el token de acceso.", error);
       throw new UnauthorizedException("No tienes permiso para acceder a este recurso.");
     }
   }
 }
+
+/* eslint-enable @typescript-eslint/no-namespace */

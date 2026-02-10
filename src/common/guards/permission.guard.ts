@@ -1,15 +1,9 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  ForbiddenException,
-  CustomDecorator
-} from "@nestjs/common";
+import { CanActivate, ExecutionContext, Injectable, ForbiddenException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { SetMetadata } from "@nestjs/common";
 
 export const PERMISSIONS_KEY = "permissions";
-export const RequirePermissions = (...permissions: string[]): CustomDecorator<string> =>
+export const RequirePermissions = (...permissions: string[]) =>
   SetMetadata(PERMISSIONS_KEY, permissions);
 
 @Injectable()

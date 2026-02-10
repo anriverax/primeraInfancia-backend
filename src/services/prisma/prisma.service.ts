@@ -5,16 +5,16 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { Prisma, PrismaClient } from "prisma/generated/client";
 
 const modelsWithSoftDelete = [
-  "Group",
-  "GroupStaff",
-  "PersonRole",
+  "PlannedEvent",
+  "User",
   "EventInstance",
-  "Inscription",
+  "Group",
   "MentorAssignment",
   "Section",
   "Question",
   "Answer",
-  "SurveyData"
+  "SurveyData",
+  "Person"
 ];
 
 // We'll apply $extends to the instance created in the constructor so the adapter is used.
@@ -35,7 +35,8 @@ export class PrismaService extends PrismaClient {
           fullName: {
             needs: { firstName: true, lastName1: true, lastName2: true },
             compute(person) {
-              return `${person.firstName} ${person.lastName1} ${person.lastName2}`;
+              const name = `${person.firstName} ${person.lastName1}`;
+              return person.lastName2 !== null ? `${name} ${person.lastName2}` : name;
             }
           }
         }

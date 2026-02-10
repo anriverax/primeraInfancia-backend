@@ -4,6 +4,7 @@ import { BadRequestException, ForbiddenException, Logger } from "@nestjs/common"
 import * as fs from "fs";
 import { ConfigService } from "@nestjs/config";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+import { RecordStatus } from "./const";
 
 /* eslint-disable */
 export function handlePrismaError(module: string, error: any): never {
@@ -32,36 +33,41 @@ export function decryptTextTransformer(value: string): string {
   throw new Error("El descifrado no está habilitado.");
 }
 
-export function generateCode(length = 6): string {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let code = "";
-  for (let i = 0; i < length; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
+export function calculateDUIVerification(eightDigits: string): number {
+  const weights = [9, 8, 7, 6, 5, 4, 3, 2];
+  let sum = 0;
+
+  for (let i = 0; i < 8; i++) {
+    sum += parseInt(eightDigits[i]) * weights[i];
   }
-  return code;
+
+  const remainder = sum % 9;
+  return remainder === 0 ? 0 : 9 - remainder;
 }
 
 export function firstCapitalLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export function formatDate(d: Date) {
-  if (isNaN(d.getTime())) {
-    throw new Error("Fecha inválida");
-  }
+export function formatForFrontend(isoDateString: Date) {
+  if (!isoDateString) return "-";
 
-  const options: Intl.DateTimeFormatOptions = {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true
-  };
+  const jsDate = new Date(isoDateString);
 
-  const formatted = new Intl.DateTimeFormat("es-ES", options).format(d);
+  const day = String(jsDate.getDate()).padStart(2, "0");
+  const month = String(jsDate.getMonth() + 1).padStart(2, "0");
+  const year = jsDate.getFullYear();
 
-  return formatted;
+  let hours = jsDate.getHours();
+  const minutes = String(jsDate.getMinutes()).padStart(2, "0");
+  const isPM = hours >= 12;
+  const suffix = isPM ? "p.m." : "a.m.";
+
+  hours = hours % 12;
+  if (hours === 0) hours = 12;
+  const hh = String(hours).padStart(2, "0");
+
+  return `${day}/${month}/${year}, ${hh}:${minutes} ${suffix}`;
 }
 
 export function getPrivateKey(configService: ConfigService): string {
@@ -95,3 +101,7 @@ export function stringsToJson(arr: string[]): Record<string, any> {
     {} as Record<string, any>
   );
 }
+
+export const getRecordStatus = (deletedAt: Date | null): RecordStatus => {
+  return deletedAt === null ? RecordStatus.ACTIVE : RecordStatus.DROPPED;
+};

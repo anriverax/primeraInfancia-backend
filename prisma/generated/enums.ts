@@ -56,3 +56,25 @@ export const EvaluationEnum = {
 } as const
 
 export type EvaluationEnum = (typeof EvaluationEnum)[keyof typeof EvaluationEnum]
+
+
+export const TeacherStatus = {
+  ACTUALIZADO: 'ACTUALIZADO',
+  CAMBIO_NIVEL: 'CAMBIO_NIVEL',
+  JUBILADO: 'JUBILADO',
+  RETIRADO: 'RETIRADO',
+  INACTIVO: 'INACTIVO',
+  ACTIVO: 'ACTIVO',
+  NUEVO_INGRESO: 'NUEVO_INGRESO'
+} as const
+
+export type TeacherStatus = (typeof TeacherStatus)[keyof typeof TeacherStatus]
+
+
+export const StoredEventAction = {
+  CREAR: 'CREAR',
+  ACTUALIZAR: 'ACTUALIZAR',
+  ELIMINAR: 'ELIMINAR'
+} as const
+
+export type StoredEventAction = (typeof StoredEventAction)[keyof typeof StoredEventAction]

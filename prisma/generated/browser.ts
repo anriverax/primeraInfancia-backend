@@ -28,50 +28,15 @@ export type AttendanceSession = Prisma.AttendanceSessionModel
  */
 export type EventAttendance = Prisma.EventAttendanceModel
 /**
+ * Model AttendanceException
+ * 
+ */
+export type AttendanceException = Prisma.AttendanceExceptionModel
+/**
  * Model WorkAttendance
  * 
  */
 export type WorkAttendance = Prisma.WorkAttendanceModel
-/**
- * Model EventType
- * 
- */
-export type EventType = Prisma.EventTypeModel
-/**
- * Model EventInstance
- * 
- */
-export type EventInstance = Prisma.EventInstanceModel
-/**
- * Model Event
- * 
- */
-export type Event = Prisma.EventModel
-/**
- * Model GroupStaff
- * 
- */
-export type GroupStaff = Prisma.GroupStaffModel
-/**
- * Model Group
- * 
- */
-export type Group = Prisma.GroupModel
-/**
- * Model TechSupportAssignments
- * 
- */
-export type TechSupportAssignments = Prisma.TechSupportAssignmentsModel
-/**
- * Model Inscription
- * 
- */
-export type Inscription = Prisma.InscriptionModel
-/**
- * Model MentorAssignment
- * 
- */
-export type MentorAssignment = Prisma.MentorAssignmentModel
 /**
  * Model Cohort
  * 
@@ -138,30 +103,70 @@ export type MenuItem = Prisma.MenuItemModel
  */
 export type MenuPermission = Prisma.MenuPermissionModel
 /**
+ * Model TrainingModule
+ * 
+ */
+export type TrainingModule = Prisma.TrainingModuleModel
+/**
+ * Model AbsenceClassification
+ * 
+ */
+export type AbsenceClassification = Prisma.AbsenceClassificationModel
+/**
+ * Model EventType
+ * 
+ */
+export type EventType = Prisma.EventTypeModel
+/**
+ * Model EventSchedule
+ * 
+ */
+export type EventSchedule = Prisma.EventScheduleModel
+/**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
+/**
+ * Model PlannedEvent
+ * 
+ */
+export type PlannedEvent = Prisma.PlannedEventModel
+/**
+ * Model PlannedEventTeacher
+ * 
+ */
+export type PlannedEventTeacher = Prisma.PlannedEventTeacherModel
+/**
+ * Model EventInstance
+ * 
+ */
+export type EventInstance = Prisma.EventInstanceModel
+/**
+ * Model GroupStaff
+ * 
+ */
+export type GroupStaff = Prisma.GroupStaffModel
+/**
+ * Model Group
+ * 
+ */
+export type Group = Prisma.GroupModel
+/**
+ * Model Teacher
+ * 
+ */
+export type Teacher = Prisma.TeacherModel
+/**
  * Model Person
  * 
  */
 export type Person = Prisma.PersonModel
 /**
- * Model PrincipalSchool
- * 
- */
-export type PrincipalSchool = Prisma.PrincipalSchoolModel
-/**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
-/**
- * Model UserKey
- * 
- */
-export type UserKey = Prisma.UserKeyModel
-/**
- * Model TrainingModule
- * 
- */
-export type TrainingModule = Prisma.TrainingModuleModel
 /**
  * Model EvaluationInstrument
  * 

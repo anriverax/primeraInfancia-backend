@@ -31,8 +31,9 @@ export type AggregateSurveyData = {
 
 export type SurveyDataAvgAggregateOutputType = {
   id: number | null
+  teacherId: number | null
   appendixId: number | null
-  inscriptionId: number | null
+  trainingModuleId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -40,8 +41,9 @@ export type SurveyDataAvgAggregateOutputType = {
 
 export type SurveyDataSumAggregateOutputType = {
   id: number | null
+  teacherId: number | null
   appendixId: number | null
-  inscriptionId: number | null
+  trainingModuleId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -49,8 +51,9 @@ export type SurveyDataSumAggregateOutputType = {
 
 export type SurveyDataMinAggregateOutputType = {
   id: number | null
+  teacherId: number | null
   appendixId: number | null
-  inscriptionId: number | null
+  trainingModuleId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -61,8 +64,9 @@ export type SurveyDataMinAggregateOutputType = {
 
 export type SurveyDataMaxAggregateOutputType = {
   id: number | null
+  teacherId: number | null
   appendixId: number | null
-  inscriptionId: number | null
+  trainingModuleId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -73,9 +77,10 @@ export type SurveyDataMaxAggregateOutputType = {
 
 export type SurveyDataCountAggregateOutputType = {
   id: number
+  teacherId: number
   appendixId: number
+  trainingModuleId: number
   survey: number
-  inscriptionId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -88,8 +93,9 @@ export type SurveyDataCountAggregateOutputType = {
 
 export type SurveyDataAvgAggregateInputType = {
   id?: true
+  teacherId?: true
   appendixId?: true
-  inscriptionId?: true
+  trainingModuleId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -97,8 +103,9 @@ export type SurveyDataAvgAggregateInputType = {
 
 export type SurveyDataSumAggregateInputType = {
   id?: true
+  teacherId?: true
   appendixId?: true
-  inscriptionId?: true
+  trainingModuleId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -106,8 +113,9 @@ export type SurveyDataSumAggregateInputType = {
 
 export type SurveyDataMinAggregateInputType = {
   id?: true
+  teacherId?: true
   appendixId?: true
-  inscriptionId?: true
+  trainingModuleId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -118,8 +126,9 @@ export type SurveyDataMinAggregateInputType = {
 
 export type SurveyDataMaxAggregateInputType = {
   id?: true
+  teacherId?: true
   appendixId?: true
-  inscriptionId?: true
+  trainingModuleId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -130,9 +139,10 @@ export type SurveyDataMaxAggregateInputType = {
 
 export type SurveyDataCountAggregateInputType = {
   id?: true
+  teacherId?: true
   appendixId?: true
+  trainingModuleId?: true
   survey?: true
-  inscriptionId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -230,9 +240,10 @@ export type SurveyDataGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 
 export type SurveyDataGroupByOutputType = {
   id: number
+  teacherId: number
   appendixId: number
+  trainingModuleId: number
   survey: runtime.JsonValue
-  inscriptionId: number
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -266,9 +277,10 @@ export type SurveyDataWhereInput = {
   OR?: Prisma.SurveyDataWhereInput[]
   NOT?: Prisma.SurveyDataWhereInput | Prisma.SurveyDataWhereInput[]
   id?: Prisma.IntFilter<"SurveyData"> | number
+  teacherId?: Prisma.IntFilter<"SurveyData"> | number
   appendixId?: Prisma.IntFilter<"SurveyData"> | number
+  trainingModuleId?: Prisma.IntFilter<"SurveyData"> | number
   survey?: Prisma.JsonFilter<"SurveyData">
-  inscriptionId?: Prisma.IntFilter<"SurveyData"> | number
   createdAt?: Prisma.DateTimeFilter<"SurveyData"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SurveyData"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"SurveyData"> | Date | string | null
@@ -276,14 +288,16 @@ export type SurveyDataWhereInput = {
   updatedBy?: Prisma.IntNullableFilter<"SurveyData"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"SurveyData"> | number | null
   Appendix?: Prisma.XOR<Prisma.AppendixScalarRelationFilter, Prisma.AppendixWhereInput>
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
+  TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
 }
 
 export type SurveyDataOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   appendixId?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   survey?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -291,7 +305,8 @@ export type SurveyDataOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   Appendix?: Prisma.AppendixOrderByWithRelationInput
-  Inscription?: Prisma.InscriptionOrderByWithRelationInput
+  Teacher?: Prisma.TeacherOrderByWithRelationInput
+  TrainingModule?: Prisma.TrainingModuleOrderByWithRelationInput
 }
 
 export type SurveyDataWhereUniqueInput = Prisma.AtLeast<{
@@ -299,9 +314,10 @@ export type SurveyDataWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SurveyDataWhereInput | Prisma.SurveyDataWhereInput[]
   OR?: Prisma.SurveyDataWhereInput[]
   NOT?: Prisma.SurveyDataWhereInput | Prisma.SurveyDataWhereInput[]
+  teacherId?: Prisma.IntFilter<"SurveyData"> | number
   appendixId?: Prisma.IntFilter<"SurveyData"> | number
+  trainingModuleId?: Prisma.IntFilter<"SurveyData"> | number
   survey?: Prisma.JsonFilter<"SurveyData">
-  inscriptionId?: Prisma.IntFilter<"SurveyData"> | number
   createdAt?: Prisma.DateTimeFilter<"SurveyData"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SurveyData"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"SurveyData"> | Date | string | null
@@ -309,14 +325,16 @@ export type SurveyDataWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.IntNullableFilter<"SurveyData"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"SurveyData"> | number | null
   Appendix?: Prisma.XOR<Prisma.AppendixScalarRelationFilter, Prisma.AppendixWhereInput>
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
+  TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
 }, "id">
 
 export type SurveyDataOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   appendixId?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   survey?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -335,9 +353,10 @@ export type SurveyDataScalarWhereWithAggregatesInput = {
   OR?: Prisma.SurveyDataScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SurveyDataScalarWhereWithAggregatesInput | Prisma.SurveyDataScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"SurveyData"> | number
+  teacherId?: Prisma.IntWithAggregatesFilter<"SurveyData"> | number
   appendixId?: Prisma.IntWithAggregatesFilter<"SurveyData"> | number
+  trainingModuleId?: Prisma.IntWithAggregatesFilter<"SurveyData"> | number
   survey?: Prisma.JsonWithAggregatesFilter<"SurveyData">
-  inscriptionId?: Prisma.IntWithAggregatesFilter<"SurveyData"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SurveyData"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SurveyData"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SurveyData"> | Date | string | null
@@ -355,14 +374,16 @@ export type SurveyDataCreateInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   Appendix: Prisma.AppendixCreateNestedOneWithoutSurveyDataInput
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutSurveyDataInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutSurveyDataInput
+  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutSurveyDataInput
 }
 
 export type SurveyDataUncheckedCreateInput = {
   id?: number
+  teacherId: number
   appendixId: number
+  trainingModuleId: number
   survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -380,14 +401,16 @@ export type SurveyDataUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Appendix?: Prisma.AppendixUpdateOneRequiredWithoutSurveyDataNestedInput
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutSurveyDataNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutSurveyDataNestedInput
+  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutSurveyDataNestedInput
 }
 
 export type SurveyDataUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   appendixId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -398,9 +421,10 @@ export type SurveyDataUncheckedUpdateInput = {
 
 export type SurveyDataCreateManyInput = {
   id?: number
+  teacherId: number
   appendixId: number
+  trainingModuleId: number
   survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -421,9 +445,10 @@ export type SurveyDataUpdateManyMutationInput = {
 
 export type SurveyDataUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   appendixId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -444,9 +469,10 @@ export type SurveyDataOrderByRelationAggregateInput = {
 
 export type SurveyDataCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   appendixId?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   survey?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -457,8 +483,9 @@ export type SurveyDataCountOrderByAggregateInput = {
 
 export type SurveyDataAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   appendixId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -466,8 +493,9 @@ export type SurveyDataAvgOrderByAggregateInput = {
 
 export type SurveyDataMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   appendixId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -478,8 +506,9 @@ export type SurveyDataMaxOrderByAggregateInput = {
 
 export type SurveyDataMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   appendixId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -490,52 +519,95 @@ export type SurveyDataMinOrderByAggregateInput = {
 
 export type SurveyDataSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   appendixId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
 }
 
-export type SurveyDataCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutInscriptionInput, Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput> | Prisma.SurveyDataCreateWithoutInscriptionInput[] | Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput | Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.SurveyDataCreateManyInscriptionInputEnvelope
+export type SurveyDataCreateNestedManyWithoutTrainingModuleInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput> | Prisma.SurveyDataCreateWithoutTrainingModuleInput[] | Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput | Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput[]
+  createMany?: Prisma.SurveyDataCreateManyTrainingModuleInputEnvelope
   connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
 }
 
-export type SurveyDataUncheckedCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutInscriptionInput, Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput> | Prisma.SurveyDataCreateWithoutInscriptionInput[] | Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput | Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.SurveyDataCreateManyInscriptionInputEnvelope
+export type SurveyDataUncheckedCreateNestedManyWithoutTrainingModuleInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput> | Prisma.SurveyDataCreateWithoutTrainingModuleInput[] | Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput | Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput[]
+  createMany?: Prisma.SurveyDataCreateManyTrainingModuleInputEnvelope
   connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
 }
 
-export type SurveyDataUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutInscriptionInput, Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput> | Prisma.SurveyDataCreateWithoutInscriptionInput[] | Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput | Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.SurveyDataUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.SurveyDataUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.SurveyDataCreateManyInscriptionInputEnvelope
+export type SurveyDataUpdateManyWithoutTrainingModuleNestedInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput> | Prisma.SurveyDataCreateWithoutTrainingModuleInput[] | Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput | Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput[]
+  upsert?: Prisma.SurveyDataUpsertWithWhereUniqueWithoutTrainingModuleInput | Prisma.SurveyDataUpsertWithWhereUniqueWithoutTrainingModuleInput[]
+  createMany?: Prisma.SurveyDataCreateManyTrainingModuleInputEnvelope
   set?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
   disconnect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
   delete?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
   connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
-  update?: Prisma.SurveyDataUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.SurveyDataUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.SurveyDataUpdateManyWithWhereWithoutInscriptionInput | Prisma.SurveyDataUpdateManyWithWhereWithoutInscriptionInput[]
+  update?: Prisma.SurveyDataUpdateWithWhereUniqueWithoutTrainingModuleInput | Prisma.SurveyDataUpdateWithWhereUniqueWithoutTrainingModuleInput[]
+  updateMany?: Prisma.SurveyDataUpdateManyWithWhereWithoutTrainingModuleInput | Prisma.SurveyDataUpdateManyWithWhereWithoutTrainingModuleInput[]
   deleteMany?: Prisma.SurveyDataScalarWhereInput | Prisma.SurveyDataScalarWhereInput[]
 }
 
-export type SurveyDataUncheckedUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutInscriptionInput, Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput> | Prisma.SurveyDataCreateWithoutInscriptionInput[] | Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput | Prisma.SurveyDataCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.SurveyDataUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.SurveyDataUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.SurveyDataCreateManyInscriptionInputEnvelope
+export type SurveyDataUncheckedUpdateManyWithoutTrainingModuleNestedInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput> | Prisma.SurveyDataCreateWithoutTrainingModuleInput[] | Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput | Prisma.SurveyDataCreateOrConnectWithoutTrainingModuleInput[]
+  upsert?: Prisma.SurveyDataUpsertWithWhereUniqueWithoutTrainingModuleInput | Prisma.SurveyDataUpsertWithWhereUniqueWithoutTrainingModuleInput[]
+  createMany?: Prisma.SurveyDataCreateManyTrainingModuleInputEnvelope
   set?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
   disconnect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
   delete?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
   connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
-  update?: Prisma.SurveyDataUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.SurveyDataUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.SurveyDataUpdateManyWithWhereWithoutInscriptionInput | Prisma.SurveyDataUpdateManyWithWhereWithoutInscriptionInput[]
+  update?: Prisma.SurveyDataUpdateWithWhereUniqueWithoutTrainingModuleInput | Prisma.SurveyDataUpdateWithWhereUniqueWithoutTrainingModuleInput[]
+  updateMany?: Prisma.SurveyDataUpdateManyWithWhereWithoutTrainingModuleInput | Prisma.SurveyDataUpdateManyWithWhereWithoutTrainingModuleInput[]
+  deleteMany?: Prisma.SurveyDataScalarWhereInput | Prisma.SurveyDataScalarWhereInput[]
+}
+
+export type SurveyDataCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTeacherInput, Prisma.SurveyDataUncheckedCreateWithoutTeacherInput> | Prisma.SurveyDataCreateWithoutTeacherInput[] | Prisma.SurveyDataUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTeacherInput | Prisma.SurveyDataCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.SurveyDataCreateManyTeacherInputEnvelope
+  connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+}
+
+export type SurveyDataUncheckedCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTeacherInput, Prisma.SurveyDataUncheckedCreateWithoutTeacherInput> | Prisma.SurveyDataCreateWithoutTeacherInput[] | Prisma.SurveyDataUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTeacherInput | Prisma.SurveyDataCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.SurveyDataCreateManyTeacherInputEnvelope
+  connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+}
+
+export type SurveyDataUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTeacherInput, Prisma.SurveyDataUncheckedCreateWithoutTeacherInput> | Prisma.SurveyDataCreateWithoutTeacherInput[] | Prisma.SurveyDataUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTeacherInput | Prisma.SurveyDataCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.SurveyDataUpsertWithWhereUniqueWithoutTeacherInput | Prisma.SurveyDataUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.SurveyDataCreateManyTeacherInputEnvelope
+  set?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  disconnect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  delete?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  update?: Prisma.SurveyDataUpdateWithWhereUniqueWithoutTeacherInput | Prisma.SurveyDataUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.SurveyDataUpdateManyWithWhereWithoutTeacherInput | Prisma.SurveyDataUpdateManyWithWhereWithoutTeacherInput[]
+  deleteMany?: Prisma.SurveyDataScalarWhereInput | Prisma.SurveyDataScalarWhereInput[]
+}
+
+export type SurveyDataUncheckedUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.SurveyDataCreateWithoutTeacherInput, Prisma.SurveyDataUncheckedCreateWithoutTeacherInput> | Prisma.SurveyDataCreateWithoutTeacherInput[] | Prisma.SurveyDataUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.SurveyDataCreateOrConnectWithoutTeacherInput | Prisma.SurveyDataCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.SurveyDataUpsertWithWhereUniqueWithoutTeacherInput | Prisma.SurveyDataUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.SurveyDataCreateManyTeacherInputEnvelope
+  set?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  disconnect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  delete?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  connect?: Prisma.SurveyDataWhereUniqueInput | Prisma.SurveyDataWhereUniqueInput[]
+  update?: Prisma.SurveyDataUpdateWithWhereUniqueWithoutTeacherInput | Prisma.SurveyDataUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.SurveyDataUpdateManyWithWhereWithoutTeacherInput | Prisma.SurveyDataUpdateManyWithWhereWithoutTeacherInput[]
   deleteMany?: Prisma.SurveyDataScalarWhereInput | Prisma.SurveyDataScalarWhereInput[]
 }
 
@@ -581,7 +653,7 @@ export type SurveyDataUncheckedUpdateManyWithoutAppendixNestedInput = {
   deleteMany?: Prisma.SurveyDataScalarWhereInput | Prisma.SurveyDataScalarWhereInput[]
 }
 
-export type SurveyDataCreateWithoutInscriptionInput = {
+export type SurveyDataCreateWithoutTrainingModuleInput = {
   survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -590,10 +662,12 @@ export type SurveyDataCreateWithoutInscriptionInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   Appendix: Prisma.AppendixCreateNestedOneWithoutSurveyDataInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutSurveyDataInput
 }
 
-export type SurveyDataUncheckedCreateWithoutInscriptionInput = {
+export type SurveyDataUncheckedCreateWithoutTrainingModuleInput = {
   id?: number
+  teacherId: number
   appendixId: number
   survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -604,30 +678,30 @@ export type SurveyDataUncheckedCreateWithoutInscriptionInput = {
   deletedBy?: number | null
 }
 
-export type SurveyDataCreateOrConnectWithoutInscriptionInput = {
+export type SurveyDataCreateOrConnectWithoutTrainingModuleInput = {
   where: Prisma.SurveyDataWhereUniqueInput
-  create: Prisma.XOR<Prisma.SurveyDataCreateWithoutInscriptionInput, Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput>
+  create: Prisma.XOR<Prisma.SurveyDataCreateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput>
 }
 
-export type SurveyDataCreateManyInscriptionInputEnvelope = {
-  data: Prisma.SurveyDataCreateManyInscriptionInput | Prisma.SurveyDataCreateManyInscriptionInput[]
+export type SurveyDataCreateManyTrainingModuleInputEnvelope = {
+  data: Prisma.SurveyDataCreateManyTrainingModuleInput | Prisma.SurveyDataCreateManyTrainingModuleInput[]
   skipDuplicates?: boolean
 }
 
-export type SurveyDataUpsertWithWhereUniqueWithoutInscriptionInput = {
+export type SurveyDataUpsertWithWhereUniqueWithoutTrainingModuleInput = {
   where: Prisma.SurveyDataWhereUniqueInput
-  update: Prisma.XOR<Prisma.SurveyDataUpdateWithoutInscriptionInput, Prisma.SurveyDataUncheckedUpdateWithoutInscriptionInput>
-  create: Prisma.XOR<Prisma.SurveyDataCreateWithoutInscriptionInput, Prisma.SurveyDataUncheckedCreateWithoutInscriptionInput>
+  update: Prisma.XOR<Prisma.SurveyDataUpdateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedUpdateWithoutTrainingModuleInput>
+  create: Prisma.XOR<Prisma.SurveyDataCreateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedCreateWithoutTrainingModuleInput>
 }
 
-export type SurveyDataUpdateWithWhereUniqueWithoutInscriptionInput = {
+export type SurveyDataUpdateWithWhereUniqueWithoutTrainingModuleInput = {
   where: Prisma.SurveyDataWhereUniqueInput
-  data: Prisma.XOR<Prisma.SurveyDataUpdateWithoutInscriptionInput, Prisma.SurveyDataUncheckedUpdateWithoutInscriptionInput>
+  data: Prisma.XOR<Prisma.SurveyDataUpdateWithoutTrainingModuleInput, Prisma.SurveyDataUncheckedUpdateWithoutTrainingModuleInput>
 }
 
-export type SurveyDataUpdateManyWithWhereWithoutInscriptionInput = {
+export type SurveyDataUpdateManyWithWhereWithoutTrainingModuleInput = {
   where: Prisma.SurveyDataScalarWhereInput
-  data: Prisma.XOR<Prisma.SurveyDataUpdateManyMutationInput, Prisma.SurveyDataUncheckedUpdateManyWithoutInscriptionInput>
+  data: Prisma.XOR<Prisma.SurveyDataUpdateManyMutationInput, Prisma.SurveyDataUncheckedUpdateManyWithoutTrainingModuleInput>
 }
 
 export type SurveyDataScalarWhereInput = {
@@ -635,15 +709,67 @@ export type SurveyDataScalarWhereInput = {
   OR?: Prisma.SurveyDataScalarWhereInput[]
   NOT?: Prisma.SurveyDataScalarWhereInput | Prisma.SurveyDataScalarWhereInput[]
   id?: Prisma.IntFilter<"SurveyData"> | number
+  teacherId?: Prisma.IntFilter<"SurveyData"> | number
   appendixId?: Prisma.IntFilter<"SurveyData"> | number
+  trainingModuleId?: Prisma.IntFilter<"SurveyData"> | number
   survey?: Prisma.JsonFilter<"SurveyData">
-  inscriptionId?: Prisma.IntFilter<"SurveyData"> | number
   createdAt?: Prisma.DateTimeFilter<"SurveyData"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SurveyData"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"SurveyData"> | Date | string | null
   createdBy?: Prisma.IntFilter<"SurveyData"> | number
   updatedBy?: Prisma.IntNullableFilter<"SurveyData"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"SurveyData"> | number | null
+}
+
+export type SurveyDataCreateWithoutTeacherInput = {
+  survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Appendix: Prisma.AppendixCreateNestedOneWithoutSurveyDataInput
+  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutSurveyDataInput
+}
+
+export type SurveyDataUncheckedCreateWithoutTeacherInput = {
+  id?: number
+  appendixId: number
+  trainingModuleId: number
+  survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type SurveyDataCreateOrConnectWithoutTeacherInput = {
+  where: Prisma.SurveyDataWhereUniqueInput
+  create: Prisma.XOR<Prisma.SurveyDataCreateWithoutTeacherInput, Prisma.SurveyDataUncheckedCreateWithoutTeacherInput>
+}
+
+export type SurveyDataCreateManyTeacherInputEnvelope = {
+  data: Prisma.SurveyDataCreateManyTeacherInput | Prisma.SurveyDataCreateManyTeacherInput[]
+  skipDuplicates?: boolean
+}
+
+export type SurveyDataUpsertWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.SurveyDataWhereUniqueInput
+  update: Prisma.XOR<Prisma.SurveyDataUpdateWithoutTeacherInput, Prisma.SurveyDataUncheckedUpdateWithoutTeacherInput>
+  create: Prisma.XOR<Prisma.SurveyDataCreateWithoutTeacherInput, Prisma.SurveyDataUncheckedCreateWithoutTeacherInput>
+}
+
+export type SurveyDataUpdateWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.SurveyDataWhereUniqueInput
+  data: Prisma.XOR<Prisma.SurveyDataUpdateWithoutTeacherInput, Prisma.SurveyDataUncheckedUpdateWithoutTeacherInput>
+}
+
+export type SurveyDataUpdateManyWithWhereWithoutTeacherInput = {
+  where: Prisma.SurveyDataScalarWhereInput
+  data: Prisma.XOR<Prisma.SurveyDataUpdateManyMutationInput, Prisma.SurveyDataUncheckedUpdateManyWithoutTeacherInput>
 }
 
 export type SurveyDataCreateWithoutAppendixInput = {
@@ -654,13 +780,15 @@ export type SurveyDataCreateWithoutAppendixInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutSurveyDataInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutSurveyDataInput
+  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutSurveyDataInput
 }
 
 export type SurveyDataUncheckedCreateWithoutAppendixInput = {
   id?: number
+  teacherId: number
+  trainingModuleId: number
   survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -695,8 +823,9 @@ export type SurveyDataUpdateManyWithWhereWithoutAppendixInput = {
   data: Prisma.XOR<Prisma.SurveyDataUpdateManyMutationInput, Prisma.SurveyDataUncheckedUpdateManyWithoutAppendixInput>
 }
 
-export type SurveyDataCreateManyInscriptionInput = {
+export type SurveyDataCreateManyTrainingModuleInput = {
   id?: number
+  teacherId: number
   appendixId: number
   survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -707,7 +836,7 @@ export type SurveyDataCreateManyInscriptionInput = {
   deletedBy?: number | null
 }
 
-export type SurveyDataUpdateWithoutInscriptionInput = {
+export type SurveyDataUpdateWithoutTrainingModuleInput = {
   survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -716,10 +845,12 @@ export type SurveyDataUpdateWithoutInscriptionInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Appendix?: Prisma.AppendixUpdateOneRequiredWithoutSurveyDataNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutSurveyDataNestedInput
 }
 
-export type SurveyDataUncheckedUpdateWithoutInscriptionInput = {
+export type SurveyDataUncheckedUpdateWithoutTrainingModuleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   appendixId?: Prisma.IntFieldUpdateOperationsInput | number
   survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -730,9 +861,61 @@ export type SurveyDataUncheckedUpdateWithoutInscriptionInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type SurveyDataUncheckedUpdateManyWithoutInscriptionInput = {
+export type SurveyDataUncheckedUpdateManyWithoutTrainingModuleInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  appendixId?: Prisma.IntFieldUpdateOperationsInput | number
+  survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type SurveyDataCreateManyTeacherInput = {
+  id?: number
+  appendixId: number
+  trainingModuleId: number
+  survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type SurveyDataUpdateWithoutTeacherInput = {
+  survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Appendix?: Prisma.AppendixUpdateOneRequiredWithoutSurveyDataNestedInput
+  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutSurveyDataNestedInput
+}
+
+export type SurveyDataUncheckedUpdateWithoutTeacherInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   appendixId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
+  survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type SurveyDataUncheckedUpdateManyWithoutTeacherInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  appendixId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -744,8 +927,9 @@ export type SurveyDataUncheckedUpdateManyWithoutInscriptionInput = {
 
 export type SurveyDataCreateManyAppendixInput = {
   id?: number
+  teacherId: number
+  trainingModuleId: number
   survey: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -762,13 +946,15 @@ export type SurveyDataUpdateWithoutAppendixInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutSurveyDataNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutSurveyDataNestedInput
+  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutSurveyDataNestedInput
 }
 
 export type SurveyDataUncheckedUpdateWithoutAppendixInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -779,8 +965,9 @@ export type SurveyDataUncheckedUpdateWithoutAppendixInput = {
 
 export type SurveyDataUncheckedUpdateManyWithoutAppendixInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   survey?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -793,9 +980,10 @@ export type SurveyDataUncheckedUpdateManyWithoutAppendixInput = {
 
 export type SurveyDataSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  teacherId?: boolean
   appendixId?: boolean
+  trainingModuleId?: boolean
   survey?: boolean
-  inscriptionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -803,14 +991,16 @@ export type SurveyDataSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedBy?: boolean
   deletedBy?: boolean
   Appendix?: boolean | Prisma.AppendixDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["surveyData"]>
 
 export type SurveyDataSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  teacherId?: boolean
   appendixId?: boolean
+  trainingModuleId?: boolean
   survey?: boolean
-  inscriptionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -818,14 +1008,16 @@ export type SurveyDataSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedBy?: boolean
   deletedBy?: boolean
   Appendix?: boolean | Prisma.AppendixDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["surveyData"]>
 
 export type SurveyDataSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  teacherId?: boolean
   appendixId?: boolean
+  trainingModuleId?: boolean
   survey?: boolean
-  inscriptionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -833,14 +1025,16 @@ export type SurveyDataSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   updatedBy?: boolean
   deletedBy?: boolean
   Appendix?: boolean | Prisma.AppendixDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["surveyData"]>
 
 export type SurveyDataSelectScalar = {
   id?: boolean
+  teacherId?: boolean
   appendixId?: boolean
+  trainingModuleId?: boolean
   survey?: boolean
-  inscriptionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -849,31 +1043,36 @@ export type SurveyDataSelectScalar = {
   deletedBy?: boolean
 }
 
-export type SurveyDataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "appendixId" | "survey" | "inscriptionId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["surveyData"]>
+export type SurveyDataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "teacherId" | "appendixId" | "trainingModuleId" | "survey" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["surveyData"]>
 export type SurveyDataInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Appendix?: boolean | Prisma.AppendixDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type SurveyDataIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Appendix?: boolean | Prisma.AppendixDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type SurveyDataIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Appendix?: boolean | Prisma.AppendixDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 
 export type $SurveyDataPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SurveyData"
   objects: {
     Appendix: Prisma.$AppendixPayload<ExtArgs>
-    Inscription: Prisma.$InscriptionPayload<ExtArgs>
+    Teacher: Prisma.$TeacherPayload<ExtArgs>
+    TrainingModule: Prisma.$TrainingModulePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    teacherId: number
     appendixId: number
+    trainingModuleId: number
     survey: runtime.JsonValue
-    inscriptionId: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1275,7 +1474,8 @@ readonly fields: SurveyDataFieldRefs;
 export interface Prisma__SurveyDataClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Appendix<T extends Prisma.AppendixDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AppendixDefaultArgs<ExtArgs>>): Prisma.Prisma__AppendixClient<runtime.Types.Result.GetResult<Prisma.$AppendixPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Inscription<T extends Prisma.InscriptionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InscriptionDefaultArgs<ExtArgs>>): Prisma.Prisma__InscriptionClient<runtime.Types.Result.GetResult<Prisma.$InscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Teacher<T extends Prisma.TeacherDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeacherDefaultArgs<ExtArgs>>): Prisma.Prisma__TeacherClient<runtime.Types.Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  TrainingModule<T extends Prisma.TrainingModuleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainingModuleDefaultArgs<ExtArgs>>): Prisma.Prisma__TrainingModuleClient<runtime.Types.Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1306,9 +1506,10 @@ export interface Prisma__SurveyDataClient<T, Null = never, ExtArgs extends runti
  */
 export interface SurveyDataFieldRefs {
   readonly id: Prisma.FieldRef<"SurveyData", 'Int'>
+  readonly teacherId: Prisma.FieldRef<"SurveyData", 'Int'>
   readonly appendixId: Prisma.FieldRef<"SurveyData", 'Int'>
+  readonly trainingModuleId: Prisma.FieldRef<"SurveyData", 'Int'>
   readonly survey: Prisma.FieldRef<"SurveyData", 'Json'>
-  readonly inscriptionId: Prisma.FieldRef<"SurveyData", 'Int'>
   readonly createdAt: Prisma.FieldRef<"SurveyData", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SurveyData", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"SurveyData", 'DateTime'>

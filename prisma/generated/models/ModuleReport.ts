@@ -31,7 +31,7 @@ export type ModuleReportAvgAggregateOutputType = {
   moduleScore: number | null
   attendancePercentage: number | null
   trainingModuleId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -42,7 +42,7 @@ export type ModuleReportSumAggregateOutputType = {
   moduleScore: number | null
   attendancePercentage: number | null
   trainingModuleId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -54,7 +54,7 @@ export type ModuleReportMinAggregateOutputType = {
   status: $Enums.EvaluationEnum | null
   attendancePercentage: number | null
   trainingModuleId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -69,7 +69,7 @@ export type ModuleReportMaxAggregateOutputType = {
   status: $Enums.EvaluationEnum | null
   attendancePercentage: number | null
   trainingModuleId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -84,7 +84,7 @@ export type ModuleReportCountAggregateOutputType = {
   status: number
   attendancePercentage: number
   trainingModuleId: number
-  inscriptionId: number
+  teacherId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -100,7 +100,7 @@ export type ModuleReportAvgAggregateInputType = {
   moduleScore?: true
   attendancePercentage?: true
   trainingModuleId?: true
-  inscriptionId?: true
+  teacherId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -111,7 +111,7 @@ export type ModuleReportSumAggregateInputType = {
   moduleScore?: true
   attendancePercentage?: true
   trainingModuleId?: true
-  inscriptionId?: true
+  teacherId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -123,7 +123,7 @@ export type ModuleReportMinAggregateInputType = {
   status?: true
   attendancePercentage?: true
   trainingModuleId?: true
-  inscriptionId?: true
+  teacherId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -138,7 +138,7 @@ export type ModuleReportMaxAggregateInputType = {
   status?: true
   attendancePercentage?: true
   trainingModuleId?: true
-  inscriptionId?: true
+  teacherId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -153,7 +153,7 @@ export type ModuleReportCountAggregateInputType = {
   status?: true
   attendancePercentage?: true
   trainingModuleId?: true
-  inscriptionId?: true
+  teacherId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -255,7 +255,7 @@ export type ModuleReportGroupByOutputType = {
   status: $Enums.EvaluationEnum
   attendancePercentage: number
   trainingModuleId: number
-  inscriptionId: number
+  teacherId: number
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -293,14 +293,14 @@ export type ModuleReportWhereInput = {
   status?: Prisma.EnumEvaluationEnumFilter<"ModuleReport"> | $Enums.EvaluationEnum
   attendancePercentage?: Prisma.FloatFilter<"ModuleReport"> | number
   trainingModuleId?: Prisma.IntFilter<"ModuleReport"> | number
-  inscriptionId?: Prisma.IntFilter<"ModuleReport"> | number
+  teacherId?: Prisma.IntFilter<"ModuleReport"> | number
   createdAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"ModuleReport"> | Date | string | null
   createdBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
   updatedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
   TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
 }
 
@@ -310,20 +310,20 @@ export type ModuleReportOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  Inscription?: Prisma.InscriptionOrderByWithRelationInput
+  Teacher?: Prisma.TeacherOrderByWithRelationInput
   TrainingModule?: Prisma.TrainingModuleOrderByWithRelationInput
 }
 
 export type ModuleReportWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  trainingModuleId_inscriptionId?: Prisma.ModuleReportTrainingModuleIdInscriptionIdCompoundUniqueInput
+  trainingModuleId_teacherId?: Prisma.ModuleReportTrainingModuleIdTeacherIdCompoundUniqueInput
   AND?: Prisma.ModuleReportWhereInput | Prisma.ModuleReportWhereInput[]
   OR?: Prisma.ModuleReportWhereInput[]
   NOT?: Prisma.ModuleReportWhereInput | Prisma.ModuleReportWhereInput[]
@@ -331,16 +331,16 @@ export type ModuleReportWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumEvaluationEnumFilter<"ModuleReport"> | $Enums.EvaluationEnum
   attendancePercentage?: Prisma.FloatFilter<"ModuleReport"> | number
   trainingModuleId?: Prisma.IntFilter<"ModuleReport"> | number
-  inscriptionId?: Prisma.IntFilter<"ModuleReport"> | number
+  teacherId?: Prisma.IntFilter<"ModuleReport"> | number
   createdAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"ModuleReport"> | Date | string | null
   createdBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
   updatedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
   TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
-}, "id" | "trainingModuleId_inscriptionId">
+}, "id" | "trainingModuleId_teacherId">
 
 export type ModuleReportOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -348,7 +348,7 @@ export type ModuleReportOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -371,7 +371,7 @@ export type ModuleReportScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumEvaluationEnumWithAggregatesFilter<"ModuleReport"> | $Enums.EvaluationEnum
   attendancePercentage?: Prisma.FloatWithAggregatesFilter<"ModuleReport"> | number
   trainingModuleId?: Prisma.IntWithAggregatesFilter<"ModuleReport"> | number
-  inscriptionId?: Prisma.IntWithAggregatesFilter<"ModuleReport"> | number
+  teacherId?: Prisma.IntWithAggregatesFilter<"ModuleReport"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ModuleReport"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ModuleReport"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ModuleReport"> | Date | string | null
@@ -390,7 +390,7 @@ export type ModuleReportCreateInput = {
   createdBy?: number | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutModuleReportInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutModuleReportInput
   TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutModuleReportInput
 }
 
@@ -400,7 +400,7 @@ export type ModuleReportUncheckedCreateInput = {
   status: $Enums.EvaluationEnum
   attendancePercentage: number
   trainingModuleId: number
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -419,7 +419,7 @@ export type ModuleReportUpdateInput = {
   createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutModuleReportNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutModuleReportNestedInput
   TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutModuleReportNestedInput
 }
 
@@ -429,7 +429,7 @@ export type ModuleReportUncheckedUpdateInput = {
   status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -444,7 +444,7 @@ export type ModuleReportCreateManyInput = {
   status: $Enums.EvaluationEnum
   attendancePercentage: number
   trainingModuleId: number
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -471,7 +471,7 @@ export type ModuleReportUncheckedUpdateManyInput = {
   status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -490,9 +490,9 @@ export type ModuleReportOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ModuleReportTrainingModuleIdInscriptionIdCompoundUniqueInput = {
+export type ModuleReportTrainingModuleIdTeacherIdCompoundUniqueInput = {
   trainingModuleId: number
-  inscriptionId: number
+  teacherId: number
 }
 
 export type ModuleReportCountOrderByAggregateInput = {
@@ -501,7 +501,7 @@ export type ModuleReportCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -515,7 +515,7 @@ export type ModuleReportAvgOrderByAggregateInput = {
   moduleScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -527,7 +527,7 @@ export type ModuleReportMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -542,7 +542,7 @@ export type ModuleReportMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -556,52 +556,10 @@ export type ModuleReportSumOrderByAggregateInput = {
   moduleScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
-}
-
-export type ModuleReportCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutInscriptionInput, Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleReportCreateWithoutInscriptionInput[] | Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput | Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleReportCreateManyInscriptionInputEnvelope
-  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-}
-
-export type ModuleReportUncheckedCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutInscriptionInput, Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleReportCreateWithoutInscriptionInput[] | Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput | Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleReportCreateManyInscriptionInputEnvelope
-  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-}
-
-export type ModuleReportUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutInscriptionInput, Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleReportCreateWithoutInscriptionInput[] | Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput | Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.ModuleReportUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleReportUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleReportCreateManyInscriptionInputEnvelope
-  set?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  disconnect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  delete?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  update?: Prisma.ModuleReportUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleReportUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.ModuleReportUpdateManyWithWhereWithoutInscriptionInput | Prisma.ModuleReportUpdateManyWithWhereWithoutInscriptionInput[]
-  deleteMany?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
-}
-
-export type ModuleReportUncheckedUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutInscriptionInput, Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleReportCreateWithoutInscriptionInput[] | Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput | Prisma.ModuleReportCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.ModuleReportUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleReportUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleReportCreateManyInscriptionInputEnvelope
-  set?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  disconnect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  delete?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
-  update?: Prisma.ModuleReportUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleReportUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.ModuleReportUpdateManyWithWhereWithoutInscriptionInput | Prisma.ModuleReportUpdateManyWithWhereWithoutInscriptionInput[]
-  deleteMany?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
 }
 
 export type ModuleReportCreateNestedManyWithoutTrainingModuleInput = {
@@ -646,79 +604,50 @@ export type ModuleReportUncheckedUpdateManyWithoutTrainingModuleNestedInput = {
   deleteMany?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
 }
 
+export type ModuleReportCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutTeacherInput, Prisma.ModuleReportUncheckedCreateWithoutTeacherInput> | Prisma.ModuleReportCreateWithoutTeacherInput[] | Prisma.ModuleReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutTeacherInput | Prisma.ModuleReportCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.ModuleReportCreateManyTeacherInputEnvelope
+  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+}
+
+export type ModuleReportUncheckedCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutTeacherInput, Prisma.ModuleReportUncheckedCreateWithoutTeacherInput> | Prisma.ModuleReportCreateWithoutTeacherInput[] | Prisma.ModuleReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutTeacherInput | Prisma.ModuleReportCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.ModuleReportCreateManyTeacherInputEnvelope
+  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+}
+
+export type ModuleReportUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutTeacherInput, Prisma.ModuleReportUncheckedCreateWithoutTeacherInput> | Prisma.ModuleReportCreateWithoutTeacherInput[] | Prisma.ModuleReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutTeacherInput | Prisma.ModuleReportCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.ModuleReportUpsertWithWhereUniqueWithoutTeacherInput | Prisma.ModuleReportUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.ModuleReportCreateManyTeacherInputEnvelope
+  set?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  disconnect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  delete?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  update?: Prisma.ModuleReportUpdateWithWhereUniqueWithoutTeacherInput | Prisma.ModuleReportUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.ModuleReportUpdateManyWithWhereWithoutTeacherInput | Prisma.ModuleReportUpdateManyWithWhereWithoutTeacherInput[]
+  deleteMany?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
+}
+
+export type ModuleReportUncheckedUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.ModuleReportCreateWithoutTeacherInput, Prisma.ModuleReportUncheckedCreateWithoutTeacherInput> | Prisma.ModuleReportCreateWithoutTeacherInput[] | Prisma.ModuleReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleReportCreateOrConnectWithoutTeacherInput | Prisma.ModuleReportCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.ModuleReportUpsertWithWhereUniqueWithoutTeacherInput | Prisma.ModuleReportUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.ModuleReportCreateManyTeacherInputEnvelope
+  set?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  disconnect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  delete?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  connect?: Prisma.ModuleReportWhereUniqueInput | Prisma.ModuleReportWhereUniqueInput[]
+  update?: Prisma.ModuleReportUpdateWithWhereUniqueWithoutTeacherInput | Prisma.ModuleReportUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.ModuleReportUpdateManyWithWhereWithoutTeacherInput | Prisma.ModuleReportUpdateManyWithWhereWithoutTeacherInput[]
+  deleteMany?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
+}
+
 export type EnumEvaluationEnumFieldUpdateOperationsInput = {
   set?: $Enums.EvaluationEnum
-}
-
-export type ModuleReportCreateWithoutInscriptionInput = {
-  moduleScore: number
-  status: $Enums.EvaluationEnum
-  attendancePercentage: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: number | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutModuleReportInput
-}
-
-export type ModuleReportUncheckedCreateWithoutInscriptionInput = {
-  id?: number
-  moduleScore: number
-  status: $Enums.EvaluationEnum
-  attendancePercentage: number
-  trainingModuleId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: number | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-}
-
-export type ModuleReportCreateOrConnectWithoutInscriptionInput = {
-  where: Prisma.ModuleReportWhereUniqueInput
-  create: Prisma.XOR<Prisma.ModuleReportCreateWithoutInscriptionInput, Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput>
-}
-
-export type ModuleReportCreateManyInscriptionInputEnvelope = {
-  data: Prisma.ModuleReportCreateManyInscriptionInput | Prisma.ModuleReportCreateManyInscriptionInput[]
-  skipDuplicates?: boolean
-}
-
-export type ModuleReportUpsertWithWhereUniqueWithoutInscriptionInput = {
-  where: Prisma.ModuleReportWhereUniqueInput
-  update: Prisma.XOR<Prisma.ModuleReportUpdateWithoutInscriptionInput, Prisma.ModuleReportUncheckedUpdateWithoutInscriptionInput>
-  create: Prisma.XOR<Prisma.ModuleReportCreateWithoutInscriptionInput, Prisma.ModuleReportUncheckedCreateWithoutInscriptionInput>
-}
-
-export type ModuleReportUpdateWithWhereUniqueWithoutInscriptionInput = {
-  where: Prisma.ModuleReportWhereUniqueInput
-  data: Prisma.XOR<Prisma.ModuleReportUpdateWithoutInscriptionInput, Prisma.ModuleReportUncheckedUpdateWithoutInscriptionInput>
-}
-
-export type ModuleReportUpdateManyWithWhereWithoutInscriptionInput = {
-  where: Prisma.ModuleReportScalarWhereInput
-  data: Prisma.XOR<Prisma.ModuleReportUpdateManyMutationInput, Prisma.ModuleReportUncheckedUpdateManyWithoutInscriptionInput>
-}
-
-export type ModuleReportScalarWhereInput = {
-  AND?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
-  OR?: Prisma.ModuleReportScalarWhereInput[]
-  NOT?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
-  id?: Prisma.IntFilter<"ModuleReport"> | number
-  moduleScore?: Prisma.FloatFilter<"ModuleReport"> | number
-  status?: Prisma.EnumEvaluationEnumFilter<"ModuleReport"> | $Enums.EvaluationEnum
-  attendancePercentage?: Prisma.FloatFilter<"ModuleReport"> | number
-  trainingModuleId?: Prisma.IntFilter<"ModuleReport"> | number
-  inscriptionId?: Prisma.IntFilter<"ModuleReport"> | number
-  createdAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"ModuleReport"> | Date | string | null
-  createdBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
-  updatedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
-  deletedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
 }
 
 export type ModuleReportCreateWithoutTrainingModuleInput = {
@@ -731,7 +660,7 @@ export type ModuleReportCreateWithoutTrainingModuleInput = {
   createdBy?: number | null
   updatedBy?: number | null
   deletedBy?: number | null
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutModuleReportInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutModuleReportInput
 }
 
 export type ModuleReportUncheckedCreateWithoutTrainingModuleInput = {
@@ -739,7 +668,7 @@ export type ModuleReportUncheckedCreateWithoutTrainingModuleInput = {
   moduleScore: number
   status: $Enums.EvaluationEnum
   attendancePercentage: number
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -774,7 +703,38 @@ export type ModuleReportUpdateManyWithWhereWithoutTrainingModuleInput = {
   data: Prisma.XOR<Prisma.ModuleReportUpdateManyMutationInput, Prisma.ModuleReportUncheckedUpdateManyWithoutTrainingModuleInput>
 }
 
-export type ModuleReportCreateManyInscriptionInput = {
+export type ModuleReportScalarWhereInput = {
+  AND?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
+  OR?: Prisma.ModuleReportScalarWhereInput[]
+  NOT?: Prisma.ModuleReportScalarWhereInput | Prisma.ModuleReportScalarWhereInput[]
+  id?: Prisma.IntFilter<"ModuleReport"> | number
+  moduleScore?: Prisma.FloatFilter<"ModuleReport"> | number
+  status?: Prisma.EnumEvaluationEnumFilter<"ModuleReport"> | $Enums.EvaluationEnum
+  attendancePercentage?: Prisma.FloatFilter<"ModuleReport"> | number
+  trainingModuleId?: Prisma.IntFilter<"ModuleReport"> | number
+  teacherId?: Prisma.IntFilter<"ModuleReport"> | number
+  createdAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ModuleReport"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"ModuleReport"> | Date | string | null
+  createdBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
+  updatedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
+  deletedBy?: Prisma.IntNullableFilter<"ModuleReport"> | number | null
+}
+
+export type ModuleReportCreateWithoutTeacherInput = {
+  moduleScore: number
+  status: $Enums.EvaluationEnum
+  attendancePercentage: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedBy?: number | null
+  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutModuleReportInput
+}
+
+export type ModuleReportUncheckedCreateWithoutTeacherInput = {
   id?: number
   moduleScore: number
   status: $Enums.EvaluationEnum
@@ -788,45 +748,30 @@ export type ModuleReportCreateManyInscriptionInput = {
   deletedBy?: number | null
 }
 
-export type ModuleReportUpdateWithoutInscriptionInput = {
-  moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
-  attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutModuleReportNestedInput
+export type ModuleReportCreateOrConnectWithoutTeacherInput = {
+  where: Prisma.ModuleReportWhereUniqueInput
+  create: Prisma.XOR<Prisma.ModuleReportCreateWithoutTeacherInput, Prisma.ModuleReportUncheckedCreateWithoutTeacherInput>
 }
 
-export type ModuleReportUncheckedUpdateWithoutInscriptionInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
-  attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
-  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+export type ModuleReportCreateManyTeacherInputEnvelope = {
+  data: Prisma.ModuleReportCreateManyTeacherInput | Prisma.ModuleReportCreateManyTeacherInput[]
+  skipDuplicates?: boolean
 }
 
-export type ModuleReportUncheckedUpdateManyWithoutInscriptionInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
-  attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
-  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+export type ModuleReportUpsertWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.ModuleReportWhereUniqueInput
+  update: Prisma.XOR<Prisma.ModuleReportUpdateWithoutTeacherInput, Prisma.ModuleReportUncheckedUpdateWithoutTeacherInput>
+  create: Prisma.XOR<Prisma.ModuleReportCreateWithoutTeacherInput, Prisma.ModuleReportUncheckedCreateWithoutTeacherInput>
+}
+
+export type ModuleReportUpdateWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.ModuleReportWhereUniqueInput
+  data: Prisma.XOR<Prisma.ModuleReportUpdateWithoutTeacherInput, Prisma.ModuleReportUncheckedUpdateWithoutTeacherInput>
+}
+
+export type ModuleReportUpdateManyWithWhereWithoutTeacherInput = {
+  where: Prisma.ModuleReportScalarWhereInput
+  data: Prisma.XOR<Prisma.ModuleReportUpdateManyMutationInput, Prisma.ModuleReportUncheckedUpdateManyWithoutTeacherInput>
 }
 
 export type ModuleReportCreateManyTrainingModuleInput = {
@@ -834,7 +779,7 @@ export type ModuleReportCreateManyTrainingModuleInput = {
   moduleScore: number
   status: $Enums.EvaluationEnum
   attendancePercentage: number
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -853,7 +798,7 @@ export type ModuleReportUpdateWithoutTrainingModuleInput = {
   createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutModuleReportNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutModuleReportNestedInput
 }
 
 export type ModuleReportUncheckedUpdateWithoutTrainingModuleInput = {
@@ -861,7 +806,7 @@ export type ModuleReportUncheckedUpdateWithoutTrainingModuleInput = {
   moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -875,7 +820,62 @@ export type ModuleReportUncheckedUpdateManyWithoutTrainingModuleInput = {
   moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ModuleReportCreateManyTeacherInput = {
+  id?: number
+  moduleScore: number
+  status: $Enums.EvaluationEnum
+  attendancePercentage: number
+  trainingModuleId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type ModuleReportUpdateWithoutTeacherInput = {
+  moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
+  attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutModuleReportNestedInput
+}
+
+export type ModuleReportUncheckedUpdateWithoutTeacherInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
+  attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ModuleReportUncheckedUpdateManyWithoutTeacherInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  moduleScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.EnumEvaluationEnumFieldUpdateOperationsInput | $Enums.EvaluationEnum
+  attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -892,14 +892,14 @@ export type ModuleReportSelect<ExtArgs extends runtime.Types.Extensions.Internal
   status?: boolean
   attendancePercentage?: boolean
   trainingModuleId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moduleReport"]>
 
@@ -909,14 +909,14 @@ export type ModuleReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   attendancePercentage?: boolean
   trainingModuleId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moduleReport"]>
 
@@ -926,14 +926,14 @@ export type ModuleReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   attendancePercentage?: boolean
   trainingModuleId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moduleReport"]>
 
@@ -943,7 +943,7 @@ export type ModuleReportSelectScalar = {
   status?: boolean
   attendancePercentage?: boolean
   trainingModuleId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -952,24 +952,24 @@ export type ModuleReportSelectScalar = {
   deletedBy?: boolean
 }
 
-export type ModuleReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "moduleScore" | "status" | "attendancePercentage" | "trainingModuleId" | "inscriptionId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["moduleReport"]>
+export type ModuleReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "moduleScore" | "status" | "attendancePercentage" | "trainingModuleId" | "teacherId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["moduleReport"]>
 export type ModuleReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type ModuleReportIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type ModuleReportIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 
 export type $ModuleReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ModuleReport"
   objects: {
-    Inscription: Prisma.$InscriptionPayload<ExtArgs>
+    Teacher: Prisma.$TeacherPayload<ExtArgs>
     TrainingModule: Prisma.$TrainingModulePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -978,7 +978,7 @@ export type $ModuleReportPayload<ExtArgs extends runtime.Types.Extensions.Intern
     status: $Enums.EvaluationEnum
     attendancePercentage: number
     trainingModuleId: number
-    inscriptionId: number
+    teacherId: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1379,7 +1379,7 @@ readonly fields: ModuleReportFieldRefs;
  */
 export interface Prisma__ModuleReportClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Inscription<T extends Prisma.InscriptionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InscriptionDefaultArgs<ExtArgs>>): Prisma.Prisma__InscriptionClient<runtime.Types.Result.GetResult<Prisma.$InscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Teacher<T extends Prisma.TeacherDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeacherDefaultArgs<ExtArgs>>): Prisma.Prisma__TeacherClient<runtime.Types.Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   TrainingModule<T extends Prisma.TrainingModuleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainingModuleDefaultArgs<ExtArgs>>): Prisma.Prisma__TrainingModuleClient<runtime.Types.Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1415,7 +1415,7 @@ export interface ModuleReportFieldRefs {
   readonly status: Prisma.FieldRef<"ModuleReport", 'EvaluationEnum'>
   readonly attendancePercentage: Prisma.FieldRef<"ModuleReport", 'Float'>
   readonly trainingModuleId: Prisma.FieldRef<"ModuleReport", 'Int'>
-  readonly inscriptionId: Prisma.FieldRef<"ModuleReport", 'Int'>
+  readonly teacherId: Prisma.FieldRef<"ModuleReport", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ModuleReport", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ModuleReport", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"ModuleReport", 'DateTime'>

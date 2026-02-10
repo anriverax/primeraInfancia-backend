@@ -1,10 +1,10 @@
 model Cohort {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  Group             Group[]
-  School            School[]
-  TrainingModule    TrainingModule[]
-  Person            Person[]
+  id             Int              @id @default(autoincrement())
+  name           String
+  Group          Group[]
+  School         School[]
+  TrainingModule TrainingModule[]
+  Person         Person[]
 }
 
 model TypePerson {
@@ -47,24 +47,33 @@ model District {
 }
 
 model StoredEvent {
-  id        Int      @id @default(autoincrement())
-  type      String
-  payload   Json
-  createdAt DateTime @default(now())
-  createdBy Int      @default(0)
+  id         Int               @id @default(autoincrement())
+  entityType String
+  entityId   Int
+  action     StoredEventAction
+  oldValues  Json?
+  newValues  Json?
+  createdAt  DateTime          @default(now())
+  createdBy  Int
+  User       User              @relation(fields: [createdBy], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([action])
+  @@index([createdAt])
 }
 
 model School {
-  id              Int               @id @default(autoincrement())
-  code            Int               @unique
-  name            String
-  zone            String
-  districtId      Int
-  coordenates     String
-  cohortId        Int
-  PrincipalSchool PrincipalSchool[]
+  id          Int    @id @default(autoincrement())
+  code        Int    @unique
+  name        String
+  zone        String
+  districtId  Int
+  coordenates String
+  cohortId    Int
+
   Cohort          Cohort            @relation(fields: [cohortId], references: [id])
   District        District          @relation(fields: [districtId], references: [id])
+  Teacher         Teacher[]
 }
 
 model Role {
@@ -122,13 +131,23 @@ model TrainingModule {
   endDate           DateTime            @db.Date
   hours             Int
   cohortId          Int
+  Cohort            Cohort              @relation(fields: [cohortId], references: [id])
   ModuleEvaluation  ModuleEvaluation[]
   moduleReport      ModuleReport[]
-  Cohort            Cohort              @relation(fields: [cohortId], references: [id])
   AttendanceSession AttendanceSession[]
   SurveyData        SurveyData[]
   WorkAttendance    WorkAttendance[]
   EventSchedule     EventSchedule[]
+  PlannedEvent      PlannedEvent[]
 
   @@index([cohortId])
+}
+
+model AbsenceClassification {
+  id                  Int                   @id @default(autoincrement())
+  code                String                @unique
+  name                String
+  AttendanceException AttendanceException[]
+
+  @@index([name])
 }

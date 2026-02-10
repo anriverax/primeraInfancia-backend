@@ -4,62 +4,74 @@ enum AttendanceEnum {
 }
 
 model AttendanceSession {
-  id               Int       @id @default(autoincrement())
+  id               Int               @id @default(autoincrement())
   eventInstanceId  Int
+  personId         Int
   trainingModuleId Int
   modality         String
   checkIn          DateTime
   checkOut         DateTime?
   coordenates      String?
-  supportId        Int
+  createdAt        DateTime          @default(now())
+  createdBy        Int
+  EventInstance    EventInstance     @relation(fields: [eventInstanceId], references: [id])
+  Person           Person            @relation(fields: [personId], references: [id])
+  TrainingModule   TrainingModule    @relation(fields: [trainingModuleId], references: [id])
+  EventAttendance  EventAttendance[]
 
-  createdAt DateTime @default(now())
-  createdBy Int
-
-  EventInstance   EventInstance     @relation(fields: [eventInstanceId], references: [id])
-  Support         Person            @relation(fields: [supportId], references: [id])
-  EventAttendance EventAttendance[]
-  TrainingModule  TrainingModule    @relation(fields: [trainingModuleId], references: [id])
-
-  @@unique([supportId, checkOut])
+  @@unique([personId, checkOut])
   @@index([trainingModuleId])
-  @@index([supportId])
+  @@index([personId])
   @@index([eventInstanceId])
   @@index([createdAt])
 }
 
 model EventAttendance {
-  id                   Int               @id @default(autoincrement())
+  id                   Int                   @id @default(autoincrement())
+  personId             Int
   attendanceSessionId  Int
-  teacherId            Int
   checkIn              DateTime
   checkOut             DateTime?
   status               AttendanceEnum
-  comment              String?
-  justificationFileUrl String?
-  Person               Person            @relation(fields: [teacherId], references: [id])
-  AttendanceSession    AttendanceSession @relation(fields: [attendanceSessionId], references: [id])
-  createdAt            DateTime          @default(now())
-  updatedAt            DateTime          @updatedAt
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
   createdBy            Int
   updatedBy            Int?
+  Person               Person                @relation(fields: [personId], references: [id])
+  AttendanceSession    AttendanceSession     @relation(fields: [attendanceSessionId], references: [id])
+  attendanceExceptions AttendanceException[]
 
-  @@unique([teacherId, attendanceSessionId])
+  @@unique([personId, attendanceSessionId])
+}
+
+model AttendanceException {
+  id                      Int                   @id @default(autoincrement())
+  eventAttendanceId       Int
+  absenceClassificationId Int
+  comment                 String?
+  justificationFileUrl    String?
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+  createdBy               Int
+  updatedBy               Int?
+  AbsenceClassification   AbsenceClassification @relation(fields: [absenceClassificationId], references: [id])
+  EventAttendance         EventAttendance       @relation(fields: [eventAttendanceId], references: [id])
+
+  @@unique([eventAttendanceId, absenceClassificationId])
 }
 
 model WorkAttendance {
   id                Int            @id @default(autoincrement())
-  personId          Int // DE QUIÉN es la asistencia (obligatorio)
+  personId          Int
   trainingModuleId  Int
   checkIn           DateTime
   checkOut          DateTime?
   status            AttendanceEnum @default(PRESENTE)
+  coordenates       String?
   comment           String?
   justificationFile String?
-  coordenates       String?
-
-  Person         Person         @relation(fields: [personId], references: [id])
-  TrainingModule TrainingModule @relation(fields: [trainingModuleId], references: [id])
+  Person            Person         @relation(fields: [personId], references: [id])
+  TrainingModule    TrainingModule @relation(fields: [trainingModuleId], references: [id])
 
   @@index([trainingModuleId])
 }

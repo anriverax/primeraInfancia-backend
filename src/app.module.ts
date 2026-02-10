@@ -10,18 +10,18 @@ import config from "./config/config";
 import { PrismaModule } from "./services/prisma/prisma.module";
 import { RedisModule } from "./services/redis/redis.module";
 
-// module - Container modules
-import { CoreContainerModule } from "./core/core-container.module";
-import { CatalogueContainerModule } from "./core/catalogue/catalogue-container.module";
-import { AttendanceModule } from "./core/attendance/attendance.module";
-import { DashboardModule } from "./core/dashboard/dashboard.module";
-import { TestContainerModule } from "./core/test/test-container.module";
-import { DataContainerModule } from "./core/data-container.module";
-
 // module - Health check
-import { HealthModule } from "./core/health/health.module";
-import { AuthModule } from "./core/auth/auth.module";
+import { AuthModule } from "./api/auth/auth.module";
 import { ErrorHandlingModule } from "./services/errorHandling/errorHandling.module";
+import { CatalogueModule } from "./api/catalogue/catalogue.module";
+import { PlannedEventModule } from "./api/plannedEvent/plannedEvent.module";
+import { GroupModule } from "./api/group/group.module";
+import { DashboardModule } from "./api/dashboard/dashboard.module";
+import { AttendanceModule } from "./temp/attendance/attendance.module";
+import { MenuPermissionModule } from "./temp/menuPermission/menuPermissio.module";
+import { AppendixModule } from "./temp/appendix/appendix.module";
+import { SurveyDataModule } from "./temp/surveyData/surveyData.module";
+import { HealthModule } from "./temp/health/health.module";
 
 @Module({
   imports: [
@@ -49,15 +49,15 @@ import { ErrorHandlingModule } from "./services/errorHandling/errorHandling.modu
       }
     }),
     AuthModule,
-    // Health check
-    HealthModule,
-    // Container modules
-    CoreContainerModule,
-    CatalogueContainerModule,
-    AttendanceModule,
     DashboardModule,
-    TestContainerModule,
-    DataContainerModule
+    MenuPermissionModule,
+    AttendanceModule,
+    GroupModule,
+    PlannedEventModule,
+    HealthModule,
+    CatalogueModule,
+    AppendixModule,
+    SurveyDataModule
   ],
   controllers: [],
   providers: [

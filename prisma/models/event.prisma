@@ -6,46 +6,80 @@ model EventType {
   eventSchedules EventSchedule[]
 }
 
-model EventInstance {
-  id            Int @id @default(autoincrement())
-  eventId       Int
-  responsibleId Int
+model EventSchedule {
+  id               Int            @id @default(autoincrement())
+  eventTypeId      Int
+  trainingModuleId Int
+  frequency        Int // Ej: 3 (this module is executed 3 times)
+  EventType        EventType      @relation(fields: [eventTypeId], references: [id])
+  TrainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  createdBy Int
-  updatedBy Int?
-  deletedAt DateTime?
-  deletedBy Int?
-
-  Event  Event  @relation(fields: [eventId], references: [id])
-  Person Person @relation(fields: [responsibleId], references: [id])
-
-  AttendanceSession AttendanceSession[]
-
-  @@unique([eventId, responsibleId])
-  @@index([eventId])
+  @@unique([eventTypeId, trainingModuleId])
+  @@index([eventTypeId, trainingModuleId])
 }
 
 model Event {
-  id             Int             @id @default(autoincrement())
-  name           String
-  eventTypeId    Int
-  EventType      EventType       @relation(fields: [eventTypeId], references: [id])
-  eventInstances EventInstance[]
+  id            Int             @id @default(autoincrement())
+  name          String
+  eventTypeId   Int
+  EventType     EventType       @relation(fields: [eventTypeId], references: [id])
+  EventInstance EventInstance[]
 
   @@index([eventTypeId])
 }
 
-model EventSchedule {
-  id               Int @id @default(autoincrement())
-  eventTypeId      Int
-  trainingModuleId Int
-  frequency        Int // Ej: 3 (this module is executed 3 times)
+model PlannedEvent {
+  id                   Int                   @id @default(autoincrement())
+  eventInstanceId      Int
+  trainingModuleId     Int
+  start                DateTime
+  description          String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  createdBy            Int
+  updatedBy            Int?
+  deletedAt            DateTime?
+  deletedBy            Int?
+  EventInstance        EventInstance         @relation(fields: [eventInstanceId], references: [id])
+  TrainingModule       TrainingModule        @relation(fields: [trainingModuleId], references: [id])
+  PlannedEventTeachers PlannedEventTeacher[]
 
-  EventType      EventType      @relation(fields: [eventTypeId], references: [id])
-  TrainingModule TrainingModule @relation(fields: [trainingModuleId], references: [id])
+  @@unique([eventInstanceId, start])
+  @@index([eventInstanceId])
+}
 
-  @@unique([eventTypeId, trainingModuleId])
-  @@index([eventTypeId, trainingModuleId])
+model PlannedEventTeacher {
+  id             Int          @id @default(autoincrement())
+  plannedEventId Int
+  teacherId      Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+  createdBy      Int
+  updatedBy      Int?
+  deletedBy      Int?
+  PlannedEvent   PlannedEvent @relation(fields: [plannedEventId], references: [id])
+  Teacher        Teacher      @relation(fields: [teacherId], references: [id])
+
+  @@unique([plannedEventId, teacherId])
+  @@index([plannedEventId])
+}
+
+model EventInstance {
+  id                Int                 @id @default(autoincrement())
+  eventId           Int
+  personId          Int
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  createdBy         Int
+  updatedBy         Int?
+  deletedAt         DateTime?
+  deletedBy         Int?
+  Event             Event               @relation(fields: [eventId], references: [id])
+  Person            Person              @relation(fields: [personId], references: [id])
+  AttendanceSession AttendanceSession[]
+  PlannedEvent      PlannedEvent[]
+
+  @@unique([eventId, personId])
+  @@index([eventId])
 }

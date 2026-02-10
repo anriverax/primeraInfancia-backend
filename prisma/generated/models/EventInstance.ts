@@ -29,7 +29,7 @@ export type AggregateEventInstance = {
 export type EventInstanceAvgAggregateOutputType = {
   id: number | null
   eventId: number | null
-  responsibleId: number | null
+  personId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -38,7 +38,7 @@ export type EventInstanceAvgAggregateOutputType = {
 export type EventInstanceSumAggregateOutputType = {
   id: number | null
   eventId: number | null
-  responsibleId: number | null
+  personId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -47,7 +47,7 @@ export type EventInstanceSumAggregateOutputType = {
 export type EventInstanceMinAggregateOutputType = {
   id: number | null
   eventId: number | null
-  responsibleId: number | null
+  personId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   createdBy: number | null
@@ -59,7 +59,7 @@ export type EventInstanceMinAggregateOutputType = {
 export type EventInstanceMaxAggregateOutputType = {
   id: number | null
   eventId: number | null
-  responsibleId: number | null
+  personId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   createdBy: number | null
@@ -71,7 +71,7 @@ export type EventInstanceMaxAggregateOutputType = {
 export type EventInstanceCountAggregateOutputType = {
   id: number
   eventId: number
-  responsibleId: number
+  personId: number
   createdAt: number
   updatedAt: number
   createdBy: number
@@ -85,7 +85,7 @@ export type EventInstanceCountAggregateOutputType = {
 export type EventInstanceAvgAggregateInputType = {
   id?: true
   eventId?: true
-  responsibleId?: true
+  personId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -94,7 +94,7 @@ export type EventInstanceAvgAggregateInputType = {
 export type EventInstanceSumAggregateInputType = {
   id?: true
   eventId?: true
-  responsibleId?: true
+  personId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -103,7 +103,7 @@ export type EventInstanceSumAggregateInputType = {
 export type EventInstanceMinAggregateInputType = {
   id?: true
   eventId?: true
-  responsibleId?: true
+  personId?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
@@ -115,7 +115,7 @@ export type EventInstanceMinAggregateInputType = {
 export type EventInstanceMaxAggregateInputType = {
   id?: true
   eventId?: true
-  responsibleId?: true
+  personId?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
@@ -127,7 +127,7 @@ export type EventInstanceMaxAggregateInputType = {
 export type EventInstanceCountAggregateInputType = {
   id?: true
   eventId?: true
-  responsibleId?: true
+  personId?: true
   createdAt?: true
   updatedAt?: true
   createdBy?: true
@@ -226,7 +226,7 @@ export type EventInstanceGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type EventInstanceGroupByOutputType = {
   id: number
   eventId: number
-  responsibleId: number
+  personId: number
   createdAt: Date
   updatedAt: Date
   createdBy: number
@@ -261,7 +261,7 @@ export type EventInstanceWhereInput = {
   NOT?: Prisma.EventInstanceWhereInput | Prisma.EventInstanceWhereInput[]
   id?: Prisma.IntFilter<"EventInstance"> | number
   eventId?: Prisma.IntFilter<"EventInstance"> | number
-  responsibleId?: Prisma.IntFilter<"EventInstance"> | number
+  personId?: Prisma.IntFilter<"EventInstance"> | number
   createdAt?: Prisma.DateTimeFilter<"EventInstance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventInstance"> | Date | string
   createdBy?: Prisma.IntFilter<"EventInstance"> | number
@@ -271,12 +271,13 @@ export type EventInstanceWhereInput = {
   Event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   AttendanceSession?: Prisma.AttendanceSessionListRelationFilter
+  PlannedEvent?: Prisma.PlannedEventListRelationFilter
 }
 
 export type EventInstanceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  responsibleId?: Prisma.SortOrder
+  personId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -286,16 +287,17 @@ export type EventInstanceOrderByWithRelationInput = {
   Event?: Prisma.EventOrderByWithRelationInput
   Person?: Prisma.PersonOrderByWithRelationInput
   AttendanceSession?: Prisma.AttendanceSessionOrderByRelationAggregateInput
+  PlannedEvent?: Prisma.PlannedEventOrderByRelationAggregateInput
 }
 
 export type EventInstanceWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  eventId_responsibleId?: Prisma.EventInstanceEventIdResponsibleIdCompoundUniqueInput
+  eventId_personId?: Prisma.EventInstanceEventIdPersonIdCompoundUniqueInput
   AND?: Prisma.EventInstanceWhereInput | Prisma.EventInstanceWhereInput[]
   OR?: Prisma.EventInstanceWhereInput[]
   NOT?: Prisma.EventInstanceWhereInput | Prisma.EventInstanceWhereInput[]
   eventId?: Prisma.IntFilter<"EventInstance"> | number
-  responsibleId?: Prisma.IntFilter<"EventInstance"> | number
+  personId?: Prisma.IntFilter<"EventInstance"> | number
   createdAt?: Prisma.DateTimeFilter<"EventInstance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventInstance"> | Date | string
   createdBy?: Prisma.IntFilter<"EventInstance"> | number
@@ -305,12 +307,13 @@ export type EventInstanceWhereUniqueInput = Prisma.AtLeast<{
   Event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   AttendanceSession?: Prisma.AttendanceSessionListRelationFilter
-}, "id" | "eventId_responsibleId">
+  PlannedEvent?: Prisma.PlannedEventListRelationFilter
+}, "id" | "eventId_personId">
 
 export type EventInstanceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  responsibleId?: Prisma.SortOrder
+  personId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -330,7 +333,7 @@ export type EventInstanceScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EventInstanceScalarWhereWithAggregatesInput | Prisma.EventInstanceScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"EventInstance"> | number
   eventId?: Prisma.IntWithAggregatesFilter<"EventInstance"> | number
-  responsibleId?: Prisma.IntWithAggregatesFilter<"EventInstance"> | number
+  personId?: Prisma.IntWithAggregatesFilter<"EventInstance"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EventInstance"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EventInstance"> | Date | string
   createdBy?: Prisma.IntWithAggregatesFilter<"EventInstance"> | number
@@ -346,15 +349,16 @@ export type EventInstanceCreateInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
-  Event: Prisma.EventCreateNestedOneWithoutEventInstancesInput
+  Event: Prisma.EventCreateNestedOneWithoutEventInstanceInput
   Person: Prisma.PersonCreateNestedOneWithoutEventInstancesInput
   AttendanceSession?: Prisma.AttendanceSessionCreateNestedManyWithoutEventInstanceInput
+  PlannedEvent?: Prisma.PlannedEventCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceUncheckedCreateInput = {
   id?: number
   eventId: number
-  responsibleId: number
+  personId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -362,6 +366,7 @@ export type EventInstanceUncheckedCreateInput = {
   deletedAt?: Date | string | null
   deletedBy?: number | null
   AttendanceSession?: Prisma.AttendanceSessionUncheckedCreateNestedManyWithoutEventInstanceInput
+  PlannedEvent?: Prisma.PlannedEventUncheckedCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceUpdateInput = {
@@ -371,15 +376,16 @@ export type EventInstanceUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Event?: Prisma.EventUpdateOneRequiredWithoutEventInstancesNestedInput
+  Event?: Prisma.EventUpdateOneRequiredWithoutEventInstanceNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutEventInstancesNestedInput
   AttendanceSession?: Prisma.AttendanceSessionUpdateManyWithoutEventInstanceNestedInput
+  PlannedEvent?: Prisma.PlannedEventUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.IntFieldUpdateOperationsInput | number
-  responsibleId?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -387,12 +393,13 @@ export type EventInstanceUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   AttendanceSession?: Prisma.AttendanceSessionUncheckedUpdateManyWithoutEventInstanceNestedInput
+  PlannedEvent?: Prisma.PlannedEventUncheckedUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceCreateManyInput = {
   id?: number
   eventId: number
-  responsibleId: number
+  personId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -413,7 +420,7 @@ export type EventInstanceUpdateManyMutationInput = {
 export type EventInstanceUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.IntFieldUpdateOperationsInput | number
-  responsibleId?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -427,15 +434,25 @@ export type EventInstanceScalarRelationFilter = {
   isNot?: Prisma.EventInstanceWhereInput
 }
 
-export type EventInstanceEventIdResponsibleIdCompoundUniqueInput = {
+export type EventInstanceListRelationFilter = {
+  every?: Prisma.EventInstanceWhereInput
+  some?: Prisma.EventInstanceWhereInput
+  none?: Prisma.EventInstanceWhereInput
+}
+
+export type EventInstanceOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type EventInstanceEventIdPersonIdCompoundUniqueInput = {
   eventId: number
-  responsibleId: number
+  personId: number
 }
 
 export type EventInstanceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  responsibleId?: Prisma.SortOrder
+  personId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -447,7 +464,7 @@ export type EventInstanceCountOrderByAggregateInput = {
 export type EventInstanceAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  responsibleId?: Prisma.SortOrder
+  personId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -456,7 +473,7 @@ export type EventInstanceAvgOrderByAggregateInput = {
 export type EventInstanceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  responsibleId?: Prisma.SortOrder
+  personId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -468,7 +485,7 @@ export type EventInstanceMaxOrderByAggregateInput = {
 export type EventInstanceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  responsibleId?: Prisma.SortOrder
+  personId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -480,20 +497,10 @@ export type EventInstanceMinOrderByAggregateInput = {
 export type EventInstanceSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   eventId?: Prisma.SortOrder
-  responsibleId?: Prisma.SortOrder
+  personId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
-}
-
-export type EventInstanceListRelationFilter = {
-  every?: Prisma.EventInstanceWhereInput
-  some?: Prisma.EventInstanceWhereInput
-  none?: Prisma.EventInstanceWhereInput
-}
-
-export type EventInstanceOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type EventInstanceCreateNestedOneWithoutAttendanceSessionInput = {
@@ -552,6 +559,20 @@ export type EventInstanceUncheckedUpdateManyWithoutEventNestedInput = {
   deleteMany?: Prisma.EventInstanceScalarWhereInput | Prisma.EventInstanceScalarWhereInput[]
 }
 
+export type EventInstanceCreateNestedOneWithoutPlannedEventInput = {
+  create?: Prisma.XOR<Prisma.EventInstanceCreateWithoutPlannedEventInput, Prisma.EventInstanceUncheckedCreateWithoutPlannedEventInput>
+  connectOrCreate?: Prisma.EventInstanceCreateOrConnectWithoutPlannedEventInput
+  connect?: Prisma.EventInstanceWhereUniqueInput
+}
+
+export type EventInstanceUpdateOneRequiredWithoutPlannedEventNestedInput = {
+  create?: Prisma.XOR<Prisma.EventInstanceCreateWithoutPlannedEventInput, Prisma.EventInstanceUncheckedCreateWithoutPlannedEventInput>
+  connectOrCreate?: Prisma.EventInstanceCreateOrConnectWithoutPlannedEventInput
+  upsert?: Prisma.EventInstanceUpsertWithoutPlannedEventInput
+  connect?: Prisma.EventInstanceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventInstanceUpdateToOneWithWhereWithoutPlannedEventInput, Prisma.EventInstanceUpdateWithoutPlannedEventInput>, Prisma.EventInstanceUncheckedUpdateWithoutPlannedEventInput>
+}
+
 export type EventInstanceCreateNestedManyWithoutPersonInput = {
   create?: Prisma.XOR<Prisma.EventInstanceCreateWithoutPersonInput, Prisma.EventInstanceUncheckedCreateWithoutPersonInput> | Prisma.EventInstanceCreateWithoutPersonInput[] | Prisma.EventInstanceUncheckedCreateWithoutPersonInput[]
   connectOrCreate?: Prisma.EventInstanceCreateOrConnectWithoutPersonInput | Prisma.EventInstanceCreateOrConnectWithoutPersonInput[]
@@ -601,20 +622,22 @@ export type EventInstanceCreateWithoutAttendanceSessionInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
-  Event: Prisma.EventCreateNestedOneWithoutEventInstancesInput
+  Event: Prisma.EventCreateNestedOneWithoutEventInstanceInput
   Person: Prisma.PersonCreateNestedOneWithoutEventInstancesInput
+  PlannedEvent?: Prisma.PlannedEventCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceUncheckedCreateWithoutAttendanceSessionInput = {
   id?: number
   eventId: number
-  responsibleId: number
+  personId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
+  PlannedEvent?: Prisma.PlannedEventUncheckedCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceCreateOrConnectWithoutAttendanceSessionInput = {
@@ -640,20 +663,22 @@ export type EventInstanceUpdateWithoutAttendanceSessionInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Event?: Prisma.EventUpdateOneRequiredWithoutEventInstancesNestedInput
+  Event?: Prisma.EventUpdateOneRequiredWithoutEventInstanceNestedInput
   Person?: Prisma.PersonUpdateOneRequiredWithoutEventInstancesNestedInput
+  PlannedEvent?: Prisma.PlannedEventUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceUncheckedUpdateWithoutAttendanceSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   eventId?: Prisma.IntFieldUpdateOperationsInput | number
-  responsibleId?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  PlannedEvent?: Prisma.PlannedEventUncheckedUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceCreateWithoutEventInput = {
@@ -665,11 +690,12 @@ export type EventInstanceCreateWithoutEventInput = {
   deletedBy?: number | null
   Person: Prisma.PersonCreateNestedOneWithoutEventInstancesInput
   AttendanceSession?: Prisma.AttendanceSessionCreateNestedManyWithoutEventInstanceInput
+  PlannedEvent?: Prisma.PlannedEventCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceUncheckedCreateWithoutEventInput = {
   id?: number
-  responsibleId: number
+  personId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -677,6 +703,7 @@ export type EventInstanceUncheckedCreateWithoutEventInput = {
   deletedAt?: Date | string | null
   deletedBy?: number | null
   AttendanceSession?: Prisma.AttendanceSessionUncheckedCreateNestedManyWithoutEventInstanceInput
+  PlannedEvent?: Prisma.PlannedEventUncheckedCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceCreateOrConnectWithoutEventInput = {
@@ -711,13 +738,79 @@ export type EventInstanceScalarWhereInput = {
   NOT?: Prisma.EventInstanceScalarWhereInput | Prisma.EventInstanceScalarWhereInput[]
   id?: Prisma.IntFilter<"EventInstance"> | number
   eventId?: Prisma.IntFilter<"EventInstance"> | number
-  responsibleId?: Prisma.IntFilter<"EventInstance"> | number
+  personId?: Prisma.IntFilter<"EventInstance"> | number
   createdAt?: Prisma.DateTimeFilter<"EventInstance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EventInstance"> | Date | string
   createdBy?: Prisma.IntFilter<"EventInstance"> | number
   updatedBy?: Prisma.IntNullableFilter<"EventInstance"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"EventInstance"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"EventInstance"> | number | null
+}
+
+export type EventInstanceCreateWithoutPlannedEventInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy: number
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+  Event: Prisma.EventCreateNestedOneWithoutEventInstanceInput
+  Person: Prisma.PersonCreateNestedOneWithoutEventInstancesInput
+  AttendanceSession?: Prisma.AttendanceSessionCreateNestedManyWithoutEventInstanceInput
+}
+
+export type EventInstanceUncheckedCreateWithoutPlannedEventInput = {
+  id?: number
+  eventId: number
+  personId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy: number
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+  AttendanceSession?: Prisma.AttendanceSessionUncheckedCreateNestedManyWithoutEventInstanceInput
+}
+
+export type EventInstanceCreateOrConnectWithoutPlannedEventInput = {
+  where: Prisma.EventInstanceWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventInstanceCreateWithoutPlannedEventInput, Prisma.EventInstanceUncheckedCreateWithoutPlannedEventInput>
+}
+
+export type EventInstanceUpsertWithoutPlannedEventInput = {
+  update: Prisma.XOR<Prisma.EventInstanceUpdateWithoutPlannedEventInput, Prisma.EventInstanceUncheckedUpdateWithoutPlannedEventInput>
+  create: Prisma.XOR<Prisma.EventInstanceCreateWithoutPlannedEventInput, Prisma.EventInstanceUncheckedCreateWithoutPlannedEventInput>
+  where?: Prisma.EventInstanceWhereInput
+}
+
+export type EventInstanceUpdateToOneWithWhereWithoutPlannedEventInput = {
+  where?: Prisma.EventInstanceWhereInput
+  data: Prisma.XOR<Prisma.EventInstanceUpdateWithoutPlannedEventInput, Prisma.EventInstanceUncheckedUpdateWithoutPlannedEventInput>
+}
+
+export type EventInstanceUpdateWithoutPlannedEventInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Event?: Prisma.EventUpdateOneRequiredWithoutEventInstanceNestedInput
+  Person?: Prisma.PersonUpdateOneRequiredWithoutEventInstancesNestedInput
+  AttendanceSession?: Prisma.AttendanceSessionUpdateManyWithoutEventInstanceNestedInput
+}
+
+export type EventInstanceUncheckedUpdateWithoutPlannedEventInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  eventId?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  AttendanceSession?: Prisma.AttendanceSessionUncheckedUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceCreateWithoutPersonInput = {
@@ -727,8 +820,9 @@ export type EventInstanceCreateWithoutPersonInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
-  Event: Prisma.EventCreateNestedOneWithoutEventInstancesInput
+  Event: Prisma.EventCreateNestedOneWithoutEventInstanceInput
   AttendanceSession?: Prisma.AttendanceSessionCreateNestedManyWithoutEventInstanceInput
+  PlannedEvent?: Prisma.PlannedEventCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceUncheckedCreateWithoutPersonInput = {
@@ -741,6 +835,7 @@ export type EventInstanceUncheckedCreateWithoutPersonInput = {
   deletedAt?: Date | string | null
   deletedBy?: number | null
   AttendanceSession?: Prisma.AttendanceSessionUncheckedCreateNestedManyWithoutEventInstanceInput
+  PlannedEvent?: Prisma.PlannedEventUncheckedCreateNestedManyWithoutEventInstanceInput
 }
 
 export type EventInstanceCreateOrConnectWithoutPersonInput = {
@@ -771,7 +866,7 @@ export type EventInstanceUpdateManyWithWhereWithoutPersonInput = {
 
 export type EventInstanceCreateManyEventInput = {
   id?: number
-  responsibleId: number
+  personId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: number
@@ -789,11 +884,12 @@ export type EventInstanceUpdateWithoutEventInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Person?: Prisma.PersonUpdateOneRequiredWithoutEventInstancesNestedInput
   AttendanceSession?: Prisma.AttendanceSessionUpdateManyWithoutEventInstanceNestedInput
+  PlannedEvent?: Prisma.PlannedEventUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceUncheckedUpdateWithoutEventInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  responsibleId?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -801,11 +897,12 @@ export type EventInstanceUncheckedUpdateWithoutEventInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   AttendanceSession?: Prisma.AttendanceSessionUncheckedUpdateManyWithoutEventInstanceNestedInput
+  PlannedEvent?: Prisma.PlannedEventUncheckedUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceUncheckedUpdateManyWithoutEventInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  responsibleId?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
@@ -832,8 +929,9 @@ export type EventInstanceUpdateWithoutPersonInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Event?: Prisma.EventUpdateOneRequiredWithoutEventInstancesNestedInput
+  Event?: Prisma.EventUpdateOneRequiredWithoutEventInstanceNestedInput
   AttendanceSession?: Prisma.AttendanceSessionUpdateManyWithoutEventInstanceNestedInput
+  PlannedEvent?: Prisma.PlannedEventUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceUncheckedUpdateWithoutPersonInput = {
@@ -846,6 +944,7 @@ export type EventInstanceUncheckedUpdateWithoutPersonInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   AttendanceSession?: Prisma.AttendanceSessionUncheckedUpdateManyWithoutEventInstanceNestedInput
+  PlannedEvent?: Prisma.PlannedEventUncheckedUpdateManyWithoutEventInstanceNestedInput
 }
 
 export type EventInstanceUncheckedUpdateManyWithoutPersonInput = {
@@ -866,10 +965,12 @@ export type EventInstanceUncheckedUpdateManyWithoutPersonInput = {
 
 export type EventInstanceCountOutputType = {
   AttendanceSession: number
+  PlannedEvent: number
 }
 
 export type EventInstanceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   AttendanceSession?: boolean | EventInstanceCountOutputTypeCountAttendanceSessionArgs
+  PlannedEvent?: boolean | EventInstanceCountOutputTypeCountPlannedEventArgs
 }
 
 /**
@@ -889,11 +990,18 @@ export type EventInstanceCountOutputTypeCountAttendanceSessionArgs<ExtArgs exten
   where?: Prisma.AttendanceSessionWhereInput
 }
 
+/**
+ * EventInstanceCountOutputType without action
+ */
+export type EventInstanceCountOutputTypeCountPlannedEventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlannedEventWhereInput
+}
+
 
 export type EventInstanceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   eventId?: boolean
-  responsibleId?: boolean
+  personId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
@@ -903,13 +1011,14 @@ export type EventInstanceSelect<ExtArgs extends runtime.Types.Extensions.Interna
   Event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   AttendanceSession?: boolean | Prisma.EventInstance$AttendanceSessionArgs<ExtArgs>
+  PlannedEvent?: boolean | Prisma.EventInstance$PlannedEventArgs<ExtArgs>
   _count?: boolean | Prisma.EventInstanceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eventInstance"]>
 
 export type EventInstanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   eventId?: boolean
-  responsibleId?: boolean
+  personId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
@@ -923,7 +1032,7 @@ export type EventInstanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 export type EventInstanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   eventId?: boolean
-  responsibleId?: boolean
+  personId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
@@ -937,7 +1046,7 @@ export type EventInstanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type EventInstanceSelectScalar = {
   id?: boolean
   eventId?: boolean
-  responsibleId?: boolean
+  personId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean
@@ -946,11 +1055,12 @@ export type EventInstanceSelectScalar = {
   deletedBy?: boolean
 }
 
-export type EventInstanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "responsibleId" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["eventInstance"]>
+export type EventInstanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "eventId" | "personId" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["eventInstance"]>
 export type EventInstanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Event?: boolean | Prisma.EventDefaultArgs<ExtArgs>
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   AttendanceSession?: boolean | Prisma.EventInstance$AttendanceSessionArgs<ExtArgs>
+  PlannedEvent?: boolean | Prisma.EventInstance$PlannedEventArgs<ExtArgs>
   _count?: boolean | Prisma.EventInstanceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EventInstanceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -968,11 +1078,12 @@ export type $EventInstancePayload<ExtArgs extends runtime.Types.Extensions.Inter
     Event: Prisma.$EventPayload<ExtArgs>
     Person: Prisma.$PersonPayload<ExtArgs>
     AttendanceSession: Prisma.$AttendanceSessionPayload<ExtArgs>[]
+    PlannedEvent: Prisma.$PlannedEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     eventId: number
-    responsibleId: number
+    personId: number
     createdAt: Date
     updatedAt: Date
     createdBy: number
@@ -1376,6 +1487,7 @@ export interface Prisma__EventInstanceClient<T, Null = never, ExtArgs extends ru
   Event<T extends Prisma.EventDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventDefaultArgs<ExtArgs>>): Prisma.Prisma__EventClient<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Person<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   AttendanceSession<T extends Prisma.EventInstance$AttendanceSessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventInstance$AttendanceSessionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendanceSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  PlannedEvent<T extends Prisma.EventInstance$PlannedEventArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventInstance$PlannedEventArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlannedEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1407,7 +1519,7 @@ export interface Prisma__EventInstanceClient<T, Null = never, ExtArgs extends ru
 export interface EventInstanceFieldRefs {
   readonly id: Prisma.FieldRef<"EventInstance", 'Int'>
   readonly eventId: Prisma.FieldRef<"EventInstance", 'Int'>
-  readonly responsibleId: Prisma.FieldRef<"EventInstance", 'Int'>
+  readonly personId: Prisma.FieldRef<"EventInstance", 'Int'>
   readonly createdAt: Prisma.FieldRef<"EventInstance", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EventInstance", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"EventInstance", 'Int'>
@@ -1831,6 +1943,30 @@ export type EventInstance$AttendanceSessionArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.AttendanceSessionScalarFieldEnum | Prisma.AttendanceSessionScalarFieldEnum[]
+}
+
+/**
+ * EventInstance.PlannedEvent
+ */
+export type EventInstance$PlannedEventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlannedEvent
+   */
+  select?: Prisma.PlannedEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlannedEvent
+   */
+  omit?: Prisma.PlannedEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlannedEventInclude<ExtArgs> | null
+  where?: Prisma.PlannedEventWhereInput
+  orderBy?: Prisma.PlannedEventOrderByWithRelationInput | Prisma.PlannedEventOrderByWithRelationInput[]
+  cursor?: Prisma.PlannedEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlannedEventScalarFieldEnum | Prisma.PlannedEventScalarFieldEnum[]
 }
 
 /**

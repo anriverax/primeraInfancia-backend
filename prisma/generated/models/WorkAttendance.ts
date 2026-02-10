@@ -29,58 +29,49 @@ export type AggregateWorkAttendance = {
 export type WorkAttendanceAvgAggregateOutputType = {
   id: number | null
   personId: number | null
-  updatedBy: number | null
+  trainingModuleId: number | null
 }
 
 export type WorkAttendanceSumAggregateOutputType = {
   id: number | null
   personId: number | null
-  updatedBy: number | null
+  trainingModuleId: number | null
 }
 
 export type WorkAttendanceMinAggregateOutputType = {
   id: number | null
   personId: number | null
-  date: Date | null
+  trainingModuleId: number | null
   checkIn: Date | null
   checkOut: Date | null
   status: $Enums.AttendanceEnum | null
+  coordenates: string | null
   comment: string | null
   justificationFile: string | null
-  coordinates: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  updatedBy: number | null
 }
 
 export type WorkAttendanceMaxAggregateOutputType = {
   id: number | null
   personId: number | null
-  date: Date | null
+  trainingModuleId: number | null
   checkIn: Date | null
   checkOut: Date | null
   status: $Enums.AttendanceEnum | null
+  coordenates: string | null
   comment: string | null
   justificationFile: string | null
-  coordinates: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  updatedBy: number | null
 }
 
 export type WorkAttendanceCountAggregateOutputType = {
   id: number
   personId: number
-  date: number
+  trainingModuleId: number
   checkIn: number
   checkOut: number
   status: number
+  coordenates: number
   comment: number
   justificationFile: number
-  coordinates: number
-  createdAt: number
-  updatedAt: number
-  updatedBy: number
   _all: number
 }
 
@@ -88,58 +79,49 @@ export type WorkAttendanceCountAggregateOutputType = {
 export type WorkAttendanceAvgAggregateInputType = {
   id?: true
   personId?: true
-  updatedBy?: true
+  trainingModuleId?: true
 }
 
 export type WorkAttendanceSumAggregateInputType = {
   id?: true
   personId?: true
-  updatedBy?: true
+  trainingModuleId?: true
 }
 
 export type WorkAttendanceMinAggregateInputType = {
   id?: true
   personId?: true
-  date?: true
+  trainingModuleId?: true
   checkIn?: true
   checkOut?: true
   status?: true
+  coordenates?: true
   comment?: true
   justificationFile?: true
-  coordinates?: true
-  createdAt?: true
-  updatedAt?: true
-  updatedBy?: true
 }
 
 export type WorkAttendanceMaxAggregateInputType = {
   id?: true
   personId?: true
-  date?: true
+  trainingModuleId?: true
   checkIn?: true
   checkOut?: true
   status?: true
+  coordenates?: true
   comment?: true
   justificationFile?: true
-  coordinates?: true
-  createdAt?: true
-  updatedAt?: true
-  updatedBy?: true
 }
 
 export type WorkAttendanceCountAggregateInputType = {
   id?: true
   personId?: true
-  date?: true
+  trainingModuleId?: true
   checkIn?: true
   checkOut?: true
   status?: true
+  coordenates?: true
   comment?: true
   justificationFile?: true
-  coordinates?: true
-  createdAt?: true
-  updatedAt?: true
-  updatedBy?: true
   _all?: true
 }
 
@@ -232,16 +214,13 @@ export type WorkAttendanceGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type WorkAttendanceGroupByOutputType = {
   id: number
   personId: number
-  date: Date
+  trainingModuleId: number
   checkIn: Date
   checkOut: Date | null
   status: $Enums.AttendanceEnum
+  coordenates: string | null
   comment: string | null
   justificationFile: string | null
-  coordinates: string | null
-  createdAt: Date
-  updatedAt: Date
-  updatedBy: number | null
   _count: WorkAttendanceCountAggregateOutputType | null
   _avg: WorkAttendanceAvgAggregateOutputType | null
   _sum: WorkAttendanceSumAggregateOutputType | null
@@ -270,68 +249,58 @@ export type WorkAttendanceWhereInput = {
   NOT?: Prisma.WorkAttendanceWhereInput | Prisma.WorkAttendanceWhereInput[]
   id?: Prisma.IntFilter<"WorkAttendance"> | number
   personId?: Prisma.IntFilter<"WorkAttendance"> | number
-  date?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
+  trainingModuleId?: Prisma.IntFilter<"WorkAttendance"> | number
   checkIn?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
   checkOut?: Prisma.DateTimeNullableFilter<"WorkAttendance"> | Date | string | null
   status?: Prisma.EnumAttendanceEnumFilter<"WorkAttendance"> | $Enums.AttendanceEnum
+  coordenates?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
   comment?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
   justificationFile?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
-  coordinates?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  updatedBy?: Prisma.IntNullableFilter<"WorkAttendance"> | number | null
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
+  TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
 }
 
 export type WorkAttendanceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  coordenates?: Prisma.SortOrderInput | Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   justificationFile?: Prisma.SortOrderInput | Prisma.SortOrder
-  coordinates?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   Person?: Prisma.PersonOrderByWithRelationInput
+  TrainingModule?: Prisma.TrainingModuleOrderByWithRelationInput
 }
 
 export type WorkAttendanceWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  personId_date?: Prisma.WorkAttendancePersonIdDateCompoundUniqueInput
   AND?: Prisma.WorkAttendanceWhereInput | Prisma.WorkAttendanceWhereInput[]
   OR?: Prisma.WorkAttendanceWhereInput[]
   NOT?: Prisma.WorkAttendanceWhereInput | Prisma.WorkAttendanceWhereInput[]
   personId?: Prisma.IntFilter<"WorkAttendance"> | number
-  date?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
+  trainingModuleId?: Prisma.IntFilter<"WorkAttendance"> | number
   checkIn?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
   checkOut?: Prisma.DateTimeNullableFilter<"WorkAttendance"> | Date | string | null
   status?: Prisma.EnumAttendanceEnumFilter<"WorkAttendance"> | $Enums.AttendanceEnum
+  coordenates?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
   comment?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
   justificationFile?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
-  coordinates?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  updatedBy?: Prisma.IntNullableFilter<"WorkAttendance"> | number | null
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
-}, "id" | "personId_date">
+  TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
+}, "id">
 
 export type WorkAttendanceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  coordenates?: Prisma.SortOrderInput | Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   justificationFile?: Prisma.SortOrderInput | Prisma.SortOrder
-  coordinates?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.WorkAttendanceCountOrderByAggregateInput
   _avg?: Prisma.WorkAttendanceAvgOrderByAggregateInput
   _max?: Prisma.WorkAttendanceMaxOrderByAggregateInput
@@ -345,179 +314,140 @@ export type WorkAttendanceScalarWhereWithAggregatesInput = {
   NOT?: Prisma.WorkAttendanceScalarWhereWithAggregatesInput | Prisma.WorkAttendanceScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"WorkAttendance"> | number
   personId?: Prisma.IntWithAggregatesFilter<"WorkAttendance"> | number
-  date?: Prisma.DateTimeWithAggregatesFilter<"WorkAttendance"> | Date | string
+  trainingModuleId?: Prisma.IntWithAggregatesFilter<"WorkAttendance"> | number
   checkIn?: Prisma.DateTimeWithAggregatesFilter<"WorkAttendance"> | Date | string
   checkOut?: Prisma.DateTimeNullableWithAggregatesFilter<"WorkAttendance"> | Date | string | null
   status?: Prisma.EnumAttendanceEnumWithAggregatesFilter<"WorkAttendance"> | $Enums.AttendanceEnum
+  coordenates?: Prisma.StringNullableWithAggregatesFilter<"WorkAttendance"> | string | null
   comment?: Prisma.StringNullableWithAggregatesFilter<"WorkAttendance"> | string | null
   justificationFile?: Prisma.StringNullableWithAggregatesFilter<"WorkAttendance"> | string | null
-  coordinates?: Prisma.StringNullableWithAggregatesFilter<"WorkAttendance"> | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"WorkAttendance"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"WorkAttendance"> | Date | string
-  updatedBy?: Prisma.IntNullableWithAggregatesFilter<"WorkAttendance"> | number | null
 }
 
 export type WorkAttendanceCreateInput = {
-  date: Date | string
   checkIn: Date | string
   checkOut?: Date | string | null
   status?: $Enums.AttendanceEnum
+  coordenates?: string | null
   comment?: string | null
   justificationFile?: string | null
-  coordinates?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  updatedBy?: number | null
   Person: Prisma.PersonCreateNestedOneWithoutWorkAttendanceInput
+  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutWorkAttendanceInput
 }
 
 export type WorkAttendanceUncheckedCreateInput = {
   id?: number
   personId: number
-  date: Date | string
+  trainingModuleId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status?: $Enums.AttendanceEnum
+  coordenates?: string | null
   comment?: string | null
   justificationFile?: string | null
-  coordinates?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  updatedBy?: number | null
 }
 
 export type WorkAttendanceUpdateInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Person?: Prisma.PersonUpdateOneRequiredWithoutWorkAttendanceNestedInput
+  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutWorkAttendanceNestedInput
 }
 
 export type WorkAttendanceUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   personId?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type WorkAttendanceCreateManyInput = {
   id?: number
   personId: number
-  date: Date | string
+  trainingModuleId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status?: $Enums.AttendanceEnum
+  coordenates?: string | null
   comment?: string | null
   justificationFile?: string | null
-  coordinates?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  updatedBy?: number | null
 }
 
 export type WorkAttendanceUpdateManyMutationInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type WorkAttendanceUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   personId?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type WorkAttendancePersonIdDateCompoundUniqueInput = {
-  personId: number
-  date: Date | string
 }
 
 export type WorkAttendanceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  coordenates?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   justificationFile?: Prisma.SortOrder
-  coordinates?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
 }
 
 export type WorkAttendanceAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
 }
 
 export type WorkAttendanceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  coordenates?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   justificationFile?: Prisma.SortOrder
-  coordinates?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
 }
 
 export type WorkAttendanceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
   checkIn?: Prisma.SortOrder
   checkOut?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  coordenates?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   justificationFile?: Prisma.SortOrder
-  coordinates?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
 }
 
 export type WorkAttendanceSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  trainingModuleId?: Prisma.SortOrder
 }
 
 export type WorkAttendanceListRelationFilter = {
@@ -528,6 +458,48 @@ export type WorkAttendanceListRelationFilter = {
 
 export type WorkAttendanceOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type WorkAttendanceCreateNestedManyWithoutTrainingModuleInput = {
+  create?: Prisma.XOR<Prisma.WorkAttendanceCreateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput> | Prisma.WorkAttendanceCreateWithoutTrainingModuleInput[] | Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput | Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput[]
+  createMany?: Prisma.WorkAttendanceCreateManyTrainingModuleInputEnvelope
+  connect?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+}
+
+export type WorkAttendanceUncheckedCreateNestedManyWithoutTrainingModuleInput = {
+  create?: Prisma.XOR<Prisma.WorkAttendanceCreateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput> | Prisma.WorkAttendanceCreateWithoutTrainingModuleInput[] | Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput | Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput[]
+  createMany?: Prisma.WorkAttendanceCreateManyTrainingModuleInputEnvelope
+  connect?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+}
+
+export type WorkAttendanceUpdateManyWithoutTrainingModuleNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkAttendanceCreateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput> | Prisma.WorkAttendanceCreateWithoutTrainingModuleInput[] | Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput | Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput[]
+  upsert?: Prisma.WorkAttendanceUpsertWithWhereUniqueWithoutTrainingModuleInput | Prisma.WorkAttendanceUpsertWithWhereUniqueWithoutTrainingModuleInput[]
+  createMany?: Prisma.WorkAttendanceCreateManyTrainingModuleInputEnvelope
+  set?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  disconnect?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  delete?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  connect?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  update?: Prisma.WorkAttendanceUpdateWithWhereUniqueWithoutTrainingModuleInput | Prisma.WorkAttendanceUpdateWithWhereUniqueWithoutTrainingModuleInput[]
+  updateMany?: Prisma.WorkAttendanceUpdateManyWithWhereWithoutTrainingModuleInput | Prisma.WorkAttendanceUpdateManyWithWhereWithoutTrainingModuleInput[]
+  deleteMany?: Prisma.WorkAttendanceScalarWhereInput | Prisma.WorkAttendanceScalarWhereInput[]
+}
+
+export type WorkAttendanceUncheckedUpdateManyWithoutTrainingModuleNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkAttendanceCreateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput> | Prisma.WorkAttendanceCreateWithoutTrainingModuleInput[] | Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput[]
+  connectOrCreate?: Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput | Prisma.WorkAttendanceCreateOrConnectWithoutTrainingModuleInput[]
+  upsert?: Prisma.WorkAttendanceUpsertWithWhereUniqueWithoutTrainingModuleInput | Prisma.WorkAttendanceUpsertWithWhereUniqueWithoutTrainingModuleInput[]
+  createMany?: Prisma.WorkAttendanceCreateManyTrainingModuleInputEnvelope
+  set?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  disconnect?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  delete?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  connect?: Prisma.WorkAttendanceWhereUniqueInput | Prisma.WorkAttendanceWhereUniqueInput[]
+  update?: Prisma.WorkAttendanceUpdateWithWhereUniqueWithoutTrainingModuleInput | Prisma.WorkAttendanceUpdateWithWhereUniqueWithoutTrainingModuleInput[]
+  updateMany?: Prisma.WorkAttendanceUpdateManyWithWhereWithoutTrainingModuleInput | Prisma.WorkAttendanceUpdateManyWithWhereWithoutTrainingModuleInput[]
+  deleteMany?: Prisma.WorkAttendanceScalarWhereInput | Prisma.WorkAttendanceScalarWhereInput[]
 }
 
 export type WorkAttendanceCreateNestedManyWithoutPersonInput = {
@@ -572,31 +544,87 @@ export type WorkAttendanceUncheckedUpdateManyWithoutPersonNestedInput = {
   deleteMany?: Prisma.WorkAttendanceScalarWhereInput | Prisma.WorkAttendanceScalarWhereInput[]
 }
 
-export type WorkAttendanceCreateWithoutPersonInput = {
-  date: Date | string
+export type WorkAttendanceCreateWithoutTrainingModuleInput = {
   checkIn: Date | string
   checkOut?: Date | string | null
   status?: $Enums.AttendanceEnum
+  coordenates?: string | null
   comment?: string | null
   justificationFile?: string | null
-  coordinates?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  updatedBy?: number | null
+  Person: Prisma.PersonCreateNestedOneWithoutWorkAttendanceInput
+}
+
+export type WorkAttendanceUncheckedCreateWithoutTrainingModuleInput = {
+  id?: number
+  personId: number
+  checkIn: Date | string
+  checkOut?: Date | string | null
+  status?: $Enums.AttendanceEnum
+  coordenates?: string | null
+  comment?: string | null
+  justificationFile?: string | null
+}
+
+export type WorkAttendanceCreateOrConnectWithoutTrainingModuleInput = {
+  where: Prisma.WorkAttendanceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkAttendanceCreateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput>
+}
+
+export type WorkAttendanceCreateManyTrainingModuleInputEnvelope = {
+  data: Prisma.WorkAttendanceCreateManyTrainingModuleInput | Prisma.WorkAttendanceCreateManyTrainingModuleInput[]
+  skipDuplicates?: boolean
+}
+
+export type WorkAttendanceUpsertWithWhereUniqueWithoutTrainingModuleInput = {
+  where: Prisma.WorkAttendanceWhereUniqueInput
+  update: Prisma.XOR<Prisma.WorkAttendanceUpdateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedUpdateWithoutTrainingModuleInput>
+  create: Prisma.XOR<Prisma.WorkAttendanceCreateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedCreateWithoutTrainingModuleInput>
+}
+
+export type WorkAttendanceUpdateWithWhereUniqueWithoutTrainingModuleInput = {
+  where: Prisma.WorkAttendanceWhereUniqueInput
+  data: Prisma.XOR<Prisma.WorkAttendanceUpdateWithoutTrainingModuleInput, Prisma.WorkAttendanceUncheckedUpdateWithoutTrainingModuleInput>
+}
+
+export type WorkAttendanceUpdateManyWithWhereWithoutTrainingModuleInput = {
+  where: Prisma.WorkAttendanceScalarWhereInput
+  data: Prisma.XOR<Prisma.WorkAttendanceUpdateManyMutationInput, Prisma.WorkAttendanceUncheckedUpdateManyWithoutTrainingModuleInput>
+}
+
+export type WorkAttendanceScalarWhereInput = {
+  AND?: Prisma.WorkAttendanceScalarWhereInput | Prisma.WorkAttendanceScalarWhereInput[]
+  OR?: Prisma.WorkAttendanceScalarWhereInput[]
+  NOT?: Prisma.WorkAttendanceScalarWhereInput | Prisma.WorkAttendanceScalarWhereInput[]
+  id?: Prisma.IntFilter<"WorkAttendance"> | number
+  personId?: Prisma.IntFilter<"WorkAttendance"> | number
+  trainingModuleId?: Prisma.IntFilter<"WorkAttendance"> | number
+  checkIn?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
+  checkOut?: Prisma.DateTimeNullableFilter<"WorkAttendance"> | Date | string | null
+  status?: Prisma.EnumAttendanceEnumFilter<"WorkAttendance"> | $Enums.AttendanceEnum
+  coordenates?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
+  comment?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
+  justificationFile?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
+}
+
+export type WorkAttendanceCreateWithoutPersonInput = {
+  checkIn: Date | string
+  checkOut?: Date | string | null
+  status?: $Enums.AttendanceEnum
+  coordenates?: string | null
+  comment?: string | null
+  justificationFile?: string | null
+  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutWorkAttendanceInput
 }
 
 export type WorkAttendanceUncheckedCreateWithoutPersonInput = {
   id?: number
-  date: Date | string
+  trainingModuleId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status?: $Enums.AttendanceEnum
+  coordenates?: string | null
   comment?: string | null
   justificationFile?: string | null
-  coordinates?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  updatedBy?: number | null
 }
 
 export type WorkAttendanceCreateOrConnectWithoutPersonInput = {
@@ -625,77 +653,90 @@ export type WorkAttendanceUpdateManyWithWhereWithoutPersonInput = {
   data: Prisma.XOR<Prisma.WorkAttendanceUpdateManyMutationInput, Prisma.WorkAttendanceUncheckedUpdateManyWithoutPersonInput>
 }
 
-export type WorkAttendanceScalarWhereInput = {
-  AND?: Prisma.WorkAttendanceScalarWhereInput | Prisma.WorkAttendanceScalarWhereInput[]
-  OR?: Prisma.WorkAttendanceScalarWhereInput[]
-  NOT?: Prisma.WorkAttendanceScalarWhereInput | Prisma.WorkAttendanceScalarWhereInput[]
-  id?: Prisma.IntFilter<"WorkAttendance"> | number
-  personId?: Prisma.IntFilter<"WorkAttendance"> | number
-  date?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  checkIn?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  checkOut?: Prisma.DateTimeNullableFilter<"WorkAttendance"> | Date | string | null
-  status?: Prisma.EnumAttendanceEnumFilter<"WorkAttendance"> | $Enums.AttendanceEnum
-  comment?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
-  justificationFile?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
-  coordinates?: Prisma.StringNullableFilter<"WorkAttendance"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"WorkAttendance"> | Date | string
-  updatedBy?: Prisma.IntNullableFilter<"WorkAttendance"> | number | null
+export type WorkAttendanceCreateManyTrainingModuleInput = {
+  id?: number
+  personId: number
+  checkIn: Date | string
+  checkOut?: Date | string | null
+  status?: $Enums.AttendanceEnum
+  coordenates?: string | null
+  comment?: string | null
+  justificationFile?: string | null
+}
+
+export type WorkAttendanceUpdateWithoutTrainingModuleInput = {
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Person?: Prisma.PersonUpdateOneRequiredWithoutWorkAttendanceNestedInput
+}
+
+export type WorkAttendanceUncheckedUpdateWithoutTrainingModuleInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type WorkAttendanceUncheckedUpdateManyWithoutTrainingModuleInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type WorkAttendanceCreateManyPersonInput = {
   id?: number
-  date: Date | string
+  trainingModuleId: number
   checkIn: Date | string
   checkOut?: Date | string | null
   status?: $Enums.AttendanceEnum
+  coordenates?: string | null
   comment?: string | null
   justificationFile?: string | null
-  coordinates?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  updatedBy?: number | null
 }
 
 export type WorkAttendanceUpdateWithoutPersonInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutWorkAttendanceNestedInput
 }
 
 export type WorkAttendanceUncheckedUpdateWithoutPersonInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type WorkAttendanceUncheckedUpdateManyWithoutPersonInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   checkIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checkOut?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAttendanceEnumFieldUpdateOperationsInput | $Enums.AttendanceEnum
+  coordenates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   justificationFile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coordinates?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -703,95 +744,87 @@ export type WorkAttendanceUncheckedUpdateManyWithoutPersonInput = {
 export type WorkAttendanceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   personId?: boolean
-  date?: boolean
+  trainingModuleId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
+  coordenates?: boolean
   comment?: boolean
   justificationFile?: boolean
-  coordinates?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  updatedBy?: boolean
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workAttendance"]>
 
 export type WorkAttendanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   personId?: boolean
-  date?: boolean
+  trainingModuleId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
+  coordenates?: boolean
   comment?: boolean
   justificationFile?: boolean
-  coordinates?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  updatedBy?: boolean
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workAttendance"]>
 
 export type WorkAttendanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   personId?: boolean
-  date?: boolean
+  trainingModuleId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
+  coordenates?: boolean
   comment?: boolean
   justificationFile?: boolean
-  coordinates?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  updatedBy?: boolean
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workAttendance"]>
 
 export type WorkAttendanceSelectScalar = {
   id?: boolean
   personId?: boolean
-  date?: boolean
+  trainingModuleId?: boolean
   checkIn?: boolean
   checkOut?: boolean
   status?: boolean
+  coordenates?: boolean
   comment?: boolean
   justificationFile?: boolean
-  coordinates?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  updatedBy?: boolean
 }
 
-export type WorkAttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "personId" | "date" | "checkIn" | "checkOut" | "status" | "comment" | "justificationFile" | "coordinates" | "createdAt" | "updatedAt" | "updatedBy", ExtArgs["result"]["workAttendance"]>
+export type WorkAttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "personId" | "trainingModuleId" | "checkIn" | "checkOut" | "status" | "coordenates" | "comment" | "justificationFile", ExtArgs["result"]["workAttendance"]>
 export type WorkAttendanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type WorkAttendanceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type WorkAttendanceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 
 export type $WorkAttendancePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "WorkAttendance"
   objects: {
     Person: Prisma.$PersonPayload<ExtArgs>
+    TrainingModule: Prisma.$TrainingModulePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     personId: number
-    date: Date
+    trainingModuleId: number
     checkIn: Date
     checkOut: Date | null
     status: $Enums.AttendanceEnum
+    coordenates: string | null
     comment: string | null
     justificationFile: string | null
-    coordinates: string | null
-    createdAt: Date
-    updatedAt: Date
-    updatedBy: number | null
   }, ExtArgs["result"]["workAttendance"]>
   composites: {}
 }
@@ -1187,6 +1220,7 @@ readonly fields: WorkAttendanceFieldRefs;
 export interface Prisma__WorkAttendanceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Person<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  TrainingModule<T extends Prisma.TrainingModuleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainingModuleDefaultArgs<ExtArgs>>): Prisma.Prisma__TrainingModuleClient<runtime.Types.Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1218,16 +1252,13 @@ export interface Prisma__WorkAttendanceClient<T, Null = never, ExtArgs extends r
 export interface WorkAttendanceFieldRefs {
   readonly id: Prisma.FieldRef<"WorkAttendance", 'Int'>
   readonly personId: Prisma.FieldRef<"WorkAttendance", 'Int'>
-  readonly date: Prisma.FieldRef<"WorkAttendance", 'DateTime'>
+  readonly trainingModuleId: Prisma.FieldRef<"WorkAttendance", 'Int'>
   readonly checkIn: Prisma.FieldRef<"WorkAttendance", 'DateTime'>
   readonly checkOut: Prisma.FieldRef<"WorkAttendance", 'DateTime'>
   readonly status: Prisma.FieldRef<"WorkAttendance", 'AttendanceEnum'>
+  readonly coordenates: Prisma.FieldRef<"WorkAttendance", 'String'>
   readonly comment: Prisma.FieldRef<"WorkAttendance", 'String'>
   readonly justificationFile: Prisma.FieldRef<"WorkAttendance", 'String'>
-  readonly coordinates: Prisma.FieldRef<"WorkAttendance", 'String'>
-  readonly createdAt: Prisma.FieldRef<"WorkAttendance", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"WorkAttendance", 'DateTime'>
-  readonly updatedBy: Prisma.FieldRef<"WorkAttendance", 'Int'>
 }
     
 

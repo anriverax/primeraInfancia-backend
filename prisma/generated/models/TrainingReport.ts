@@ -30,7 +30,7 @@ export type TrainingReportAvgAggregateOutputType = {
   id: number | null
   finalScore: number | null
   attendancePercentage: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -40,7 +40,7 @@ export type TrainingReportSumAggregateOutputType = {
   id: number | null
   finalScore: number | null
   attendancePercentage: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -51,7 +51,7 @@ export type TrainingReportMinAggregateOutputType = {
   finalScore: number | null
   attendancePercentage: number | null
   status: string | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -65,7 +65,7 @@ export type TrainingReportMaxAggregateOutputType = {
   finalScore: number | null
   attendancePercentage: number | null
   status: string | null
-  inscriptionId: number | null
+  teacherId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -79,7 +79,7 @@ export type TrainingReportCountAggregateOutputType = {
   finalScore: number
   attendancePercentage: number
   status: number
-  inscriptionId: number
+  teacherId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -94,7 +94,7 @@ export type TrainingReportAvgAggregateInputType = {
   id?: true
   finalScore?: true
   attendancePercentage?: true
-  inscriptionId?: true
+  teacherId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -104,7 +104,7 @@ export type TrainingReportSumAggregateInputType = {
   id?: true
   finalScore?: true
   attendancePercentage?: true
-  inscriptionId?: true
+  teacherId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -115,7 +115,7 @@ export type TrainingReportMinAggregateInputType = {
   finalScore?: true
   attendancePercentage?: true
   status?: true
-  inscriptionId?: true
+  teacherId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -129,7 +129,7 @@ export type TrainingReportMaxAggregateInputType = {
   finalScore?: true
   attendancePercentage?: true
   status?: true
-  inscriptionId?: true
+  teacherId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -143,7 +143,7 @@ export type TrainingReportCountAggregateInputType = {
   finalScore?: true
   attendancePercentage?: true
   status?: true
-  inscriptionId?: true
+  teacherId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -244,7 +244,7 @@ export type TrainingReportGroupByOutputType = {
   finalScore: number
   attendancePercentage: number
   status: string
-  inscriptionId: number
+  teacherId: number
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -281,14 +281,14 @@ export type TrainingReportWhereInput = {
   finalScore?: Prisma.FloatFilter<"TrainingReport"> | number
   attendancePercentage?: Prisma.FloatFilter<"TrainingReport"> | number
   status?: Prisma.StringFilter<"TrainingReport"> | string
-  inscriptionId?: Prisma.IntFilter<"TrainingReport"> | number
+  teacherId?: Prisma.IntFilter<"TrainingReport"> | number
   createdAt?: Prisma.DateTimeFilter<"TrainingReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrainingReport"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"TrainingReport"> | Date | string | null
   createdBy?: Prisma.IntFilter<"TrainingReport"> | number
   updatedBy?: Prisma.IntNullableFilter<"TrainingReport"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"TrainingReport"> | number | null
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
 }
 
 export type TrainingReportOrderByWithRelationInput = {
@@ -296,14 +296,14 @@ export type TrainingReportOrderByWithRelationInput = {
   finalScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  Inscription?: Prisma.InscriptionOrderByWithRelationInput
+  Teacher?: Prisma.TeacherOrderByWithRelationInput
 }
 
 export type TrainingReportWhereUniqueInput = Prisma.AtLeast<{
@@ -314,14 +314,14 @@ export type TrainingReportWhereUniqueInput = Prisma.AtLeast<{
   finalScore?: Prisma.FloatFilter<"TrainingReport"> | number
   attendancePercentage?: Prisma.FloatFilter<"TrainingReport"> | number
   status?: Prisma.StringFilter<"TrainingReport"> | string
-  inscriptionId?: Prisma.IntFilter<"TrainingReport"> | number
+  teacherId?: Prisma.IntFilter<"TrainingReport"> | number
   createdAt?: Prisma.DateTimeFilter<"TrainingReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrainingReport"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"TrainingReport"> | Date | string | null
   createdBy?: Prisma.IntFilter<"TrainingReport"> | number
   updatedBy?: Prisma.IntNullableFilter<"TrainingReport"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"TrainingReport"> | number | null
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
 }, "id">
 
 export type TrainingReportOrderByWithAggregationInput = {
@@ -329,7 +329,7 @@ export type TrainingReportOrderByWithAggregationInput = {
   finalScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -351,7 +351,7 @@ export type TrainingReportScalarWhereWithAggregatesInput = {
   finalScore?: Prisma.FloatWithAggregatesFilter<"TrainingReport"> | number
   attendancePercentage?: Prisma.FloatWithAggregatesFilter<"TrainingReport"> | number
   status?: Prisma.StringWithAggregatesFilter<"TrainingReport"> | string
-  inscriptionId?: Prisma.IntWithAggregatesFilter<"TrainingReport"> | number
+  teacherId?: Prisma.IntWithAggregatesFilter<"TrainingReport"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TrainingReport"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TrainingReport"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainingReport"> | Date | string | null
@@ -370,7 +370,7 @@ export type TrainingReportCreateInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutTrainingReportInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutTrainingReportInput
 }
 
 export type TrainingReportUncheckedCreateInput = {
@@ -378,7 +378,7 @@ export type TrainingReportUncheckedCreateInput = {
   finalScore: number
   attendancePercentage: number
   status: string
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -397,7 +397,7 @@ export type TrainingReportUpdateInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutTrainingReportNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutTrainingReportNestedInput
 }
 
 export type TrainingReportUncheckedUpdateInput = {
@@ -405,7 +405,7 @@ export type TrainingReportUncheckedUpdateInput = {
   finalScore?: Prisma.FloatFieldUpdateOperationsInput | number
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -419,7 +419,7 @@ export type TrainingReportCreateManyInput = {
   finalScore: number
   attendancePercentage: number
   status: string
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -445,7 +445,7 @@ export type TrainingReportUncheckedUpdateManyInput = {
   finalScore?: Prisma.FloatFieldUpdateOperationsInput | number
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -469,7 +469,7 @@ export type TrainingReportCountOrderByAggregateInput = {
   finalScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -482,7 +482,7 @@ export type TrainingReportAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -493,7 +493,7 @@ export type TrainingReportMaxOrderByAggregateInput = {
   finalScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -507,7 +507,7 @@ export type TrainingReportMinOrderByAggregateInput = {
   finalScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -520,55 +520,55 @@ export type TrainingReportSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
   attendancePercentage?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
 }
 
-export type TrainingReportCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutInscriptionInput, Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput> | Prisma.TrainingReportCreateWithoutInscriptionInput[] | Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput | Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.TrainingReportCreateManyInscriptionInputEnvelope
+export type TrainingReportCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutTeacherInput, Prisma.TrainingReportUncheckedCreateWithoutTeacherInput> | Prisma.TrainingReportCreateWithoutTeacherInput[] | Prisma.TrainingReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutTeacherInput | Prisma.TrainingReportCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.TrainingReportCreateManyTeacherInputEnvelope
   connect?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
 }
 
-export type TrainingReportUncheckedCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutInscriptionInput, Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput> | Prisma.TrainingReportCreateWithoutInscriptionInput[] | Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput | Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.TrainingReportCreateManyInscriptionInputEnvelope
+export type TrainingReportUncheckedCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutTeacherInput, Prisma.TrainingReportUncheckedCreateWithoutTeacherInput> | Prisma.TrainingReportCreateWithoutTeacherInput[] | Prisma.TrainingReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutTeacherInput | Prisma.TrainingReportCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.TrainingReportCreateManyTeacherInputEnvelope
   connect?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
 }
 
-export type TrainingReportUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutInscriptionInput, Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput> | Prisma.TrainingReportCreateWithoutInscriptionInput[] | Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput | Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.TrainingReportUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.TrainingReportUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.TrainingReportCreateManyInscriptionInputEnvelope
+export type TrainingReportUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutTeacherInput, Prisma.TrainingReportUncheckedCreateWithoutTeacherInput> | Prisma.TrainingReportCreateWithoutTeacherInput[] | Prisma.TrainingReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutTeacherInput | Prisma.TrainingReportCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.TrainingReportUpsertWithWhereUniqueWithoutTeacherInput | Prisma.TrainingReportUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.TrainingReportCreateManyTeacherInputEnvelope
   set?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
   disconnect?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
   delete?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
   connect?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
-  update?: Prisma.TrainingReportUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.TrainingReportUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.TrainingReportUpdateManyWithWhereWithoutInscriptionInput | Prisma.TrainingReportUpdateManyWithWhereWithoutInscriptionInput[]
+  update?: Prisma.TrainingReportUpdateWithWhereUniqueWithoutTeacherInput | Prisma.TrainingReportUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.TrainingReportUpdateManyWithWhereWithoutTeacherInput | Prisma.TrainingReportUpdateManyWithWhereWithoutTeacherInput[]
   deleteMany?: Prisma.TrainingReportScalarWhereInput | Prisma.TrainingReportScalarWhereInput[]
 }
 
-export type TrainingReportUncheckedUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutInscriptionInput, Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput> | Prisma.TrainingReportCreateWithoutInscriptionInput[] | Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput | Prisma.TrainingReportCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.TrainingReportUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.TrainingReportUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.TrainingReportCreateManyInscriptionInputEnvelope
+export type TrainingReportUncheckedUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.TrainingReportCreateWithoutTeacherInput, Prisma.TrainingReportUncheckedCreateWithoutTeacherInput> | Prisma.TrainingReportCreateWithoutTeacherInput[] | Prisma.TrainingReportUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.TrainingReportCreateOrConnectWithoutTeacherInput | Prisma.TrainingReportCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.TrainingReportUpsertWithWhereUniqueWithoutTeacherInput | Prisma.TrainingReportUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.TrainingReportCreateManyTeacherInputEnvelope
   set?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
   disconnect?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
   delete?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
   connect?: Prisma.TrainingReportWhereUniqueInput | Prisma.TrainingReportWhereUniqueInput[]
-  update?: Prisma.TrainingReportUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.TrainingReportUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.TrainingReportUpdateManyWithWhereWithoutInscriptionInput | Prisma.TrainingReportUpdateManyWithWhereWithoutInscriptionInput[]
+  update?: Prisma.TrainingReportUpdateWithWhereUniqueWithoutTeacherInput | Prisma.TrainingReportUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.TrainingReportUpdateManyWithWhereWithoutTeacherInput | Prisma.TrainingReportUpdateManyWithWhereWithoutTeacherInput[]
   deleteMany?: Prisma.TrainingReportScalarWhereInput | Prisma.TrainingReportScalarWhereInput[]
 }
 
-export type TrainingReportCreateWithoutInscriptionInput = {
+export type TrainingReportCreateWithoutTeacherInput = {
   finalScore: number
   attendancePercentage: number
   status: string
@@ -580,7 +580,7 @@ export type TrainingReportCreateWithoutInscriptionInput = {
   deletedBy?: number | null
 }
 
-export type TrainingReportUncheckedCreateWithoutInscriptionInput = {
+export type TrainingReportUncheckedCreateWithoutTeacherInput = {
   id?: number
   finalScore: number
   attendancePercentage: number
@@ -593,30 +593,30 @@ export type TrainingReportUncheckedCreateWithoutInscriptionInput = {
   deletedBy?: number | null
 }
 
-export type TrainingReportCreateOrConnectWithoutInscriptionInput = {
+export type TrainingReportCreateOrConnectWithoutTeacherInput = {
   where: Prisma.TrainingReportWhereUniqueInput
-  create: Prisma.XOR<Prisma.TrainingReportCreateWithoutInscriptionInput, Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput>
+  create: Prisma.XOR<Prisma.TrainingReportCreateWithoutTeacherInput, Prisma.TrainingReportUncheckedCreateWithoutTeacherInput>
 }
 
-export type TrainingReportCreateManyInscriptionInputEnvelope = {
-  data: Prisma.TrainingReportCreateManyInscriptionInput | Prisma.TrainingReportCreateManyInscriptionInput[]
+export type TrainingReportCreateManyTeacherInputEnvelope = {
+  data: Prisma.TrainingReportCreateManyTeacherInput | Prisma.TrainingReportCreateManyTeacherInput[]
   skipDuplicates?: boolean
 }
 
-export type TrainingReportUpsertWithWhereUniqueWithoutInscriptionInput = {
+export type TrainingReportUpsertWithWhereUniqueWithoutTeacherInput = {
   where: Prisma.TrainingReportWhereUniqueInput
-  update: Prisma.XOR<Prisma.TrainingReportUpdateWithoutInscriptionInput, Prisma.TrainingReportUncheckedUpdateWithoutInscriptionInput>
-  create: Prisma.XOR<Prisma.TrainingReportCreateWithoutInscriptionInput, Prisma.TrainingReportUncheckedCreateWithoutInscriptionInput>
+  update: Prisma.XOR<Prisma.TrainingReportUpdateWithoutTeacherInput, Prisma.TrainingReportUncheckedUpdateWithoutTeacherInput>
+  create: Prisma.XOR<Prisma.TrainingReportCreateWithoutTeacherInput, Prisma.TrainingReportUncheckedCreateWithoutTeacherInput>
 }
 
-export type TrainingReportUpdateWithWhereUniqueWithoutInscriptionInput = {
+export type TrainingReportUpdateWithWhereUniqueWithoutTeacherInput = {
   where: Prisma.TrainingReportWhereUniqueInput
-  data: Prisma.XOR<Prisma.TrainingReportUpdateWithoutInscriptionInput, Prisma.TrainingReportUncheckedUpdateWithoutInscriptionInput>
+  data: Prisma.XOR<Prisma.TrainingReportUpdateWithoutTeacherInput, Prisma.TrainingReportUncheckedUpdateWithoutTeacherInput>
 }
 
-export type TrainingReportUpdateManyWithWhereWithoutInscriptionInput = {
+export type TrainingReportUpdateManyWithWhereWithoutTeacherInput = {
   where: Prisma.TrainingReportScalarWhereInput
-  data: Prisma.XOR<Prisma.TrainingReportUpdateManyMutationInput, Prisma.TrainingReportUncheckedUpdateManyWithoutInscriptionInput>
+  data: Prisma.XOR<Prisma.TrainingReportUpdateManyMutationInput, Prisma.TrainingReportUncheckedUpdateManyWithoutTeacherInput>
 }
 
 export type TrainingReportScalarWhereInput = {
@@ -627,7 +627,7 @@ export type TrainingReportScalarWhereInput = {
   finalScore?: Prisma.FloatFilter<"TrainingReport"> | number
   attendancePercentage?: Prisma.FloatFilter<"TrainingReport"> | number
   status?: Prisma.StringFilter<"TrainingReport"> | string
-  inscriptionId?: Prisma.IntFilter<"TrainingReport"> | number
+  teacherId?: Prisma.IntFilter<"TrainingReport"> | number
   createdAt?: Prisma.DateTimeFilter<"TrainingReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrainingReport"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"TrainingReport"> | Date | string | null
@@ -636,7 +636,7 @@ export type TrainingReportScalarWhereInput = {
   deletedBy?: Prisma.IntNullableFilter<"TrainingReport"> | number | null
 }
 
-export type TrainingReportCreateManyInscriptionInput = {
+export type TrainingReportCreateManyTeacherInput = {
   id?: number
   finalScore: number
   attendancePercentage: number
@@ -649,7 +649,7 @@ export type TrainingReportCreateManyInscriptionInput = {
   deletedBy?: number | null
 }
 
-export type TrainingReportUpdateWithoutInscriptionInput = {
+export type TrainingReportUpdateWithoutTeacherInput = {
   finalScore?: Prisma.FloatFieldUpdateOperationsInput | number
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -661,7 +661,7 @@ export type TrainingReportUpdateWithoutInscriptionInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type TrainingReportUncheckedUpdateWithoutInscriptionInput = {
+export type TrainingReportUncheckedUpdateWithoutTeacherInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   finalScore?: Prisma.FloatFieldUpdateOperationsInput | number
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -674,7 +674,7 @@ export type TrainingReportUncheckedUpdateWithoutInscriptionInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type TrainingReportUncheckedUpdateManyWithoutInscriptionInput = {
+export type TrainingReportUncheckedUpdateManyWithoutTeacherInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   finalScore?: Prisma.FloatFieldUpdateOperationsInput | number
   attendancePercentage?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -694,14 +694,14 @@ export type TrainingReportSelect<ExtArgs extends runtime.Types.Extensions.Intern
   finalScore?: boolean
   attendancePercentage?: boolean
   status?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trainingReport"]>
 
 export type TrainingReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -709,14 +709,14 @@ export type TrainingReportSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   finalScore?: boolean
   attendancePercentage?: boolean
   status?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trainingReport"]>
 
 export type TrainingReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -724,14 +724,14 @@ export type TrainingReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   finalScore?: boolean
   attendancePercentage?: boolean
   status?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   createdBy?: boolean
   updatedBy?: boolean
   deletedBy?: boolean
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trainingReport"]>
 
 export type TrainingReportSelectScalar = {
@@ -739,7 +739,7 @@ export type TrainingReportSelectScalar = {
   finalScore?: boolean
   attendancePercentage?: boolean
   status?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -748,28 +748,28 @@ export type TrainingReportSelectScalar = {
   deletedBy?: boolean
 }
 
-export type TrainingReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "finalScore" | "attendancePercentage" | "status" | "inscriptionId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["trainingReport"]>
+export type TrainingReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "finalScore" | "attendancePercentage" | "status" | "teacherId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["trainingReport"]>
 export type TrainingReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
 }
 export type TrainingReportIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
 }
 export type TrainingReportIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
 }
 
 export type $TrainingReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TrainingReport"
   objects: {
-    Inscription: Prisma.$InscriptionPayload<ExtArgs>
+    Teacher: Prisma.$TeacherPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     finalScore: number
     attendancePercentage: number
     status: string
-    inscriptionId: number
+    teacherId: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1170,7 +1170,7 @@ readonly fields: TrainingReportFieldRefs;
  */
 export interface Prisma__TrainingReportClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Inscription<T extends Prisma.InscriptionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InscriptionDefaultArgs<ExtArgs>>): Prisma.Prisma__InscriptionClient<runtime.Types.Result.GetResult<Prisma.$InscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Teacher<T extends Prisma.TeacherDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeacherDefaultArgs<ExtArgs>>): Prisma.Prisma__TeacherClient<runtime.Types.Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1204,7 +1204,7 @@ export interface TrainingReportFieldRefs {
   readonly finalScore: Prisma.FieldRef<"TrainingReport", 'Float'>
   readonly attendancePercentage: Prisma.FieldRef<"TrainingReport", 'Float'>
   readonly status: Prisma.FieldRef<"TrainingReport", 'String'>
-  readonly inscriptionId: Prisma.FieldRef<"TrainingReport", 'Int'>
+  readonly teacherId: Prisma.FieldRef<"TrainingReport", 'Int'>
   readonly createdAt: Prisma.FieldRef<"TrainingReport", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TrainingReport", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"TrainingReport", 'DateTime'>

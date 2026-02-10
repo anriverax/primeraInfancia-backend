@@ -30,7 +30,7 @@ export type ModuleEvaluationAvgAggregateOutputType = {
   id: number | null
   grade: number | null
   evaluationInstrumentId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   trainingModuleId: number | null
   createdBy: number | null
   updatedBy: number | null
@@ -41,7 +41,7 @@ export type ModuleEvaluationSumAggregateOutputType = {
   id: number | null
   grade: number | null
   evaluationInstrumentId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   trainingModuleId: number | null
   createdBy: number | null
   updatedBy: number | null
@@ -52,7 +52,7 @@ export type ModuleEvaluationMinAggregateOutputType = {
   id: number | null
   grade: number | null
   evaluationInstrumentId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   trainingModuleId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -66,7 +66,7 @@ export type ModuleEvaluationMaxAggregateOutputType = {
   id: number | null
   grade: number | null
   evaluationInstrumentId: number | null
-  inscriptionId: number | null
+  teacherId: number | null
   trainingModuleId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -80,7 +80,7 @@ export type ModuleEvaluationCountAggregateOutputType = {
   id: number
   grade: number
   evaluationInstrumentId: number
-  inscriptionId: number
+  teacherId: number
   trainingModuleId: number
   createdAt: number
   updatedAt: number
@@ -96,7 +96,7 @@ export type ModuleEvaluationAvgAggregateInputType = {
   id?: true
   grade?: true
   evaluationInstrumentId?: true
-  inscriptionId?: true
+  teacherId?: true
   trainingModuleId?: true
   createdBy?: true
   updatedBy?: true
@@ -107,7 +107,7 @@ export type ModuleEvaluationSumAggregateInputType = {
   id?: true
   grade?: true
   evaluationInstrumentId?: true
-  inscriptionId?: true
+  teacherId?: true
   trainingModuleId?: true
   createdBy?: true
   updatedBy?: true
@@ -118,7 +118,7 @@ export type ModuleEvaluationMinAggregateInputType = {
   id?: true
   grade?: true
   evaluationInstrumentId?: true
-  inscriptionId?: true
+  teacherId?: true
   trainingModuleId?: true
   createdAt?: true
   updatedAt?: true
@@ -132,7 +132,7 @@ export type ModuleEvaluationMaxAggregateInputType = {
   id?: true
   grade?: true
   evaluationInstrumentId?: true
-  inscriptionId?: true
+  teacherId?: true
   trainingModuleId?: true
   createdAt?: true
   updatedAt?: true
@@ -146,7 +146,7 @@ export type ModuleEvaluationCountAggregateInputType = {
   id?: true
   grade?: true
   evaluationInstrumentId?: true
-  inscriptionId?: true
+  teacherId?: true
   trainingModuleId?: true
   createdAt?: true
   updatedAt?: true
@@ -247,7 +247,7 @@ export type ModuleEvaluationGroupByOutputType = {
   id: number
   grade: number
   evaluationInstrumentId: number
-  inscriptionId: number
+  teacherId: number
   trainingModuleId: number
   createdAt: Date
   updatedAt: Date
@@ -284,7 +284,7 @@ export type ModuleEvaluationWhereInput = {
   id?: Prisma.IntFilter<"ModuleEvaluation"> | number
   grade?: Prisma.FloatFilter<"ModuleEvaluation"> | number
   evaluationInstrumentId?: Prisma.IntFilter<"ModuleEvaluation"> | number
-  inscriptionId?: Prisma.IntFilter<"ModuleEvaluation"> | number
+  teacherId?: Prisma.IntFilter<"ModuleEvaluation"> | number
   trainingModuleId?: Prisma.IntFilter<"ModuleEvaluation"> | number
   createdAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
@@ -293,7 +293,7 @@ export type ModuleEvaluationWhereInput = {
   updatedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
   EvaluationInstrument?: Prisma.XOR<Prisma.EvaluationInstrumentScalarRelationFilter, Prisma.EvaluationInstrumentWhereInput>
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
   TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
 }
 
@@ -301,7 +301,7 @@ export type ModuleEvaluationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   grade?: Prisma.SortOrder
   evaluationInstrumentId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -310,7 +310,7 @@ export type ModuleEvaluationOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   EvaluationInstrument?: Prisma.EvaluationInstrumentOrderByWithRelationInput
-  Inscription?: Prisma.InscriptionOrderByWithRelationInput
+  Teacher?: Prisma.TeacherOrderByWithRelationInput
   TrainingModule?: Prisma.TrainingModuleOrderByWithRelationInput
 }
 
@@ -321,7 +321,7 @@ export type ModuleEvaluationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ModuleEvaluationWhereInput | Prisma.ModuleEvaluationWhereInput[]
   grade?: Prisma.FloatFilter<"ModuleEvaluation"> | number
   evaluationInstrumentId?: Prisma.IntFilter<"ModuleEvaluation"> | number
-  inscriptionId?: Prisma.IntFilter<"ModuleEvaluation"> | number
+  teacherId?: Prisma.IntFilter<"ModuleEvaluation"> | number
   trainingModuleId?: Prisma.IntFilter<"ModuleEvaluation"> | number
   createdAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
@@ -330,7 +330,7 @@ export type ModuleEvaluationWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
   deletedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
   EvaluationInstrument?: Prisma.XOR<Prisma.EvaluationInstrumentScalarRelationFilter, Prisma.EvaluationInstrumentWhereInput>
-  Inscription?: Prisma.XOR<Prisma.InscriptionScalarRelationFilter, Prisma.InscriptionWhereInput>
+  Teacher?: Prisma.XOR<Prisma.TeacherScalarRelationFilter, Prisma.TeacherWhereInput>
   TrainingModule?: Prisma.XOR<Prisma.TrainingModuleScalarRelationFilter, Prisma.TrainingModuleWhereInput>
 }, "id">
 
@@ -338,7 +338,7 @@ export type ModuleEvaluationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   grade?: Prisma.SortOrder
   evaluationInstrumentId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -360,7 +360,7 @@ export type ModuleEvaluationScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"ModuleEvaluation"> | number
   grade?: Prisma.FloatWithAggregatesFilter<"ModuleEvaluation"> | number
   evaluationInstrumentId?: Prisma.IntWithAggregatesFilter<"ModuleEvaluation"> | number
-  inscriptionId?: Prisma.IntWithAggregatesFilter<"ModuleEvaluation"> | number
+  teacherId?: Prisma.IntWithAggregatesFilter<"ModuleEvaluation"> | number
   trainingModuleId?: Prisma.IntWithAggregatesFilter<"ModuleEvaluation"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ModuleEvaluation"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ModuleEvaluation"> | Date | string
@@ -379,7 +379,7 @@ export type ModuleEvaluationCreateInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   EvaluationInstrument: Prisma.EvaluationInstrumentCreateNestedOneWithoutModuleEvaluationInput
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutModuleEvaluationInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutModuleEvaluationInput
   TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutModuleEvaluationInput
 }
 
@@ -387,7 +387,7 @@ export type ModuleEvaluationUncheckedCreateInput = {
   id?: number
   grade: number
   evaluationInstrumentId: number
-  inscriptionId: number
+  teacherId: number
   trainingModuleId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -406,7 +406,7 @@ export type ModuleEvaluationUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   EvaluationInstrument?: Prisma.EvaluationInstrumentUpdateOneRequiredWithoutModuleEvaluationNestedInput
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutModuleEvaluationNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutModuleEvaluationNestedInput
   TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutModuleEvaluationNestedInput
 }
 
@@ -414,7 +414,7 @@ export type ModuleEvaluationUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   grade?: Prisma.FloatFieldUpdateOperationsInput | number
   evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -428,7 +428,7 @@ export type ModuleEvaluationCreateManyInput = {
   id?: number
   grade: number
   evaluationInstrumentId: number
-  inscriptionId: number
+  teacherId: number
   trainingModuleId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -452,7 +452,7 @@ export type ModuleEvaluationUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   grade?: Prisma.FloatFieldUpdateOperationsInput | number
   evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -476,7 +476,7 @@ export type ModuleEvaluationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   grade?: Prisma.SortOrder
   evaluationInstrumentId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -490,7 +490,7 @@ export type ModuleEvaluationAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   grade?: Prisma.SortOrder
   evaluationInstrumentId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
@@ -501,7 +501,7 @@ export type ModuleEvaluationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   grade?: Prisma.SortOrder
   evaluationInstrumentId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -515,7 +515,7 @@ export type ModuleEvaluationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   grade?: Prisma.SortOrder
   evaluationInstrumentId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -529,53 +529,11 @@ export type ModuleEvaluationSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   grade?: Prisma.SortOrder
   evaluationInstrumentId?: Prisma.SortOrder
-  inscriptionId?: Prisma.SortOrder
+  teacherId?: Prisma.SortOrder
   trainingModuleId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
-}
-
-export type ModuleEvaluationCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleEvaluationCreateWithoutInscriptionInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput | Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleEvaluationCreateManyInscriptionInputEnvelope
-  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-}
-
-export type ModuleEvaluationUncheckedCreateNestedManyWithoutInscriptionInput = {
-  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleEvaluationCreateWithoutInscriptionInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput | Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleEvaluationCreateManyInscriptionInputEnvelope
-  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-}
-
-export type ModuleEvaluationUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleEvaluationCreateWithoutInscriptionInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput | Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleEvaluationCreateManyInscriptionInputEnvelope
-  set?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  disconnect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  delete?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  update?: Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.ModuleEvaluationUpdateManyWithWhereWithoutInscriptionInput | Prisma.ModuleEvaluationUpdateManyWithWhereWithoutInscriptionInput[]
-  deleteMany?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
-}
-
-export type ModuleEvaluationUncheckedUpdateManyWithoutInscriptionNestedInput = {
-  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput> | Prisma.ModuleEvaluationCreateWithoutInscriptionInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput[]
-  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput | Prisma.ModuleEvaluationCreateOrConnectWithoutInscriptionInput[]
-  upsert?: Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutInscriptionInput[]
-  createMany?: Prisma.ModuleEvaluationCreateManyInscriptionInputEnvelope
-  set?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  disconnect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  delete?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
-  update?: Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutInscriptionInput | Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutInscriptionInput[]
-  updateMany?: Prisma.ModuleEvaluationUpdateManyWithWhereWithoutInscriptionInput | Prisma.ModuleEvaluationUpdateManyWithWhereWithoutInscriptionInput[]
-  deleteMany?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
 }
 
 export type ModuleEvaluationCreateNestedManyWithoutTrainingModuleInput = {
@@ -617,6 +575,48 @@ export type ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleNestedInput 
   connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
   update?: Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutTrainingModuleInput | Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutTrainingModuleInput[]
   updateMany?: Prisma.ModuleEvaluationUpdateManyWithWhereWithoutTrainingModuleInput | Prisma.ModuleEvaluationUpdateManyWithWhereWithoutTrainingModuleInput[]
+  deleteMany?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
+}
+
+export type ModuleEvaluationCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput> | Prisma.ModuleEvaluationCreateWithoutTeacherInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput | Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.ModuleEvaluationCreateManyTeacherInputEnvelope
+  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+}
+
+export type ModuleEvaluationUncheckedCreateNestedManyWithoutTeacherInput = {
+  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput> | Prisma.ModuleEvaluationCreateWithoutTeacherInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput | Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput[]
+  createMany?: Prisma.ModuleEvaluationCreateManyTeacherInputEnvelope
+  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+}
+
+export type ModuleEvaluationUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput> | Prisma.ModuleEvaluationCreateWithoutTeacherInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput | Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutTeacherInput | Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.ModuleEvaluationCreateManyTeacherInputEnvelope
+  set?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  disconnect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  delete?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  update?: Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutTeacherInput | Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.ModuleEvaluationUpdateManyWithWhereWithoutTeacherInput | Prisma.ModuleEvaluationUpdateManyWithWhereWithoutTeacherInput[]
+  deleteMany?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
+}
+
+export type ModuleEvaluationUncheckedUpdateManyWithoutTeacherNestedInput = {
+  create?: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput> | Prisma.ModuleEvaluationCreateWithoutTeacherInput[] | Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput[]
+  connectOrCreate?: Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput | Prisma.ModuleEvaluationCreateOrConnectWithoutTeacherInput[]
+  upsert?: Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutTeacherInput | Prisma.ModuleEvaluationUpsertWithWhereUniqueWithoutTeacherInput[]
+  createMany?: Prisma.ModuleEvaluationCreateManyTeacherInputEnvelope
+  set?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  disconnect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  delete?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  connect?: Prisma.ModuleEvaluationWhereUniqueInput | Prisma.ModuleEvaluationWhereUniqueInput[]
+  update?: Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutTeacherInput | Prisma.ModuleEvaluationUpdateWithWhereUniqueWithoutTeacherInput[]
+  updateMany?: Prisma.ModuleEvaluationUpdateManyWithWhereWithoutTeacherInput | Prisma.ModuleEvaluationUpdateManyWithWhereWithoutTeacherInput[]
   deleteMany?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
 }
 
@@ -662,74 +662,6 @@ export type ModuleEvaluationUncheckedUpdateManyWithoutEvaluationInstrumentNested
   deleteMany?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
 }
 
-export type ModuleEvaluationCreateWithoutInscriptionInput = {
-  grade: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-  EvaluationInstrument: Prisma.EvaluationInstrumentCreateNestedOneWithoutModuleEvaluationInput
-  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutModuleEvaluationInput
-}
-
-export type ModuleEvaluationUncheckedCreateWithoutInscriptionInput = {
-  id?: number
-  grade: number
-  evaluationInstrumentId: number
-  trainingModuleId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-}
-
-export type ModuleEvaluationCreateOrConnectWithoutInscriptionInput = {
-  where: Prisma.ModuleEvaluationWhereUniqueInput
-  create: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput>
-}
-
-export type ModuleEvaluationCreateManyInscriptionInputEnvelope = {
-  data: Prisma.ModuleEvaluationCreateManyInscriptionInput | Prisma.ModuleEvaluationCreateManyInscriptionInput[]
-  skipDuplicates?: boolean
-}
-
-export type ModuleEvaluationUpsertWithWhereUniqueWithoutInscriptionInput = {
-  where: Prisma.ModuleEvaluationWhereUniqueInput
-  update: Prisma.XOR<Prisma.ModuleEvaluationUpdateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedUpdateWithoutInscriptionInput>
-  create: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedCreateWithoutInscriptionInput>
-}
-
-export type ModuleEvaluationUpdateWithWhereUniqueWithoutInscriptionInput = {
-  where: Prisma.ModuleEvaluationWhereUniqueInput
-  data: Prisma.XOR<Prisma.ModuleEvaluationUpdateWithoutInscriptionInput, Prisma.ModuleEvaluationUncheckedUpdateWithoutInscriptionInput>
-}
-
-export type ModuleEvaluationUpdateManyWithWhereWithoutInscriptionInput = {
-  where: Prisma.ModuleEvaluationScalarWhereInput
-  data: Prisma.XOR<Prisma.ModuleEvaluationUpdateManyMutationInput, Prisma.ModuleEvaluationUncheckedUpdateManyWithoutInscriptionInput>
-}
-
-export type ModuleEvaluationScalarWhereInput = {
-  AND?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
-  OR?: Prisma.ModuleEvaluationScalarWhereInput[]
-  NOT?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
-  id?: Prisma.IntFilter<"ModuleEvaluation"> | number
-  grade?: Prisma.FloatFilter<"ModuleEvaluation"> | number
-  evaluationInstrumentId?: Prisma.IntFilter<"ModuleEvaluation"> | number
-  inscriptionId?: Prisma.IntFilter<"ModuleEvaluation"> | number
-  trainingModuleId?: Prisma.IntFilter<"ModuleEvaluation"> | number
-  createdAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"ModuleEvaluation"> | Date | string | null
-  createdBy?: Prisma.IntFilter<"ModuleEvaluation"> | number
-  updatedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
-  deletedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
-}
-
 export type ModuleEvaluationCreateWithoutTrainingModuleInput = {
   grade: number
   createdAt?: Date | string
@@ -739,14 +671,14 @@ export type ModuleEvaluationCreateWithoutTrainingModuleInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   EvaluationInstrument: Prisma.EvaluationInstrumentCreateNestedOneWithoutModuleEvaluationInput
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutModuleEvaluationInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutModuleEvaluationInput
 }
 
 export type ModuleEvaluationUncheckedCreateWithoutTrainingModuleInput = {
   id?: number
   grade: number
   evaluationInstrumentId: number
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -781,6 +713,74 @@ export type ModuleEvaluationUpdateManyWithWhereWithoutTrainingModuleInput = {
   data: Prisma.XOR<Prisma.ModuleEvaluationUpdateManyMutationInput, Prisma.ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleInput>
 }
 
+export type ModuleEvaluationScalarWhereInput = {
+  AND?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
+  OR?: Prisma.ModuleEvaluationScalarWhereInput[]
+  NOT?: Prisma.ModuleEvaluationScalarWhereInput | Prisma.ModuleEvaluationScalarWhereInput[]
+  id?: Prisma.IntFilter<"ModuleEvaluation"> | number
+  grade?: Prisma.FloatFilter<"ModuleEvaluation"> | number
+  evaluationInstrumentId?: Prisma.IntFilter<"ModuleEvaluation"> | number
+  teacherId?: Prisma.IntFilter<"ModuleEvaluation"> | number
+  trainingModuleId?: Prisma.IntFilter<"ModuleEvaluation"> | number
+  createdAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ModuleEvaluation"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"ModuleEvaluation"> | Date | string | null
+  createdBy?: Prisma.IntFilter<"ModuleEvaluation"> | number
+  updatedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
+  deletedBy?: Prisma.IntNullableFilter<"ModuleEvaluation"> | number | null
+}
+
+export type ModuleEvaluationCreateWithoutTeacherInput = {
+  grade: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+  EvaluationInstrument: Prisma.EvaluationInstrumentCreateNestedOneWithoutModuleEvaluationInput
+  TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutModuleEvaluationInput
+}
+
+export type ModuleEvaluationUncheckedCreateWithoutTeacherInput = {
+  id?: number
+  grade: number
+  evaluationInstrumentId: number
+  trainingModuleId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type ModuleEvaluationCreateOrConnectWithoutTeacherInput = {
+  where: Prisma.ModuleEvaluationWhereUniqueInput
+  create: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput>
+}
+
+export type ModuleEvaluationCreateManyTeacherInputEnvelope = {
+  data: Prisma.ModuleEvaluationCreateManyTeacherInput | Prisma.ModuleEvaluationCreateManyTeacherInput[]
+  skipDuplicates?: boolean
+}
+
+export type ModuleEvaluationUpsertWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.ModuleEvaluationWhereUniqueInput
+  update: Prisma.XOR<Prisma.ModuleEvaluationUpdateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedUpdateWithoutTeacherInput>
+  create: Prisma.XOR<Prisma.ModuleEvaluationCreateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedCreateWithoutTeacherInput>
+}
+
+export type ModuleEvaluationUpdateWithWhereUniqueWithoutTeacherInput = {
+  where: Prisma.ModuleEvaluationWhereUniqueInput
+  data: Prisma.XOR<Prisma.ModuleEvaluationUpdateWithoutTeacherInput, Prisma.ModuleEvaluationUncheckedUpdateWithoutTeacherInput>
+}
+
+export type ModuleEvaluationUpdateManyWithWhereWithoutTeacherInput = {
+  where: Prisma.ModuleEvaluationScalarWhereInput
+  data: Prisma.XOR<Prisma.ModuleEvaluationUpdateManyMutationInput, Prisma.ModuleEvaluationUncheckedUpdateManyWithoutTeacherInput>
+}
+
 export type ModuleEvaluationCreateWithoutEvaluationInstrumentInput = {
   grade: number
   createdAt?: Date | string
@@ -789,14 +789,14 @@ export type ModuleEvaluationCreateWithoutEvaluationInstrumentInput = {
   createdBy: number
   updatedBy?: number | null
   deletedBy?: number | null
-  Inscription: Prisma.InscriptionCreateNestedOneWithoutModuleEvaluationInput
+  Teacher: Prisma.TeacherCreateNestedOneWithoutModuleEvaluationInput
   TrainingModule: Prisma.TrainingModuleCreateNestedOneWithoutModuleEvaluationInput
 }
 
 export type ModuleEvaluationUncheckedCreateWithoutEvaluationInstrumentInput = {
   id?: number
   grade: number
-  inscriptionId: number
+  teacherId: number
   trainingModuleId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -832,62 +832,11 @@ export type ModuleEvaluationUpdateManyWithWhereWithoutEvaluationInstrumentInput 
   data: Prisma.XOR<Prisma.ModuleEvaluationUpdateManyMutationInput, Prisma.ModuleEvaluationUncheckedUpdateManyWithoutEvaluationInstrumentInput>
 }
 
-export type ModuleEvaluationCreateManyInscriptionInput = {
-  id?: number
-  grade: number
-  evaluationInstrumentId: number
-  trainingModuleId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy: number
-  updatedBy?: number | null
-  deletedBy?: number | null
-}
-
-export type ModuleEvaluationUpdateWithoutInscriptionInput = {
-  grade?: Prisma.FloatFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  EvaluationInstrument?: Prisma.EvaluationInstrumentUpdateOneRequiredWithoutModuleEvaluationNestedInput
-  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutModuleEvaluationNestedInput
-}
-
-export type ModuleEvaluationUncheckedUpdateWithoutInscriptionInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  grade?: Prisma.FloatFieldUpdateOperationsInput | number
-  evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
-  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type ModuleEvaluationUncheckedUpdateManyWithoutInscriptionInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  grade?: Prisma.FloatFieldUpdateOperationsInput | number
-  evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
-  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
 export type ModuleEvaluationCreateManyTrainingModuleInput = {
   id?: number
   grade: number
   evaluationInstrumentId: number
-  inscriptionId: number
+  teacherId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -905,14 +854,14 @@ export type ModuleEvaluationUpdateWithoutTrainingModuleInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   EvaluationInstrument?: Prisma.EvaluationInstrumentUpdateOneRequiredWithoutModuleEvaluationNestedInput
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutModuleEvaluationNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutModuleEvaluationNestedInput
 }
 
 export type ModuleEvaluationUncheckedUpdateWithoutTrainingModuleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   grade?: Prisma.FloatFieldUpdateOperationsInput | number
   evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -925,7 +874,58 @@ export type ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   grade?: Prisma.FloatFieldUpdateOperationsInput | number
   evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ModuleEvaluationCreateManyTeacherInput = {
+  id?: number
+  grade: number
+  evaluationInstrumentId: number
+  trainingModuleId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: number
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type ModuleEvaluationUpdateWithoutTeacherInput = {
+  grade?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  EvaluationInstrument?: Prisma.EvaluationInstrumentUpdateOneRequiredWithoutModuleEvaluationNestedInput
+  TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutModuleEvaluationNestedInput
+}
+
+export type ModuleEvaluationUncheckedUpdateWithoutTeacherInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  grade?: Prisma.FloatFieldUpdateOperationsInput | number
+  evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ModuleEvaluationUncheckedUpdateManyWithoutTeacherInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  grade?: Prisma.FloatFieldUpdateOperationsInput | number
+  evaluationInstrumentId?: Prisma.IntFieldUpdateOperationsInput | number
+  trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -937,7 +937,7 @@ export type ModuleEvaluationUncheckedUpdateManyWithoutTrainingModuleInput = {
 export type ModuleEvaluationCreateManyEvaluationInstrumentInput = {
   id?: number
   grade: number
-  inscriptionId: number
+  teacherId: number
   trainingModuleId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -955,14 +955,14 @@ export type ModuleEvaluationUpdateWithoutEvaluationInstrumentInput = {
   createdBy?: Prisma.IntFieldUpdateOperationsInput | number
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Inscription?: Prisma.InscriptionUpdateOneRequiredWithoutModuleEvaluationNestedInput
+  Teacher?: Prisma.TeacherUpdateOneRequiredWithoutModuleEvaluationNestedInput
   TrainingModule?: Prisma.TrainingModuleUpdateOneRequiredWithoutModuleEvaluationNestedInput
 }
 
 export type ModuleEvaluationUncheckedUpdateWithoutEvaluationInstrumentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   grade?: Prisma.FloatFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -975,7 +975,7 @@ export type ModuleEvaluationUncheckedUpdateWithoutEvaluationInstrumentInput = {
 export type ModuleEvaluationUncheckedUpdateManyWithoutEvaluationInstrumentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   grade?: Prisma.FloatFieldUpdateOperationsInput | number
-  inscriptionId?: Prisma.IntFieldUpdateOperationsInput | number
+  teacherId?: Prisma.IntFieldUpdateOperationsInput | number
   trainingModuleId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -991,7 +991,7 @@ export type ModuleEvaluationSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   grade?: boolean
   evaluationInstrumentId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   trainingModuleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1000,7 +1000,7 @@ export type ModuleEvaluationSelect<ExtArgs extends runtime.Types.Extensions.Inte
   updatedBy?: boolean
   deletedBy?: boolean
   EvaluationInstrument?: boolean | Prisma.EvaluationInstrumentDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moduleEvaluation"]>
 
@@ -1008,7 +1008,7 @@ export type ModuleEvaluationSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   grade?: boolean
   evaluationInstrumentId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   trainingModuleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1017,7 +1017,7 @@ export type ModuleEvaluationSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   updatedBy?: boolean
   deletedBy?: boolean
   EvaluationInstrument?: boolean | Prisma.EvaluationInstrumentDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moduleEvaluation"]>
 
@@ -1025,7 +1025,7 @@ export type ModuleEvaluationSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   grade?: boolean
   evaluationInstrumentId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   trainingModuleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1034,7 +1034,7 @@ export type ModuleEvaluationSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   updatedBy?: boolean
   deletedBy?: boolean
   EvaluationInstrument?: boolean | Prisma.EvaluationInstrumentDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moduleEvaluation"]>
 
@@ -1042,7 +1042,7 @@ export type ModuleEvaluationSelectScalar = {
   id?: boolean
   grade?: boolean
   evaluationInstrumentId?: boolean
-  inscriptionId?: boolean
+  teacherId?: boolean
   trainingModuleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1052,20 +1052,20 @@ export type ModuleEvaluationSelectScalar = {
   deletedBy?: boolean
 }
 
-export type ModuleEvaluationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "grade" | "evaluationInstrumentId" | "inscriptionId" | "trainingModuleId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["moduleEvaluation"]>
+export type ModuleEvaluationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "grade" | "evaluationInstrumentId" | "teacherId" | "trainingModuleId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy" | "deletedBy", ExtArgs["result"]["moduleEvaluation"]>
 export type ModuleEvaluationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   EvaluationInstrument?: boolean | Prisma.EvaluationInstrumentDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type ModuleEvaluationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   EvaluationInstrument?: boolean | Prisma.EvaluationInstrumentDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 export type ModuleEvaluationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   EvaluationInstrument?: boolean | Prisma.EvaluationInstrumentDefaultArgs<ExtArgs>
-  Inscription?: boolean | Prisma.InscriptionDefaultArgs<ExtArgs>
+  Teacher?: boolean | Prisma.TeacherDefaultArgs<ExtArgs>
   TrainingModule?: boolean | Prisma.TrainingModuleDefaultArgs<ExtArgs>
 }
 
@@ -1073,14 +1073,14 @@ export type $ModuleEvaluationPayload<ExtArgs extends runtime.Types.Extensions.In
   name: "ModuleEvaluation"
   objects: {
     EvaluationInstrument: Prisma.$EvaluationInstrumentPayload<ExtArgs>
-    Inscription: Prisma.$InscriptionPayload<ExtArgs>
+    Teacher: Prisma.$TeacherPayload<ExtArgs>
     TrainingModule: Prisma.$TrainingModulePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     grade: number
     evaluationInstrumentId: number
-    inscriptionId: number
+    teacherId: number
     trainingModuleId: number
     createdAt: Date
     updatedAt: Date
@@ -1483,7 +1483,7 @@ readonly fields: ModuleEvaluationFieldRefs;
 export interface Prisma__ModuleEvaluationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   EvaluationInstrument<T extends Prisma.EvaluationInstrumentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EvaluationInstrumentDefaultArgs<ExtArgs>>): Prisma.Prisma__EvaluationInstrumentClient<runtime.Types.Result.GetResult<Prisma.$EvaluationInstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Inscription<T extends Prisma.InscriptionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InscriptionDefaultArgs<ExtArgs>>): Prisma.Prisma__InscriptionClient<runtime.Types.Result.GetResult<Prisma.$InscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Teacher<T extends Prisma.TeacherDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeacherDefaultArgs<ExtArgs>>): Prisma.Prisma__TeacherClient<runtime.Types.Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   TrainingModule<T extends Prisma.TrainingModuleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrainingModuleDefaultArgs<ExtArgs>>): Prisma.Prisma__TrainingModuleClient<runtime.Types.Result.GetResult<Prisma.$TrainingModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1517,7 +1517,7 @@ export interface ModuleEvaluationFieldRefs {
   readonly id: Prisma.FieldRef<"ModuleEvaluation", 'Int'>
   readonly grade: Prisma.FieldRef<"ModuleEvaluation", 'Float'>
   readonly evaluationInstrumentId: Prisma.FieldRef<"ModuleEvaluation", 'Int'>
-  readonly inscriptionId: Prisma.FieldRef<"ModuleEvaluation", 'Int'>
+  readonly teacherId: Prisma.FieldRef<"ModuleEvaluation", 'Int'>
   readonly trainingModuleId: Prisma.FieldRef<"ModuleEvaluation", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ModuleEvaluation", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ModuleEvaluation", 'DateTime'>

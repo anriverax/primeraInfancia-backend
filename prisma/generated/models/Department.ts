@@ -29,14 +29,12 @@ export type AggregateDepartment = {
 export type DepartmentAvgAggregateOutputType = {
   id: number | null
   geonameId: number | null
-  countryId: number | null
   zoneId: number | null
 }
 
 export type DepartmentSumAggregateOutputType = {
   id: number | null
   geonameId: number | null
-  countryId: number | null
   zoneId: number | null
 }
 
@@ -44,7 +42,6 @@ export type DepartmentMinAggregateOutputType = {
   id: number | null
   name: string | null
   geonameId: number | null
-  countryId: number | null
   zoneId: number | null
 }
 
@@ -52,7 +49,6 @@ export type DepartmentMaxAggregateOutputType = {
   id: number | null
   name: string | null
   geonameId: number | null
-  countryId: number | null
   zoneId: number | null
 }
 
@@ -60,7 +56,6 @@ export type DepartmentCountAggregateOutputType = {
   id: number
   name: number
   geonameId: number
-  countryId: number
   zoneId: number
   _all: number
 }
@@ -69,14 +64,12 @@ export type DepartmentCountAggregateOutputType = {
 export type DepartmentAvgAggregateInputType = {
   id?: true
   geonameId?: true
-  countryId?: true
   zoneId?: true
 }
 
 export type DepartmentSumAggregateInputType = {
   id?: true
   geonameId?: true
-  countryId?: true
   zoneId?: true
 }
 
@@ -84,7 +77,6 @@ export type DepartmentMinAggregateInputType = {
   id?: true
   name?: true
   geonameId?: true
-  countryId?: true
   zoneId?: true
 }
 
@@ -92,7 +84,6 @@ export type DepartmentMaxAggregateInputType = {
   id?: true
   name?: true
   geonameId?: true
-  countryId?: true
   zoneId?: true
 }
 
@@ -100,7 +91,6 @@ export type DepartmentCountAggregateInputType = {
   id?: true
   name?: true
   geonameId?: true
-  countryId?: true
   zoneId?: true
   _all?: true
 }
@@ -195,7 +185,6 @@ export type DepartmentGroupByOutputType = {
   id: number
   name: string
   geonameId: number
-  countryId: number
   zoneId: number
   _count: DepartmentCountAggregateOutputType | null
   _avg: DepartmentAvgAggregateOutputType | null
@@ -226,7 +215,6 @@ export type DepartmentWhereInput = {
   id?: Prisma.IntFilter<"Department"> | number
   name?: Prisma.StringFilter<"Department"> | string
   geonameId?: Prisma.IntFilter<"Department"> | number
-  countryId?: Prisma.IntFilter<"Department"> | number
   zoneId?: Prisma.IntFilter<"Department"> | number
   Zone?: Prisma.XOR<Prisma.ZoneScalarRelationFilter, Prisma.ZoneWhereInput>
   Group?: Prisma.GroupListRelationFilter
@@ -237,7 +225,6 @@ export type DepartmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   geonameId?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
   Zone?: Prisma.ZoneOrderByWithRelationInput
   Group?: Prisma.GroupOrderByRelationAggregateInput
@@ -251,7 +238,6 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DepartmentWhereInput[]
   NOT?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   name?: Prisma.StringFilter<"Department"> | string
-  countryId?: Prisma.IntFilter<"Department"> | number
   zoneId?: Prisma.IntFilter<"Department"> | number
   Zone?: Prisma.XOR<Prisma.ZoneScalarRelationFilter, Prisma.ZoneWhereInput>
   Group?: Prisma.GroupListRelationFilter
@@ -262,7 +248,6 @@ export type DepartmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   geonameId?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
   _count?: Prisma.DepartmentCountOrderByAggregateInput
   _avg?: Prisma.DepartmentAvgOrderByAggregateInput
@@ -278,14 +263,12 @@ export type DepartmentScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Department"> | number
   name?: Prisma.StringWithAggregatesFilter<"Department"> | string
   geonameId?: Prisma.IntWithAggregatesFilter<"Department"> | number
-  countryId?: Prisma.IntWithAggregatesFilter<"Department"> | number
   zoneId?: Prisma.IntWithAggregatesFilter<"Department"> | number
 }
 
 export type DepartmentCreateInput = {
   name: string
   geonameId: number
-  countryId: number
   Zone: Prisma.ZoneCreateNestedOneWithoutDepartmentInput
   Group?: Prisma.GroupCreateNestedManyWithoutDepartmentInput
   Municipality?: Prisma.MunicipalityCreateNestedManyWithoutDepartmentInput
@@ -295,7 +278,6 @@ export type DepartmentUncheckedCreateInput = {
   id?: number
   name: string
   geonameId: number
-  countryId: number
   zoneId: number
   Group?: Prisma.GroupUncheckedCreateNestedManyWithoutDepartmentInput
   Municipality?: Prisma.MunicipalityUncheckedCreateNestedManyWithoutDepartmentInput
@@ -304,7 +286,6 @@ export type DepartmentUncheckedCreateInput = {
 export type DepartmentUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
   Zone?: Prisma.ZoneUpdateOneRequiredWithoutDepartmentNestedInput
   Group?: Prisma.GroupUpdateManyWithoutDepartmentNestedInput
   Municipality?: Prisma.MunicipalityUpdateManyWithoutDepartmentNestedInput
@@ -314,7 +295,6 @@ export type DepartmentUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
   Group?: Prisma.GroupUncheckedUpdateManyWithoutDepartmentNestedInput
   Municipality?: Prisma.MunicipalityUncheckedUpdateManyWithoutDepartmentNestedInput
@@ -324,27 +304,19 @@ export type DepartmentCreateManyInput = {
   id?: number
   name: string
   geonameId: number
-  countryId: number
   zoneId: number
 }
 
 export type DepartmentUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type DepartmentUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type DepartmentScalarRelationFilter = {
-  is?: Prisma.DepartmentWhereInput
-  isNot?: Prisma.DepartmentWhereInput
 }
 
 export type DepartmentListRelationFilter = {
@@ -361,14 +333,12 @@ export type DepartmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   geonameId?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
 }
 
 export type DepartmentAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   geonameId?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
 }
 
@@ -376,7 +346,6 @@ export type DepartmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   geonameId?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
 }
 
@@ -384,29 +353,18 @@ export type DepartmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   geonameId?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
 }
 
 export type DepartmentSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   geonameId?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
 }
 
-export type DepartmentCreateNestedOneWithoutGroupInput = {
-  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
-  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutGroupInput
-  connect?: Prisma.DepartmentWhereUniqueInput
-}
-
-export type DepartmentUpdateOneRequiredWithoutGroupNestedInput = {
-  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
-  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutGroupInput
-  upsert?: Prisma.DepartmentUpsertWithoutGroupInput
-  connect?: Prisma.DepartmentWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutGroupInput, Prisma.DepartmentUpdateWithoutGroupInput>, Prisma.DepartmentUncheckedUpdateWithoutGroupInput>
+export type DepartmentScalarRelationFilter = {
+  is?: Prisma.DepartmentWhereInput
+  isNot?: Prisma.DepartmentWhereInput
 }
 
 export type DepartmentCreateNestedManyWithoutZoneInput = {
@@ -465,60 +423,23 @@ export type DepartmentUpdateOneRequiredWithoutMunicipalityNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutMunicipalityInput, Prisma.DepartmentUpdateWithoutMunicipalityInput>, Prisma.DepartmentUncheckedUpdateWithoutMunicipalityInput>
 }
 
-export type DepartmentCreateWithoutGroupInput = {
-  name: string
-  geonameId: number
-  countryId: number
-  Zone: Prisma.ZoneCreateNestedOneWithoutDepartmentInput
-  Municipality?: Prisma.MunicipalityCreateNestedManyWithoutDepartmentInput
+export type DepartmentCreateNestedOneWithoutGroupInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutGroupInput
+  connect?: Prisma.DepartmentWhereUniqueInput
 }
 
-export type DepartmentUncheckedCreateWithoutGroupInput = {
-  id?: number
-  name: string
-  geonameId: number
-  countryId: number
-  zoneId: number
-  Municipality?: Prisma.MunicipalityUncheckedCreateNestedManyWithoutDepartmentInput
-}
-
-export type DepartmentCreateOrConnectWithoutGroupInput = {
-  where: Prisma.DepartmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
-}
-
-export type DepartmentUpsertWithoutGroupInput = {
-  update: Prisma.XOR<Prisma.DepartmentUpdateWithoutGroupInput, Prisma.DepartmentUncheckedUpdateWithoutGroupInput>
-  create: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
-  where?: Prisma.DepartmentWhereInput
-}
-
-export type DepartmentUpdateToOneWithWhereWithoutGroupInput = {
-  where?: Prisma.DepartmentWhereInput
-  data: Prisma.XOR<Prisma.DepartmentUpdateWithoutGroupInput, Prisma.DepartmentUncheckedUpdateWithoutGroupInput>
-}
-
-export type DepartmentUpdateWithoutGroupInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
-  Zone?: Prisma.ZoneUpdateOneRequiredWithoutDepartmentNestedInput
-  Municipality?: Prisma.MunicipalityUpdateManyWithoutDepartmentNestedInput
-}
-
-export type DepartmentUncheckedUpdateWithoutGroupInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
-  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
-  Municipality?: Prisma.MunicipalityUncheckedUpdateManyWithoutDepartmentNestedInput
+export type DepartmentUpdateOneRequiredWithoutGroupNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutGroupInput
+  upsert?: Prisma.DepartmentUpsertWithoutGroupInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutGroupInput, Prisma.DepartmentUpdateWithoutGroupInput>, Prisma.DepartmentUncheckedUpdateWithoutGroupInput>
 }
 
 export type DepartmentCreateWithoutZoneInput = {
   name: string
   geonameId: number
-  countryId: number
   Group?: Prisma.GroupCreateNestedManyWithoutDepartmentInput
   Municipality?: Prisma.MunicipalityCreateNestedManyWithoutDepartmentInput
 }
@@ -527,7 +448,6 @@ export type DepartmentUncheckedCreateWithoutZoneInput = {
   id?: number
   name: string
   geonameId: number
-  countryId: number
   Group?: Prisma.GroupUncheckedCreateNestedManyWithoutDepartmentInput
   Municipality?: Prisma.MunicipalityUncheckedCreateNestedManyWithoutDepartmentInput
 }
@@ -565,14 +485,12 @@ export type DepartmentScalarWhereInput = {
   id?: Prisma.IntFilter<"Department"> | number
   name?: Prisma.StringFilter<"Department"> | string
   geonameId?: Prisma.IntFilter<"Department"> | number
-  countryId?: Prisma.IntFilter<"Department"> | number
   zoneId?: Prisma.IntFilter<"Department"> | number
 }
 
 export type DepartmentCreateWithoutMunicipalityInput = {
   name: string
   geonameId: number
-  countryId: number
   Zone: Prisma.ZoneCreateNestedOneWithoutDepartmentInput
   Group?: Prisma.GroupCreateNestedManyWithoutDepartmentInput
 }
@@ -581,7 +499,6 @@ export type DepartmentUncheckedCreateWithoutMunicipalityInput = {
   id?: number
   name: string
   geonameId: number
-  countryId: number
   zoneId: number
   Group?: Prisma.GroupUncheckedCreateNestedManyWithoutDepartmentInput
 }
@@ -605,7 +522,6 @@ export type DepartmentUpdateToOneWithWhereWithoutMunicipalityInput = {
 export type DepartmentUpdateWithoutMunicipalityInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
   Zone?: Prisma.ZoneUpdateOneRequiredWithoutDepartmentNestedInput
   Group?: Prisma.GroupUpdateManyWithoutDepartmentNestedInput
 }
@@ -614,22 +530,65 @@ export type DepartmentUncheckedUpdateWithoutMunicipalityInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
   Group?: Prisma.GroupUncheckedUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentCreateWithoutGroupInput = {
+  name: string
+  geonameId: number
+  Zone: Prisma.ZoneCreateNestedOneWithoutDepartmentInput
+  Municipality?: Prisma.MunicipalityCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentUncheckedCreateWithoutGroupInput = {
+  id?: number
+  name: string
+  geonameId: number
+  zoneId: number
+  Municipality?: Prisma.MunicipalityUncheckedCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentCreateOrConnectWithoutGroupInput = {
+  where: Prisma.DepartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
+}
+
+export type DepartmentUpsertWithoutGroupInput = {
+  update: Prisma.XOR<Prisma.DepartmentUpdateWithoutGroupInput, Prisma.DepartmentUncheckedUpdateWithoutGroupInput>
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutGroupInput, Prisma.DepartmentUncheckedCreateWithoutGroupInput>
+  where?: Prisma.DepartmentWhereInput
+}
+
+export type DepartmentUpdateToOneWithWhereWithoutGroupInput = {
+  where?: Prisma.DepartmentWhereInput
+  data: Prisma.XOR<Prisma.DepartmentUpdateWithoutGroupInput, Prisma.DepartmentUncheckedUpdateWithoutGroupInput>
+}
+
+export type DepartmentUpdateWithoutGroupInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  geonameId?: Prisma.IntFieldUpdateOperationsInput | number
+  Zone?: Prisma.ZoneUpdateOneRequiredWithoutDepartmentNestedInput
+  Municipality?: Prisma.MunicipalityUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentUncheckedUpdateWithoutGroupInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  geonameId?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
+  Municipality?: Prisma.MunicipalityUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateManyZoneInput = {
   id?: number
   name: string
   geonameId: number
-  countryId: number
 }
 
 export type DepartmentUpdateWithoutZoneInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
   Group?: Prisma.GroupUpdateManyWithoutDepartmentNestedInput
   Municipality?: Prisma.MunicipalityUpdateManyWithoutDepartmentNestedInput
 }
@@ -638,7 +597,6 @@ export type DepartmentUncheckedUpdateWithoutZoneInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
   Group?: Prisma.GroupUncheckedUpdateManyWithoutDepartmentNestedInput
   Municipality?: Prisma.MunicipalityUncheckedUpdateManyWithoutDepartmentNestedInput
 }
@@ -647,7 +605,6 @@ export type DepartmentUncheckedUpdateManyWithoutZoneInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   geonameId?: Prisma.IntFieldUpdateOperationsInput | number
-  countryId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -694,7 +651,6 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   name?: boolean
   geonameId?: boolean
-  countryId?: boolean
   zoneId?: boolean
   Zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.Department$GroupArgs<ExtArgs>
@@ -706,7 +662,6 @@ export type DepartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   geonameId?: boolean
-  countryId?: boolean
   zoneId?: boolean
   Zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
@@ -715,7 +670,6 @@ export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   geonameId?: boolean
-  countryId?: boolean
   zoneId?: boolean
   Zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
@@ -724,11 +678,10 @@ export type DepartmentSelectScalar = {
   id?: boolean
   name?: boolean
   geonameId?: boolean
-  countryId?: boolean
   zoneId?: boolean
 }
 
-export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "geonameId" | "countryId" | "zoneId", ExtArgs["result"]["department"]>
+export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "geonameId" | "zoneId", ExtArgs["result"]["department"]>
 export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
   Group?: boolean | Prisma.Department$GroupArgs<ExtArgs>
@@ -753,7 +706,6 @@ export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: number
     name: string
     geonameId: number
-    countryId: number
     zoneId: number
   }, ExtArgs["result"]["department"]>
   composites: {}
@@ -1184,7 +1136,6 @@ export interface DepartmentFieldRefs {
   readonly id: Prisma.FieldRef<"Department", 'Int'>
   readonly name: Prisma.FieldRef<"Department", 'String'>
   readonly geonameId: Prisma.FieldRef<"Department", 'Int'>
-  readonly countryId: Prisma.FieldRef<"Department", 'Int'>
   readonly zoneId: Prisma.FieldRef<"Department", 'Int'>
 }
     

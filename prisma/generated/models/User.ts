@@ -298,7 +298,7 @@ export type UserWhereInput = {
   deletedBy?: Prisma.IntNullableFilter<"User"> | number | null
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   Role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  UserKey?: Prisma.UserKeyListRelationFilter
+  StoredEvent?: Prisma.StoredEventListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -317,7 +317,7 @@ export type UserOrderByWithRelationInput = {
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   Person?: Prisma.PersonOrderByWithRelationInput
   Role?: Prisma.RoleOrderByWithRelationInput
-  UserKey?: Prisma.UserKeyOrderByRelationAggregateInput
+  StoredEvent?: Prisma.StoredEventOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -339,7 +339,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   deletedBy?: Prisma.IntNullableFilter<"User"> | number | null
   Person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   Role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  UserKey?: Prisma.UserKeyListRelationFilter
+  StoredEvent?: Prisma.StoredEventListRelationFilter
 }, "id" | "email" | "personId">
 
 export type UserOrderByWithAggregationInput = {
@@ -395,7 +395,7 @@ export type UserCreateInput = {
   deletedBy?: number | null
   Person: Prisma.PersonCreateNestedOneWithoutUserInput
   Role: Prisma.RoleCreateNestedOneWithoutUsesInput
-  UserKey?: Prisma.UserKeyCreateNestedManyWithoutUserInput
+  StoredEvent?: Prisma.StoredEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -412,7 +412,7 @@ export type UserUncheckedCreateInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  UserKey?: Prisma.UserKeyUncheckedCreateNestedManyWithoutUserInput
+  StoredEvent?: Prisma.StoredEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -428,7 +428,7 @@ export type UserUpdateInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Person?: Prisma.PersonUpdateOneRequiredWithoutUserNestedInput
   Role?: Prisma.RoleUpdateOneRequiredWithoutUsesNestedInput
-  UserKey?: Prisma.UserKeyUpdateManyWithoutUserNestedInput
+  StoredEvent?: Prisma.StoredEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -445,7 +445,7 @@ export type UserUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  UserKey?: Prisma.UserKeyUncheckedUpdateManyWithoutUserNestedInput
+  StoredEvent?: Prisma.StoredEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -491,6 +491,11 @@ export type UserUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
 }
 
 export type UserListRelationFilter = {
@@ -572,9 +577,18 @@ export type UserSumOrderByAggregateInput = {
   deletedBy?: Prisma.SortOrder
 }
 
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
+export type UserCreateNestedOneWithoutStoredEventInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStoredEventInput, Prisma.UserUncheckedCreateWithoutStoredEventInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoredEventInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStoredEventNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStoredEventInput, Prisma.UserUncheckedCreateWithoutStoredEventInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoredEventInput
+  upsert?: Prisma.UserUpsertWithoutStoredEventInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStoredEventInput, Prisma.UserUpdateWithoutStoredEventInput>, Prisma.UserUncheckedUpdateWithoutStoredEventInput>
 }
 
 export type UserCreateNestedManyWithoutRoleInput = {
@@ -651,18 +665,82 @@ export type UserUncheckedUpdateOneWithoutPersonNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPersonInput, Prisma.UserUpdateWithoutPersonInput>, Prisma.UserUncheckedUpdateWithoutPersonInput>
 }
 
-export type UserCreateNestedOneWithoutUserKeyInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUserKeyInput, Prisma.UserUncheckedCreateWithoutUserKeyInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserKeyInput
-  connect?: Prisma.UserWhereUniqueInput
+export type UserCreateWithoutStoredEventInput = {
+  email: string
+  passwd: string
+  avatar?: string | null
+  isVerified?: boolean
+  lastLoginDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  updatedBy?: number | null
+  deletedBy?: number | null
+  Person: Prisma.PersonCreateNestedOneWithoutUserInput
+  Role: Prisma.RoleCreateNestedOneWithoutUsesInput
 }
 
-export type UserUpdateOneRequiredWithoutUserKeyNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUserKeyInput, Prisma.UserUncheckedCreateWithoutUserKeyInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserKeyInput
-  upsert?: Prisma.UserUpsertWithoutUserKeyInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserKeyInput, Prisma.UserUpdateWithoutUserKeyInput>, Prisma.UserUncheckedUpdateWithoutUserKeyInput>
+export type UserUncheckedCreateWithoutStoredEventInput = {
+  id?: number
+  email: string
+  passwd: string
+  avatar?: string | null
+  isVerified?: boolean
+  lastLoginDate?: Date | string | null
+  roleId: number
+  personId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  updatedBy?: number | null
+  deletedBy?: number | null
+}
+
+export type UserCreateOrConnectWithoutStoredEventInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStoredEventInput, Prisma.UserUncheckedCreateWithoutStoredEventInput>
+}
+
+export type UserUpsertWithoutStoredEventInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStoredEventInput, Prisma.UserUncheckedUpdateWithoutStoredEventInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStoredEventInput, Prisma.UserUncheckedCreateWithoutStoredEventInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStoredEventInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStoredEventInput, Prisma.UserUncheckedUpdateWithoutStoredEventInput>
+}
+
+export type UserUpdateWithoutStoredEventInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwd?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  Person?: Prisma.PersonUpdateOneRequiredWithoutUserNestedInput
+  Role?: Prisma.RoleUpdateOneRequiredWithoutUsesNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStoredEventInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwd?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  personId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserCreateWithoutRoleInput = {
@@ -677,7 +755,7 @@ export type UserCreateWithoutRoleInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   Person: Prisma.PersonCreateNestedOneWithoutUserInput
-  UserKey?: Prisma.UserKeyCreateNestedManyWithoutUserInput
+  StoredEvent?: Prisma.StoredEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
@@ -693,7 +771,7 @@ export type UserUncheckedCreateWithoutRoleInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  UserKey?: Prisma.UserKeyUncheckedCreateNestedManyWithoutUserInput
+  StoredEvent?: Prisma.StoredEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRoleInput = {
@@ -753,7 +831,7 @@ export type UserCreateWithoutPersonInput = {
   updatedBy?: number | null
   deletedBy?: number | null
   Role: Prisma.RoleCreateNestedOneWithoutUsesInput
-  UserKey?: Prisma.UserKeyCreateNestedManyWithoutUserInput
+  StoredEvent?: Prisma.StoredEventCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPersonInput = {
@@ -769,7 +847,7 @@ export type UserUncheckedCreateWithoutPersonInput = {
   deletedAt?: Date | string | null
   updatedBy?: number | null
   deletedBy?: number | null
-  UserKey?: Prisma.UserKeyUncheckedCreateNestedManyWithoutUserInput
+  StoredEvent?: Prisma.StoredEventUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPersonInput = {
@@ -800,7 +878,7 @@ export type UserUpdateWithoutPersonInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Role?: Prisma.RoleUpdateOneRequiredWithoutUsesNestedInput
-  UserKey?: Prisma.UserKeyUpdateManyWithoutUserNestedInput
+  StoredEvent?: Prisma.StoredEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonInput = {
@@ -816,85 +894,7 @@ export type UserUncheckedUpdateWithoutPersonInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  UserKey?: Prisma.UserKeyUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutUserKeyInput = {
-  email: string
-  passwd: string
-  avatar?: string | null
-  isVerified?: boolean
-  lastLoginDate?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-  Person: Prisma.PersonCreateNestedOneWithoutUserInput
-  Role: Prisma.RoleCreateNestedOneWithoutUsesInput
-}
-
-export type UserUncheckedCreateWithoutUserKeyInput = {
-  id?: number
-  email: string
-  passwd: string
-  avatar?: string | null
-  isVerified?: boolean
-  lastLoginDate?: Date | string | null
-  roleId: number
-  personId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  updatedBy?: number | null
-  deletedBy?: number | null
-}
-
-export type UserCreateOrConnectWithoutUserKeyInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutUserKeyInput, Prisma.UserUncheckedCreateWithoutUserKeyInput>
-}
-
-export type UserUpsertWithoutUserKeyInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutUserKeyInput, Prisma.UserUncheckedUpdateWithoutUserKeyInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutUserKeyInput, Prisma.UserUncheckedCreateWithoutUserKeyInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutUserKeyInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutUserKeyInput, Prisma.UserUncheckedUpdateWithoutUserKeyInput>
-}
-
-export type UserUpdateWithoutUserKeyInput = {
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwd?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  Person?: Prisma.PersonUpdateOneRequiredWithoutUserNestedInput
-  Role?: Prisma.RoleUpdateOneRequiredWithoutUsesNestedInput
-}
-
-export type UserUncheckedUpdateWithoutUserKeyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwd?: Prisma.StringFieldUpdateOperationsInput | string
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  roleId?: Prisma.IntFieldUpdateOperationsInput | number
-  personId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  StoredEvent?: Prisma.StoredEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyRoleInput = {
@@ -924,7 +924,7 @@ export type UserUpdateWithoutRoleInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Person?: Prisma.PersonUpdateOneRequiredWithoutUserNestedInput
-  UserKey?: Prisma.UserKeyUpdateManyWithoutUserNestedInput
+  StoredEvent?: Prisma.StoredEventUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
@@ -940,7 +940,7 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  UserKey?: Prisma.UserKeyUncheckedUpdateManyWithoutUserNestedInput
+  StoredEvent?: Prisma.StoredEventUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -964,11 +964,11 @@ export type UserUncheckedUpdateManyWithoutRoleInput = {
  */
 
 export type UserCountOutputType = {
-  UserKey: number
+  StoredEvent: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  UserKey?: boolean | UserCountOutputTypeCountUserKeyArgs
+  StoredEvent?: boolean | UserCountOutputTypeCountStoredEventArgs
 }
 
 /**
@@ -984,8 +984,8 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountUserKeyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserKeyWhereInput
+export type UserCountOutputTypeCountStoredEventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StoredEventWhereInput
 }
 
 
@@ -1005,7 +1005,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   deletedBy?: boolean
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
-  UserKey?: boolean | Prisma.User$UserKeyArgs<ExtArgs>
+  StoredEvent?: boolean | Prisma.User$StoredEventArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1065,7 +1065,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   Role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
-  UserKey?: boolean | Prisma.User$UserKeyArgs<ExtArgs>
+  StoredEvent?: boolean | Prisma.User$StoredEventArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1082,7 +1082,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     Person: Prisma.$PersonPayload<ExtArgs>
     Role: Prisma.$RolePayload<ExtArgs>
-    UserKey: Prisma.$UserKeyPayload<ExtArgs>[]
+    StoredEvent: Prisma.$StoredEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1494,7 +1494,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   Person<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  UserKey<T extends Prisma.User$UserKeyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$UserKeyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  StoredEvent<T extends Prisma.User$StoredEventArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$StoredEventArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoredEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1933,27 +1933,27 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.UserKey
+ * User.StoredEvent
  */
-export type User$UserKeyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$StoredEventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UserKey
+   * Select specific fields to fetch from the StoredEvent
    */
-  select?: Prisma.UserKeySelect<ExtArgs> | null
+  select?: Prisma.StoredEventSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UserKey
+   * Omit specific fields from the StoredEvent
    */
-  omit?: Prisma.UserKeyOmit<ExtArgs> | null
+  omit?: Prisma.StoredEventOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UserKeyInclude<ExtArgs> | null
-  where?: Prisma.UserKeyWhereInput
-  orderBy?: Prisma.UserKeyOrderByWithRelationInput | Prisma.UserKeyOrderByWithRelationInput[]
-  cursor?: Prisma.UserKeyWhereUniqueInput
+  include?: Prisma.StoredEventInclude<ExtArgs> | null
+  where?: Prisma.StoredEventWhereInput
+  orderBy?: Prisma.StoredEventOrderByWithRelationInput | Prisma.StoredEventOrderByWithRelationInput[]
+  cursor?: Prisma.StoredEventWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UserKeyScalarFieldEnum | Prisma.UserKeyScalarFieldEnum[]
+  distinct?: Prisma.StoredEventScalarFieldEnum | Prisma.StoredEventScalarFieldEnum[]
 }
 
 /**
